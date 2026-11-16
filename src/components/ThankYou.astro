@@ -1,0 +1,68 @@
+---
+// Thank-you page shown after a booking request. kind = 'bapteme' (passenger) or 'stage' (student): the guide and the extras differ.
+import Base from '../layouts/Base.astro';
+import { THANKS } from '../data/thanks';
+interface Props { kind: 'bapteme' | 'stage' }
+const { kind } = Astro.props;
+const stage = kind === 'stage';
+const guide = stage ? THANKS.guides.stagiaire : THANKS.guides.passager;
+const v = THANKS.voucher;
+const until = v.until ? new Date(v.until + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : null;
+---
+<Base title={`Merci : ${stage ? 'demande de stage' : 'demande de baptême'} enregistrée`} description="Votre demande a bien été prise en compte." noindex>
+  <div class="page-head"><div class="wrap">
+    <h1>Merci, votre demande est bien prise en compte</h1>
+    <p class="lead" id="thanks-lead">
+      <span id="thanks-school" hidden></span>L’école vous recontacte pour confirmer {stage ? 'votre stage' : 'votre baptême'} et organiser la suite. Vous n’avez rien payé sur ce site.
+    </p>
+  </div></div>
+  <div class="wrap section thanks" data-kind={kind}>
+    <p class="notice">En attendant {stage ? 'votre stage' : 'votre baptême'}, nous vous offrons <strong>un bon de réduction de {v.amount}</strong> {v.scope}{until ? `, valable jusqu’au ${until}` : ''}, et un guide gratuit pour vous préparer au mieux.</p>
+    <div class="thanks-grid">
+      <section class="thanks-card" aria-labelledby="t-guide">
+        <h2 id="t-guide">{guide.title} <span class="muted small">(PDF, {guide.pages})</span></h2>
+        <p>{guide.text}</p>
+        <a class="btn" href={guide.file} download data-track="download_guide" data-kind={kind}>Télécharger le {guide.title.toLowerCase()}</a>
+      </section>
+      <section class="thanks-card" aria-labelledby="t-voucher">
+        <h2 id="t-voucher">Votre bon de réduction : {v.amount}</h2>
+        <p>Code à saisir sur {THANKS.shop.name} : <code class="voucher-code">{v.code}</code></p>
+        <a class="btn ghost" href={v.url} target="_blank" rel="noopener" data-track="click_voucher" data-kind={kind}>Voir les articles sur {THANKS.shop.name}</a>
+      </section>
+      {stage && <section class="thanks-card" aria-labelledby="t-log">
+        <h2 id="t-log">{THANKS.logbook.title} <span class="muted small">(PDF, {THANKS.logbook.pages})</span></h2>
+        <p>{THANKS.logbook.text}</p>
+        <a class="btn ghost" href={THANKS.logbook.file} download data-track="download_logbook" data-kind={kind}>Télécharger le carnet</a>
+      </section>}
+      {stage && <section class="thanks-card" aria-labelledby="t-goodies">
+        <h2 id="t-goodies">Pour bien commencer</h2>
+        <ul class="goodie-list">{THANKS.goodies.map((g) => <li><strong>{g.name}</strong> {g.status === 'online' ? <a href={g.url} target="_blank" rel="noopener">Voir sur {THANKS.shop.name}</a> : <span class="muted">bientôt en ligne sur {THANKS.shop.name}</span>}</li>)}</ul>
+        <p class="small muted" style="margin:0">Votre code {v.code} s’applique aussi aux goodies dès qu’ils sont en ligne.</p>
+      </section>}
+    </div>
+    <p class="small muted" id="thanks-ref" hidden>Référence de votre demande : <code></code></p>
+    <p><a href="/">Retour à l’accueil</a> · <a href={stage ? '/stage/' : '/bapteme/'}>{stage ? 'Voir d’autres stages' : 'Voir d’autres baptêmes'}</a></p>
+  </div>
+</Base>
+<style>
+  .thanks-grid { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); margin: 1.4rem 0; }
+  .thanks-card { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.1rem 1.2rem; background: var(--white); }
+  .thanks-card h2 { font-size: var(--step-1); margin: 0 0 0.5rem; }
+  .voucher-code { font-size: 1.3em; font-weight: 800; letter-spacing: 0.06em; background: var(--sky-tint); padding: 0.1em 0.5em; border-radius: 6px; }
+  .goodie-list { margin: 0 0 0.6rem; padding-left: 1.1rem; }
+</style>
+<script>
+  // Reads the school name and reference from the address (set by the booking form) and counts the lead once per request.
+  const q = new URLSearchParams(location.search);
+  const school = q.get('ecole'), ref = q.get('ref');
+  if (school) { const s = document.getElementById('thanks-school'); if (s) { s.hidden = false; s.textContent = `${school} a bien reçu votre demande. `; } }
+  if (ref && /^[a-f0-9-]{36}$/i.test(ref)) {
+    const box = document.getElementById('thanks-ref'); if (box) { box.hidden = false; box.querySelector('code').textContent = ref.slice(0, 8).toUpperCase(); }
+    let seen = false; try { seen = sessionStorage.getItem('lead-' + ref) === '1'; } catch { /* storage blocked */ }
+    if (!seen && q.get('test') !== '1') {
+      const kind = document.querySelector('.thanks')?.getAttribute('data-kind');
+      (window as any).rpTrack?.('generate_lead', { school_slug: q.get('slug') || undefined, kind, transaction_id: ref });
+      try { sessionStorage.setItem('lead-' + ref, '1'); } catch { /* storage blocked */ }
+    }
+  }
+</script>

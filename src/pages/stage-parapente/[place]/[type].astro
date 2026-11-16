@@ -1,0 +1,9 @@
+---
+import PlacePage from '../../../components/PlacePage.astro';
+import { placesFor, typePagesFor } from '../../../lib/places';
+export function getStaticPaths() {
+  return placesFor('stage').flatMap((place) => typePagesFor(place).map((type) => ({ params: { place: place.slug, type: type.slug }, props: { place, type } })));
+}
+const { place, type } = Astro.props;
+---
+<PlacePage kind="stage" place={place} type={type} />

@@ -1,0 +1,77 @@
+---
+import { FIRST_STAGE_LINK } from '../../data/first-stage';
+import ArticlePage from '../../components/ArticlePage.astro';
+import { STAGE_TYPES, stageTypeByKey, type StageType } from '../../data/stage-types';
+import type { Article } from '../../data/article-types';
+import { schools, sessions, offerPrice, eur, dateFr, withOffers, sessionHref } from '../../lib/data';
+
+export function getStaticPaths() { return STAGE_TYPES.map((t) => ({ params: { slug: t.slug }, props: { type: t } })); }
+const { type: t } = Astro.props as { type: StageType };
+const today = new Date().toISOString().slice(0, 10);
+
+// Schools, prices and dates come from the workbook; the texts come from src/data/stage-types.ts
+const offersOf = (s: typeof schools[number]) => s.stages.filter((o) => o.levelKey === t.key);
+const list = withOffers('stage').filter((s) => offersOf(s).length).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+const prices = list.flatMap((s) => offersOf(s).map(offerPrice)).filter((v): v is number => typeof v === 'number' && v > 0).sort((a, b) => a - b);
+const med = prices.length ? prices[Math.floor(prices.length / 2)] : null;
+const fromOf = (s: typeof schools[number]) => { const p = offersOf(s).map(offerPrice).filter((v): v is number => typeof v === 'number'); return p.length ? Math.min(...p) : null; };
+const levelOfOffer = new Map(schools.flatMap((s) => s.stages.map((o) => [o.id, o.levelKey] as const)));
+const upcoming = sessions.filter((x) => x.end >= today && levelOfOffer.get(x.offerId) === t.key).sort((a, b) => a.start.localeCompare(b.start));
+const next = stageTypeByKey(t.suite?.key ?? '');
+
+const article: Article = {
+  slug: t.slug, title: `${t.h1} : programme, prix et écoles`, h1: t.h1, lead: t.lead, description: t.description,
+  parent: { href: '/stage/', label: 'Stage' },
+  brief: [
+    { k: 'Durée', v: t.brief.duree }, { k: 'Pour qui', v: t.brief.public },
+    { k: 'Objectif', v: t.brief.objectif }, { k: 'Brevet', v: t.brief.brevet },
+  ],
+  sections: [
+    { id: 'pour-qui', h: 'Pour qui ?', ul: t.pour },
+    { id: 'objectif', h: 'Objectifs du stage', ul: t.objectif },
+    { id: 'prerequis', h: 'Prérequis', ul: t.prerequis },
+    { id: 'programme', h: 'Programme', steps: t.programme.map((x) => ({ t: x.titre, d: x.texte })) },
+    { id: 'materiel', h: 'Matériel et période', table: [['Fourni par l’école', t.fourni], ['À apporter', t.apporter], ['Période conseillée', t.periode]] },
+    { id: 'choisir', h: 'Bien choisir son école', ul: t.choisir },
+    ...(t.suite && next ? [{ id: 'suite-parcours', h: 'Suite du parcours', p: [t.suite.texte] }] : []),
+  ],
+  faq: t.faq,
+  next: [
+    ...(t.key === 'initiation' ? [FIRST_STAGE_LINK] : []),
+    { href: `/calendrier/?level=${t.key}`, label: 'Prochains stages de ce type', text: 'Dates publiées par les écoles, par région et par mois.' },
+    ...(next ? [{ href: `/stage/${next.slug}/`, label: next.menu, text: 'L’étape suivante du parcours.' }] : []),
+    { href: '/apprendre/', label: 'Apprendre le parapente', text: 'Parcours, brevets et cours de théorie.' },
+  ],
+};
+---
+<ArticlePage article={article} cta="stage">
+  <Fragment slot="after-brief">
+    <section class="board-now" aria-label="Prix et prochaines dates" style="margin-bottom:2rem">
+      <h2>Prix et prochaines dates</h2>
+      {prices.length ? (
+        <p>Prix relevés sur les sites des {list.length} école{list.length > 1 ? 's' : ''} du site : de {eur(prices[0])} à {eur(prices[prices.length - 1])}{med ? `, prix médian ${eur(med)}` : ''}. Prix indicatifs : la durée et ce qui est inclus varient d’une école à l’autre.</p>
+      ) : <p>Les prix sont indiqués sur la fiche de chaque école. Ils varient selon la durée, la région et ce qui est inclus.</p>}
+      {upcoming.length > 0 ? (
+        <ul class="sess-list">
+          {upcoming.slice(0, 6).map((x) => (
+            <li><span><a href={sessionHref(x)}><strong>{x.school}</strong></a> · {x.city}</span><span>{dateFr(x.start, { day: 'numeric', month: 'short' })} au {dateFr(x.end, { day: 'numeric', month: 'short', year: 'numeric' })} · {x.priceLabel ?? (x.price ? eur(x.price) : '')}</span></li>
+          ))}
+        </ul>
+      ) : <p class="muted">Pas de date publiée pour l’instant : les écoles ci-dessous communiquent leurs prochaines sessions sur demande.</p>}
+      <p class="btn-row" style="margin-top:1rem"><a class="btn" href={`/stage/?level=${t.key}`}>Voir les {list.length} écoles</a><a class="btn ghost" href={`/calendrier/?level=${t.key}`}>Calendrier des stages</a></p>
+    </section>
+  </Fragment>
+  <Fragment slot="after-sections">
+    {list.length > 0 && (
+      <section id="ecoles" aria-labelledby="h-ecoles">
+        <h2 id="h-ecoles">Écoles qui proposent ce stage</h2>
+        <ul class="type-grid">
+          {list.slice(0, 12).map((s) => (
+            <li><a href={`/ecoles/${s.slug}/?parcours=stage`}><strong>{s.name}</strong><span>{[s.city, s.dept].filter(Boolean).join(', ')}{fromOf(s) ? ` · dès ${eur(fromOf(s)!)}` : ''}</span></a></li>
+          ))}
+        </ul>
+        {list.length > 12 && <p><a href={`/stage/?level=${t.key}`}>Voir les {list.length} écoles qui proposent ce type de stage</a></p>}
+      </section>
+    )}
+  </Fragment>
+</ArticlePage>

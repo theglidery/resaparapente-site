@@ -1,0 +1,64 @@
+---
+import '@fontsource-variable/bricolage-grotesque/wdth.css';
+import '@fontsource/public-sans/400.css';
+import '@fontsource/public-sans/700.css';
+import '../styles/global.css';
+import { SITE, MARKET, BRAND, isRegional } from '../config';
+import RegionalChrome from '../components/RegionalChrome.astro';
+import { alternatesOf, ui, marketLocales, type Locale } from '../i18n/ui';
+import { HTML_LANG } from '../i18n/routes.mjs';
+import Header from '../components/Header.astro';
+import CountryNav from '../components/CountryNav.astro';
+import Footer from '../components/Footer.astro';
+import Consent from '../components/Consent.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  jsonLd?: object;
+  wide?: boolean;
+  locale?: Locale;
+  pageKey?: string;
+  /** Explicit hreflang alternates (school pages, which are not in the page registry). */
+  alternates?: { locale: Locale; href: string }[];
+}
+const { title, description, noindex = false, jsonLd, locale = 'fr', pageKey, alternates: altProp } = Astro.props;
+const alternates = altProp ?? (pageKey ? alternatesOf(pageKey as never) : []);
+const brandName = isRegional ? BRAND.name : SITE.name;
+// Canonical URL never carries query parameters (e.g. ?parcours=stage), so filters never create a second indexed page.
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const fullTitle = title.includes(brandName) ? title : `${title} | ${brandName}`;
+---
+<!doctype html>
+<html lang={HTML_LANG[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {alternates.length > 1 && alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={new URL(a.href, SITE.url).href} />)}
+    {alternates.length > 1 && <link rel="alternate" hreflang="x-default" href={new URL(alternates[0].href, SITE.url).href} />}
+    {(SITE.draft || noindex) ? <meta name="robots" content={SITE.draft ? 'noindex, nofollow' : 'noindex, follow'} /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={brandName} />
+    <meta property="og:locale" content={locale === 'fr' ? MARKET.locale.replace('-', '_') : locale === 'de' ? 'de_CH' : 'en_GB'} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/images/brand/og-image.png', SITE.url).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0d2438" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
+  </head>
+  <body>
+    <a class="skip" href="#main">{ui(locale).skip}</a>
+    {SITE.draft && <div class="draft-bar">Maquette de travail : textes et données à valider avant ouverture.</div>}
+    {(isRegional || locale !== 'fr') ? <RegionalChrome part="header" locale={locale} pageKey={pageKey as never} alternates={altProp} /> : <Header current={Astro.url.pathname} enHref={marketLocales.includes('en') ? (alternates.find((a) => a.locale === 'en')?.href ?? '/en/') : undefined} />}
+    <main id="main"><slot /></main>
+    {(isRegional || locale !== 'fr') ? <><RegionalChrome part="footer" locale={locale} pageKey={pageKey as never} />{!isRegional && <Consent />}</> : <><Footer /><Consent /></>}
+  </body>
+</html>

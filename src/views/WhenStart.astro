@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import { schoolHref } from '../i18n/routes.mjs';
+import Mountains from '../components/Mountains.astro';
+import { MARKET } from '../config';
+import { href } from '../i18n/ui';
+import { startDates, pathRows, money, dateLoc, host, type Loc } from '../lib/compare';
+const { locale = 'fr' } = Astro.props as { locale?: Loc };
+const dates = startDates(locale);
+const regions = [...new Set(dates.map((d) => d.region2).filter(Boolean) as string[])].sort((a, b) => a.localeCompare(b, 'fr'));
+const initPrices = pathRows(locale).filter((r) => r.steps.initiation).map((r) => ({ r, s: r.steps.initiation! })).sort((a, b) => a.s.price - b.s.price).slice(0, 25);
+const where = { fr: { FR: 'en France', CH: 'en Suisse romande', BE: 'en Belgique francophone' }, en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' } }[locale][MARKET.code as 'FR'];
+const C = {
+  fr: {
+    title: `Quand puis-je commencer le parapente ${where} ? Prochaines dates d’initiation`,
+    desc: `Les prochaines dates de stage d’initiation au parapente ${where}, réunies depuis les écoles, avec le prix publié et le lien pour réserver. Comparez aussi le prix d’initiation des écoles.`,
+    h1: 'Quand puis-je commencer le parapente ?', lead: `Les prochaines dates d’initiation et de découverte publiées par les écoles ${where}, triées par date.`,
+    datesTitle: 'Prochaines dates d’initiation', region: 'Région', all: 'Toutes', shown: 'dates', full: 'Complet', places: 'Places à confirmer',
+    noDates: 'Aucune date d’initiation n’est publiée pour le moment. Les écoles ci-dessous publient leur prix ; contactez-les pour connaître leurs prochaines dates.',
+    cheapTitle: 'Stage d’initiation : prix publié par école', cheapLead: 'Le stage de 3 à 7 jours le moins cher de chaque école, pour comparer avant de choisir une date.',
+    cSchool: 'École', cStage: 'Stage', cPrice: 'Prix', go: 'Voir l’école', dur: 'jours', seeDates: 'Voir la date',
+    how: 'Choisir sa date', howText: ['Une initiation dure en général quelques jours et se déroule sur une pente-école, avec un moniteur diplômé et du matériel prêté. Les dates changent selon l’école, la saison et la météo.', 'Vérifiez ce que le prix comprend (matériel, hébergement, navettes) et les conditions de report si la météo ne permet pas de voler.'],
+    next: 'Pour aller plus loin', links: [['trainingCost', 'Combien coûte une formation complète ?'], ['trainingPath', 'Parcours de formation et brevets'], ['giftChristmas', 'Offrir une initiation : bon cadeau']],
+  },
+  en: {
+    title: `When can I start paragliding ${where}? Next introductory course dates`,
+    desc: `The next introductory paragliding course dates ${where}, gathered from schools, with the published price and the link to book. Compare schools’ introductory prices too.`,
+    h1: 'When can I start paragliding?', lead: `The next introductory and discovery course dates published by schools ${where}, in date order.`,
+    datesTitle: 'Next introductory course dates', region: 'Region', all: 'All', shown: 'dates', full: 'Full', places: 'Places to be confirmed',
+    noDates: 'No introductory date is published at the moment. The schools below publish their prices; contact them for their next dates.',
+    cheapTitle: 'Introductory course: price published by each school', cheapLead: 'The cheapest 3 to 7 day course of each school, to compare before choosing a date.',
+    cSchool: 'School', cStage: 'Course', cPrice: 'Price', go: 'See the school', dur: 'days', seeDates: 'See the date',
+    how: 'Choosing your date', howText: ['An introductory course usually lasts a few days on a training slope, with a qualified instructor and lent equipment. Dates vary by school, season and weather.', 'Check what the price includes (equipment, accommodation, shuttles) and the rebooking terms if the weather does not allow flying.'],
+    next: 'Keep going', links: [['trainingCost', 'How much does full training cost?'], ['trainingPath', 'Training pathway and licences'], ['giftChristmas', 'Give an introductory course: gift vouchers']],
+  },
+  de: {
+    title: `Wann kann ich mit dem Gleitschirmfliegen beginnen ${where}? Nächste Einsteigerkurse`,
+    desc: `Die nächsten Termine für Gleitschirm-Einsteigerkurse ${where}, von den Schulen gesammelt, mit veröffentlichtem Preis und Buchungslink. Vergleichen Sie auch die Einsteigerpreise der Schulen.`,
+    h1: 'Wann kann ich mit dem Gleitschirmfliegen beginnen?', lead: `Die nächsten von Schulen veröffentlichten Einsteiger- und Schnupperkurse ${where}, nach Datum sortiert.`,
+    datesTitle: 'Nächste Einsteigerkurse', region: 'Region', all: 'Alle', shown: 'Termine', full: 'Ausgebucht', places: 'Plätze zu bestätigen',
+    noDates: 'Zurzeit ist kein Einsteigertermin veröffentlicht. Die Schulen unten veröffentlichen ihre Preise; fragen Sie dort nach den nächsten Terminen.',
+    cheapTitle: 'Einsteigerkurs: veröffentlichter Preis je Schule', cheapLead: 'Der günstigste Kurs von 3 bis 7 Tagen jeder Schule, zum Vergleichen vor der Terminwahl.',
+    cSchool: 'Schule', cStage: 'Kurs', cPrice: 'Preis', go: 'Zur Schule', dur: 'Tage', seeDates: 'Termin ansehen',
+    how: 'Den Termin wählen', howText: ['Ein Einsteigerkurs dauert meist einige Tage am Übungshang, mit staatlich anerkanntem Fluglehrer und geliehener Ausrüstung. Die Termine hängen von Schule, Saison und Wetter ab.', 'Prüfen Sie, was der Preis enthält (Ausrüstung, Unterkunft, Shuttle) und wie bei schlechtem Wetter umgebucht wird.'],
+    next: 'Weiterlesen', links: [['trainingCost', 'Was kostet die komplette Ausbildung?'], ['trainingPath', 'Ausbildungsweg und Lizenzen'], ['giftChristmas', 'Einen Einsteigerkurs verschenken: Gutscheine']],
+  },
+}[locale];
+const range = (d: typeof dates[number]) => d.end && d.end !== d.start ? `${dateLoc(d.start, locale, { day: 'numeric', month: 'short' })} – ${dateLoc(d.end, locale, { day: 'numeric', month: 'short', year: 'numeric' })}` : dateLoc(d.start, locale);
+const sessionLink = (d: typeof dates[number]) => `${schoolHref(d.slug, locale)}?${new URLSearchParams({ parcours: 'stage', offre: d.offerId, date: d.start })}#offre-${encodeURIComponent(d.offerId)}`;
+---
+<Base title={C.title} description={C.desc} locale={locale} pageKey="whenStart">
+  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section cmp" data-cmp="start">
+    <section>
+      <h2>{C.datesTitle}</h2>
+      {dates.length ? <>
+        <form class="filters" id="start-form" onsubmit="return false"><label>{C.region}<select name="region"><option value="">{C.all}</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label></form>
+        <p class="cmp-count" role="status" aria-live="polite"><strong id="start-n">{dates.length}</strong> {C.shown}</p>
+        <ul class="type-grid" id="start-list">{dates.slice(0, 120).map((d) => <li data-region={d.region2 ?? ''}><a href={sessionLink(d)}>
+          <strong>{range(d)}</strong>
+          <span>{d.offerName} · {d.school}{d.city ? ` · ${d.city}` : ''}{d.price != null ? ` · ${d.priceLabel ?? money(d.price, locale)}` : ''} · {d.status === 'Complet' ? C.full : C.places}</span>
+        </a></li>)}</ul>
+      </> : <p class="empty">{C.noDates}</p>}
+    </section>
+    <section>
+      <h2>{C.cheapTitle}</h2><p>{C.cheapLead}</p>
+      {initPrices.length > 0 && <div class="table-wrap"><table class="data-table"><thead><tr><th>{C.cSchool}</th><th>{C.cStage}</th><th>{C.cPrice}</th><th></th></tr></thead>
+        <tbody>{initPrices.map(({ r, s }) => <tr><th scope="row"><strong>{r.school}</strong><span class="small muted">{r.city ?? ''}{r.region ? ` · ${r.region}` : ''}</span></th>
+          <td class="small">{s.offer}{s.days ? ` · ${s.days} ${C.dur}` : ''}</td><td><strong>{money(s.price, locale)}</strong></td>
+          <td><a class="btn small ghost" href={schoolHref(r.slug, locale)}>{C.go}</a>{s.url && <span class="small muted"><a href={s.url} target="_blank" rel="noopener">{host(s.url)}</a></span>}</td></tr>)}</tbody></table></div>}
+    </section>
+    <section><h2>{C.how}</h2>{C.howText.map((t) => <p>{t}</p>)}</section>
+    <section><h2>{C.next}</h2><ul class="chips-links">{C.links.map(([k, l]) => <li><a href={href(k as 'trainingCost', locale)}>{l}</a></li>)}</ul></section>
+  </div>
+</Base>
+<script>
+  const f = document.getElementById('start-form') as HTMLFormElement | null;
+  if (f) {
+    const items = [...document.querySelectorAll<HTMLElement>('#start-list li')];
+    const n = document.getElementById('start-n')!;
+    f.addEventListener('input', () => {
+      const r = (f.elements.namedItem('region') as HTMLSelectElement).value;
+      let c = 0;
+      items.forEach((li) => { const ok = !r || li.dataset.region === r; li.hidden = !ok; if (ok) c++; });
+      n.textContent = String(c);
+    });
+  }
+</script>

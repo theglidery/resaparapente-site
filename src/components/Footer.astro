@@ -1,0 +1,70 @@
+---
+import CountryNav from './CountryNav.astro';
+import { SITE } from '../config';
+import Mountains from './Mountains.astro';
+import { STAGE_TYPES } from '../data/stage-types';
+import { ANALYTICS } from '../config';
+const schoolMail = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent('École : rendre visibles nos stages ou baptêmes')}&body=${encodeURIComponent('Bonjour,\n\nNous sommes une école de parapente et souhaitons rendre visibles nos stages et/ou nos baptêmes sur ResaParapente.\n\nNom de l’école :\nSite officiel :\nVotre nom et fonction :\nTéléphone :\nCe que nous souhaitons publier (dates de stage, baptêmes, bon cadeau, offre promotionnelle) :\n\nCordialement')}`;
+---
+<footer class="site-footer">
+  <Mountains />
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="foot-logo" href="/" aria-label={`${SITE.name} : accueil`}><img src="/images/brand/logo.png" alt={SITE.name} width="190" height="40" loading="lazy" /></a>
+        <p>Trouvez une école de parapente et envoyez-lui gratuitement votre demande de réservation de baptême ou de stage. Les prix affichés sont ceux publiés par les écoles, avec la date de relevé.</p>
+      </div>
+      <div>
+        <h2>Réserver</h2>
+        <ul>
+          <li><a href="/bapteme/">Baptême de parapente</a></li>
+          <li><a href="/stage/">Stage de parapente</a></li>
+          <li><a href="/calendrier/">Calendrier des stages</a></li>
+          <li><a href="/bapteme-parapente/">Baptême par destination</a></li>
+          <li><a href="/stage-parapente/">Stage par destination</a></li>
+          <li><a href="/comparateur-baptemes-parapente/">Comparateur de baptêmes</a></li>
+          <li><a href="/comparateur-prix-formation-parapente/">Prix d’une formation jusqu’au brevet</a></li>
+          <li><a href="/quand-commencer-parapente/">Quand commencer le parapente ?</a></li>
+          <li><a href="/saut-en-parapente/">Saut en parapente</a></li>
+          <li><a href="/prix-bapteme-parapente/">Prix d’un baptême</a></li>
+          <li><a href="/bon-cadeau-parapente-noel/">Bon cadeau parapente pour Noël</a></li>
+          <li><a href="/bons-cadeaux/">Bons cadeaux des écoles</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Stages par type</h2>
+        <ul>
+          {STAGE_TYPES.map((t) => <li><a href={`/stage/${t.slug}/`}>{t.menu}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Écoles</h2>
+        <ul>
+          <li><a href={schoolMail}>Rendre visibles vos stages ou baptêmes</a></li>
+          <li><a href="/pour-les-ecoles/">Pour les écoles</a></li>
+          <li><a href="/classement-et-referencement/">Classement des écoles</a></li>
+          <li><a href="/avis-clients/">Avis des participants</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Découvrir</h2>
+        <ul>
+          <li><a href="/pourquoi-voler/">Pourquoi voler</a></li>
+          <li><a href="/pourquoi-voler/les-plaisirs-du-parapente/">Les plaisirs du parapente</a></li>
+          <li><a href="/pourquoi-voler/histoire-du-parapente/">Histoire du parapente</a></li>
+          <li><a href="/blog/">Le blog</a></li>
+          <li><a href="/a-propos/">À propos</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <CountryNav />
+    <ul class="legal">
+      <li><a href="/conditions-generales-de-vente/">Conditions du site (CGV)</a></li>
+      <li><a href="/mentions-legales/">Mentions légales</a></li>
+      <li><a href="/politique-de-confidentialite/">Politique de confidentialité</a></li>
+      {ANALYTICS.enabled && <li><button type="button" class="linklike" data-consent-open>Gérer mes cookies</button></li>}
+    </ul>
+    <p class="small fine">Resa Parapente est édité par TheGlidery SAS, Saint-Martin-d’Uriage. Les écoles sont seules responsables de leurs vols et de leur encadrement.</p>
+  </div>
+</footer>

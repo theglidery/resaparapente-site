@@ -1,0 +1,62 @@
+# S309 Ubaye Parapente | https://ubaye-parapente.bookandglide.com/stages | 137 route de Jausiers 04400 Barcelonnette
+Initiation 5 jours|29/03/2027|02/04/2027|680|136|7
+Initiation 5 jours|05/04/2027|09/04/2027|680|136|7
+Prog / Perf 5 jours|05/04/2027|09/04/2027|720|144|7
+Initiation 5 jours|12/04/2027|16/04/2027|680|136|7
+Prog / Perf 5 jours|12/04/2027|16/04/2027|720|144|7
+Initiation 5 jours|26/04/2027|30/04/2027|680|136|7
+Prog / Perf 5 jours|26/04/2027|30/04/2027|720|144|7
+Initiation 5 jours|03/05/2027|07/05/2027|680|136|7
+Prog / Perf 5 jours|03/05/2027|07/05/2027|720|144|7
+Initiation 5 jours|10/05/2027|14/05/2027|680|136|7
+Prog / Perf 5 jours|10/05/2027|14/05/2027|720|144|7
+Initiation 5 jours|17/05/2027|21/05/2027|680|136|7
+Prog / Perf 5 jours|17/05/2027|21/05/2027|720|144|7
+Initiation 5 jours|24/05/2027|28/05/2027|680|136|7
+Prog / Perf 5 jours|24/05/2027|28/05/2027|720|144|7
+Prog / Perf 5 jours|30/05/2027|03/06/2027|720|144|7
+Initiation 5 jours|07/06/2027|11/06/2027|680|136|7
+Prog / Perf 5 jours|07/06/2027|11/06/2027|720|144|7
+Initiation 5 jours|14/06/2027|18/06/2027|680|136|7
+Prog / Perf 5 jours|14/06/2027|18/06/2027|720|144|7
+Initiation 5 jours|21/06/2027|25/06/2027|680|136|7
+Prog / Perf 5 jours|21/06/2027|25/06/2027|720|144|7
+Initiation 5 jours|28/06/2027|02/07/2027|680|136|7
+Prog / Perf 5 jours|28/06/2027|02/07/2027|720|144|7
+Initiation 5 jours|05/07/2027|09/07/2027|680|136|7
+Initiation 5 jours|12/07/2027|16/07/2027|680|136|7
+Prog / Perf 5 jours|12/07/2027|16/07/2027|720|144|7
+Initiation 5 jours|19/07/2027|23/07/2027|680|136|7
+Prog / Perf 5 jours|19/07/2027|23/07/2027|720|144|7
+Initiation 5 jours|26/07/2027|30/07/2027|680|136|7
+Prog / Perf 5 jours|26/07/2027|30/07/2027|720|144|7
+Initiation 5 jours|02/08/2027|06/08/2027|680|136|6
+Prog / Perf 5 jours|02/08/2027|06/08/2027|720|144|7
+Initiation 5 jours|09/08/2027|13/08/2027|680|136|7
+Prog / Perf 5 jours|09/08/2027|13/08/2027|720|144|7
+Initiation 5 jours|16/08/2027|20/08/2027|680|136|7
+Prog / Perf 5 jours|16/08/2027|20/08/2027|720|144|7
+Initiation 5 jours|23/08/2027|27/08/2027|680|136|7
+Prog / Perf 5 jours|23/08/2027|27/08/2027|720|144|7
+Initiation 5 jours|30/08/2027|03/09/2027|680|136|7
+Prog / Perf 5 jours|30/08/2027|03/09/2027|720|144|7
+Initiation 5 jours|06/09/2027|10/09/2027|680|136|7
+Prog / Perf 5 jours|06/09/2027|10/09/2027|720|144|7
+Initiation 5 jours|13/09/2027|17/09/2027|680|136|7
+Prog / Perf 5 jours|13/09/2027|17/09/2027|720|144|7
+Initiation 5 jours|20/09/2027|24/09/2027|680|136|7
+Prog / Perf 5 jours|20/09/2027|24/09/2027|720|144|7
+Initiation 5 jours|27/09/2027|01/10/2027|680|136|7
+Prog / Perf 5 jours|27/09/2027|01/10/2027|720|144|7
+Initiation 5 jours|04/10/2027|08/10/2027|680|136|7
+Prog / Perf 5 jours|04/10/2027|08/10/2027|720|144|7
+Initiation 5 jours|11/10/2027|15/10/2027|680|136|7
+Prog / Perf 5 jours|11/10/2027|15/10/2027|720|144|7
+Initiation 5 jours|18/10/2027|22/10/2027|680|136|7
+Prog / Perf 5 jours|18/10/2027|22/10/2027|720|144|7
+Initiation 5 jours|25/10/2027|29/10/2027|680|136|7
+Prog / Perf 5 jours|25/10/2027|29/10/2027|720|144|7
+Initiation 5 jours|01/11/2027|05/11/2027|680|136|7
+Prog / Perf 5 jours|01/11/2027|05/11/2027|720|144|7
+Initiation 5 jours|08/11/2027|12/11/2027|680|136|7
+Prog / Perf 5 jours|08/11/2027|12/11/2027|720|144|7

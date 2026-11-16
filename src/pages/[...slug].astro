@@ -1,0 +1,7 @@
+---
+import { buildPaths, views } from '../i18n/pages';
+export function getStaticPaths() { return buildPaths(); }
+const { page, locale } = Astro.props;
+const View = views[page];
+---
+<View locale={locale} page={page} school={Astro.props.school} />

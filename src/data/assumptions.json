@@ -1,0 +1,101 @@
+[
+ {
+  "country": "FR",
+  "step": "Initiation",
+  "key": "initiation",
+  "defaultStages": 1.0,
+  "maxStages": 3.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "FR",
+  "step": "Progression et autonomie",
+  "key": "progression",
+  "defaultStages": 2.0,
+  "maxStages": 6.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "FR",
+  "step": "Perfectionnement",
+  "key": "perfectionnement",
+  "defaultStages": 1.0,
+  "maxStages": 4.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "CH",
+  "step": "Initiation",
+  "key": "initiation",
+  "defaultStages": 1.0,
+  "maxStages": 3.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "CH",
+  "step": "Progression et autonomie",
+  "key": "progression",
+  "defaultStages": 2.0,
+  "maxStages": 6.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "CH",
+  "step": "Perfectionnement",
+  "key": "perfectionnement",
+  "defaultStages": 1.0,
+  "maxStages": 4.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "BE",
+  "step": "Initiation",
+  "key": "initiation",
+  "defaultStages": 1.0,
+  "maxStages": 3.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "BE",
+  "step": "Progression et autonomie",
+  "key": "progression",
+  "defaultStages": 2.0,
+  "maxStages": 6.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ },
+ {
+  "country": "BE",
+  "step": "Perfectionnement",
+  "key": "perfectionnement",
+  "defaultStages": 1.0,
+  "maxStages": 4.0,
+  "daysMin": 3.0,
+  "daysMax": 7.0,
+  "status": "À valider",
+  "note": "Hypothèse de travail pour comparer des écoles à parcours égal. Le nombre de stages dépend de l’élève, de la météo et du rythme : le visiteur peut le modifier sur la page. À valider avec un moniteur."
+ }
+]

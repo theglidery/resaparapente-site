@@ -1,0 +1,23 @@
+---
+import DocPage from '../components/DocPage.astro';
+import { SITE } from '../config';
+---
+<DocPage title="Mentions légales" description="Éditeur, hébergement, propriété intellectuelle et données personnelles de resaparapente.fr.">
+  <h2>Éditeur du site</h2>
+  <p>resaparapente.fr est édité par <strong>TheGlidery SAS</strong>, société par actions simplifiée au capital de 30 000 €, dont le siège est situé à Saint-Martin-d’Uriage (38410) <mark class="todo">[adresse complète]</mark>, immatriculée au RCS de Grenoble sous le numéro 943 359 984. TVA intracommunautaire : <mark class="todo">[numéro]</mark>.</p>
+  <p>Directeur de la publication : Philippe Saint-Pierre, président. Contact : <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>, <mark class="todo">[téléphone]</mark>.</p>
+  <h2>Hébergement</h2>
+  <p>Les pages du site sont hébergées par Cloudflare, Inc. (101 Townsend Street, San Francisco, CA 94107, États-Unis).</p>
+  <h2>Rôle du site</h2>
+  <p>Resa Parapente présente les baptêmes et stages de parapente proposés par des écoles, transmet gratuitement les demandes de réservation et affiche des liens vers les bons cadeaux vendus par les écoles. Le site ne vend aucune prestation ni aucun bon et ne perçoit aucun paiement. Chaque école est seule responsable de ses vols, de son encadrement et de ses conditions. Les informations affichées (prix, durées, dates) sont celles publiées ou communiquées par les écoles, avec la date de relevé. Elles sont indicatives jusqu’à confirmation par l’école. Vous repérez une erreur ? Écrivez-nous, nous la corrigeons rapidement.</p>
+  <h2>Utilisation du site</h2>
+  <p>Le site est conçu pour fonctionner sur les navigateurs récents. Nous mettons tout en œuvre pour que les informations soient exactes et à jour, sans pouvoir garantir l’absence d’erreur ou d’interruption. Les liens vers des sites tiers (écoles, partenaires) sont fournis à titre d’information : nous ne sommes pas responsables de leur contenu.</p>
+  <h2>Propriété intellectuelle</h2>
+  <p>Les textes, la mise en page et les éléments graphiques propres à resaparapente.fr sont protégés. Toute reproduction sans autorisation écrite est interdite. Les noms, logos et photographies des écoles appartiennent à leurs titulaires et sont affichés avec leur accord ou à des fins d’identification de l’école. Une école qui souhaite le retrait d’un logo ou d’une photo peut nous écrire : il est retiré rapidement.</p>
+  <h2>Cookies</h2>
+  <p>Le site n’utilise que des cookies et stockages techniques nécessaires à son fonctionnement. Si des outils de mesure d’audience étaient ajoutés, ils ne seraient activés qu’après votre accord. Voir la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
+  <h2>Données personnelles</h2>
+  <p>Les données traitées, leurs finalités et vos droits sont détaillés dans la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
+  <h2>Médiation et droit applicable</h2>
+  <p>Le droit français s’applique. Pour toute réclamation, écrivez d’abord à notre service client. Le consommateur peut ensuite saisir gratuitement le médiateur : <mark class="todo">[nom, adresse et site du médiateur]</mark>. Voir les <a href="/conditions-generales-de-vente/">conditions générales de vente</a>.</p>
+</DocPage>

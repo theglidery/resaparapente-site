@@ -1,0 +1,120 @@
+---
+// Home and school lists of the Swiss and Belgian builds, in French or English (the School pages and comparators are separate views).
+import Base from '../layouts/Base.astro';
+import { MARKET, SITE } from '../config';
+import { markets } from '../../markets.mjs';
+import { schools, fromPrice, sessions } from '../lib/data';
+import { money, dateLoc } from '../lib/compare';
+import { href, ui, type Locale } from '../i18n/ui';
+import { schoolPath, pathOf } from '../i18n/routes.mjs';
+import { tr } from '../i18n/tr';
+
+const { code, preview = false, locale = 'fr' } = Astro.props as { code: 'CH' | 'BE'; preview?: boolean; locale?: Locale };
+const country = markets[code];
+const view = Astro.props.view as 'bapteme' | 'stage' | 'calendrier' | undefined;
+const t = ui(locale);
+const local = preview ? [] : schools.filter((s) => view === 'bapteme' ? s.baptemes.length :
+  view === 'stage' || view === 'calendrier' ? s.stages.length : s.baptemes.length || s.stages.length);
+const today = new Date().toISOString().slice(0, 10);
+const localPrices = (s: typeof local[number]) => [view !== 'stage' && view !== 'calendrier' && fromPrice(s, 'bapteme'), view !== 'bapteme' && fromPrice(s, 'stage')].filter((p): p is number => typeof p === 'number' && p > 0);
+const dates = preview ? [] : sessions.filter((s) => s.start >= today).sort((a, b) => a.start.localeCompare(b.start));
+const L = {
+  fr: {
+    location: code === 'CH' ? 'en Suisse romande' : 'en Belgique francophone',
+    names: { bapteme: 'Baptêmes de parapente', stage: 'Stages de parapente', calendrier: 'Calendrier des stages', home: 'Parapente' },
+    preparing: ' · catalogue en préparation',
+    desc: `Baptêmes, écoles et stages de parapente pour ${country.label}. Contactez les écoles pour connaître les dates et les conditions.`,
+    lead: 'Comparez les formules publiées et contactez directement les écoles.', leadNone: 'Les formules et dates des écoles locales seront ajoutées après vérification.',
+    region: code === 'CH' ? 'la Suisse romande' : 'la Wallonie et les zones francophones de Belgique',
+    action: code === 'CH' ? 'Signaler une école en Suisse romande' : 'Signaler une école en Belgique francophone',
+    catalog: 'Catalogue', all: 'Toutes les activités', prep: 'Le catalogue est en préparation',
+    prepText: (r: string) => `Le périmètre couvre ${r}. Vous connaissez une école ou proposez des baptêmes ou des stages en français ? Envoyez-nous le lien de son catalogue ou de son calendrier.`,
+    schoolsH: 'Écoles et formules', tandemN: (n: number) => `${n} formule(s) de baptême`, courseN: (n: number) => `${n} formule(s) de stage`, from: 'dès',
+    datesH: 'Dates de stage publiées', full: 'Complet', tbc: 'Places à confirmer', to: 'au',
+    noDates: 'Aucune date à venir n’est publiée.', seeCourses: 'Consultez les écoles qui proposent des stages',
+    compareH: 'Comparer avant de réserver', choiceH: 'Baptême ou initiation ?',
+    choiceText: 'Un baptême se fait en tandem avec un pilote. Un stage d’initiation commence par des exercices au sol et prépare à piloter. Demandez à l’école son programme, le matériel fourni et ses conditions de report.',
+    why: 'Choisir sa première expérience', first: 'Préparer son premier stage', frenchTag: '',
+  },
+  en: {
+    location: code === 'CH' ? 'in Switzerland' : 'in Belgium',
+    names: { bapteme: 'Tandem paragliding flights', stage: 'Paragliding courses', calendrier: 'Paragliding course calendar', home: 'Paragliding' },
+    preparing: ' · catalogue in preparation',
+    desc: `Tandem flights, paragliding schools and courses in ${code === 'CH' ? 'Switzerland' : 'Belgium'}. Contact the schools for dates and conditions.`,
+    lead: 'Compare the published packages and contact the schools directly.', leadNone: 'Packages and dates of local schools will be added after checking.',
+    region: code === 'CH' ? 'Switzerland' : 'Wallonia and the French-speaking areas of Belgium',
+    action: code === 'CH' ? 'Report a school in Switzerland' : 'Report a school in Belgium',
+    catalog: 'Catalogue', all: 'All activities', prep: 'The catalogue is in preparation',
+    prepText: (r: string) => `The scope covers ${r}. Do you know a school, or do you offer tandem flights or courses? Send us the link to its catalogue or calendar.`,
+    schoolsH: 'Schools and packages', tandemN: (n: number) => `${n} tandem package${n === 1 ? '' : 's'}`, courseN: (n: number) => `${n} course package${n === 1 ? '' : 's'}`, from: 'from',
+    datesH: 'Published course dates', full: 'Full', tbc: 'Places to be confirmed', to: 'to',
+    noDates: 'No upcoming date is published.', seeCourses: 'See the schools that offer courses',
+    compareH: 'Compare before you book', choiceH: 'Tandem flight or beginner course?',
+    choiceText: 'A tandem flight is flown with a pilot. A beginner course starts with ground exercises and prepares you to fly yourself. Ask the school for its programme, the equipment provided and its postponement conditions.',
+    why: 'Choosing your first experience', first: 'Preparing your first course', frenchTag: ' (in French)',
+  },
+} as const;
+const T = L[locale === 'en' ? 'en' : 'fr'];
+const lc = locale === 'en' ? 'en' : 'fr';
+const title = `${T.names[view ?? 'home']} ${T.location}`;
+const scopedTitle = preview ? title + T.preparing : title;
+const mail = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(T.action)}`;
+const fr = MARKET.code === 'FR' ? '' : markets.FR.origin;
+const frenchGuide = fr + '/apprendre/premier-stage/';
+const pageKey = view === 'bapteme' ? 'listBapteme' : view === 'stage' ? 'listStage' : view === 'calendrier' ? 'listCalendar' : !preview ? 'home' : undefined;
+const p = (page: string) => pathOf(page, lc);
+---
+<Base locale={locale} pageKey={pageKey} title={scopedTitle} description={T.desc} noindex={preview || !local.length}>
+  <div class="page-head"><div class="wrap">
+    <h1>{title}</h1>
+    <p class="lead">{local.length ? T.lead : T.leadNone}</p>
+  </div></div>
+  <div class="wrap section regional-catalog">
+    {!preview && <nav class="chips-links" aria-label={T.catalog}>
+      <a href={p('home')}>{T.all}</a>
+      <a href={p('listBapteme')}>{t.tandem}</a>
+      <a href={p('listStage')}>{t.courses}</a>
+      <a href={p('listCalendar')}>{t.calendar}</a>
+    </nav>}
+    {!local.length && <section class="regional-intro">
+      <h2>{T.prep}</h2>
+      <p>{T.prepText(T.region)}</p>
+      <a class="btn regional-next" href={mail}>{T.action}</a>
+    </section>}
+    {local.length > 0 && view !== 'calendrier' && <section>
+      <h2>{T.schoolsH}</h2>
+      <ul class="type-grid">{local.map((s) => <li>
+        <a href={schoolPath(s.slug, lc)}><strong>{s.name}</strong>
+          <span>{s.city ? s.city + ' · ' : ''}{T.tandemN(s.baptemes.length)} · {T.courseN(s.stages.length)}{localPrices(s).length ? ` · ${T.from} ${money(Math.min(...localPrices(s)), lc)}` : ''}</span>
+        </a>
+      </li>)}</ul>
+    </section>}
+    {dates.length > 0 && view !== 'bapteme' && <section>
+      <h2>{T.datesH}</h2>
+      <ul class="type-grid">{dates.map((s) => <li><a href={schoolPath(s.slug, lc) + `?${new URLSearchParams({ parcours: 'stage', offre: s.offerId, date: s.start })}#offre-${encodeURIComponent(s.offerId)}`}>
+        <strong>{dateLoc(s.start, lc)}{s.end !== s.start && ` ${T.to} ${dateLoc(s.end, lc)}`}</strong>
+        <span>{tr(s.name, lc, 'name')} · {s.school}{s.price != null ? ' · ' + (lc === 'fr' ? (s.priceLabel ?? money(s.price, lc)) : money(s.price, lc)) : ''}{s.status === 'Complet' ? ` · ${T.full}` : ` · ${T.tbc}`}</span>
+      </a></li>)}</ul>
+    </section>}
+    {view === 'calendrier' && local.length > 0 && !dates.length && <p>{T.noDates} <a href={p('listStage')}>{T.seeCourses}</a>.</p>}
+    {!preview && <section class="regional-intro">
+      <h2>{T.compareH}</h2>
+      <ul class="chips-links">
+        <li><a href={p('baptemeCompare')}>{t.compareTandem}</a></li>
+        <li><a href={p('trainingCost')}>{t.courseCost}</a></li>
+        <li><a href={p('whenStart')}>{t.whenStart}</a></li>
+        <li><a href={p('giftChristmas')}>{t.gift}</a></li>
+        <li><a href={p('jump')}>{t.jump}</a></li>
+        <li><a href={p('trainingPath')}>{t.pathway}</a></li>
+      </ul>
+    </section>}
+    <section class="regional-intro">
+      <h2>{T.choiceH}</h2>
+      <p>{T.choiceText}</p>
+      <ul class="chips-links">
+        <li><a href={fr + '/pourquoi-voler/'}>{T.why}{T.frenchTag}</a></li>
+        <li><a href={frenchGuide}>{T.first}{T.frenchTag}</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

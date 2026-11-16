@@ -1,0 +1,250 @@
+1036|Radio coaching and personalised debrief
+1037|Extended flight with a route around the lake.
+1038|Flight in rising air with photos and videos.
+1039|Day of guidance according to level.
+1040|Flight above Megève and Praz-sur-Arly.
+1041|Extended flight in rising air in the afternoon.
+1042|Training slope or flights depending on conditions.
+1043|Training slope and first long solo flights.
+1044|Long-duration package above Millau.
+1045|Introductory flight from the 800 m site.
+1046|Winter tandem flight with aerobatics at La Clusaz.
+1047|Tandem flight reserved for children aged 4 to 12.
+1048|First tandem flight from Campan.
+1049|Extra flight offered to course participants.
+1050|Customised flight to arrange with the school.
+1051|Improvement in the school’s massif.
+1052|Flight making use of thermal lift.
+1053|Calm flight with equipment adapted to children.
+1054|Flight with piloting or thrills, your choice.
+1055|Tailor-made flight, performance or thrills.
+1056|Flight in thermal conditions in the afternoon.
+1057|Independence and preparation for the initial licence
+1058|Extended flight looking for rising air.
+1059|Learning the basics over two weekends.
+1060|Theoretical and practical basics of free flight.
+1061|Initial training, towards the initial licence.
+1062|Intensive flying across several Pyrenean sites.
+1063|Pilot training with thermal work.
+1064|Take-off from Les Mémises, 1,250 m of vertical drop.
+1065|Long flight with strong thrills.
+1066|Winter tandem for a gentle introduction.
+1067|Winter tandem geared to strong thrills.
+1068|Training towards independence over a weekend.
+1069|Extended scenic flight in thermal lift.
+1070|Course in the Vosges, with your own equipment.
+1071|First tandem flight, suited to children.
+1072|First flight from Saint-Leu at 800 m.
+1073|Extended flight according to the day’s lift.
+1074|Instructional introductory flight with an instructor.
+1075|Price per person from four participants.
+1076|Extended scenic flight with the instructor.
+1077|Thermal flight above the Briançonnais.
+1078|Extended flight around the Drôme provençale.
+1079|Thermal flying practice at the end of the day.
+1080|Introduction to learning paragliding.
+1081|Afternoon variant of the Découverte flight.
+1082|Flight in thermal lift in the afternoon.
+1083|Getting back into it and discovering a site.
+1084|Training slope, theory and instructional tandem.
+1085|Touring course across several Alpine sites.
+1086|Introductory flight over the mountains of Samoëns.
+1087|Flight in light wind suited to the youngest.
+1088|The longest tandem package in the catalogue.
+1089|Child’s flight from Saint-Leu, at 800 m.
+1090|Ski take-off from Peyragudes.
+1091|First tandem flight in the Monédières.
+1092|Flight over Venosc and landing in the village.
+1093|Long flight from the 800 m site.
+1094|Panoramic descent with 1,400 m of vertical drop.
+1095|Improving piloting techniques.
+1096|Flying stay with supervision in La Réunion.
+1097|Aerial hike from Les Colimaçons.
+1098|Beginner training at the high-season rate.
+1099|Training towards independence over four days.
+1100|800 m tandem flight, photos and videos on request.
+1101|Flight in thermal lift, in the afternoon.
+1102|Child’s flight above Saint-Leu, in the morning.
+1103|First tandem flight above the Val Louron.
+1104|Introduction to free flight in the Drôme provençale.
+1105|Supervised flight or ground session, as you choose.
+1106|Thermal flight, 850 m of vertical drop stated.
+1107|Flight near the glaciers at the foot of Mont Blanc.
+1108|Flight with 1,600 m of vertical drop. Piloting included.
+1109|First flight above the Chorges area.
+1110|Flight to enjoy the scenery for longer.
+1111|Morning flight in calm air, 500 m of vertical drop.
+1112|Active thermal flight with altitude gain.
+1113|Individual training outside July and August.
+1114|Half-day of training and a tandem flight.
+1115|Dynamic flight above the Dune du Pilat.
+1116|Learning the basics for teenagers.
+1117|Logistics and support at take-off/landing
+1118|Tandem flight with piloting and manoeuvres on request.
+1119|Morning descent; from 4 years, up to 80 kg.
+1120|Introduction to paragliding over a half-day.
+1121|Extended flight if conditions allow.
+1122|Day of flying to gain experience.
+1123|Distance flight between Tartavello and Honolulu.
+1124|Extended tandem flight above the Val Louron.
+1125|Work on technique and progression.
+1126|Progression and preparation for the initial licence.
+1127|Half-day followed by an instructional tandem.
+1128|Calm morning flight in the Bettex area.
+1129|Introduction or refresher on the training slope.
+1130|Climbing flight longer than the Découverte.
+1131|Long flight from 800 m at Saint-Leu.
+1132|Introductory flight above the Dune du Pilat.
+1133|Take-off from east-facing mountain pastures.
+1134|Practice in calm conditions over a weekend.
+1135|Summer afternoon flight from 1:10 pm.
+1136|Winter introductory flight, 800 m of vertical drop.
+1137|Panoramic, progressive flight in the Aravis.
+1138|Gentle first flight at low altitude.
+1139|Long flight in rising air, in the afternoon.
+1140|Extended flight if the lift allows.
+1141|Flight of intermediate duration above the lagoon.
+1142|Long flight above the Annecy basin.
+1143|Two full days and two half-days.
+1144|Winch-launched coastal flight from Bernières-sur-Mer.
+1145|Continuing to learn after the introduction.
+1146|Extended thrill flight depending on conditions.
+1147|Flight in rising air with aerobatics on request.
+1148|Weather, route planning, navigation and supervised flights
+1149|Introduction to flying above Morzine-Avoriaz.
+1150|Simulation of flight incidents above the lake.
+1151|Support stay for independent pilots.
+1152|Scenic flight in the Baronnies provençales.
+1153|Flight from 1,500 m, from 6:30 am depending on the season.
+1154|Scenic flight above the mountains and the valley.
+1155|Extended flight in rising air along the ridges.
+1156|Afternoon flight with manoeuvres depending on the package.
+1157|Extended introductory flight above the valley.
+1158|First flight with briefing and equipment provided.
+1159|Flight with 1,200 m of vertical drop above Luchon.
+1160|Improvement course from Monday to Friday.
+1161|First flight above the Abondance valley.
+1162|Course for experienced pilots with their own equipment.
+1163|Introductory flight, about 1,200 m of vertical drop.
+1164|Two full days and three half-days.
+1165|Tandem flight supervised by the club, weather permitting.
+1166|First tandem flight on the Vénascle plateau.
+1167|Thermal/ridge flying, weather analysis, piloting
+1168|Flight over the fields and the lagoon; HD album included.
+1169|Registration with a form and a €200 deposit.
+1170|Longest flight above the Savoie.
+1171|Thermal flying practice for BP and BPC pilots.
+1172|Long thermal flight from Saint-Leu.
+1173|Flight from 1,500 m above Saint-Leu.
+1174|Extended gentle flight above the Dune du Pilat.
+1175|First tandem flight in the Drôme or the Ardèche.
+1176|Longer tandem in the Saint-Lary area.
+1177|Flight above Chamonix from Planpraz.
+1178|Child’s flight with photos and videos included.
+1179|Longer flight to discover mountain flying.
+1180|Learning free flight from Monday to Friday.
+1181|Extended flight above the Abondance valley.
+1182|Panoramic summer flight above the mountains.
+1183|Flight in rising air and an introduction to distance flying.
+1184|First long solo flights with radio assistance.
+1185|Classic flight above the Saint-Leu coastline.
+1186|Gentle first flight above Lake Annecy.
+1187|Extended introductory flight thanks to rising air.
+1188|Beginner training over five consecutive days.
+1189|Hiking and day flights in the Savoie.
+1190|Thrill-oriented flight, distinct from the Ascendance.
+1191|First tandem flight above the landscapes of the Savoie.
+1192|Thrill flight tailored to the passenger’s wishes.
+1193|Learning paragliding and first solo flights.
+1194|Flight in calm conditions, designed for children.
+1195|Flight in strong lift with a crossing of the lake.
+1196|Flight from Planpraz, about 1,000 m of vertical drop.
+1197|Foot-launched flight with 650 m of vertical drop. Piloting included.
+1198|Pack of two courses depending on the combination chosen.
+1199|Strategy, route-finding, transitions and navigation
+1200|Introduction above the lagoon from 800 m.
+1201|Regular year-round activity for young people.
+1202|Tandem flight from Les Colimaçons, at Saint-Leu.
+1203|Seven sessions, aiming at first long solo flights.
+1204|Five sessions, aiming at first long solo flights.
+1205|Piloting improvement and theory classes.
+1206|Practical and theoretical basics, first solo flights
+1207|Preparation, navigation and first 20–60 km cross-country flights
+1208|Morning flight for a child, time adapted to weight.
+1209|Using rising air to extend the flight.
+1210|Longer tandem, notably for a second flight.
+1211|Progression towards independence and the initial licence.
+1212|Long flights and theory classes at the end of the morning.
+1213|Morning flight in calm air, shuttle to the take-off.
+1214|Accelerated introductory training over four days.
+1215|Thrill flight above the Dune du Pilat.
+1216|Very scenic, extended flight above the lake.
+1217|Piloting training in tandem with the instructor.
+1218|Distance flight depending on weather conditions.
+1219|Calm, contemplative flight for a first tandem.
+1220|Panoramic flight from Saint-Leu, at 1,500 m.
+1221|Kiting and free-flight basics, from February to June.
+1222|First flight above Lake Geneva, 700 m of vertical drop.
+1223|Piloting and aerobatic manoeuvres; HD album included.
+1224|Long-distance navigation, aiming at 100 km and more
+1225|Extended scenic flight, afternoon only.
+1226|Winter flight from the Aiguille, on skis or snowboard.
+1227|Training slope, ground handling and instructional tandem
+1228|Trajectories, piloting, weather analysis and debrief
+1229|Take-off at 1,500 m; photos and videos on request.
+1230|Course for independent pilots aiming at the pilot licence.
+1231|Sunset flight, from 4 pm depending on the season.
+1232|Pass for five days to schedule with the school.
+1233|Introductory or thrill flight, as you prefer.
+1234|Ground learning and first paragliding flights.
+1235|Introductory flight from Planpraz, at 2,000 m.
+1236|Panoramic flight above Courchevel or Méribel.
+1237|Afternoon flight making use of rising air.
+1238|Extended thrill flight from Planpraz.
+1239|Extended panoramic flight in thermal lift.
+1240|Piloting course and simulation of flight incidents.
+1241|Improvement towards the confirmed pilot licence.
+1242|Distance flight. Allow at least a half-day.
+1243|Flight with views of Geneva and the Mont Blanc range.
+1244|Training slope and long tandem flight on dual controls
+1245|First panoramic flight in the Gard or the Ardèche.
+1246|First flight above Lake Génos-Loudenvielle.
+1247|Initial training on the training slope, then long flights.
+1248|Signature flight in rising air above Saint-Leu.
+1249|Flight with about 1,000 m of vertical drop, with thrills.
+1250|Learning the basics for complete beginners.
+1251|Instructional introductory tandem at Serre Chevalier.
+1252|Ski take-off, flight with about 1,400 m of vertical drop.
+1253|Foot-launched flight, piloting and aerobatics included on request.
+1254|Extended tandem scenic flight with a qualified instructor.
+1255|Flight over the Valmorel valley from Le Gollet.
+1256|Long flight depending on conditions and wishes.
+1257|First flight above Orcières, 700 m of vertical drop.
+1258|First flight over the lake, from L’Épine.
+1259|Flying stay at coastal sites in South Africa.
+1260|Short flight from the ski resort on skis or snowboard.
+1261|Learning paragliding for beginners or a refresher.
+1262|Extended 800 m tandem flight, photos and videos on request.
+1263|Flight from Beauregard, on foot, skis or snowboard.
+1264|Mental preparation work applied to paragliding.
+1265|Introductory flight with 660 m of vertical drop. Piloting included.
+1266|Active piloting, aerology, preparation for the initial licence
+1267|Extended scenic flight above the Champsaur valley.
+1268|Flight from the Maïdo, at 1,800 m according to the catalogue.
+1269|30-minute flight with 360° spherical video included.
+1270|Introductory flight at Planpraz with a champion pilot.
+1271|First flight in calm air, from the Col de la Forclaz.
+1272|Independence and preparation for the confirmed pilot licence.
+1273|Extended flight with views of the Aravis and Mont Blanc.
+1274|Work on wing control and the S1 safety module.
+1275|Initial training on the training slope and progressive flights.
+1276|Extended flight along the cliffs and above the lake.
+1277|Tandem flight in calm air with equipment adapted to children.
+1278|Progression adapted to level and flying goals.
+1279|Tandem flight with thrilling turns, suited to children.
+1280|Tandem flight above Megève with thrilling turns.
+1281|Flight with accelerations and manoeuvres to suit your wishes.
+1282|Tandem adapted to people with disabilities.
+1283|Morning flight for lighter passengers, in calm air.
+1284|First introduction to free flight at the foot of the Haut-Jura.
+1285|Extended flight with the option to pilot and aerobatics.

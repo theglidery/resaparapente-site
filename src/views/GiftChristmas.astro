@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro';
+import { schoolHref } from '../i18n/routes.mjs';
+import Mountains from '../components/Mountains.astro';
+import { MARKET, SITE } from '../config';
+import { href } from '../i18n/ui';
+import { tr } from '../i18n/tr';
+import { schools, gifts, promos } from '../lib/data';
+import { bapRows, pathRows, money, median, dateLoc, host, type Loc } from '../lib/compare';
+const { locale = 'fr' } = Astro.props as { locale?: Loc };
+const byId = new Map(schools.map((s) => [s.id, s]));
+const rowsG = gifts.map((g) => ({ g, s: byId.get(g.schoolId)! })).filter((x) => x.s).sort((a, b) => a.s.name.localeCompare(b.s.name, 'fr'));
+const regions = [...new Set(rowsG.map((x) => x.s.region).filter((r): r is string => !!r && r !== 'À vérifier'))].sort((a, b) => a.localeCompare(b, 'fr'));
+const relaySchools = schools.filter((s) => s.giftRelay === 'Oui' || s.giftRelay === 'À confirmer').sort((a, b) => (a.region ?? '').localeCompare(b.region ?? '', 'fr') || a.name.localeCompare(b.name, 'fr'));
+const bap = bapRows(locale), medB = median(bap.map((r) => r.total as number)), lowB = bap.length ? bap[0].total : null;
+const init = pathRows(locale).filter((r) => r.steps.initiation).map((r) => r.steps.initiation!.price), medI = median(init), lowI = init.length ? Math.min(...init) : null;
+const kids = bap.filter((r) => r.profiles.includes('Enfant'));
+const where = { fr: { FR: 'en France', CH: 'en Suisse romande', BE: 'en Belgique francophone' }, en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' } }[locale][MARKET.code as 'FR'];
+const f = (n: number | null) => (n != null ? money(n, locale) : '—');
+const C = {
+  fr: {
+    title: `Bon cadeau parapente pour Noël : offrir un baptême ou un stage ${where}`,
+    desc: `Offrir un vol de parapente à Noël : bon cadeau, carte cadeau, baptême ou stage d’initiation ${where}. Choisissez la formule, voyez ce qu’elle offre, achetez le bon directement chez l’école.`,
+    h1: 'Bon cadeau parapente pour Noël', lead: 'Offrir un baptême de parapente ou une initiation : choisissez la bonne formule, sachez exactement ce que vous offrez, puis achetez le bon directement chez l’école.',
+    steps: [['Choisissez la formule', 'Premier vol, vol long, enfant, initiation : on vous dit ce que chaque cadeau comprend et ce qu’il coûte.'], ['Prenez le bon chez l’école', 'L’école vend, encaisse et gère son bon : validité, report météo, utilisation. ResaParapente n’encaisse rien.'], ['Offrez-le', 'Le bénéficiaire réserve sa date avec l’école, quand il le souhaite et selon la météo.']],
+    chooseTitle: 'Quelle formule offrir ?',
+    cards: [
+      ['Un premier vol en biplace', `Le cadeau le plus simple : un vol avec un pilote professionnel, rien à apprendre. ${lowB != null ? `Dès ${f(lowB)}, total médian ${f(medB)}.` : ''}`, `${href('baptemeCompare', locale)}`, 'Comparer les baptêmes'],
+      ['Pour un enfant', `${kids.length} formules signalées pour enfants. L’âge et le poids minimum dépendent de l’école : vérifiez-les avant d’acheter.`, `${href('baptemeCompare', locale)}?profile=Enfant`, 'Voir les formules enfant'],
+      ['Un vol long ou plus de sensations', 'Plus de temps en l’air, ou un vol plus dynamique : pour quelqu’un qui sait déjà qu’il aime ça.', `${href('baptemeCompare', locale)}?dur=3`, 'Voir les vols longs'],
+      ['Une initiation pour apprendre à voler', `Pour celui ou celle qui veut devenir pilote. ${lowI != null ? `Dès ${f(lowI)}, médiane ${f(medI)} pour 3 à 7 jours.` : ''}`, `${href('whenStart', locale)}`, 'Voir les initiations'],
+    ],
+    schoolTitle: 'Bons cadeaux vendus directement par les écoles', schoolNone: 'Aucun bon en ligne n’est encore référencé ici. Utilisez le formulaire ci-dessous : nous transmettons votre demande à l’école de votre choix.',
+    region: 'Région', all: 'Toutes', go: 'Acheter sur le site de l’école', soldBy: 'Bon vendu et géré par', checked: 'Lien vérifié le', price: 'TTC', valid: 'valable', months: 'mois',
+    formTitle: 'Votre école n’a pas de bon en ligne ? Demandez-le', formLead: 'Choisissez l’école et la formule : nous transmettons votre demande, l’école vous répond directement avec le prix, le paiement et l’envoi du bon.',
+    fSchool: 'École', fKind: 'Cadeau', fKinds: [['bapteme', 'Baptême en biplace'], ['stage', 'Stage d’initiation'], ['montant', 'Montant libre'], ['autre', 'Je ne sais pas encore']], fFormula: 'Formule souhaitée ou budget', fRecipient: 'Prénom de la personne gâtée (facultatif)', fName: 'Votre nom', fEmail: 'Votre e-mail', fPhone: 'Téléphone (facultatif)', fMsg: 'Message ou précision (facultatif)',
+    consent: 'J’accepte que ces informations soient transmises à l’école choisie pour répondre à ma demande. ResaParapente ne les utilise pas pour de la publicité.', send: 'Envoyer ma demande à l’école', sending: 'Envoi…', ok: 'Demande envoyée. L’école vous répond directement.', fail: 'L’envoi n’est pas disponible pour l’instant. Écrivez-nous avec le récapitulatif ci-dessous.', mail: 'Écrire à ResaParapente',
+    promoTitle: 'Promotions et bons de réduction', promoText: 'Les prix promotionnels publiés par les écoles partenaires apparaissent ici pendant leur période de validité.', promoNone: 'Aucune promotion en cours. Les bons cadeaux ci-dessus ne sont pas des réductions : ils offrent une prestation payée par vous.',
+    faqTitle: 'Questions fréquentes', faq: [['Qui vend le bon cadeau ?', 'L’école elle-même. ResaParapente compare les formules et vous met en relation, sans vendre de bon ni encaisser de paiement.'], ['Quelle est la durée de validité ?', 'Elle est fixée par chaque école, souvent en mois. Elle figure sur la page du bon ; demandez-la à l’école si elle n’y est pas.'], ['Puis-je l’avoir avant Noël ?', 'Cela dépend de l’école et du mode d’envoi (bon à imprimer, e-mail, courrier). Contactez-la tôt et demandez le délai.'], ['Et si la météo est mauvaise ?', 'Le bénéficiaire reporte son vol selon les conditions de l’école, en général sans perdre son bon.']],
+    next: 'Pour aller plus loin', links: [['baptemeGuide', 'Quel baptême choisir pour cette personne ?'], ['baptemeCompare', 'Comparateur de baptêmes'], ['whenStart', 'Quand commencer le parapente ?']],
+  },
+  en: {
+    title: `Paragliding gift voucher for Christmas: give a tandem flight or a course ${where}`,
+    desc: `Give a paragliding flight for Christmas: gift voucher, gift card, tandem flight or introductory course ${where}. Pick the package, see what it includes, buy the voucher directly from the school.`,
+    h1: 'Paragliding gift voucher for Christmas', lead: 'Give a tandem flight or an introductory course: pick the right package, know exactly what you are giving, then buy the voucher directly from the school.',
+    steps: [['Pick the package', 'First flight, long flight, child, introductory course: we tell you what each gift includes and what it costs.'], ['Get the voucher from the school', 'The school sells, collects payment and manages its voucher: validity, weather rebooking, use. ResaParapente collects nothing.'], ['Give it', 'The recipient books their date with the school, whenever they like and weather permitting.']],
+    chooseTitle: 'Which package to give?',
+    cards: [
+      ['A first tandem flight', `The simplest gift: a flight with a professional pilot, nothing to learn. ${lowB != null ? `From ${f(lowB)}, median total ${f(medB)}.` : ''}`, `${href('baptemeCompare', locale)}`, 'Compare tandem flights'],
+      ['For a child', `${kids.length} flights flagged for children. Minimum age and weight depend on the school: check them before buying.`, `${href('baptemeCompare', locale)}?profile=Enfant`, 'See child-friendly flights'],
+      ['A long flight or more thrills', 'More time in the air, or a more dynamic flight: for someone who already knows they like it.', `${href('baptemeCompare', locale)}?dur=3`, 'See long flights'],
+      ['An introductory course to learn to fly', `For someone who wants to become a pilot. ${lowI != null ? `From ${f(lowI)}, median ${f(medI)} for 3 to 7 days.` : ''}`, `${href('whenStart', locale)}`, 'See introductory courses'],
+    ],
+    schoolTitle: 'Gift vouchers sold directly by schools', schoolNone: 'No online voucher is listed here yet. Use the form below: we pass your request to the school of your choice.',
+    region: 'Region', all: 'All', go: 'Buy on the school’s website', soldBy: 'Voucher sold and managed by', checked: 'Link checked on', price: 'incl. tax', valid: 'valid', months: 'months',
+    formTitle: 'Your school has no online voucher? Ask for one', formLead: 'Choose the school and the package: we pass your request on, and the school replies to you directly with the price, payment and delivery of the voucher.',
+    fSchool: 'School', fKind: 'Gift', fKinds: [['bapteme', 'Tandem flight'], ['stage', 'Introductory course'], ['montant', 'Free amount'], ['autre', 'Not sure yet']], fFormula: 'Package or budget', fRecipient: 'First name of the lucky person (optional)', fName: 'Your name', fEmail: 'Your email', fPhone: 'Phone (optional)', fMsg: 'Message or details (optional)',
+    consent: 'I agree that this information is passed to the chosen school to answer my request. ResaParapente does not use it for advertising.', send: 'Send my request to the school', sending: 'Sending…', ok: 'Request sent. The school will reply to you directly.', fail: 'Sending is not available right now. Write to us with the summary below.', mail: 'Write to ResaParapente',
+    promoTitle: 'Promotions and discount vouchers', promoText: 'Promotional prices published by partner schools appear here while they are valid.', promoNone: 'No promotion at the moment. The gift vouchers above are not discounts: they give a service you pay for.',
+    faqTitle: 'Frequently asked questions', faq: [['Who sells the gift voucher?', 'The school itself. ResaParapente compares packages and puts you in touch, without selling vouchers or collecting payment.'], ['How long is it valid?', 'Each school sets it, often in months. It is on the voucher page; ask the school if it is not.'], ['Can I get it before Christmas?', 'It depends on the school and the delivery method (printable voucher, email, post). Contact them early and ask for the lead time.'], ['What if the weather is bad?', 'The recipient rebooks according to the school’s terms, usually without losing the voucher.']],
+    next: 'Keep going', links: [['baptemeGuide', 'Which flight suits this person?'], ['baptemeCompare', 'Tandem flight comparison'], ['whenStart', 'When can I start paragliding?']],
+  },
+  de: {
+    title: `Gleitschirm-Gutschein zu Weihnachten: Tandemflug oder Kurs verschenken ${where}`,
+    desc: `Einen Gleitschirmflug zu Weihnachten schenken: Gutschein, Geschenkkarte, Tandemflug oder Einsteigerkurs ${where}. Paket wählen, sehen was enthalten ist, Gutschein direkt bei der Schule kaufen.`,
+    h1: 'Gleitschirm-Gutschein zu Weihnachten', lead: 'Einen Tandemflug oder Einsteigerkurs verschenken: das passende Paket wählen, genau wissen, was Sie schenken, und den Gutschein direkt bei der Schule kaufen.',
+    steps: [['Paket wählen', 'Erstflug, langer Flug, Kind, Einsteigerkurs: Wir sagen Ihnen, was jedes Geschenk enthält und kostet.'], ['Gutschein bei der Schule holen', 'Die Schule verkauft, kassiert und verwaltet ihren Gutschein: Gültigkeit, Wetterverschiebung, Einlösung. ResaParapente kassiert nichts.'], ['Verschenken', 'Die beschenkte Person bucht ihren Termin bei der Schule, wann sie möchte und je nach Wetter.']],
+    chooseTitle: 'Welches Paket verschenken?',
+    cards: [
+      ['Ein erster Tandemflug', `Das einfachste Geschenk: ein Flug mit professionellem Piloten, nichts zu lernen. ${lowB != null ? `Ab ${f(lowB)}, mittlere Summe ${f(medB)}.` : ''}`, `${href('baptemeCompare', locale)}`, 'Tandemflüge vergleichen'],
+      ['Für ein Kind', `${kids.length} Flüge sind für Kinder gekennzeichnet. Mindestalter und -gewicht hängen von der Schule ab: Prüfen Sie sie vor dem Kauf.`, `${href('baptemeCompare', locale)}?profile=Enfant`, 'Kinderflüge ansehen'],
+      ['Ein langer Flug oder mehr Nervenkitzel', 'Mehr Zeit in der Luft oder ein dynamischerer Flug: für jemanden, der schon weiß, dass es ihm gefällt.', `${href('baptemeCompare', locale)}?dur=3`, 'Lange Flüge ansehen'],
+      ['Ein Einsteigerkurs zum Fliegenlernen', `Für alle, die Pilot werden möchten. ${lowI != null ? `Ab ${f(lowI)}, Mittelwert ${f(medI)} für 3 bis 7 Tage.` : ''}`, `${href('whenStart', locale)}`, 'Einsteigerkurse ansehen'],
+    ],
+    schoolTitle: 'Gutscheine, die Schulen direkt verkaufen', schoolNone: 'Hier ist noch kein Online-Gutschein aufgeführt. Nutzen Sie das Formular unten: Wir leiten Ihre Anfrage an die Schule Ihrer Wahl weiter.',
+    region: 'Region', all: 'Alle', go: 'Auf der Website der Schule kaufen', soldBy: 'Gutschein verkauft und verwaltet von', checked: 'Link geprüft am', price: 'inkl. MwSt.', valid: 'gültig', months: 'Monate',
+    formTitle: 'Ihre Schule hat keinen Online-Gutschein? Fragen Sie an', formLead: 'Wählen Sie Schule und Paket: Wir leiten Ihre Anfrage weiter, und die Schule antwortet Ihnen direkt mit Preis, Zahlung und Zustellung des Gutscheins.',
+    fSchool: 'Schule', fKind: 'Geschenk', fKinds: [['bapteme', 'Tandemflug'], ['stage', 'Einsteigerkurs'], ['montant', 'Freier Betrag'], ['autre', 'Noch unklar']], fFormula: 'Gewünschtes Paket oder Budget', fRecipient: 'Vorname der beschenkten Person (optional)', fName: 'Ihr Name', fEmail: 'Ihre E-Mail', fPhone: 'Telefon (optional)', fMsg: 'Nachricht oder Angaben (optional)',
+    consent: 'Ich bin einverstanden, dass diese Angaben zur Beantwortung meiner Anfrage an die gewählte Schule weitergegeben werden. ResaParapente nutzt sie nicht für Werbung.', send: 'Anfrage an die Schule senden', sending: 'Senden…', ok: 'Anfrage gesendet. Die Schule antwortet Ihnen direkt.', fail: 'Das Senden ist derzeit nicht möglich. Schreiben Sie uns mit der Zusammenfassung unten.', mail: 'ResaParapente schreiben',
+    promoTitle: 'Aktionen und Rabattgutscheine', promoText: 'Aktionspreise der Partnerschulen erscheinen hier während ihrer Gültigkeit.', promoNone: 'Zurzeit keine Aktion. Die Gutscheine oben sind keine Rabatte: Sie schenken eine Leistung, die Sie bezahlen.',
+    faqTitle: 'Häufige Fragen', faq: [['Wer verkauft den Gutschein?', 'Die Schule selbst. ResaParapente vergleicht Pakete und stellt den Kontakt her, ohne Gutscheine zu verkaufen oder Zahlungen einzuziehen.'], ['Wie lange ist er gültig?', 'Jede Schule legt das fest, oft in Monaten. Es steht auf der Gutscheinseite; fragen Sie die Schule, falls nicht.'], ['Bekomme ich ihn vor Weihnachten?', 'Das hängt von Schule und Zustellart ab (Ausdruck, E-Mail, Post). Kontaktieren Sie sie früh und fragen Sie nach der Lieferzeit.'], ['Und bei schlechtem Wetter?', 'Die beschenkte Person verschiebt den Flug nach den Bedingungen der Schule, in der Regel ohne den Gutschein zu verlieren.']],
+    next: 'Weiterlesen', links: [['baptemeGuide', 'Welcher Flug passt zu dieser Person?'], ['baptemeCompare', 'Tandemflug-Vergleich'], ['whenStart', 'Wann kann ich anfangen?']],
+  },
+}[locale];
+const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: C.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
+---
+<Base title={C.title} description={C.desc} locale={locale} pageKey="giftChristmas" jsonLd={faq}>
+  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section type-page">
+    <ol class="steps">{C.steps.map(([h, t]) => <li><strong>{h}</strong>{t}</li>)}</ol>
+
+    <section><h2>{C.chooseTitle}</h2>
+      <ul class="cards">{C.cards.map(([h, t, u, b]) => <li class="school-li"><div class="card" style="padding:1.1rem 1.2rem;gap:0.4rem"><span class="name">{h}</span><span class="meta">{t}</span><a class="btn small ghost" href={u}>{b}</a></div></li>)}</ul>
+    </section>
+
+    <section><h2>{C.schoolTitle}</h2>
+      {rowsG.length ? <>
+        <form class="filters" id="gift-region" onsubmit="return false"><label>{C.region}<select name="region"><option value="">{C.all}</option>{regions.map((r) => <option value={r}>{tr(r, locale)}</option>)}</select></label></form>
+        <ul class="cards" id="gift-board">{rowsG.map(({ g, s }) => <li class="school-li" data-region={s.region ?? ''}><div class="card" style="padding:1.1rem 1.2rem;gap:0.4rem">
+          <span class="name"><a href={schoolHref(s.slug, locale)} style="text-decoration:none;color:inherit">{s.name}</a></span>
+          <span class="where">{[s.city, s.dept].filter(Boolean).join(', ')}{s.region && s.region !== 'À vérifier' ? ` · ${tr(s.region, locale)}` : ''}</span>
+          <span class="meta"><strong>{tr(g.name, locale)}</strong></span>
+          {(g.price || g.validity) && <span class="meta">{g.price ? `${money(g.price, locale)} ${C.price}` : ''}{g.price && g.validity ? ' · ' : ''}{g.validity ? `${C.valid} ${g.validity} ${C.months}` : ''}</span>}
+          <a class="btn ext" style="margin-top:0.5rem" href={g.url} target="_blank" rel="noopener">{C.go}</a>
+          <span class="small muted">{C.soldBy} {s.name} ({host(g.url)}).{g.checked && <> {C.checked} {dateLoc(g.checked, locale)}.</>}</span>
+        </div></li>)}</ul>
+      </> : <p class="empty">{C.schoolNone}</p>}
+    </section>
+
+    <section id="demande"><h2>{C.formTitle}</h2><p>{C.formLead}</p>
+      <form class="gift-form" id="gift-form" novalidate data-endpoint="/api/gift-request" data-contact={SITE.contactEmail}
+        data-ok={C.ok} data-fail={C.fail} data-sending={C.sending} data-mail={C.mail} data-market={MARKET.code}>
+        <label class="wide">{C.fSchool}<select name="schoolId" required><option value="">—</option>{relaySchools.map((s) => <option value={s.id}>{s.name}{s.city ? ` · ${s.city}` : ''}</option>)}</select></label>
+        <label>{C.fKind}<select name="kind">{C.fKinds.map(([v, l]) => <option value={v}>{l}</option>)}</select></label>
+        <label>{C.fFormula}<input name="formula" maxlength="160" /></label>
+        <label>{C.fRecipient}<input name="recipient" maxlength="60" autocomplete="off" /></label>
+        <label>{C.fName}<input name="name" required maxlength="120" autocomplete="name" /></label>
+        <label>{C.fEmail}<input name="email" type="email" required maxlength="254" autocomplete="email" /></label>
+        <label>{C.fPhone}<input name="phone" type="tel" maxlength="35" autocomplete="tel" /></label>
+        <label class="wide">{C.fMsg}<textarea name="message" rows="3" maxlength="800"></textarea></label>
+        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label class="check"><input type="checkbox" name="consent" required /> <span>{C.consent}</span></label>
+        <div class="btn-row"><button class="btn" type="submit">{C.send}</button></div>
+        <p class="wide small" id="gift-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section><h2>{C.promoTitle}</h2><p>{C.promoText}</p>
+      {promos.length ? <ul class="cards">{promos.map((p) => <li class="school-li"><div class="card" style="padding:1rem 1.2rem"><span class="name">{p.title}</span><span class="meta"><strong>{money(p.price, locale)}</strong>{p.regular ? ` (${money(p.regular, locale)})` : ''} · {dateLoc(p.end, locale)}</span></div></li>)}</ul> : <p class="muted">{C.promoNone}</p>}
+    </section>
+
+    <section class="faq"><h2>{C.faqTitle}</h2>{C.faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</section>
+    <section><h2>{C.next}</h2><ul class="chips-links">{C.links.map(([k, l]) => <li><a href={href(k as 'baptemeGuide', locale)}>{l}</a></li>)}</ul></section>
+  </div>
+</Base>
+<script>import '../scripts/gift-form.js';</script>

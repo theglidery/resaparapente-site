@@ -1,0 +1,214 @@
+---
+import Base from '../layouts/Base.astro';
+import ContourArt from '../components/ContourArt.astro';
+import { withOffers, regionCounts, cities, fromPrice, eur, schools } from '../lib/data';
+import { placesFor, pathOf } from '../lib/places';
+import Mountains from '../components/Mountains.astro';
+import { posts, dateLong } from '../data/blog';
+import { heroImage } from '../lib/images';
+import { HERO_ALT, BOOKING } from '../config';
+
+const nB = withOffers('bapteme').length;
+const nS = withOffers('stage').length;
+const nTotal = schools.length;
+const nAll = new Set([...withOffers('bapteme'), ...withOffers('stage')].map((x) => x.id)).size;
+const regions = regionCounts('bapteme').slice(0, 12);
+const bPlaces = placesFor('bapteme');
+const regionHref = (r: string) => { const p = bPlaces.find((x) => x.type === 'region' && x.name === r); return p ? pathOf('bapteme', p) : `/bapteme/?region=${encodeURIComponent(r)}&r=`; };
+const popular = bPlaces.filter((p) => p.type !== 'region').sort((a, b) => b.schools.bapteme.length - a.schools.bapteme.length).slice(0, 12);
+const bPrices = withOffers('bapteme').map((s) => fromPrice(s, 'bapteme')).filter((v): v is number => v !== null).sort((a, b) => a - b);
+const lowest = bPrices[0];
+const heroImg = heroImage('home');
+const faq = [
+  ['Comment réserver un baptême ou un stage ?', 'Choisissez une école, puis une formule, et cliquez sur « Demander un créneau » lorsque l’envoi est proposé. Vous pouvez aussi contacter l’école directement. L’école vous confirme la date, le tarif et les modalités de paiement.'],
+  ['Envoyer une demande m’engage-t-il ?', 'Non. La demande est gratuite et sans engagement. La réservation devient ferme lorsque vous et l’école avez accepté la même prestation, la même date et le même prix, et que l’école l’a confirmé par écrit.'],
+  ['Peut-on offrir un baptême ou un stage ?', 'Oui. Certaines écoles vendent leur propre bon cadeau : nous affichons le lien vers leur page de vente. L’achat, le paiement et l’envoi du bon se font directement chez l’école, qui gère aussi son utilisation. ResaParapente ne vend pas de bon et ne perçoit aucun paiement.'],
+  ['Où voir les bons cadeaux des écoles ?', 'Sur la page « Bons cadeaux des écoles » et sur la fiche des écoles concernées, avec le bouton « Voir le bon cadeau sur le site de l’école ». Chaque lien indique la date à laquelle nous l’avons vérifié.'],
+  ['Que se passe-t-il si la météo ne permet pas de voler ?', 'L’école décide si les conditions permettent le vol. Elle vous contacte pour confirmer le départ, proposer une autre date ou appliquer ses conditions d’annulation.'],
+  ['Qui s’occupe du paiement ?', 'L’école. Elle vous répond, confirme le créneau et le prix TTC, puis organise le paiement selon ses conditions. Rien ne se paie sur ResaParapente.'],
+  ['Quel âge, quel poids, quelle condition physique ?', 'Cela dépend de l’école et de la formule. Les conditions de participation figurent dans l’onglet « Infos pratiques » de chaque formule, et l’école les confirme avant de réserver.'],
+  ['Les prix affichés sont-ils à jour ?', 'Ce sont les prix publiés par chaque école, avec la date à laquelle nous les avons relevés. L’école confirme le prix exact avant toute réservation. Vous voyez une erreur ? Signalez-la depuis la fiche de l’école.'],
+  ['Je dirige une école : comment apparaître ou corriger ma fiche ?', 'Utilisez la page « Pour les écoles » : vous publiez vos dates de stage, vos baptêmes, le lien vers votre bon cadeau et vos offres promotionnelles, sans frais. Vous pouvez aussi nous écrire pour faire corriger une fiche.'],
+];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Resa Parapente', url: 'https://resaparapente.fr' },
+  { '@context': 'https://schema.org', '@type': 'Organization', name: 'Resa Parapente', url: 'https://resaparapente.fr', logo: 'https://resaparapente.fr/images/brand/logo@2x.png' },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
+---
+<Base
+  title="Baptême et stage de parapente : trouvez une école | Resa Parapente"
+  description="Comparez les écoles de parapente en France et envoyez gratuitement votre demande de baptême ou de stage. Bons cadeaux proposés par les écoles."
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="hero-bar">
+      <div class="wrap">
+        <p><strong>{nTotal} fiches parapente</strong> · {nAll} avec au moins une offre publiée</p>
+      </div>
+    </div>
+    <div class="wrap hero-main">
+      <h1>Trouvez votre baptême ou stage de parapente</h1>
+    </div>
+    {heroImg
+      ? <picture class="hero-photo">
+          {heroImg.mobile && <source media="(max-width: 700px)" srcset={heroImg.mobile} />}
+          <img src={heroImg.desktop} alt={HERO_ALT.home} width="1280" height="420" fetchpriority="high" />
+        </picture>
+      : <ContourArt />}
+    <Mountains class="hero-mtn" />
+  </section>
+
+  <section class="finder wrap" aria-label="Trouver une école">
+    <form action="/bapteme/" method="get">
+      <div class="row">
+        <div class="field">
+          <label for="home-q">Près de quelle ville voulez-vous voler ?</label>
+          <input id="home-q" name="q" type="search" list="home-towns" autocomplete="off" placeholder="Annecy, Lyon, Chamonix…" />
+          <datalist id="home-towns">{cities.map((t) => <option value={t.name} />)}</datalist>
+          <input type="hidden" id="home-geo" name="geo" value="1" disabled />
+          <button type="button" class="geo-toggle" id="home-geo-btn" aria-pressed="false" hidden>Autour de moi (sans saisir de ville)</button>
+        </div>
+        <button class="btn" type="submit" formaction="/bapteme/">Comparer les baptêmes</button>
+        <button class="btn ghost" type="submit" formaction="/stage/">Comparer les stages</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="wrap" aria-label="Préparer votre vol ou votre stage">
+    <div class="journeys">
+      <div class="journey">
+        <h2>Votre premier vol en tandem</h2>
+        <p>Comparez la durée en l’air, les prix et les formules adaptées aux enfants.</p>
+        <a href="/bapteme-parapente/">Choisir où voler</a>
+        <a href="/pourquoi-voler/">Pourquoi voler ?</a>
+        <a href="/bons-cadeaux/">Voir les bons cadeaux des écoles</a>
+      </div>
+      <div class="journey">
+        <h2>Apprendre ou progresser</h2>
+        <p>Trouvez une initiation, un stage d’autonomie ou un perfectionnement selon votre niveau.</p>
+        <a href="/calendrier/">Voir les dates de stage</a>
+        <a href="/apprendre/">Choisir son niveau</a>
+        <a href="/apprendre/premier-stage/">Préparer son premier stage</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="board-head">
+      <h2 style="margin:0">Écoles par région</h2>
+      <span class="muted small">{nTotal} écoles répertoriées : {nB} proposent un baptême, {nS} un stage{lowest ? `, baptêmes dès ${eur(lowest)}` : ''}</span>
+    </div>
+    <ul class="region-grid">
+      {regions.map(([r, n]) => (
+        <li>
+          <a class="region-tile" href={regionHref(r)}>
+            <span class="rname">{r}</span>
+            <span class="rcount">{n} école{n > 1 ? 's' : ''} avec baptême</span>
+            <svg class="rmtn" viewBox="0 0 120 70" fill="currentColor" aria-hidden="true"><path d="M0 70 L38 14 L56 40 L78 6 L120 70Z"/></svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section wrap">
+    <div class="board-head">
+      <h2 style="margin:0">Destinations populaires</h2>
+      <span class="muted small"><a href="/bapteme-parapente/">Toutes les destinations (baptême)</a> · <a href="/stage-parapente/">toutes les destinations (stage)</a></span>
+    </div>
+    <ul class="chips-links">{popular.map((p) => <li><a href={pathOf('bapteme', p)}>Baptême {p.inName}</a></li>)}</ul>
+  </section>
+
+  <section class="section wrap">
+    <h2>Comment ça marche</h2>
+    <ol class="steps">
+      <li><h3>Choisissez une école</h3><p>Comparez les formules, les durées de vol et les prix publiés. Filtrez par distance ou par région.</p></li>
+      <li><h3>Contactez l’école</h3><p>{BOOKING.enabled ? "Envoyez une demande gratuite si la fiche le permet, ou contactez l’école directement." : "Suivez le lien vers l’école sur sa fiche pour demander un créneau."} Elle confirme la date, le prix et le paiement.</p></li>
+      <li><h3>Ou offrez un bon de l’école</h3><p>Les écoles qui vendent leur propre bon cadeau sont listées avec un lien vers leur page de vente.</p></li>
+    </ol>
+  </section>
+
+  <section class="ink-band section" style="margin-top:2rem">
+    <Mountains />
+    <div class="wrap" style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));align-items:center">
+      <div>
+        <h2>Offrir un vol : les bons cadeaux des écoles</h2>
+        <p style="max-width:50ch">Certaines écoles vendent leur propre bon cadeau. Nous affichons le lien vers leur page de vente : vous achetez directement chez l’école, qui gère le bon.</p>
+        <div class="btn-row">
+          <a class="btn on-dark" href="/bons-cadeaux/">Voir les bons cadeaux</a>
+        </div>
+      </div>
+      <p class="muted" style="color:#9fb6cb">Vous dirigez une école ? <a href="/pour-les-ecoles/?type=bon">Faites connaître votre bon cadeau</a>, c’est gratuit.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" style="padding-top:3rem">
+    <h2>Apprendre le parapente</h2>
+    <p style="max-width:62ch">Baptême en biplace, stages d’initiation et de progression, brevets de la FFVL : retrouvez les étapes pour passer de passager à pilote.</p>
+    <ul class="type-grid">
+      <li><a href="/bapteme/biplace-saut-en-parapente/"><strong>Baptême, biplace, saut</strong><span>Le même vol, expliqué de A à Z</span></a></li>
+      <li><a href="/stage/initiation/"><strong>Stage d’initiation</strong><span>Apprendre à voler seul</span></a></li>
+      <li><a href="/apprendre/brevets/"><strong>Les brevets</strong><span>Initial, pilote, pilote confirmé</span></a></li>
+      <li><a href="/apprendre/cours/"><strong>Cours de parapente</strong><span>Théorie en 6 modules</span></a></li>
+    </ul>
+  </section>
+
+  <section class="section wrap trust" aria-labelledby="h-trust" style="padding-top:3rem">
+    <h2 id="h-trust">Pourquoi passer par ResaParapente</h2>
+    <ul class="trust-grid">
+      <li><h3>Gratuit, sans paiement</h3><p>Vous envoyez une demande à l’école. Rien n’est payé sur ce site : l’école vous répond et organise le paiement avec vous.</p></li>
+      <li><h3>Des prix datés</h3><p>Chaque formule indique la date à laquelle son prix a été relevé sur le site de l’école. Un tarif qui change est signalé « à vérifier ».</p></li>
+      <li><h3>Les écoles elles-mêmes</h3><p>{schools.length} écoles répertoriées, avec un lien vers leur site officiel. Les bons cadeaux sont vendus par les écoles, pas par nous.</p></li>
+      <li><h3>Une erreur ? Dites-le</h3><p>Chaque fiche comporte un lien pour signaler une information fausse ou périmée. Nous la corrigeons après vérification.</p></li>
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="h-blog" style="padding-top:2rem">
+    <div class="board-head">
+      <h2 id="h-blog" style="margin:0">Du côté du blog</h2>
+      <a href="/blog/">Tous les articles</a>
+    </div>
+    <ul class="post-list">
+      {posts.slice(0, 3).map((p) => (
+        <li class="post-card">
+          <span class="tag">{p.tag}</span>
+          <h3><a href={`/blog/${p.slug}/`}>{p.title}</a></h3>
+          <p>{p.excerpt}</p>
+          <span class="muted small">{dateLong(p.date)}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="h-compare" style="padding-top:2rem">
+    <h2 id="h-compare">Comparer avant de réserver</h2>
+    <ul class="type-grid">
+      <li><a href="/comparateur-baptemes-parapente/"><strong>Comparateur de baptêmes</strong><span>Prix, durée, photos, remontées et total à prévoir</span></a></li>
+      <li><a href="/quel-bapteme-parapente-choisir/"><strong>Quel baptême choisir ?</strong><span>Premier vol, enfant, sensations, budget</span></a></li>
+      <li><a href="/comparateur-prix-formation-parapente/"><strong>Combien coûte la formation ?</strong><span>Coût total jusqu’au brevet, école par école</span></a></li>
+      <li><a href="/quand-commencer-parapente/"><strong>Quand commencer ?</strong><span>Prochaines dates d’initiation</span></a></li>
+      <li><a href="/bon-cadeau-parapente-noel/"><strong>Bon cadeau pour Noël</strong><span>Offrir un vol ou une initiation, bon vendu par l’école</span></a></li>
+      <li><a href="/saut-en-parapente/"><strong>Saut en parapente</strong><span>Prix, durée et formules du saut en biplace</span></a></li>
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="h-faq" style="padding-top:2rem">
+    <h2 id="h-faq">Questions fréquentes</h2>
+    <div class="faq">
+      {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+    </div>
+    <p style="margin-top:1.2rem">Une autre question ? <a href="/contact/">Écrivez-nous</a>.</p>
+  </section>
+</Base>
+<script>
+  // "Autour de moi": the listing page asks the browser for the position (geo=1), so no city is needed.
+  const btn = document.getElementById('home-geo-btn'), flag = document.getElementById('home-geo'), q = document.getElementById('home-q');
+  if (btn && flag && q && 'geolocation' in navigator) {
+    btn.hidden = false;
+    btn.addEventListener('click', () => {
+      const on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on)); flag.disabled = !on; q.disabled = on; if (on) q.value = '';
+    });
+  }
+</script>

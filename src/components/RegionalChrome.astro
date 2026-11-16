@@ -1,0 +1,40 @@
+---
+// Header + footer of the Swiss and Belgian builds, in the visitor's language: menu, language switcher, country switcher.
+import BrandLogo from './BrandLogo.astro';
+import CountryNav from './CountryNav.astro';
+import { SITE, MARKET, marketLinks } from '../config';
+import { ui, href, alternatesOf, LANG_NAMES, marketLocales, type Locale } from '../i18n/ui';
+import { PAGES } from '../i18n/routes.mjs';
+const { part, locale = 'fr', pageKey, alternates } = Astro.props as { part: 'header' | 'footer'; locale?: Locale; pageKey?: keyof typeof PAGES; alternates?: { locale: Locale; href: string }[] };
+const t = ui(locale);
+const prefix = locale === 'fr' ? '' : '/' + locale;
+const langs = marketLocales.length > 1 ? (alternates ?? (pageKey ? alternatesOf(pageKey) : marketLocales.map((l) => ({ locale: l, href: l === 'fr' ? '/' : `/${l}/` })))) : [];
+const nav = [
+  { href: href('baptemeCompare', locale), label: t.compareTandem },
+  { href: href('trainingCost', locale), label: t.courseCost },
+  { href: href('whenStart', locale), label: t.whenStart },
+  { href: href('trainingPath', locale), label: t.pathway },
+  { href: href('giftChristmas', locale), label: t.gift },
+];
+const dl = (page: keyof typeof PAGES) => href(page, (PAGES[page] as any)[locale] ? locale : 'fr'); // school lists exist in French and English
+const dir = [{ href: dl('listBapteme'), label: t.tandem }, { href: dl('listStage'), label: t.courses }, { href: dl('listCalendar'), label: t.calendar }];
+---
+{part === 'header' ? (
+  <header class="site-header"><div class="wrap">
+    <a class="brand" href={prefix + '/' || '/'} aria-label={`${SITE.name}: ${t.home}`}><BrandLogo /></a>
+    <nav class="nav" aria-label="Menu"><ul>
+      {[...dir, ...nav].map((l) => <li><a href={l.href} aria-current={Astro.url.pathname === l.href ? 'page' : undefined}>{l.label}</a></li>)}
+    </ul></nav>
+    {langs.length > 0 && <nav class="lang-switch" aria-label={t.language}>
+      {langs.map((l) => <a href={l.href} hreflang={l.locale} lang={l.locale} aria-current={l.locale === locale ? 'true' : undefined}>{l.locale.toUpperCase()}</a>)}
+    </nav>}
+    <CountryNav />
+  </div></header>
+) : (
+  <footer class="site-footer"><div class="wrap">
+    <CountryNav />
+    <p>{nav.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>)}</p>
+    <p><a href={marketLinks[0].href + 'pourquoi-voler/'}>{t.why}</a> · <a href={marketLinks[0].href + 'apprendre/premier-stage/'}>{t.firstStage}</a></p>
+    <p><a href={`mailto:${SITE.contactEmail}`}>{t.contact}</a></p>
+  </div></footer>
+)}

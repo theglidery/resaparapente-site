@@ -1,0 +1,12 @@
+---
+// Three layered mountain ridges with a few snow caps, drawn in SVG. Colours come from CSS variables (--m1, --m2, --m3),
+// so each place that uses it decides how it blends in. Decorative only.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<svg class={`mtn ${cls}`} viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <path class="m1" d="M0 150 L120 92 L220 130 L360 58 L470 120 L600 70 L720 125 L860 50 L980 115 L1100 80 L1230 130 L1340 92 L1440 120 V220 H0Z" />
+  <path class="snow" d="M360 58 L338 84 L352 78 L362 90 L374 77 L388 84Z M860 50 L836 80 L852 74 L862 88 L876 74 L890 82Z M600 70 L582 92 L594 87 L602 96 L612 86 L620 92Z" />
+  <path class="m2" d="M0 182 L140 122 L260 166 L400 108 L540 170 L680 118 L820 176 L960 112 L1100 170 L1240 128 L1440 176 V220 H0Z" />
+  <path class="m3" d="M0 206 L180 164 L320 202 L520 154 L700 206 L900 158 L1080 206 L1260 168 L1440 202 V220 H0Z" />
+</svg>

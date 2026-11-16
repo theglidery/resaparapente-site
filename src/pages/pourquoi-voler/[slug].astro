@@ -1,0 +1,9 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro';
+import { WHY_PAGES } from '../../data/why-fly';
+export function getStaticPaths() {
+  return WHY_PAGES.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+const { article } = Astro.props;
+---
+<ArticlePage article={article} />

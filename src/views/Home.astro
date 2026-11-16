@@ -1,0 +1,37 @@
+---
+// English and German home page of the Swiss and Belgian builds (the French home page is a regular page of each build).
+import Base from '../layouts/Base.astro';
+import Mountains from '../components/Mountains.astro';
+import { MARKET } from '../config';
+import { href } from '../i18n/ui';
+import { schools } from '../lib/data';
+import { bapRows, money, type Loc } from '../lib/compare';
+const { locale = 'en' } = Astro.props as { locale?: Loc };
+const rows = bapRows(locale);
+const nSchools = schools.filter((s) => s.baptemes.length || s.stages.length).length;
+const low = rows.length ? rows[0].total : null;
+const where = { en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' }, fr: { FR: '', CH: '', BE: '' } }[locale][MARKET.code as 'FR'];
+const C = {
+  en: {
+    title: `Paragliding ${where}: compare tandem flights, courses and gift vouchers`, desc: `Compare tandem paragliding flights, training costs up to the licence and gift vouchers ${where}. ${nSchools} schools, prices published by the schools themselves.`,
+    h1: `Paragliding ${where}`, lead: `Compare ${rows.length} tandem flights and the cost of full training from ${nSchools} schools. You book with the school; ResaParapente only compares.`,
+    note: 'School listings, packages and prices are in English; a few long descriptions that are not translated yet stay in French.',
+    cards: [['baptemeCompare', 'Compare tandem flights', `Price, flight time, photo/video, cable car and estimated total${low != null ? `, from ${money(low, 'en')}` : ''}.`], ['baptemeGuide', 'Which flight to choose?', 'First flight, child, thrill, budget: five profiles and what each changes in the price.'], ['trainingCost', 'Cost of full training', 'Full packages and step-by-step totals up to the licence.'], ['whenStart', 'When can I start?', 'Next introductory course dates and introductory prices.'], ['trainingPath', 'Pathway and licences', 'The steps, exams and deadlines to become a pilot.'], ['giftChristmas', 'Gift voucher', 'Give a flight or a course: the voucher is sold by the school.']],
+    directory: 'School directory', dir: [['/en/tandem-paragliding-schools/', 'Tandem flights by school'], ['/en/paragliding-course-schools/', 'Courses by school'], ['/en/paragliding-course-calendar/', 'Course calendar']],
+  },
+  de: {
+    title: `Gleitschirmfliegen ${where}: Tandemflüge, Kurse und Gutscheine vergleichen`, desc: `Vergleichen Sie Gleitschirm-Tandemflüge, Ausbildungskosten bis zum Brevet und Gutscheine ${where}. ${nSchools} Schulen, Preise von den Schulen selbst veröffentlicht.`,
+    h1: `Gleitschirmfliegen ${where}`, lead: `Vergleichen Sie ${rows.length} Tandemflüge und die Kosten der kompletten Ausbildung bei ${nSchools} Schulen. Gebucht wird bei der Schule; ResaParapente vergleicht nur.`,
+    note: 'Beschreibungen und Angebote der Schulen bleiben in der Sprache, in der die Schule sie veröffentlicht hat (meist Französisch).',
+    cards: [['baptemeCompare', 'Tandemflüge vergleichen', `Preis, Flugdauer, Foto/Video, Bergbahn und geschätzter Gesamtpreis${low != null ? `, ab ${money(low, 'de')}` : ''}.`], ['baptemeGuide', 'Welcher Flug passt?', 'Erstflug, Kind, Nervenkitzel, Budget: fünf Profile und was jedes am Preis ändert.'], ['trainingCost', 'Kosten der Ausbildung', 'Komplettpakete und Summen Schritt für Schritt bis zum Brevet.'], ['whenStart', 'Wann kann ich anfangen?', 'Nächste Einsteigerkurse und Einsteigerpreise.'], ['trainingPath', 'Ausbildungsweg und Lizenzen', 'Schritte, Prüfungen und Fristen bis zum Piloten.'], ['giftChristmas', 'Geschenkgutschein', 'Einen Flug oder Kurs verschenken: Die Schule verkauft den Gutschein.']],
+    directory: 'Schulverzeichnis (auf Französisch)', dir: [['/bapteme/', 'Tandemflüge nach Schule'], ['/stage/', 'Kurse nach Schule'], ['/calendrier/', 'Kurskalender']],
+  },
+}[locale as 'en' | 'de'];
+---
+<Base title={C.title} description={C.desc} locale={locale} pageKey="home">
+  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section">
+    <ul class="type-grid">{C.cards.map(([k, h, t]) => <li><a href={href(k as 'baptemeCompare', locale)}><strong>{h}</strong><span>{t}</span></a></li>)}</ul>
+    <section><h2>{C.directory}</h2><ul class="chips-links">{C.dir.map(([u, l]) => <li><a href={u}>{l}</a></li>)}</ul><p class="small muted">{C.note}</p></section>
+  </div>
+</Base>

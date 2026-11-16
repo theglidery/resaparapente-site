@@ -1,0 +1,50 @@
+---
+import ArticlePage from '../components/ArticlePage.astro';
+import { withOffers, eur, dateFr } from '../lib/data';
+import { statsOf, placesFor, pathOf } from '../lib/places';
+import { STAGE_TYPES } from '../data/stage-types';
+import type { Article } from '../data/article-types';
+const list = withOffers('stage');
+const all = statsOf(list, 'stage');
+const types = STAGE_TYPES.map((t) => ({ t, st: statsOf(list.filter((s) => s.stages.some((o) => o.levelKey === t.key)), 'stage', (o) => o.levelKey === t.key) })).filter((x) => x.st.offers >= 3);
+const regions = placesFor('stage').filter((p) => p.type === 'region').map((p) => ({ p, st: statsOf(p.schools.stage, 'stage') })).filter((x) => x.st.n >= 3 && x.st.offers >= 3).sort((a, b) => b.st.n - a.st.n);
+const d = all.checked ? dateFr(all.checked) : null;
+const days = (a: number | null, b: number | null) => (a == null ? 'variable' : a === b ? `${a} j` : `${a} à ${b} j`);
+const init = types.find((x) => x.t.key === 'initiation');
+const article: Article = {
+  slug: 'prix-stage-parapente', title: 'Prix d’un stage de parapente : tarifs par niveau et par région',
+  h1: 'Prix d’un stage de parapente', parent: { href: '/stage-parapente/', label: 'Stage de parapente' },
+  description: `Combien coûte un stage de parapente ? Prix relevés chez ${all.n} écoles : initiation, progression, perfectionnement, SIV, avec la durée typique et la fourchette par région.`,
+  lead: `Le prix d’un stage de parapente dépend surtout du niveau et du nombre de jours.${init && init.st.med ? ` Un stage d’initiation coûte environ ${eur(Math.round(init.st.med))} (médiane des formules relevées) pour ${days(init.st.daysMin, init.st.daysMax)}.` : ''} Voici les prix relevés auprès des écoles.`,
+  brief: [{ k: 'Écoles relevées', v: String(all.n) }, { k: 'Formules', v: String(all.offers) }, { k: 'Dernier relevé', v: d ?? '—' }],
+  sections: [
+    { id: 'methode', h: 'D’où viennent ces prix', p: [`Ce sont les prix publiés par les écoles sur leurs sites officiels et relevés par notre équipe${d ? ` (dernière vérification le ${d})` : ''}. Le prix d’un stage porte sur l’ensemble du stage, pas sur une journée. Confirmez le tarif et ce qu’il comprend avec l’école au moment de réserver.`] },
+    { id: 'varient', h: 'Ce qui fait varier le prix', ul: ['Le niveau : l’initiation, la progression, le perfectionnement et le SIV n’ont ni la même durée ni le même encadrement.', 'Le nombre de jours et de vols.', 'Le matériel : prêté par l’école ou apporté par le stagiaire.', 'L’encadrement : stage en petit groupe ou en privé.', 'Le lieu et l’hébergement éventuellement compris.'] },
+    { id: 'verifier', h: 'Que vérifier avant de comparer', ul: ['Si le matériel (voile, sellette, casque, radio) est compris.', 'La licence et l’assurance : une licence fédérale est en général obligatoire pour voler en France ; certaines écoles la comprennent, d’autres non.', 'Le nombre de stagiaires par moniteur.', 'Les conditions en cas de météo défavorable (report, avoir, remboursement).'] },
+  ],
+  faq: [
+    { q: 'Combien coûte un stage d’initiation au parapente ?', a: init && init.st.med ? `Parmi les formules relevées, le prix médian d’un stage d’initiation est d’environ ${eur(Math.round(init.st.med))}, de ${init.st.min ? eur(init.st.min) : '…'} à ${init.st.max ? eur(init.st.max) : '…'}. La durée typique est de ${days(init.st.daysMin, init.st.daysMax)}.` : 'Le prix dépend de la durée et de l’école : consultez les fiches des écoles.' },
+    { q: 'La licence est-elle comprise dans le prix ?', a: 'Cela dépend de l’école. Une licence fédérale (qui comprend l’assurance) est en général nécessaire pour voler en France : demandez à l’école si elle est incluse ou à prendre à part.' },
+    { q: 'Faut-il acheter du matériel avant un stage ?', a: 'Non : pour une initiation, l’école prête le matériel. Il vaut mieux attendre les conseils de votre moniteur avant d’acheter.' },
+  ],
+  next: [{ href: '/stage-parapente/', label: 'Stage par destination', text: 'Régions, départements et grandes villes.' }, { href: '/calendrier/', label: 'Calendrier des stages', text: 'Les prochaines dates publiées par les écoles.' }, { href: '/apprendre/', label: 'Apprendre le parapente', text: 'Parcours, brevets, cours.' }],
+};
+---
+<ArticlePage article={article} cta="stage">
+  <Fragment slot="after-brief">
+    <section id="niveaux" aria-labelledby="h-niv">
+      <h2 id="h-niv">Prix par type de stage</h2>
+      <table class="data-table">
+        <thead><tr><th>Type de stage</th><th>Écoles</th><th>Durée typique</th><th>Prix médian</th><th>Fourchette</th></tr></thead>
+        <tbody>{types.map(({ t, st }) => <tr><td><a href={`/stage/${t.slug}/`}>{t.menu}</a></td><td>{st.n}</td><td>{days(st.daysMin, st.daysMax)}</td><td>{st.med ? eur(Math.round(st.med)) : ''}</td><td>{st.min ? eur(st.min) : ''} à {st.max ? eur(st.max) : ''}</td></tr>)}</tbody>
+      </table>
+    </section>
+    <section id="regions" aria-labelledby="h-reg">
+      <h2 id="h-reg">Stages par région</h2>
+      <table class="data-table">
+        <thead><tr><th>Région</th><th>Écoles</th><th>Prix médian</th><th>Fourchette</th></tr></thead>
+        <tbody>{regions.map(({ p, st }) => <tr><td><a href={pathOf('stage', p)}>{p.name}</a></td><td>{st.n}</td><td>{st.med ? eur(Math.round(st.med)) : ''}</td><td>{st.min ? eur(st.min) : ''} à {st.max ? eur(st.max) : ''}</td></tr>)}</tbody>
+      </table>
+    </section>
+  </Fragment>
+</ArticlePage>

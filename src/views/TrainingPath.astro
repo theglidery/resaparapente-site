@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Mountains from '../components/Mountains.astro';
+import { MARKET } from '../config';
+import { href } from '../i18n/ui';
+import { PATHWAY, CHECKED } from '../i18n/pathway';
+import { dateLoc, host, type Loc } from '../lib/compare';
+const { locale = 'fr' } = Astro.props as { locale?: Loc };
+const P = PATHWAY[MARKET.code as 'FR' | 'CH' | 'BE'][locale];
+const U = {
+  fr: { steps: 'Les étapes', cost: 'Ce que coûtent les examens', verify: 'À vérifier auprès de la fédération', sources: 'Sources', read: 'Lu le', foreign: 'Vous avez déjà un brevet d’un autre pays ?', foreignText: 'Un brevet étranger n’est pas reconnu partout de la même façon. Avant de voler ou de vous former dans un autre pays, demandez à la fédération du pays concerné comment votre brevet y est traité.', cmp: 'Comparer le prix d’une formation jusqu’au brevet', when: 'Voir les prochaines dates d’initiation', desc: 'Les étapes du cursus de formation et des brevets de parapente, avec les examens, les délais et les coûts, d’après les sources officielles citées.' },
+  en: { steps: 'The steps', cost: 'What the exams cost', verify: 'To check with the federation', sources: 'Sources', read: 'Read on', foreign: 'Already hold a licence from another country?', foreignText: 'A foreign licence is not recognised the same way everywhere. Before flying or training in another country, ask that country’s federation how your licence is treated there.', cmp: 'Compare the cost of training up to the licence', when: 'See the next introductory course dates', desc: 'The steps of the paragliding training pathway and licences, with exams, deadlines and costs, based on the official sources cited.' },
+  de: { steps: 'Die Schritte', cost: 'Was die Prüfungen kosten', verify: 'Beim Verband zu prüfen', sources: 'Quellen', read: 'Gelesen am', foreign: 'Sie haben schon ein Brevet aus einem anderen Land?', foreignText: 'Ein ausländisches Brevet wird nicht überall gleich anerkannt. Fragen Sie vor dem Fliegen oder Lernen in einem anderen Land beim dortigen Verband nach, wie Ihr Brevet behandelt wird.', cmp: 'Kosten der Ausbildung bis zum Brevet vergleichen', when: 'Nächste Einsteigerkurse ansehen', desc: 'Die Schritte von Ausbildungsweg und Brevets im Gleitschirmfliegen, mit Prüfungen, Fristen und Kosten, nach den genannten offiziellen Quellen.' },
+}[locale];
+---
+<Base title={P.title} description={U.desc} locale={locale} pageKey="trainingPath">
+  <div class="page-head"><div class="wrap"><h1>{P.title}</h1><p class="lead">{P.intro}</p></div><Mountains /></div>
+  <div class="wrap section type-page">
+    <section><h2>{U.steps}</h2><ol class="steps">{P.steps.map(([h, t]) => <li><strong>{h}</strong>{t}</li>)}</ol></section>
+    <section><h2>{U.cost}</h2><p>{P.costNote}</p></section>
+    <section><h2>{U.verify}</h2><ul>{P.verify.map((t) => <li>{t}</li>)}</ul></section>
+    <section><h2>{U.foreign}</h2><p>{U.foreignText}</p></section>
+    <p class="btn-row"><a class="btn" href={href('trainingCost', locale)}>{U.cmp}</a><a class="btn ghost" href={href('whenStart', locale)}>{U.when}</a></p>
+    {P.sources.length > 0 && <section><h2>{U.sources}</h2><ul>{P.sources.map(([l, u]) => <li><a href={u} target="_blank" rel="noopener">{l}</a> ({host(u)}) · {U.read} {dateLoc(CHECKED, locale)}</li>)}</ul></section>}
+  </div>
+</Base>

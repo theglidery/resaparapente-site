@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+import Mountains from '../components/Mountains.astro';
+import { LEVELS } from '../lib/data';
+import { SCHOOL_SUBMISSION, SITE } from '../config';
+const levels = LEVELS.filter((l) => l.key !== 'autre');
+---
+<Base title="Pour les écoles de parapente : publier vos stages, baptêmes, bons et promotions" description="Écoles de parapente : publiez gratuitement vos dates de stage, vos baptêmes, le lien vers votre bon cadeau et vos offres promotionnelles, et recevez les demandes de réservation.">
+  <div class="page-head"><div class="wrap">
+    <h1>Pour les écoles de parapente</h1>
+    <p class="lead">Publiez vos stages, vos baptêmes, votre bon cadeau et vos promotions. C’est gratuit, et les demandes de réservation arrivent directement chez vous.</p>
+  </div><Mountains /></div>
+  <div class="wrap section type-page" style="padding-top:1.2rem">
+    <section style="margin-top:0">
+      <h2>Ce que vous publiez, ce que nous faisons</h2>
+      <ul class="ways">
+        <li><h3>Vos stages et baptêmes</h3>Dates, prix TTC, lieu, niveau. Nous les affichons sur votre fiche, dans l’annuaire et dans le calendrier des stages.</li>
+        <li><h3>Votre bon cadeau</h3>Si vous vendez votre propre bon, nous affichons un lien vers votre page de vente. L’achat et le paiement restent chez vous.</li>
+        <li><h3>Vos offres promotionnelles</h3>Prix promotionnel, dates, conditions essentielles : affichés sur votre fiche, sans badge ni effet sur le classement.</li>
+        <li><h3>Les demandes de réservation</h3>Le visiteur vous envoie une demande gratuite. Vous répondez, confirmez le créneau et organisez le paiement.</li>
+      </ul>
+      <p>Aucun frais de publication. En échange, vous vous engagez à tenir ces informations à jour. Les conditions complètes figurent dans la convention de référencement, que nous vous envoyons sur demande, et les critères de présentation dans la page <a href="/classement-et-referencement/">Classement et référencement</a>.</p>
+    </section>
+
+    <section>
+      <h2>Trois façons de nous transmettre vos dates</h2>
+      <ul class="ways">
+        <li><h3>1. Le formulaire ci-dessous</h3>Le plus simple : vous saisissez vos dates, vos prix et vos liens, notre équipe les relit et les publie.</li>
+        <li><h3>2. Une feuille de calcul</h3>Vous tenez déjà vos sessions dans un tableur ? Téléchargez notre <a href="/modele-stages-ecoles.csv" download>modèle (CSV)</a>, remplissez-le et envoyez-nous le fichier ou le lien (Google Sheets en lecture). Nous le relisons régulièrement.</li>
+        <li><h3>3. Un flux automatique</h3>Votre site publie un agenda (iCal) ou des événements structurés (données « Event » de schema.org) ? Donnez-nous l’adresse : nos mises à jour s’alimentent seules, et vos dates restent à jour sans ressaisie.</li>
+      </ul>
+    </section>
+
+    <section id="formulaire">
+      <h2>Envoyer mes informations</h2>
+      <form id="school-form" class="sub-form" novalidate data-endpoint={SCHOOL_SUBMISSION.endpoint} data-levels={JSON.stringify(levels.map((l) => ({ key: l.key, name: l.name })))}>
+        <fieldset>
+          <legend>Votre école</legend>
+          <div class="grid2">
+            <div class="field"><label for="f-school">Nom de l’école</label><input id="f-school" name="school" type="text" autocomplete="organization" /></div>
+            <div class="field"><label for="f-site">Site officiel</label><input id="f-site" name="site" type="url" placeholder="https://" /></div>
+            <div class="field"><label for="f-name">Votre nom et votre fonction</label><input id="f-name" name="name" type="text" autocomplete="name" /></div>
+            <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" /></div>
+            <div class="field"><label for="f-phone">Téléphone (facultatif)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Que souhaitez-vous publier ?</legend>
+          <div class="topics">
+            <label class="check"><input type="checkbox" name="topic" value="stage" /> <span>Des dates de stage</span></label>
+            <label class="check"><input type="checkbox" name="topic" value="bapteme" /> <span>Mes baptêmes</span></label>
+            <label class="check"><input type="checkbox" name="topic" value="bon" /> <span>Le lien vers mon bon cadeau</span></label>
+            <label class="check"><input type="checkbox" name="topic" value="promo" /> <span>Une offre promotionnelle</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset data-topic="stage" hidden>
+          <legend>Mes dates de stage</legend>
+          <p class="small muted" style="margin:0">Une ligne par date de départ. Prix TTC par personne, tout compris selon votre offre.</p>
+          <div id="sessions"></div>
+          <p><button class="btn ghost small" type="button" id="add-session">Ajouter une date</button></p>
+        </fieldset>
+
+        <fieldset data-topic="bapteme" hidden>
+          <legend>Mes baptêmes</legend>
+          <div class="grid2">
+            <div class="field"><label for="f-b-name">Formules (nom, durée, prix TTC)</label><textarea id="f-b-name" name="bapteme" rows="4" placeholder="Découverte, 15 min, 95 €&#10;Prestige, 30 min, 150 €"></textarea></div>
+            <div class="field"><label for="f-b-url">Page de vos tarifs ou de réservation</label><input id="f-b-url" name="bapteme-url" type="url" placeholder="https://" /></div>
+          </div>
+        </fieldset>
+
+        <fieldset data-topic="bon" hidden>
+          <legend>Mon bon cadeau</legend>
+          <p class="small muted" style="margin:0">Nous publions le lien si votre bon est annoncé sur votre site officiel et que la page mène à votre parcours de vente.</p>
+          <div class="grid2">
+            <div class="field"><label for="f-g-name">Nom du bon</label><input id="f-g-name" name="gift-name" type="text" /></div>
+            <div class="field"><label for="f-g-url">Lien direct vers la vente</label><input id="f-g-url" name="gift-url" type="url" placeholder="https://" /></div>
+            <div class="field"><label for="f-g-price">Prix TTC (facultatif)</label><input id="f-g-price" name="gift-price" type="number" min="0" inputmode="decimal" /></div>
+            <div class="field"><label for="f-g-valid">Validité en mois (facultatif)</label><input id="f-g-valid" name="gift-validity" type="number" min="0" inputmode="numeric" /></div>
+          </div>
+        </fieldset>
+
+        <fieldset data-topic="promo" hidden>
+          <legend>Mon offre promotionnelle</legend>
+          <div class="grid2">
+            <div class="field"><label for="f-p-title">Intitulé</label><input id="f-p-title" name="promo-title" type="text" /></div>
+            <div class="field"><label for="f-p-price">Prix promotionnel TTC (€)</label><input id="f-p-price" name="promo-price" type="number" min="0" inputmode="decimal" /></div>
+            <div class="field"><label for="f-p-reg">Prix habituel TTC (€)</label><input id="f-p-reg" name="promo-regular" type="number" min="0" inputmode="decimal" /></div>
+            <div class="field"><label for="f-p-url">Lien vers l’offre</label><input id="f-p-url" name="promo-url" type="url" placeholder="https://" /></div>
+            <div class="field"><label for="f-p-start">Début</label><input id="f-p-start" name="promo-start" type="date" /></div>
+            <div class="field"><label for="f-p-end">Fin</label><input id="f-p-end" name="promo-end" type="date" /></div>
+          </div>
+          <div class="field"><label for="f-p-cond">Conditions essentielles</label><textarea id="f-p-cond" name="promo-conditions" rows="2"></textarea></div>
+        </fieldset>
+
+        <div class="field"><label for="f-msg">Message (facultatif)</label><textarea id="f-msg" name="msg" rows="3"></textarea></div>
+        <label class="check"><input type="checkbox" id="f-consent" /> <span>Je confirme avoir le droit de publier ces informations au nom de l’école et j’accepte qu’elles soient traitées par TheGlidery, éditeur de ResaParapente, comme décrit dans la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</span></label>
+        <button class="btn" type="submit" style="margin-top:1rem">Envoyer à l’équipe ResaParapente</button>
+        <div id="school-msg" role="status" class="small" tabindex="-1" style="margin-top:0.8rem"></div>
+      </form>
+      <p class="small muted">Vous préférez écrire ? <a href={`mailto:${SITE.contactEmail}?subject=${encodeURIComponent('Publier mes informations')}`}>{SITE.contactEmail}</a></p>
+    </section>
+  </div>
+  <script>import '../scripts/school-submit.js';</script>
+</Base>

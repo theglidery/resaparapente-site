@@ -1,0 +1,8 @@
+---
+// School lists (tandem flights, courses, calendar) of the Swiss and Belgian builds in a generated language.
+import RegionalHome from '../components/RegionalHome.astro';
+import { MARKET } from '../config';
+const { locale = 'en', page } = Astro.props as { locale?: 'fr' | 'en' | 'de'; page: string };
+const view = page === 'listBapteme' ? 'bapteme' : page === 'listStage' ? 'stage' : 'calendrier';
+---
+<RegionalHome code={MARKET.code as 'CH' | 'BE'} view={view} locale={locale} />

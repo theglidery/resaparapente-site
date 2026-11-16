@@ -1,0 +1,147 @@
+---
+// A local landing page: one place (region, département, city), one kind (baptême or stage), optionally one stage type.
+import Base from '../layouts/Base.astro';
+import Mountains from './Mountains.astro';
+import SchoolCard from './SchoolCard.astro';
+import SchoolCta from './SchoolCta.astro';
+import { dateFr, eur, fromPrice, sessionHref, reviewStats, giftsOf } from '../lib/data';
+import { REVIEWS } from '../config';
+import { localPage } from '../lib/local-content';
+import { placesFor, pathOf, distanceKm, kidsOf, winterOf, type Kind, type Place } from '../lib/places';
+import { SITE } from '../config';
+import type { StageType } from '../data/stage-types';
+interface Props { kind: Kind; place: Place; type?: StageType }
+const { kind, place, type } = Astro.props;
+const c = localPage(kind, place, type);
+const MAX_CARDS = 30;
+// Default order of a list of schools: alphabetical, or nearest first for a city (same rules as the search pages).
+const sorted = [...c.list].sort((a, b) => place.type === 'city' && place.lat && a.lat && b.lat
+  ? distanceKm({ lat: place.lat, lng: place.lng as number }, { lat: a.lat, lng: a.lng as number }) - distanceKm({ lat: place.lat, lng: place.lng as number }, { lat: b.lat, lng: b.lng as number })
+  : a.name.localeCompare(b.name, 'fr'));
+const shown = sorted.slice(0, MAX_CARDS);
+// Comparison data (same facts as the cards): price from, flight length, children, winter flights, rating, school voucher.
+const rows = shown.map((s) => {
+  const offers = kind === 'bapteme' ? s.baptemes : s.stages;
+  const durs = kind === 'bapteme' ? offers.flatMap((o) => (o.durUnit && o.durUnit !== 'min' ? [] : [o.durMin, o.durMax])).filter((v): v is number => typeof v === 'number' && v > 0) : [];
+  const rv = reviewStats(s.id);
+  return {
+    s, price: fromPrice(s, kind), n: offers.length,
+    dur: durs.length ? (Math.min(...durs) === Math.max(...durs) ? `${Math.min(...durs)} min` : `${Math.min(...durs)} à ${Math.max(...durs)} min`) : '',
+    kids: kind === 'bapteme' && offers.some(kidsOf), winter: kind === 'bapteme' && offers.some(winterOf),
+    gift: giftsOf(s.id).length > 0, rating: rv && rv.count >= REVIEWS.minOnCard ? rv : null,
+  };
+});
+const anyKids = rows.some((r) => r.kids), anyWinter = rows.some((r) => r.winter), anyRating = rows.some((r) => r.rating);
+const url = SITE.url + pathOf(kind, place, type?.slug);
+const kindLabel = kind === 'bapteme' ? 'Baptême' : 'Stage';
+const hubHref = kind === 'bapteme' ? '/bapteme-parapente/' : '/stage-parapente/';
+const searchHref = kind === 'bapteme' ? '/bapteme/' : '/stage/';
+
+// Other destinations: the departments of a region, the region of a department, nearby cities.
+const all = placesFor(kind).filter((p) => p.slug !== place.slug);
+const near = place.type === 'region' ? all.filter((p) => p.type === 'dept' && p.region === place.name)
+  : place.type === 'dept' ? all.filter((p) => (p.type === 'region' && p.name === place.region) || (p.type === 'dept' && p.region === place.region)).slice(0, 8)
+  : all.filter((p) => p.type !== 'dept' && p.region === place.region).sort((a, b) => place.lat && a.lat && b.lat ? distanceKm({ lat: place.lat, lng: place.lng as number }, { lat: a.lat, lng: a.lng as number }) - distanceKm({ lat: place.lat, lng: place.lng as number }, { lat: b.lat, lng: b.lng as number }) : 0).slice(0, 8);
+const nearLinks = near;
+
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: kind === 'bapteme' ? 'Baptême de parapente' : 'Stage de parapente', href: hubHref }, ...(type ? [{ name: place.name, href: pathOf(kind, place) }] : []), { name: type ? type.menu : place.name, href: pathOf(kind, place, type?.slug) }];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'BreadcrumbList', itemListElement: crumbs.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.name, item: SITE.url + x.href })) },
+    { '@type': 'ItemList', name: c.h1, numberOfItems: sorted.length, itemListElement: shown.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `${SITE.url}/ecoles/${s.slug}/` })) },
+    { '@type': 'FAQPage', mainEntity: c.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
+};
+---
+<Base title={c.title} description={c.description} jsonLd={jsonLd}>
+  <div class="page-head"><div class="wrap">
+    <nav class="crumbs" aria-label="Fil d’Ariane">
+      {crumbs.map((x, i) => <>{i > 0 && ' / '}{i < crumbs.length - 1 ? <a href={x.href}>{x.name}</a> : x.name}</>)}
+    </nav>
+    <h1>{c.h1}</h1>
+    <p class="lead">{c.intro[0]}</p>
+  </div><Mountains /></div>
+
+  <div class="wrap section type-page" style="padding-top:1.2rem">
+    <div class="btn-row landing-actions">
+      <a class="btn" href="#ecoles">{kind === 'bapteme' ? 'Comparer les baptêmes' : 'Comparer les écoles et stages'}</a>
+      {kind === 'stage' && <a class="btn ghost" href={c.upcoming.length ? '#dates' : '/calendrier/'}>Voir les dates de stage</a>}
+    </div>
+    <ul class="trust-strip" aria-label="Nos engagements"><li>Contact direct avec l’école</li><li>Paiement auprès de l’école</li><li>Prix datés, relevés chez les écoles</li><li>Écoles indépendantes comparées</li></ul>
+    <ul class="brief">{c.brief.map((b) => <li><b>{b.k}</b>{b.v}</li>)}</ul>
+    {c.intro.slice(1).map((t) => <p style="max-width:68ch">{t}</p>)}
+
+    <section id="ecoles" aria-labelledby="h-ecoles">
+      <div class="board-head"><h2 id="h-ecoles" style="margin:0">{c.list.length} écoles {place.type === 'city' ? '' : ''}{place.inName}</h2>
+        <span class="muted small">{place.type === 'city' ? `Dans un rayon de ${place.radius} km, de la plus proche à la plus éloignée` : 'Par ordre alphabétique'} · prix par personne</span></div>
+      {shown.length > 0 && (
+        <form class="compare-bar" id="compare" aria-label="Comparer les écoles" data-total={shown.length}>
+          {(anyKids || anyWinter) && <div class="flag-row" role="group" aria-label="Critères">
+            {anyKids && <label class="flag"><input type="checkbox" data-flag="kids" /> <span>Accepte les enfants</span></label>}
+            {anyWinter && <label class="flag"><input type="checkbox" data-flag="winter" /> <span>Vol en hiver</span></label>}
+          </div>}
+          <div class="field"><label for="cmp-sort">Trier par</label>
+            <select id="cmp-sort"><option value="">{place.type === 'city' ? 'Distance' : 'Nom'}</option><option value="prix">Prix le plus bas</option>{anyRating && <option value="note">Mieux notées</option>}</select></div>
+          <div class="view-toggle" role="group" aria-label="Affichage"><button type="button" data-view="cards" aria-pressed="true">Cartes</button><button type="button" data-view="table" aria-pressed="false">Tableau comparatif</button></div>
+          <p class="small muted" id="cmp-count" role="status" aria-live="polite"></p>
+        </form>
+      )}
+      <ul class="cards" id="cmp-cards">{shown.map((s) => <SchoolCard school={s} kind={kind} />)}</ul>
+      <div class="table-wrap" id="cmp-table" hidden>
+        <table class="data-table compare">
+          <caption class="sr-only">Comparatif des écoles {place.inName} : prix de départ par personne{kind === 'bapteme' ? ', durée du vol, enfants et vol en hiver' : ''}</caption>
+          <thead><tr><th scope="col">École</th><th scope="col">Ville</th><th scope="col">Prix dès</th>{kind === 'bapteme' ? <th scope="col">Durée du vol</th> : <th scope="col">Formules</th>}{anyKids && <th scope="col">Enfants</th>}{anyWinter && <th scope="col">Hiver</th>}{anyRating && <th scope="col">Note</th>}<th scope="col"><span class="sr-only">Action</span></th></tr></thead>
+          <tbody>{rows.map((r) => (
+            <tr data-name={r.s.name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()} data-price={r.price ?? ''} data-rating={r.rating ? r.rating.avg : ''} data-reviews={r.rating ? r.rating.count : ''} data-flags={[r.kids && 'kids', r.winter && 'winter', r.gift && 'gift'].filter(Boolean).join(' ')} data-order={rows.indexOf(r)}>
+              <th scope="row"><a href={`/ecoles/${r.s.slug}/?parcours=${kind}`}>{r.s.name}</a></th>
+              <td>{r.s.city ?? ''}</td>
+              <td data-sort-value={r.price ?? ''}>{r.price ? eur(r.price) : 'à confirmer'}</td>
+              <td>{kind === 'bapteme' ? (r.dur || '–') : r.n}</td>
+              {anyKids && <td>{r.kids ? 'Oui' : '–'}</td>}
+              {anyWinter && <td>{r.winter ? 'Oui' : '–'}</td>}
+              {anyRating && <td>{r.rating ? `${r.rating.avg.toLocaleString('fr-FR', { minimumFractionDigits: 1 })} (${r.rating.count})` : '–'}</td>}
+              <td><a class="btn small" data-track="select_school" data-school={r.s.id} data-kind={kind} href={`/ecoles/${r.s.slug}/?parcours=${kind}`}>Voir</a></td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </div>
+      {sorted.length > MAX_CARDS && <p><a class="btn ghost" href={`${searchHref}?${place.type === 'region' ? `region=${encodeURIComponent(place.name)}&r=` : `q=${encodeURIComponent(place.name)}`}`}>Voir les {sorted.length} écoles et filtrer</a></p>}
+    </section>
+
+    {c.types.length > 0 && (
+      <section id="types" aria-labelledby="h-types">
+        <h2 id="h-types">Stages {place.inName} par niveau</h2>
+        <ul class="type-grid">{c.types.map((t) => <li><a href={pathOf('stage', place, t.slug)}><strong>{t.menu}</strong><span>{t.lead}</span></a></li>)}</ul>
+      </section>
+    )}
+
+    {c.upcoming.length > 0 && (
+      <section id="dates" aria-labelledby="h-dates">
+        <h2 id="h-dates">Prochaines dates {place.inName}</h2>
+        <ul class="type-grid">{c.upcoming.map((x) => <li><a href={sessionHref(x)}><strong>{dateFr(x.start)}{x.end !== x.start ? ` au ${dateFr(x.end)}` : ''}</strong><span>{x.name} · {x.school}{x.price ? ` · ${eur(x.price)}` : ''}</span></a></li>)}</ul>
+        <p class="small"><a href="/calendrier/">Voir le calendrier de tous les stages</a></p>
+      </section>
+    )}
+
+    <section id="faq" class="faq" aria-labelledby="h-faq">
+      <h2 id="h-faq">Questions fréquentes</h2>
+      {c.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </section>
+
+    <section aria-labelledby="h-suite">
+      <h2 id="h-suite">Pour aller plus loin</h2>
+      <ul class="type-grid">{c.links.map((n) => <li><a href={n.href}><strong>{n.label}</strong><span>{n.text}</span></a></li>)}</ul>
+    </section>
+
+    {nearLinks.length > 0 && (
+      <section aria-labelledby="h-near">
+        <h2 id="h-near">Autres destinations</h2>
+        <ul class="chips-links">{nearLinks.map((p) => <li><a href={pathOf(kind, p)}>{kindLabel} {p.inName}</a></li>)}</ul>
+      </section>
+    )}
+
+    <SchoolCta type={kind} />
+  </div>
+  <script>import '../scripts/place-compare.js';</script>
+</Base>

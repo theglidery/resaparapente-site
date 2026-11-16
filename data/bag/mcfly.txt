@@ -1,0 +1,63 @@
+# S213 Mc Fly Parapente | https://mcfly-parapente.bookandglide.com/stages | 224 route des Tissières 74400 Chamonix
+SPEEDRIDING COLLECTIF|19/12/2026|22/12/2026|840|420|2
+Prog Perf / Advanced (journée)|23/12/2026|23/12/2026|165|65|7
+Prog Perf / Advanced (journée)|27/12/2026|27/12/2026|165|65|7
+Prog Perf / Advanced (journée)|30/12/2026|30/12/2026|165|65|7
+Prog Perf / Advanced (journée)|03/01/2027|03/01/2027|165|65|7
+Prog Perf / Advanced (journée)|06/01/2027|06/01/2027|165|65|7
+Prog Perf / Advanced (journée)|10/01/2027|10/01/2027|165|65|6
+Prog Perf / Advanced (journée)|13/01/2027|13/01/2027|165|65|7
+Prog Perf / Advanced (journée)|17/01/2027|17/01/2027|165|65|7
+Prog Perf / Advanced (journée)|20/01/2027|20/01/2027|165|65|7
+Prog Perf / Advanced (journée)|24/01/2027|24/01/2027|165|65|7
+Prog Perf / Advanced (journée)|27/01/2027|27/01/2027|165|65|7
+Prog Perf / Advanced (journée)|31/01/2027|31/01/2027|165|65|7
+Prog Perf / Advanced (journée)|03/02/2027|03/02/2027|165|65|7
+Prog Perf / Advanced (journée)|07/02/2027|07/02/2027|165|65|7
+Prog Perf / Advanced (journée)|10/02/2027|10/02/2027|165|65|7
+Prog Perf / Advanced (journée)|14/02/2027|14/02/2027|165|65|7
+Prog Perf / Advanced (journée)|17/02/2027|17/02/2027|165|65|7
+Prog Perf / Advanced (journée)|21/02/2027|21/02/2027|165|65|7
+Prog Perf / Advanced (journée)|24/02/2027|24/02/2027|165|65|7
+Prog Perf / Advanced (journée)|28/02/2027|28/02/2027|165|65|7
+Prog Perf / Advanced (journée)|03/03/2027|03/03/2027|165|65|7
+Prog Perf / Advanced (journée)|07/03/2027|07/03/2027|165|65|7
+Prog Perf / Advanced (journée)|10/03/2027|10/03/2027|165|65|7
+Prog Perf / Advanced (journée)|14/03/2027|14/03/2027|165|65|7
+Prog Perf / Advanced (journée)|17/03/2027|17/03/2027|165|65|7
+Prog Perf / Advanced (journée)|21/03/2027|21/03/2027|165|65|7
+Prog Perf / Advanced (journée)|24/03/2027|24/03/2027|165|65|7
+Prog Perf / Advanced (journée)|28/03/2027|28/03/2027|165|65|7
+Initiation / beginners|19/04/2027|23/04/2027|825|300|8
+Prog Perf / Advanced|24/04/2027|25/04/2027|330|100|7
+Initiation basse saison / Beginners low season|03/05/2027|07/05/2027|525|250|6
+Perf basse saison / Advanced low season|10/05/2027|14/05/2027|525|250|7
+Initiation basse saison / Beginners low season|17/05/2027|21/05/2027|525|250|8
+Perf basse saison / Advanced low season|24/05/2027|28/05/2027|525|250|7
+Prog Perf / Advanced|05/06/2027|06/06/2027|330|100|7
+Initiation / beginners|07/06/2027|11/06/2027|825|300|8
+Prog Perf / Advanced|14/06/2027|18/06/2027|825|300|7
+Perf thermique|21/06/2027|25/06/2027|825|300|7
+Prog Perf / Advanced|26/06/2027|27/06/2027|330|100|7
+Initiation / beginners|05/07/2027|09/07/2027|825|300|8
+Prog Perf / Advanced|10/07/2027|11/07/2027|330|100|7
+Prog Perf / Advanced|12/07/2027|16/07/2027|825|300|7
+Initiation / beginners|19/07/2027|23/07/2027|825|300|8
+Prog Perf / Advanced|24/07/2027|25/07/2027|330|100|7
+Initiation / beginners|26/07/2027|30/07/2027|825|300|8
+Prog Perf / Advanced|31/07/2027|01/08/2027|330|100|7
+Initiation / beginners|02/08/2027|06/08/2027|825|300|7
+Prog Perf / Advanced|07/08/2027|08/08/2027|330|100|7
+Initiation / beginners|09/08/2027|13/08/2027|825|300|8
+Prog Perf / Advanced|14/08/2027|15/08/2027|330|100|7
+Prog Perf / Advanced|16/08/2027|20/08/2027|825|300|8
+Prog Perf / Advanced|21/08/2027|22/08/2027|330|100|7
+Initiation / beginners|23/08/2027|27/08/2027|825|300|8
+Prog Perf / Advanced|28/08/2027|29/08/2027|330|100|7
+Prog Perf / Advanced|06/09/2027|10/09/2027|825|300|7
+Initiation / beginners|13/09/2027|17/09/2027|825|300|8
+Perf / Advanced Hike & fly|20/09/2027|24/09/2027|825|300|7
+Initiation basse saison / Beginners low season|27/09/2027|01/10/2027|825|300|8
+Perf basse saison / Advanced low season|04/10/2027|08/10/2027|825|300|7
+Initiation / beginners|25/10/2027|29/10/2027|825|300|8
+Prog Perf / Advanced|01/11/2027|05/11/2027|825|300|7

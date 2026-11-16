@@ -1,0 +1,9 @@
+---
+import RegionalSchool from '../../../src/views/RegionalSchool.astro';
+import { schools, type School } from '../../../src/lib/data';
+export function getStaticPaths() {
+  return schools.filter((s) => s.baptemes.length || s.stages.length).map((school) => ({ params: { slug: school.slug }, props: { school } }));
+}
+const { school } = Astro.props as { school: School };
+---
+<RegionalSchool locale="fr" school={school} />

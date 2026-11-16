@@ -1,0 +1,1118 @@
+[
+ {
+  "name": "Annecy",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.8992,
+  "lng": 6.1294,
+  "radius": 50
+ },
+ {
+  "name": "Chambéry",
+  "country": "FR",
+  "dept": "73",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.5646,
+  "lng": 5.9178,
+  "radius": 50
+ },
+ {
+  "name": "Aix-les-Bains",
+  "country": "FR",
+  "dept": "73",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.6886,
+  "lng": 5.915,
+  "radius": 50
+ },
+ {
+  "name": "Grenoble",
+  "country": "FR",
+  "dept": "38",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.1885,
+  "lng": 5.7245,
+  "radius": 50
+ },
+ {
+  "name": "Lyon",
+  "country": "FR",
+  "dept": "69",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.764,
+  "lng": 4.8357,
+  "radius": 50
+ },
+ {
+  "name": "Chamonix-Mont-Blanc",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.9237,
+  "lng": 6.8694,
+  "radius": 50
+ },
+ {
+  "name": "Albertville",
+  "country": "FR",
+  "dept": "73",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.6755,
+  "lng": 6.3925,
+  "radius": 50
+ },
+ {
+  "name": "Megève",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.8569,
+  "lng": 6.6177,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Gervais-les-Bains",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.893,
+  "lng": 6.713,
+  "radius": 50
+ },
+ {
+  "name": "Sallanches",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.937,
+  "lng": 6.631,
+  "radius": 50
+ },
+ {
+  "name": "Cluses",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 46.06,
+  "lng": 6.58,
+  "radius": 50
+ },
+ {
+  "name": "Bonneville",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 46.078,
+  "lng": 6.408,
+  "radius": 50
+ },
+ {
+  "name": "Annemasse",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 46.1958,
+  "lng": 6.2358,
+  "radius": 50
+ },
+ {
+  "name": "Thonon-les-Bains",
+  "country": "FR",
+  "dept": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 46.3704,
+  "lng": 6.4791,
+  "radius": 50
+ },
+ {
+  "name": "Genève (Suisse)",
+  "country": "FR",
+  "dept": "CH",
+  "region": "Suisse",
+  "lat": 46.2044,
+  "lng": 6.1432,
+  "radius": 50
+ },
+ {
+  "name": "Bourg-en-Bresse",
+  "country": "FR",
+  "dept": "01",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 46.2056,
+  "lng": 5.228,
+  "radius": 50
+ },
+ {
+  "name": "Oyonnax",
+  "country": "FR",
+  "dept": "01",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 46.257,
+  "lng": 5.655,
+  "radius": 50
+ },
+ {
+  "name": "Valence",
+  "country": "FR",
+  "dept": "26",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 44.9334,
+  "lng": 4.8924,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Étienne",
+  "country": "FR",
+  "dept": "42",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.4397,
+  "lng": 4.3872,
+  "radius": 50
+ },
+ {
+  "name": "Annonay",
+  "country": "FR",
+  "dept": "07",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.239,
+  "lng": 4.671,
+  "radius": 50
+ },
+ {
+  "name": "Le Puy-en-Velay",
+  "country": "FR",
+  "dept": "43",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.043,
+  "lng": 3.885,
+  "radius": 50
+ },
+ {
+  "name": "Clermont-Ferrand",
+  "country": "FR",
+  "dept": "63",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.7772,
+  "lng": 3.087,
+  "radius": 50
+ },
+ {
+  "name": "Aurillac",
+  "country": "FR",
+  "dept": "15",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 44.9265,
+  "lng": 2.4401,
+  "radius": 50
+ },
+ {
+  "name": "Mende",
+  "country": "FR",
+  "dept": "48",
+  "region": "Occitanie",
+  "lat": 44.518,
+  "lng": 3.501,
+  "radius": 50
+ },
+ {
+  "name": "Gap",
+  "country": "FR",
+  "dept": "05",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 44.5594,
+  "lng": 6.0786,
+  "radius": 50
+ },
+ {
+  "name": "Briançon",
+  "country": "FR",
+  "dept": "05",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 44.8964,
+  "lng": 6.635,
+  "radius": 50
+ },
+ {
+  "name": "Embrun",
+  "country": "FR",
+  "dept": "05",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 44.564,
+  "lng": 6.496,
+  "radius": 50
+ },
+ {
+  "name": "Barcelonnette",
+  "country": "FR",
+  "dept": "04",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 44.387,
+  "lng": 6.654,
+  "radius": 50
+ },
+ {
+  "name": "Digne-les-Bains",
+  "country": "FR",
+  "dept": "04",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 44.092,
+  "lng": 6.236,
+  "radius": 50
+ },
+ {
+  "name": "Sisteron",
+  "country": "FR",
+  "dept": "04",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 44.195,
+  "lng": 5.9436,
+  "radius": 50
+ },
+ {
+  "name": "Nice",
+  "country": "FR",
+  "dept": "06",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 43.7102,
+  "lng": 7.262,
+  "radius": 50
+ },
+ {
+  "name": "Cannes",
+  "country": "FR",
+  "dept": "06",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 43.5528,
+  "lng": 7.0174,
+  "radius": 50
+ },
+ {
+  "name": "Menton",
+  "country": "FR",
+  "dept": "06",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 43.7745,
+  "lng": 7.4975,
+  "radius": 50
+ },
+ {
+  "name": "Marseille",
+  "country": "FR",
+  "dept": "13",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 43.2965,
+  "lng": 5.3698,
+  "radius": 50
+ },
+ {
+  "name": "Aix-en-Provence",
+  "country": "FR",
+  "dept": "13",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 43.5297,
+  "lng": 5.4474,
+  "radius": 50
+ },
+ {
+  "name": "Toulon",
+  "country": "FR",
+  "dept": "83",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 43.1242,
+  "lng": 5.928,
+  "radius": 50
+ },
+ {
+  "name": "Avignon",
+  "country": "FR",
+  "dept": "84",
+  "region": "Provence-Alpes-Côte d'Azur",
+  "lat": 43.9493,
+  "lng": 4.8055,
+  "radius": 50
+ },
+ {
+  "name": "Montpellier",
+  "country": "FR",
+  "dept": "34",
+  "region": "Occitanie",
+  "lat": 43.6108,
+  "lng": 3.8767,
+  "radius": 50
+ },
+ {
+  "name": "Nîmes",
+  "country": "FR",
+  "dept": "30",
+  "region": "Occitanie",
+  "lat": 43.8367,
+  "lng": 4.3601,
+  "radius": 50
+ },
+ {
+  "name": "Béziers",
+  "country": "FR",
+  "dept": "34",
+  "region": "Occitanie",
+  "lat": 43.344,
+  "lng": 3.2158,
+  "radius": 50
+ },
+ {
+  "name": "Millau",
+  "country": "FR",
+  "dept": "12",
+  "region": "Occitanie",
+  "lat": 44.0996,
+  "lng": 3.078,
+  "radius": 50
+ },
+ {
+  "name": "Perpignan",
+  "country": "FR",
+  "dept": "66",
+  "region": "Occitanie",
+  "lat": 42.6887,
+  "lng": 2.8948,
+  "radius": 50
+ },
+ {
+  "name": "Narbonne",
+  "country": "FR",
+  "dept": "11",
+  "region": "Occitanie",
+  "lat": 43.1839,
+  "lng": 3.0035,
+  "radius": 50
+ },
+ {
+  "name": "Carcassonne",
+  "country": "FR",
+  "dept": "11",
+  "region": "Occitanie",
+  "lat": 43.213,
+  "lng": 2.3491,
+  "radius": 50
+ },
+ {
+  "name": "Toulouse",
+  "country": "FR",
+  "dept": "31",
+  "region": "Occitanie",
+  "lat": 43.6047,
+  "lng": 1.4442,
+  "radius": 50
+ },
+ {
+  "name": "Foix",
+  "country": "FR",
+  "dept": "09",
+  "region": "Occitanie",
+  "lat": 42.965,
+  "lng": 1.605,
+  "radius": 50
+ },
+ {
+  "name": "Tarbes",
+  "country": "FR",
+  "dept": "65",
+  "region": "Occitanie",
+  "lat": 43.2328,
+  "lng": 0.0781,
+  "radius": 50
+ },
+ {
+  "name": "Lourdes",
+  "country": "FR",
+  "dept": "65",
+  "region": "Occitanie",
+  "lat": 43.095,
+  "lng": -0.045,
+  "radius": 50
+ },
+ {
+  "name": "Pau",
+  "country": "FR",
+  "dept": "64",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 43.2951,
+  "lng": -0.3708,
+  "radius": 50
+ },
+ {
+  "name": "Bayonne",
+  "country": "FR",
+  "dept": "64",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 43.4929,
+  "lng": -1.4748,
+  "radius": 50
+ },
+ {
+  "name": "Biarritz",
+  "country": "FR",
+  "dept": "64",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 43.4832,
+  "lng": -1.5586,
+  "radius": 50
+ },
+ {
+  "name": "Bordeaux",
+  "country": "FR",
+  "dept": "33",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 44.8378,
+  "lng": -0.5792,
+  "radius": 50
+ },
+ {
+  "name": "Arcachon",
+  "country": "FR",
+  "dept": "33",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 44.6616,
+  "lng": -1.1678,
+  "radius": 50
+ },
+ {
+  "name": "Mont-de-Marsan",
+  "country": "FR",
+  "dept": "40",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 43.8905,
+  "lng": -0.5,
+  "radius": 50
+ },
+ {
+  "name": "Limoges",
+  "country": "FR",
+  "dept": "87",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 45.8336,
+  "lng": 1.2611,
+  "radius": 50
+ },
+ {
+  "name": "Poitiers",
+  "country": "FR",
+  "dept": "86",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 46.5802,
+  "lng": 0.3404,
+  "radius": 50
+ },
+ {
+  "name": "La Rochelle",
+  "country": "FR",
+  "dept": "17",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 46.1603,
+  "lng": -1.1511,
+  "radius": 50
+ },
+ {
+  "name": "Nantes",
+  "country": "FR",
+  "dept": "44",
+  "region": "Pays de la Loire",
+  "lat": 47.2184,
+  "lng": -1.5536,
+  "radius": 50
+ },
+ {
+  "name": "Angers",
+  "country": "FR",
+  "dept": "49",
+  "region": "Pays de la Loire",
+  "lat": 47.4784,
+  "lng": -0.5632,
+  "radius": 50
+ },
+ {
+  "name": "Rennes",
+  "country": "FR",
+  "dept": "35",
+  "region": "Bretagne",
+  "lat": 48.1173,
+  "lng": -1.6778,
+  "radius": 50
+ },
+ {
+  "name": "Brest",
+  "country": "FR",
+  "dept": "29",
+  "region": "Bretagne",
+  "lat": 48.3904,
+  "lng": -4.4861,
+  "radius": 50
+ },
+ {
+  "name": "Quimper",
+  "country": "FR",
+  "dept": "29",
+  "region": "Bretagne",
+  "lat": 47.996,
+  "lng": -4.1024,
+  "radius": 50
+ },
+ {
+  "name": "Lorient",
+  "country": "FR",
+  "dept": "56",
+  "region": "Bretagne",
+  "lat": 47.7482,
+  "lng": -3.3702,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Brieuc",
+  "country": "FR",
+  "dept": "22",
+  "region": "Bretagne",
+  "lat": 48.5136,
+  "lng": -2.7653,
+  "radius": 50
+ },
+ {
+  "name": "Caen",
+  "country": "FR",
+  "dept": "14",
+  "region": "Normandie",
+  "lat": 49.1829,
+  "lng": -0.3707,
+  "radius": 50
+ },
+ {
+  "name": "Rouen",
+  "country": "FR",
+  "dept": "76",
+  "region": "Normandie",
+  "lat": 49.4432,
+  "lng": 1.0993,
+  "radius": 50
+ },
+ {
+  "name": "Le Havre",
+  "country": "FR",
+  "dept": "76",
+  "region": "Normandie",
+  "lat": 49.4944,
+  "lng": 0.1079,
+  "radius": 50
+ },
+ {
+  "name": "Lille",
+  "country": "FR",
+  "dept": "59",
+  "region": "Hauts-de-France",
+  "lat": 50.6292,
+  "lng": 3.0573,
+  "radius": 50
+ },
+ {
+  "name": "Amiens",
+  "country": "FR",
+  "dept": "80",
+  "region": "Hauts-de-France",
+  "lat": 49.8941,
+  "lng": 2.2958,
+  "radius": 50
+ },
+ {
+  "name": "Reims",
+  "country": "FR",
+  "dept": "51",
+  "region": "Grand Est",
+  "lat": 49.2583,
+  "lng": 4.0317,
+  "radius": 50
+ },
+ {
+  "name": "Paris",
+  "country": "FR",
+  "dept": "75",
+  "region": "Île-de-France",
+  "lat": 48.8566,
+  "lng": 2.3522,
+  "radius": 50
+ },
+ {
+  "name": "Orléans",
+  "country": "FR",
+  "dept": "45",
+  "region": "Centre-Val de Loire",
+  "lat": 47.9029,
+  "lng": 1.9093,
+  "radius": 50
+ },
+ {
+  "name": "Tours",
+  "country": "FR",
+  "dept": "37",
+  "region": "Centre-Val de Loire",
+  "lat": 47.3941,
+  "lng": 0.6848,
+  "radius": 50
+ },
+ {
+  "name": "Dijon",
+  "country": "FR",
+  "dept": "21",
+  "region": "Bourgogne-Franche-Comté",
+  "lat": 47.322,
+  "lng": 5.0415,
+  "radius": 50
+ },
+ {
+  "name": "Besançon",
+  "country": "FR",
+  "dept": "25",
+  "region": "Bourgogne-Franche-Comté",
+  "lat": 47.2378,
+  "lng": 6.0241,
+  "radius": 50
+ },
+ {
+  "name": "Pontarlier",
+  "country": "FR",
+  "dept": "25",
+  "region": "Bourgogne-Franche-Comté",
+  "lat": 46.904,
+  "lng": 6.355,
+  "radius": 50
+ },
+ {
+  "name": "Mulhouse",
+  "country": "FR",
+  "dept": "68",
+  "region": "Grand Est",
+  "lat": 47.7508,
+  "lng": 7.3359,
+  "radius": 50
+ },
+ {
+  "name": "Colmar",
+  "country": "FR",
+  "dept": "68",
+  "region": "Grand Est",
+  "lat": 48.0794,
+  "lng": 7.3585,
+  "radius": 50
+ },
+ {
+  "name": "Strasbourg",
+  "country": "FR",
+  "dept": "67",
+  "region": "Grand Est",
+  "lat": 48.5734,
+  "lng": 7.7521,
+  "radius": 50
+ },
+ {
+  "name": "Nancy",
+  "country": "FR",
+  "dept": "54",
+  "region": "Grand Est",
+  "lat": 48.6921,
+  "lng": 6.1844,
+  "radius": 50
+ },
+ {
+  "name": "Metz",
+  "country": "FR",
+  "dept": "57",
+  "region": "Grand Est",
+  "lat": 49.1193,
+  "lng": 6.1757,
+  "radius": 50
+ },
+ {
+  "name": "Épinal",
+  "country": "FR",
+  "dept": "88",
+  "region": "Grand Est",
+  "lat": 48.1725,
+  "lng": 6.4503,
+  "radius": 50
+ },
+ {
+  "name": "Gérardmer",
+  "country": "FR",
+  "dept": "88",
+  "region": "Grand Est",
+  "lat": 48.073,
+  "lng": 6.879,
+  "radius": 50
+ },
+ {
+  "name": "Bastia",
+  "country": "FR",
+  "dept": "2B",
+  "region": "Corse",
+  "lat": 42.7028,
+  "lng": 9.45,
+  "radius": 50
+ },
+ {
+  "name": "Ajaccio",
+  "country": "FR",
+  "dept": "2A",
+  "region": "Corse",
+  "lat": 41.9192,
+  "lng": 8.7386,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Denis (La Réunion)",
+  "country": "FR",
+  "dept": "974",
+  "region": "Outre-mer",
+  "lat": -20.8789,
+  "lng": 55.4481,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Pierre (La Réunion)",
+  "country": "FR",
+  "dept": "974",
+  "region": "Outre-mer",
+  "lat": -21.3393,
+  "lng": 55.4781,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Paul (La Réunion)",
+  "country": "FR",
+  "dept": "974",
+  "region": "Outre-mer",
+  "lat": -21.0096,
+  "lng": 55.2707,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Leu (La Réunion)",
+  "country": "FR",
+  "dept": "974",
+  "region": "Outre-mer",
+  "lat": -21.17,
+  "lng": 55.29,
+  "radius": 50
+ },
+ {
+  "name": "Fort-de-France",
+  "country": "FR",
+  "dept": "972",
+  "region": "Outre-mer",
+  "lat": 14.6161,
+  "lng": -61.0588,
+  "radius": 50
+ },
+ {
+  "name": "Pointe-à-Pitre",
+  "country": "FR",
+  "dept": "971",
+  "region": "Outre-mer",
+  "lat": 16.241,
+  "lng": -61.533,
+  "radius": 50
+ },
+ {
+  "name": "Papeete",
+  "country": "FR",
+  "dept": "987",
+  "region": null,
+  "lat": -17.5516,
+  "lng": -149.5585,
+  "radius": 50
+ },
+ {
+  "name": "Nouméa",
+  "country": "FR",
+  "dept": "988",
+  "region": null,
+  "lat": -22.2758,
+  "lng": 166.458,
+  "radius": 50
+ },
+ {
+  "name": "Bagnères-de-Luchon",
+  "country": "FR",
+  "dept": "31",
+  "region": "Occitanie",
+  "lat": 42.79,
+  "lng": 0.593,
+  "radius": 50
+ },
+ {
+  "name": "Saint-Gaudens",
+  "country": "FR",
+  "dept": "31",
+  "region": "Occitanie",
+  "lat": 43.109,
+  "lng": 0.723,
+  "radius": 50
+ },
+ {
+  "name": "Cahors",
+  "country": "FR",
+  "dept": "46",
+  "region": "Occitanie",
+  "lat": 44.4475,
+  "lng": 1.4417,
+  "radius": 50
+ },
+ {
+  "name": "Rodez",
+  "country": "FR",
+  "dept": "12",
+  "region": "Occitanie",
+  "lat": 44.3506,
+  "lng": 2.575,
+  "radius": 50
+ },
+ {
+  "name": "Brive-la-Gaillarde",
+  "country": "FR",
+  "dept": "19",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 45.159,
+  "lng": 1.533,
+  "radius": 50
+ },
+ {
+  "name": "Montélimar",
+  "country": "FR",
+  "dept": "26",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 44.558,
+  "lng": 4.75,
+  "radius": 50
+ },
+ {
+  "name": "Aubenas",
+  "country": "FR",
+  "dept": "07",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 44.62,
+  "lng": 4.39,
+  "radius": 50
+ },
+ {
+  "name": "La Roche-sur-Yon",
+  "country": "FR",
+  "dept": "85",
+  "region": "Pays de la Loire",
+  "lat": 46.6705,
+  "lng": -1.426,
+  "radius": 50
+ },
+ {
+  "name": "Granville",
+  "country": "FR",
+  "dept": "50",
+  "region": "Normandie",
+  "lat": 48.835,
+  "lng": -1.597,
+  "radius": 50
+ },
+ {
+  "name": "Cherbourg-en-Cotentin",
+  "country": "FR",
+  "dept": "50",
+  "region": "Normandie",
+  "lat": 49.6337,
+  "lng": -1.6221,
+  "radius": 50
+ },
+ {
+  "name": "Agen",
+  "country": "FR",
+  "dept": "47",
+  "region": "Nouvelle-Aquitaine",
+  "lat": 44.203,
+  "lng": 0.616,
+  "radius": 50
+ },
+ {
+  "name": "Albi",
+  "country": "FR",
+  "dept": "81",
+  "region": "Occitanie",
+  "lat": 43.929,
+  "lng": 2.148,
+  "radius": 50
+ },
+ {
+  "name": "Gruyères",
+  "country": "CH",
+  "dept": "FR",
+  "region": "Suisse romande",
+  "lat": 46.5836,
+  "lng": 7.0817,
+  "radius": 40
+ },
+ {
+  "name": "Charmey",
+  "country": "CH",
+  "dept": "FR",
+  "region": "Suisse romande",
+  "lat": 46.6203,
+  "lng": 7.1627,
+  "radius": 40
+ },
+ {
+  "name": "Crans-Montana",
+  "country": "CH",
+  "dept": "VS",
+  "region": "Suisse romande",
+  "lat": 46.3115,
+  "lng": 7.477,
+  "radius": 50
+ },
+ {
+  "name": "Villeneuve (VD)",
+  "country": "CH",
+  "dept": "VD",
+  "region": "Suisse romande",
+  "lat": 46.3978,
+  "lng": 6.9272,
+  "radius": 50
+ },
+ {
+  "name": "Montreux",
+  "country": "CH",
+  "dept": "VD",
+  "region": "Suisse romande",
+  "lat": 46.4332,
+  "lng": 6.9114,
+  "radius": 50
+ },
+ {
+  "name": "Verbier",
+  "country": "CH",
+  "dept": "VS",
+  "region": "Suisse romande",
+  "lat": 46.0967,
+  "lng": 7.2285,
+  "radius": 50
+ },
+ {
+  "name": "Val-d’Illiez",
+  "country": "CH",
+  "dept": "VS",
+  "region": "Suisse romande",
+  "lat": 46.2033,
+  "lng": 6.9167,
+  "radius": 50
+ },
+ {
+  "name": "Zinal",
+  "country": "CH",
+  "dept": "VS",
+  "region": "Suisse romande",
+  "lat": 46.1344,
+  "lng": 7.6258,
+  "radius": 50
+ },
+ {
+  "name": "Les Diablerets",
+  "country": "CH",
+  "dept": "VD",
+  "region": "Suisse romande",
+  "lat": 46.3517,
+  "lng": 7.1583,
+  "radius": 50
+ },
+ {
+  "name": "Villars-sur-Ollon",
+  "country": "CH",
+  "dept": "VD",
+  "region": "Suisse romande",
+  "lat": 46.2993,
+  "lng": 7.0549,
+  "radius": 50
+ },
+ {
+  "name": "Genève",
+  "country": "CH",
+  "dept": "GE",
+  "region": "Suisse romande",
+  "lat": 46.2044,
+  "lng": 6.1432,
+  "radius": 50
+ },
+ {
+  "name": "Lausanne",
+  "country": "CH",
+  "dept": "VD",
+  "region": "Suisse romande",
+  "lat": 46.5197,
+  "lng": 6.6323,
+  "radius": 50
+ },
+ {
+  "name": "Namur",
+  "country": "BE",
+  "dept": "NA",
+  "region": "Wallonie",
+  "lat": 50.4674,
+  "lng": 4.872,
+  "radius": 50
+ },
+ {
+  "name": "Liège",
+  "country": "BE",
+  "dept": "LG",
+  "region": "Wallonie",
+  "lat": 50.6326,
+  "lng": 5.5797,
+  "radius": 50
+ },
+ {
+  "name": "Charleroi",
+  "country": "BE",
+  "dept": "HT",
+  "region": "Wallonie",
+  "lat": 50.4108,
+  "lng": 4.4446,
+  "radius": 50
+ },
+ {
+  "name": "Marche-en-Famenne",
+  "country": "BE",
+  "dept": "LX",
+  "region": "Wallonie",
+  "lat": 50.227,
+  "lng": 5.344,
+  "radius": 50
+ },
+ {
+  "name": "Bruxelles",
+  "country": "BE",
+  "dept": "BRU",
+  "region": "Bruxelles-Capitale",
+  "lat": 50.8503,
+  "lng": 4.3517,
+  "radius": 60
+ },
+ {
+  "name": "Leysin",
+  "country": "CH",
+  "dept": "VD",
+  "region": "Suisse romande",
+  "lat": 46.34183,
+  "lng": 7.01151,
+  "radius": 50
+ },
+ {
+  "name": "Limal",
+  "country": "BE",
+  "dept": "BW",
+  "region": "Wallonie",
+  "lat": 50.69361,
+  "lng": 4.57417,
+  "radius": 50
+ }
+]

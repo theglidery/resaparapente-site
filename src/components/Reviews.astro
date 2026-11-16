@@ -1,0 +1,76 @@
+---
+// Reviews of a school: summary, list, and the form to add one. Reviews are moderated and come from the workbook sheet "Avis".
+import { reviewsOf, reviewStats, dateFr, type School } from '../lib/data';
+import { REVIEWS } from '../config';
+interface Props { school: School; kinds: ('bapteme' | 'stage')[] }
+const { school: s, kinds } = Astro.props;
+const list = reviewsOf(s.id);
+const st = reviewStats(s.id);
+const stars = (n: number) => '★'.repeat(n) + '☆'.repeat(5 - n);
+const fmt = (n: number) => n.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const month = (m: string | null) => { if (!m) return ''; try { return new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(m.length === 7 ? m + '-15T12:00:00' : m + 'T12:00:00')); } catch { return m; } };
+const shown = list.slice(0, REVIEWS.maxShown), more = list.slice(REVIEWS.maxShown);
+const Item = (r: (typeof list)[number]) => r;
+---
+<section class="reviews" id="avis" aria-labelledby="h-avis" data-school={s.id} data-school-name={s.name}>
+  <h2 id="h-avis">Avis des participants</h2>
+  {st
+    ? <p class="rev-summary"><span class="stars" aria-hidden="true">{stars(Math.round(st.avg))}</span> <strong>{fmt(st.avg)}/5</strong> · {st.count} avis{st.verified > 0 && <> dont {st.verified} après une demande faite sur ResaParapente</>}. <a href="/avis-clients/">Comment les avis sont contrôlés</a></p>
+    : <p class="muted">Pas encore d’avis pour cette école. Vous avez volé ou suivi un stage ici ? Votre avis aide les prochains visiteurs. <a href="/avis-clients/">Comment les avis sont contrôlés</a></p>}
+
+  {shown.map((r) => (
+    <article class="review">
+      <header>
+        <span class="stars" role="img" aria-label={`${r.rating} sur 5`}>{stars(r.rating)}</span>
+        <strong>{r.author}</strong>
+        <span class="muted small">{r.kind ? `${r.kind}` : ''}{r.experience ? ` · expérience en ${month(r.experience)}` : ''} · avis publié le {dateFr(r.published)}</span>
+        {r.verified && <span class="badge-ok small">Demande vérifiée</span>}
+      </header>
+      {r.title && <h3>{r.title}</h3>}
+      <p>{r.text}</p>
+      {r.reply && <div class="reply"><strong class="small">Réponse de l’école{r.replyDate ? `, le ${dateFr(r.replyDate)}` : ''}</strong><p>{r.reply}</p></div>}
+    </article>
+  ))}
+  {more.length > 0 && (
+    <details class="reviews-more"><summary>Voir les {more.length} autres avis</summary>
+      {more.map((r) => (
+        <article class="review">
+          <header><span class="stars" role="img" aria-label={`${r.rating} sur 5`}>{stars(r.rating)}</span> <strong>{r.author}</strong>
+            <span class="muted small">{r.kind ?? ''}{r.experience ? ` · expérience en ${month(r.experience)}` : ''} · avis publié le {dateFr(r.published)}</span>
+            {r.verified && <span class="badge-ok small">Demande vérifiée</span>}</header>
+          {r.title && <h3>{r.title}</h3>}<p>{r.text}</p>
+          {r.reply && <div class="reply"><strong class="small">Réponse de l’école</strong><p>{r.reply}</p></div>}
+        </article>
+      ))}
+    </details>
+  )}
+
+  <details class="review-form-box" id="review-box">
+    <summary class="btn ghost">Donner mon avis sur {s.name}</summary>
+    <form id="review-form" novalidate data-endpoint={REVIEWS.endpoint} data-school-id={s.id} data-school={s.name} data-min={REVIEWS.minTextLength}>
+      <p class="small muted">Un avis par personne, sur une expérience vécue chez cette école. Il est relu par une personne avant publication (sous 7 jours) ; l’école peut y répondre. Aucun avantage ne vous est offert en échange. <a href="/avis-clients/">Règles de publication</a></p>
+      <input type="hidden" id="r-token" name="token" value="" />
+      <p class="small" id="r-verified" hidden><span class="badge-ok small">Demande vérifiée</span> Votre avis sera rattaché à votre demande faite sur ResaParapente.</p>
+      <fieldset class="stars-input">
+        <legend>Votre note</legend>
+        {[5, 4, 3, 2, 1].map((n) => (<><input type="radio" name="rating" id={`r-${n}`} value={n} /><label for={`r-${n}`} title={`${n} sur 5`}><span aria-hidden="true">★</span><span class="sr-only">{n} sur 5</span></label></>))}
+      </fieldset>
+      {kinds.length > 1
+        ? <div class="field"><label for="r-kind">Vous avez fait</label><select id="r-kind" name="kind"><option value="">Choisir…</option><option value="Baptême">Un baptême</option><option value="Stage">Un stage</option></select></div>
+        : <input type="hidden" id="r-kind" name="kind" value={kinds[0] === 'stage' ? 'Stage' : 'Baptême'} />}
+      <div class="field"><label for="r-month">Mois de l’expérience</label><input id="r-month" name="month" type="month" max={new Date().toISOString().slice(0, 7)} /></div>
+      <div class="field"><label for="r-title">Titre (facultatif)</label><input id="r-title" name="title" type="text" maxlength="80" /></div>
+      <div class="field"><label for="r-text">Votre avis</label><textarea id="r-text" name="text" rows="5" minlength={REVIEWS.minTextLength} placeholder="Accueil, pilote, sécurité, météo, rapport qualité-prix… Pas de coordonnées ni de propos injurieux."></textarea></div>
+      <div class="row-2b">
+        <div class="field"><label for="r-name">Prénom (affiché avec l’initiale du nom)</label><input id="r-name" name="name" type="text" autocomplete="given-name" /></div>
+        <div class="field"><label for="r-last">Nom (jamais affiché en entier)</label><input id="r-last" name="last" type="text" autocomplete="family-name" /></div>
+      </div>
+      <div class="field"><label for="r-email">Email (non publié, pour la vérification)</label><input id="r-email" name="email" type="email" autocomplete="email" /></div>
+      <div class="hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+      <label class="check"><input type="checkbox" id="r-honest" /> <span>Je confirme que cet avis décrit ma propre expérience et que je n’ai reçu aucune contrepartie.</span></label>
+      <label class="check"><input type="checkbox" id="r-consent" /> <span>J’accepte que mon prénom, l’initiale de mon nom et mon avis soient publiés sur resaparapente.fr et transmis à l’école. Détails : <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</span></label>
+      <button class="btn" type="submit" style="margin-top:0.8rem">Envoyer mon avis</button>
+      <div id="review-msg" role="status" class="small" tabindex="-1"></div>
+    </form>
+  </details>
+</section>

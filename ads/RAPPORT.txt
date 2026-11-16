@@ -1,0 +1,6 @@
+Généré le 2026-11-14 (budget 10 €/jour, tout en pause)
+bapteme: 86 groupes d’annonces (12 lieux ignorés : moins de 3 écoles), 624 lignes
+stage: 144 groupes d’annonces (34 lieux ignorés : moins de 3 écoles), 654 lignes
+
+410 titres ou descriptions trop longs ont été écartés (limites Google : 30 et 90 caractères) ; il reste au moins 10 titres par groupe.
+0 avertissements :

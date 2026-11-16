@@ -1,0 +1,65 @@
+---
+// Price guide computed from the workbook: always up to date, hard to copy, and a natural link target.
+import ArticlePage from '../components/ArticlePage.astro';
+import { schools, withOffers, offerPrice, eur, dateFr } from '../lib/data';
+import { statsOf, placesFor, pathOf } from '../lib/places';
+import type { Article } from '../data/article-types';
+const list = withOffers('bapteme');
+const all = statsOf(list, 'bapteme');
+const offers = list.flatMap((s) => s.baptemes);
+const med = (v: number[]) => { const s = [...v].sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length ? (s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2) : null; };
+const regions = placesFor('bapteme').filter((p) => p.type === 'region').map((p) => ({ p, st: statsOf(p.schools.bapteme, 'bapteme') })).filter((x) => x.st.n >= 3 && x.st.offers >= 3).sort((a, b) => b.st.n - a.st.n);
+const depts = placesFor('bapteme').filter((p) => p.type === 'dept').map((p) => ({ p, st: statsOf(p.schools.bapteme, 'bapteme') })).filter((x) => x.st.n >= 3 && x.st.offers >= 5).sort((a, b) => b.st.n - a.st.n).slice(0, 12);
+// price by flight length
+const buckets = [{ k: 'Vol court (15 min ou moins)', f: (d: number) => d <= 15 }, { k: 'Vol moyen (16 à 25 min)', f: (d: number) => d > 15 && d <= 25 }, { k: 'Vol long (plus de 25 min)', f: (d: number) => d > 25 }].map((b) => {
+  const ps = offers.filter((o) => o.durMin && b.f(o.durMin)).map(offerPrice).filter((v): v is number => typeof v === 'number' && v > 0);
+  return { ...b, n: ps.length, med: med(ps), min: ps.length ? Math.min(...ps) : null, max: ps.length ? Math.max(...ps) : null };
+}).filter((b) => b.n >= 5);
+const d = all.checked ? dateFr(all.checked) : null;
+const article: Article = {
+  slug: 'prix-bapteme-parapente', title: 'Prix d’un baptême de parapente : tarifs relevés auprès des écoles',
+  h1: 'Prix d’un baptême de parapente', parent: { href: '/bapteme-parapente/', label: 'Baptême de parapente' },
+  description: `Combien coûte un baptême de parapente ? Prix relevés chez ${all.n} écoles en France : de ${all.min ? eur(all.min) : ''} à ${all.max ? eur(all.max) : ''}, médiane ${all.med ? eur(Math.round(all.med)) : ''}, par région et par durée de vol.`,
+  lead: `Un baptême de parapente coûte en général entre ${all.min ? eur(all.min) : '…'} et ${all.max ? eur(all.max) : '…'} par personne, avec une médiane d’environ ${all.med ? eur(Math.round(all.med)) : '…'}. Voici d’où viennent ces chiffres et ce qui fait varier le prix.`,
+  brief: [{ k: 'Écoles relevées', v: String(all.n) }, { k: 'Formules', v: String(all.offers) }, { k: 'Prix médian par personne', v: all.med ? eur(Math.round(all.med)) : '—' }, { k: 'Dernier relevé', v: d ?? '—' }],
+  sections: [
+    { id: 'methode', h: 'D’où viennent ces prix', p: [`Ce sont les prix publiés par les écoles sur leurs sites officiels, relevés par notre équipe (${all.offers} formules chez ${all.n} écoles${d ? `, dernière vérification le ${d}` : ''}). Chaque fiche d’école indique la date de relevé de son prix. Les prix changent : confirmez toujours le tarif auprès de l’école au moment de réserver.`, 'Le prix comparé est le prix par personne. Les formules de groupe ou les forfaits sont ramenés à une personne lorsque l’école le permet.'] },
+    { id: 'varient', h: 'Ce qui fait varier le prix', ul: ['La durée du vol : de quelques minutes à plus d’une demi-heure.', 'Le site et la saison : un décollage en altitude ou en station coûte souvent plus cher qu’un site de moyenne montagne ; l’été est en général plus demandé.', 'Ce qui est inclus : photos, vidéo, navette ou remontée mécanique au décollage.', 'Le type de vol : vol découverte, vol sportif ou acrobatique, vol en hiver.', 'Le public : certaines écoles ont un tarif enfant ou un tarif de groupe.'] },
+    { id: 'verifier', h: 'Que vérifier avant de comparer', ul: ['La durée de vol annoncée (et non la durée totale de l’activité).', 'Si photos et vidéo sont comprises ou en option.', 'Si la montée au décollage est comprise (navette, remontée mécanique).', 'Les conditions de report et de remboursement en cas de météo défavorable.', 'L’âge minimum et la limite de poids.'] },
+  ],
+  faq: [
+    { q: 'Quel est le prix moyen d’un baptême de parapente ?', a: `Parmi les ${all.offers} formules relevées, le prix médian est d’environ ${all.med ? eur(Math.round(all.med)) : '…'} par personne, avec des prix qui vont de ${all.min ? eur(all.min) : '…'} à ${all.max ? eur(all.max) : '…'}.` },
+    { q: 'Pourquoi les prix varient-ils autant ?', a: 'La durée du vol, le site de décollage, la saison et ce qui est inclus (photos, vidéo, navette) changent d’une école à l’autre. Comparez la durée et les inclusions, pas seulement le prix.' },
+    { q: 'Les photos et la vidéo sont-elles comprises ?', a: 'Cela dépend de l’école : certaines les incluent, d’autres les proposent en option. La fiche de la formule précise ce qui est compris ; sinon, demandez-le à l’école.' },
+    { q: 'Où réserver ?', a: 'Choisissez une école et une formule sur Resa Parapente, puis envoyez une demande de réservation gratuite. L’école confirme le créneau et organise le paiement avec vous.' },
+  ],
+  next: [{ href: '/bapteme-parapente/', label: 'Baptême par destination', text: 'Régions, départements et grandes villes.' }, { href: '/bapteme/', label: 'Comparer les écoles', text: 'Filtrer par ville, région et prix.' }, { href: '/bapteme/biplace-saut-en-parapente/', label: 'Tout savoir avant de voler', text: 'Déroulé, préparation, âge, poids, météo.' }],
+};
+---
+<ArticlePage article={article} cta="bapteme">
+  <Fragment slot="after-brief">
+    {buckets.length > 0 && (
+      <section id="duree" aria-labelledby="h-duree">
+        <h2 id="h-duree">Prix selon la durée du vol</h2>
+        <table class="data-table">
+          <thead><tr><th>Durée de vol</th><th>Formules</th><th>Prix médian</th><th>Fourchette</th></tr></thead>
+          <tbody>{buckets.map((b) => <tr><td>{b.k}</td><td>{b.n}</td><td>{b.med ? eur(Math.round(b.med)) : ''}</td><td>{b.min ? eur(b.min) : ''} à {b.max ? eur(b.max) : ''}</td></tr>)}</tbody>
+        </table>
+      </section>
+    )}
+    <section id="regions" aria-labelledby="h-reg">
+      <h2 id="h-reg">Prix par région</h2>
+      <table class="data-table">
+        <thead><tr><th>Région</th><th>Écoles</th><th>Prix médian</th><th>Fourchette</th></tr></thead>
+        <tbody>{regions.map(({ p, st }) => <tr><td><a href={pathOf('bapteme', p)}>{p.name}</a></td><td>{st.n}</td><td>{st.med ? eur(Math.round(st.med)) : ''}</td><td>{st.min ? eur(st.min) : ''} à {st.max ? eur(st.max) : ''}</td></tr>)}</tbody>
+      </table>
+    </section>
+    <section id="departements" aria-labelledby="h-dep">
+      <h2 id="h-dep">Prix dans les départements les plus fournis</h2>
+      <table class="data-table">
+        <thead><tr><th>Département</th><th>Écoles</th><th>Prix médian</th><th>Fourchette</th></tr></thead>
+        <tbody>{depts.map(({ p, st }) => <tr><td><a href={pathOf('bapteme', p)}>{p.name}</a></td><td>{st.n}</td><td>{st.med ? eur(Math.round(st.med)) : ''}</td><td>{st.min ? eur(st.min) : ''} à {st.max ? eur(st.max) : ''}</td></tr>)}</tbody>
+      </table>
+    </section>
+  </Fragment>
+</ArticlePage>

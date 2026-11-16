@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Mountains from '../components/Mountains.astro';
+import { MARKET } from '../config';
+import { href } from '../i18n/ui';
+import { tr } from '../i18n/tr';
+import { bapRows, money, median, type Loc } from '../lib/compare';
+import { schools } from '../lib/data';
+const { locale = 'fr' } = Astro.props as { locale?: Loc };
+const rows = bapRows(locale);
+const med = median(rows.map((r) => r.total as number)), low = rows.length ? rows[0].total : null;
+const durs = rows.filter((r) => r.durMin).map((r) => r.durMin as number);
+const dLo = durs.length ? Math.min(...durs) : null, dHi = rows.filter((r) => r.durMax).length ? Math.max(...rows.map((r) => r.durMax ?? 0)) : null;
+const regions = [...new Set(schools.filter((s) => s.baptemes.length).map((s) => s.region).filter((r): r is string => !!r && r !== 'À vérifier'))].sort((a, b) => a.localeCompare(b, 'fr'));
+const where = { fr: { FR: 'en France', CH: 'en Suisse romande', BE: 'en Belgique francophone' }, en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' } }[locale][MARKET.code as 'FR'];
+const C = {
+  fr: {
+    title: `Saut en parapente ${where} : prix, durée, comment ça se passe`, desc: `Le saut en parapente (baptême biplace) ${where} : combien ça coûte, combien de temps dure le vol, à qui c’est ouvert, comment choisir. ${rows.length} formules comparées.`,
+    h1: `Saut en parapente ${where}`, lead: 'Un « saut en parapente » est un vol en biplace avec un pilote professionnel : vous décollez en marchant ou en courant quelques pas, puis le pilote vole pour vous.',
+    facts: 'L’essentiel', f: [`Prix : ${low != null ? `à partir de ${money(low, locale)}` : '—'}, total médian ${med != null ? money(med, locale) : '—'} d’après ${rows.length} formules publiées.`, `Durée de vol annoncée : de ${dLo ?? '—'} à ${dHi ?? '—'} minutes selon la formule.`, 'Aucune expérience n’est nécessaire : le pilote décide du décollage, du vol et de l’atterrissage.', 'La météo décide : si les conditions ne conviennent pas, l’école reporte le vol.'],
+    jumpTitle: 'Saut en parapente ou baptême de l’air ?', jumpText: 'Les écoles disent « baptême », « vol biplace » ou « tandem ». Pour le parapente, on ne « saute » pas dans le vide comme en parachutisme : on décolle sur une pente, avec l’aile déjà gonflée. Si vous cherchez un saut en parachute, ce n’est pas le même sport.',
+    cmpTitle: 'Comparer les formules', cmpText: 'Filtrez par durée, budget, photo ou vidéo, remontée mécanique.', cmpBtn: 'Ouvrir le comparateur de baptêmes', guide: 'Quel baptême choisir pour cette personne ?', gift: 'Offrir un saut en parapente : bon cadeau',
+    whereTitle: 'Où sauter ?', whereText: regions.length ? `Des écoles proposent des baptêmes dans ${regions.length} régions : ${regions.map((r) => tr(r, locale)).join(', ')}.` : '',
+    faqTitle: 'Questions fréquentes', faq: [['Faut-il être sportif ?', 'Non, dans la plupart des cas. Le décollage demande quelques pas ; demandez à l’école si votre condition physique convient.'], ['Y a-t-il une limite d’âge ou de poids ?', 'Oui, elle varie selon l’école et le site. Elle figure sur la page de la formule ou se demande à l’école.'], ['Peut-on avoir des photos ou une vidéo ?', 'Certaines formules les incluent, d’autres les proposent en supplément : le comparateur l’indique quand l’école l’a publié.']],
+  },
+  en: {
+    title: `Tandem paragliding jump ${where}: price, duration, what to expect`, desc: `The paragliding “jump” (tandem flight) ${where}: cost, flight time, who can do it, how to choose. ${rows.length} flights compared.`,
+    h1: `Tandem paragliding jump ${where}`, lead: 'A “paragliding jump” is a tandem flight with a professional pilot: you take off walking or running a few steps, then the pilot flies for you.',
+    facts: 'The essentials', f: [`Price: ${low != null ? `from ${money(low, locale)}` : '—'}, median total ${med != null ? money(med, locale) : '—'} based on ${rows.length} published flights.`, `Announced flight time: ${dLo ?? '—'} to ${dHi ?? '—'} minutes depending on the flight.`, 'No experience needed: the pilot handles take-off, flight and landing.', 'Weather decides: if conditions are wrong, the school reschedules.'],
+    jumpTitle: 'Paragliding jump or tandem flight?', jumpText: 'Schools say “tandem flight”, “introductory flight” or “baptême”. In paragliding you do not jump into the void as in skydiving: you take off from a slope with the wing already inflated. If you want a parachute jump, that is a different sport.',
+    cmpTitle: 'Compare the flights', cmpText: 'Filter by duration, budget, photo or video, cable car.', cmpBtn: 'Open the tandem comparator', guide: 'Which flight suits this person?', gift: 'Give a tandem flight: gift vouchers',
+    whereTitle: 'Where to fly?', whereText: regions.length ? `Schools offer tandem flights in ${regions.length} regions: ${regions.map((r) => tr(r, locale)).join(', ')}.` : '',
+    faqTitle: 'Frequently asked questions', faq: [['Do I need to be fit?', 'Usually not. Take-off takes a few steps; ask the school whether your fitness suits the flight.'], ['Is there an age or weight limit?', 'Yes, it varies by school and site. It is on the flight’s page or ask the school.'], ['Can I get photos or video?', 'Some flights include them, others offer them as an extra: the comparator shows it when the school has published it.']],
+  },
+  de: {
+    title: `Gleitschirm-Tandemsprung ${where}: Preis, Dauer, Ablauf`, desc: `Der Gleitschirm-„Sprung“ (Tandemflug) ${where}: Kosten, Flugdauer, für wen, wie wählen. ${rows.length} Flüge verglichen.`,
+    h1: `Gleitschirm-Tandemflug ${where}`, lead: 'Ein „Gleitschirmsprung“ ist ein Tandemflug mit professionellem Piloten: Sie starten gehend oder mit ein paar Schritten, dann fliegt der Pilot für Sie.',
+    facts: 'Das Wichtigste', f: [`Preis: ${low != null ? `ab ${money(low, locale)}` : '—'}, mittlere Summe ${med != null ? money(med, locale) : '—'} nach ${rows.length} veröffentlichten Flügen.`, `Angegebene Flugdauer: ${dLo ?? '—'} bis ${dHi ?? '—'} Minuten je nach Flug.`, 'Keine Erfahrung nötig: Der Pilot übernimmt Start, Flug und Landung.', 'Das Wetter entscheidet: Passen die Bedingungen nicht, verschiebt die Schule.'],
+    jumpTitle: 'Gleitschirmsprung oder Tandemflug?', jumpText: 'Schulen sagen „Tandemflug“, „Passagierflug“ oder „Baptême“. Beim Gleitschirm springt man nicht ins Leere wie beim Fallschirm: Man startet an einem Hang, der Schirm ist schon aufgezogen. Wer einen Fallschirmsprung sucht, sucht einen anderen Sport.',
+    cmpTitle: 'Flüge vergleichen', cmpText: 'Nach Dauer, Budget, Foto oder Video und Bergbahn filtern.', cmpBtn: 'Tandemflug-Vergleich öffnen', guide: 'Welcher Flug passt zu dieser Person?', gift: 'Einen Tandemflug verschenken: Gutscheine',
+    whereTitle: 'Wo fliegen?', whereText: regions.length ? `Schulen bieten Tandemflüge in ${regions.length} Regionen an: ${regions.map((r) => tr(r, locale)).join(', ')}.` : '',
+    faqTitle: 'Häufige Fragen', faq: [['Muss ich sportlich sein?', 'Meist nicht. Der Start verlangt einige Schritte; fragen Sie die Schule, ob Ihre Fitness passt.'], ['Gibt es eine Alters- oder Gewichtsgrenze?', 'Ja, sie hängt von Schule und Platz ab. Sie steht auf der Seite des Flugs oder fragen Sie die Schule.'], ['Bekomme ich Fotos oder Video?', 'Manche Flüge enthalten sie, andere bieten sie gegen Aufpreis an: Der Vergleich zeigt es, wenn die Schule es veröffentlicht hat.']],
+  },
+}[locale];
+const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: C.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
+---
+<Base title={C.title} description={C.desc} locale={locale} pageKey="jump" jsonLd={faq}>
+  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section type-page">
+    <section><h2>{C.facts}</h2><ul>{C.f.map((t) => <li>{t}</li>)}</ul></section>
+    <section><h2>{C.jumpTitle}</h2><p>{C.jumpText}</p></section>
+    <section><h2>{C.cmpTitle}</h2><p>{C.cmpText}</p><p class="btn-row"><a class="btn" href={href('baptemeCompare', locale)}>{C.cmpBtn}</a><a class="btn ghost" href={href('baptemeGuide', locale)}>{C.guide}</a><a class="btn ghost" href={href('giftChristmas', locale)}>{C.gift}</a></p></section>
+    {C.whereText && <section><h2>{C.whereTitle}</h2><p>{C.whereText}</p></section>}
+    <section class="faq"><h2>{C.faqTitle}</h2>{C.faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</section>
+  </div>
+</Base>

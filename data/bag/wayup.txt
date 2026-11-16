@@ -1,0 +1,26 @@
+# S329 Wayup | https://wayup-parapente.bookandglide.com/stages | 371 route de la gare 74210 Doussard
+Pilotage SIV Annecy|27/03/2027|29/03/2027|750|250|2
+Pilotage SIV Annecy|02/04/2027|04/04/2027|750|250|8
+Pilotage SIV Annecy|06/04/2027|08/04/2027|750|250|5
+Potentiels, pilotage et mental|05/05/2027|09/05/2027|1175|235|8
+Pilotage SIV/Mental LAURAVL féminin|20/05/2027|23/05/2027|940|235|8
+Pilotage SIV Annecy|25/05/2027|27/05/2027|750|250|8
+Pilotage SIV Annecy|29/05/2027|31/05/2027|705|235|8
+Pilotage SIV Annecy|04/06/2027|06/06/2027|750|250|8
+Pilotage SIV Annecy|07/06/2027|09/06/2027|750|250|8
+Pilotage SIV Annecy|14/06/2027|16/06/2027|750|250|8
+Pilotage SIV Annecy|21/06/2027|23/06/2027|750|250|8
+Pilotage SIV Annecy|25/06/2027|27/06/2027|750|250|8
+Pilotage SIV Annecy|28/06/2027|30/06/2027|750|250|8
+Pilotage SIV Annecy|03/09/2027|05/09/2027|750|250|8
+Pilotage SIV Annecy|06/09/2027|08/09/2027|750|250|8
+Pilotage SIV Annecy|10/09/2027|12/09/2027|750|250|8
+Pilotage SIV Annecy|13/09/2027|15/09/2027|750|250|8
+Pilotage SIV Annecy|17/09/2027|19/09/2027|750|250|8
+Pilotage/SIV LAURAVL féminin|20/09/2027|22/09/2027|705|235|8
+Pilotage SIV Annecy|27/09/2027|29/09/2027|750|250|8
+Pilotage SIV Annecy|01/10/2027|03/10/2027|750|250|8
+Pilotage SIV Annecy|04/10/2027|06/10/2027|750|250|8
+Pilotage SIV Annecy|08/10/2027|10/10/2027|750|250|8
+Pilotage SIV Annecy|11/10/2027|13/10/2027|750|250|8
+Pilotage SIV Annecy|15/10/2027|17/10/2027|750|250|8

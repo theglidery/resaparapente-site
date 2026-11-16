@@ -1,0 +1,71 @@
+---
+// The one filter form used on the baptême list, the stage list and the stage calendar.
+import { cities, schools, reviewStats } from '../lib/data';
+import { REVIEWS } from '../config';
+interface Props { regions: [string, number?][]; levels?: { key: string; name: string; n?: number }[]; months?: { value: string; label: string; n?: number }[]; allLabel?: string; allCount?: number; sort?: { value: string; label: string }[]; flags?: { key: string; label: string }[] }
+const anyRated = schools.some((x) => (reviewStats(x.id)?.count ?? 0) >= REVIEWS.minOnCard);
+const defaultSort = [{ value: 'distance', label: 'Distance' }, { value: 'prix', label: 'Prix le plus bas' }, ...(anyRated ? [{ value: 'note', label: 'Mieux notées' }] : []), { value: 'nom', label: 'Nom de l’école' }];
+const { regions, levels = [], months = [], allLabel = 'Tous les stages', allCount, sort = defaultSort, flags = [] } = Astro.props;
+---
+<form id="filters" class="filters" action="." method="get" role="search" aria-label="Filtrer">
+  <div class="field">
+    <label for="region">Région</label>
+    <select id="region" name="region">
+      <option value="">Toutes les régions</option>
+      {regions.map(([r, n]) => <option value={r}>{r}{n !== undefined ? ` (${n})` : ''}</option>)}
+    </select>
+  </div>
+  <div class="field">
+    <label for="q">Près de quelle ville ?</label>
+    <input id="q" name="q" type="search" list="cities" autocomplete="off" placeholder="Annecy, Chambéry, Lyon, Chamonix…" />
+    <datalist id="cities">{cities.map((c) => <option value={c.name} />)}</datalist>
+  </div>
+  <div class="field">
+    <label for="r">Distance maximale</label>
+    <select id="r" name="r">
+      <option value="">Pas de limite</option>
+      <option value="25">25 km</option><option value="50" selected>50 km</option><option value="100">100 km</option><option value="200">200 km</option>
+    </select>
+  </div>
+  {months.length > 0 && (
+    <div class="field">
+      <label for="month">Mois</label>
+      <select id="month" name="month">
+        <option value="">Tous les mois</option>
+        {months.map((m) => <option value={m.value}>{m.label}{m.n !== undefined ? ` (${m.n})` : ''}</option>)}
+      </select>
+    </div>
+  )}
+  <div class="field">
+    <label for="school">Nom de l’école</label>
+    <input id="school" name="school" type="search" autocomplete="off" placeholder="Une partie du nom suffit" />
+  </div>
+  {sort.length > 0 && (
+    <div class="field">
+      <label for="sort">Trier par</label>
+      <select id="sort" name="sort">
+        {sort.map((o) => <option value={o.value}>{o.label}</option>)}
+      </select>
+    </div>
+  )}
+  {flags.length > 0 && (
+    <div class="flag-row" role="group" aria-label="Critères">
+      {flags.map((f) => <label class="flag"><input type="checkbox" name={f.key} data-flag={f.key} value="1" /> <span>{f.label}</span></label>)}
+    </div>
+  )}
+  {levels.length > 0 && (
+    <div style="grid-column: 1 / -1">
+      <input type="hidden" id="level" name="level" value="" />
+      <div class="type-chips" id="type-chips" role="group" aria-label="Type de stage">
+        <button type="button" class="chip" data-level="" aria-pressed="true">{allLabel}{allCount !== undefined && <span class="n">{allCount}</span>}</button>
+        {levels.map((l) => <button type="button" class={`chip${l.n === 0 ? ' zero' : ''}`} data-level={l.key} aria-pressed="false">{l.name}{l.n !== undefined && <span class="n">{l.n}</span>}</button>)}
+      </div>
+    </div>
+  )}
+  <div class="btn-row">
+    <button class="btn" type="submit">Rechercher</button>
+    <button class="btn ghost" type="button" id="geo" hidden>Autour de moi</button>
+    <button class="btn ghost" type="reset" id="reset">Effacer</button>
+  </div>
+</form>
+<script type="application/json" id="towns-data" set:html={JSON.stringify(cities.map(({ name, lat, lng }) => ({ name, lat, lng })))} />

@@ -1,0 +1,31 @@
+---
+// One page behind the two menu entries "Biplace" and "Saut en parapente".
+import ArticlePage from '../../components/ArticlePage.astro';
+import { BAPTEME_GUIDE } from '../../data/bapteme-guide';
+import { schools, offerPrice, eur, regionCounts } from '../../lib/data';
+// Price landmarks computed from the prices published by the schools (comparable per-person prices only).
+const prices = schools.flatMap((s) => s.baptemes.map(offerPrice)).filter((v): v is number => typeof v === 'number' && v > 0 && v < 400).sort((a, b) => a - b);
+const q = (p: number) => prices[Math.min(prices.length - 1, Math.floor(prices.length * p))];
+const stats = prices.length ? { n: prices.length, lo: q(0.1), q1: q(0.25), med: q(0.5), q3: q(0.75), hi: q(0.9) } : null;
+const regions = regionCounts('bapteme').slice(0, 8);
+---
+<ArticlePage article={BAPTEME_GUIDE} cta="bapteme">
+  <Fragment slot="after-sections">
+    <p class="notice">Vous cherchez le « saut en parapente » ? C’est ce même vol : <a href="/saut-en-parapente/">prix, durée et formules du saut en parapente</a> · <a href="/comparateur-baptemes-parapente/">comparateur de baptêmes</a>.</p>
+    <section id="prix" aria-labelledby="h-prix">
+      <h2 id="h-prix">Combien coûte un baptême de parapente ?</h2>
+      {stats ? (
+        <>
+          <p>D’après les {stats.n} formules de baptême dont le prix par personne est publié par les écoles de ce site, la moitié des vols coûtent entre {eur(stats.q1)} et {eur(stats.q3)}, avec un prix médian de {eur(stats.med)}. Les vols découverte les plus courts commencent autour de {eur(stats.lo)} ; les vols longs, de prestige ou à ski dépassent {eur(stats.hi)}.</p>
+          <p class="small muted">Prix relevés sur les sites des écoles, avec la date de relevé sur chaque fiche. Les prix évoluent selon la saison, le site, la durée et les options (photos, vol acrobatique).</p>
+        </>
+      ) : <p>Le prix dépend du site, de la durée et des options. Il est indiqué sur chaque fiche d’école.</p>}
+    </section>
+    <section id="trouver" aria-labelledby="h-trouver">
+      <h2 id="h-trouver">Trouver un baptême</h2>
+      <p>Choisissez une région ou une ville, comparez les formules et envoyez votre demande gratuite à l’école.</p>
+      <p class="btn-row"><a class="btn" href="/bapteme/">Trouver une école de baptême</a><a class="btn ghost" href="/bons-cadeaux/">Bons cadeaux des écoles</a></p>
+      <ul class="chips" style="list-style:none;padding:0">{regions.map(([r, n]) => <li><a class="chip" style="text-decoration:none;display:inline-block" href={`/bapteme/?region=${encodeURIComponent(r)}`}>{r} ({n})</a></li>)}</ul>
+    </section>
+  </Fragment>
+</ArticlePage>

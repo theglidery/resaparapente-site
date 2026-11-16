@@ -1,0 +1,126 @@
+---
+// School page of the Swiss and Belgian builds, in French or English: description, packages (tandem flights, courses), dates, vouchers.
+// Texts that come from the workbook go through the dictionary (src/data/i18n); a text without translation stays in French and is marked lang="fr".
+import Base from '../layouts/Base.astro';
+import { schools, sessions, giftsOf, sortBaptemes, sortStages, type School, type Offer } from '../lib/data';
+import { money, dateLoc, host } from '../lib/compare';
+import { SITE, isRegional } from '../config';
+import { trx, tr } from '../i18n/tr';
+import { schoolPath, pathOf, SCHOOL_DIR } from '../i18n/routes.mjs';
+import { marketLocales, type Locale } from '../i18n/ui';
+
+const { locale = 'fr', school: s } = Astro.props as { locale?: Locale; school: School };
+const lc = locale === 'en' ? 'en' : 'fr';
+const co = lc === 'en' ? ':' : ' :';
+const L = {
+  fr: {
+    all: 'Toutes les écoles', contact: 'Contacter l’école', site: 'Site officiel', tandem: 'Baptêmes', courses: 'Stages', other: 'Autres stages',
+    priceTbc: 'Prix à confirmer', duration: 'Durée', place: 'Lieu', period: 'Période', weight: 'Poids', level: 'Niveau', group: 'Groupe', languages: 'Langues parlées', labels: 'Labels et agréments',
+    details: 'Détails de l’offre', included: 'Inclus', notIncluded: 'Non compris', options: 'Options et suppléments', nextDates: 'Prochaines dates', full: 'Complet', tbc: 'Places à confirmer', to: 'au',
+    checked: 'Prix vérifié le', source: 'source', seeAtSchool: 'Voir la formule chez l’école', bookFr: 'Réserver', bookNote: '', giftTitle: 'Bon cadeau de l’école', giftSee: 'Voir le bon cadeau sur le site de l’école',
+    giftSold: (n: string) => `Bon vendu et géré par ${n}.`, price: 'Prix', validity: 'Validité', months: 'mois', ttc: 'TTC',
+    wrong: 'Une information est fausse ou périmée ?', report: 'Signalez-la', original: 'Texte d’origine',
+    title: (n: string, c: string | null) => `${n}${c ? ' à ' + c : ''} · Parapente`, descr: (n: string) => `Formules de parapente et contact de l’école ${n}.`,
+    verified: 'Prix publiés par l’école, à la date indiquée. Vous réservez directement chez l’école.',
+  },
+  en: {
+    all: 'All schools', contact: 'Contact the school', site: 'Official website', tandem: 'Tandem flights', courses: 'Courses', other: 'Other courses',
+    priceTbc: 'Price to be confirmed', duration: 'Duration', place: 'Place', period: 'Period', weight: 'Weight', level: 'Level', group: 'Group', languages: 'Languages spoken', labels: 'Labels and approvals',
+    details: 'Offer details', included: 'Included', notIncluded: 'Not included', options: 'Options and extras', nextDates: 'Next dates', full: 'Full', tbc: 'Places to be confirmed', to: 'to',
+    checked: 'Price checked on', source: 'source', seeAtSchool: 'See this package on the school’s website', bookFr: 'Request a booking', bookNote: 'The booking form is currently in French.', giftTitle: 'School gift voucher', giftSee: 'See the voucher on the school’s website',
+    giftSold: (n: string) => `Voucher sold and managed by ${n}.`, price: 'Price', validity: 'Validity', months: 'months', ttc: 'incl. VAT',
+    wrong: 'Something wrong or out of date?', report: 'Report it', original: 'Original text',
+    title: (n: string, c: string | null) => `${n}${c ? ' in ' + c : ''} · Paragliding`, descr: (n: string) => `Paragliding packages and contact details of the school ${n}.`,
+    verified: 'Prices published by the school on the date shown. You book directly with the school.',
+  },
+} as const;
+const T = L[lc];
+const alt = marketLocales.filter((l) => (SCHOOL_DIR as any)[l]).map((l) => ({ locale: l, href: schoolPath(s.slug, l as 'fr' | 'en') }));
+const today = new Date().toISOString().slice(0, 10);
+const desc = trx(s.desc, locale, 'desc');
+const L10 = (v: string | null | undefined, field?: string) => trx(v, locale, field);
+const where = [s.city, tr(s.region, locale)].filter(Boolean).join(' · ');
+const durée = (o: Offer) => o.durText ? tr(o.durText, locale, 'durText') : o.durMin ? `${o.durMin}${o.durMax && o.durMax !== o.durMin ? `–${o.durMax}` : ''} ${o.durUnit === 'jour' && lc === 'en' ? 'days' : o.durUnit ?? 'min'}` : null;
+const priceOf = (o: Offer) => (o.priceLabel ? tr(o.priceLabel, locale, 'priceLabel') : o.price ? money(o.price, lc) : T.priceTbc);
+const groups = [
+  { id: 'bapteme', label: T.tandem, list: sortBaptemes(s.baptemes), sub: false },
+  { id: 'stage', label: T.courses, list: sortStages(s.stages), sub: true },
+].filter((g) => g.list.length);
+const gifts = giftsOf(s.id);
+const langs = s.fiche?.langues ? L10(s.fiche.langues) : null;
+const labelsTxt = s.fiche?.labels ? L10(s.fiche.labels) : null;
+// An English page whose main text is still in French is kept out of the index until it is translated.
+const noindex = locale !== 'fr' && !desc.done;
+const mail = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent((lc === 'en' ? 'Correction: ' : 'Correction : ') + s.name)}`;
+---
+<Base locale={locale} alternates={alt} noindex={noindex} title={T.title(s.name, s.city)} description={T.descr(s.name)}>
+  <div class="page-head"><div class="wrap">
+    <p><a href={pathOf('home', lc)}>{T.all}</a></p>
+    <h1>{s.name}</h1>
+    <p>{where}</p>
+  </div></div>
+  <div class="wrap section">
+    {desc.text && <p class="regional-intro" lang={desc.done ? undefined : 'fr'}>{desc.text}</p>}
+    <ul class="facts">
+      {langs && <li>{T.languages}{co} {langs.text}</li>}
+      {labelsTxt && <li>{T.labels}{co} <span lang={labelsTxt.done ? undefined : 'fr'}>{labelsTxt.text}</span></li>}
+    </ul>
+    {s.website && <p><a class="btn" href={s.website} rel="noopener" target="_blank">{T.contact}</a> <span class="small muted">{T.site}{co} {host(s.website)}</span></p>}
+    <p class="small muted">{T.verified}</p>
+
+    {gifts.length > 0 && <section class="school-extras" aria-label={T.giftTitle}>
+      {gifts.map((g) => <div class="extra gift-card">
+        <h2>{T.giftTitle}</h2>
+        {g.name && <p class="gift-name"><strong>{L10(g.name).text}</strong></p>}
+        <ul class="facts">
+          {g.price && <li>{T.price}{co} {money(g.price, lc)} {lc === 'en' ? '' : T.ttc}</li>}
+          {g.validity && <li>{T.validity}{co} {g.validity} {T.months}</li>}
+          {g.conditions && <li lang={L10(g.conditions).done ? undefined : 'fr'}>{L10(g.conditions).text}</li>}
+        </ul>
+        <a class="btn ext" href={g.url} target="_blank" rel="noopener">{T.giftSee}</a>
+        <p class="small muted" style="margin:0.5rem 0 0">{T.giftSold(s.name)}</p>
+      </div>)}
+    </section>}
+
+    {groups.map((g) => <section>
+      <h2>{g.label}</h2>
+      {(() => {
+        const blocks: { name: string; list: Offer[] }[] = [];
+        for (const o of g.list) {
+          const name = g.sub ? (!o.levelName || o.levelName === 'À classer' ? T.other : tr(o.levelName, locale)) : '';
+          const last = blocks[blocks.length - 1];
+          if (last && last.name === name) last.list.push(o); else blocks.push({ name, list: [o] });
+        }
+        return blocks.map((b) => <>
+          {b.name && <h3 class="level-title">{b.name}</h3>}
+          <ul class="board">{b.list.map((o) => {
+            const rows: [string, string | null | undefined, string?][] = [
+              [T.duration, durée(o)], [T.place, tr(o.place, locale)], [T.period, tr(o.period, locale)], ['', tr(o.age, locale, 'age')],
+              [T.weight, o.weight ? tr(o.weight, locale, 'weight') : null], [T.level, g.sub && o.level ? tr(o.level, locale) : null], [T.group, g.sub && o.group ? tr(o.group, locale) : null],
+            ];
+            const prog = L10(o.program), inc = L10(o.included), exc = L10(o.notIncluded), opt = L10(o.extra?.options);
+            const dates = sessions.filter((d) => d.offerId === o.id && d.start >= today);
+            return <li id={`offre-${o.id}`}>
+              <h3>{tr(o.name, locale)}</h3>
+              <p><strong>{priceOf(o)}</strong></p>
+              <ul class="facts">{rows.filter(([, v]) => v).map(([k, v]) => <li>{k ? `${k}${co} ` : ''}{v}</li>)}</ul>
+              {prog.text && <p lang={prog.done ? undefined : 'fr'}>{prog.text}</p>}
+              {(inc.text || exc.text || opt.text) && <details class="more">
+                <summary>{T.details}</summary>
+                {inc.text && <p><strong>{T.included}{co}</strong> <span lang={inc.done ? undefined : 'fr'}>{inc.text}</span></p>}
+                {exc.text && <p><strong>{T.notIncluded}{co}</strong> <span lang={exc.done ? undefined : 'fr'}>{exc.text}</span></p>}
+                {opt.text && <p><strong>{T.options}{co}</strong> <span lang={opt.done ? undefined : 'fr'}>{opt.text}</span></p>}
+              </details>}
+              {dates.length > 0 && <p class="small"><strong>{T.nextDates}{co}</strong> {dates.map((d) => `${dateLoc(d.start, lc)}${d.end !== d.start ? ` ${T.to} ${dateLoc(d.end, lc)}` : ''}${d.price != null ? ` · ${money(d.price, lc)}` : ''} · ${d.status === 'Complet' ? T.full : T.tbc}`).join(' ; ')}</p>}
+              {!isRegional && lc === 'en' && <p><a class="btn small" href={`/ecoles/${s.slug}/?${new URLSearchParams({ offre: o.id })}#offre-${encodeURIComponent(o.id)}`}>{T.bookFr}</a> <span class="small muted">{T.bookNote}</span></p>}
+              {(o.bookUrl || o.url) && <p><a class="btn small ghost ext" href={o.bookUrl || o.url || ''} rel="noopener" target="_blank">{T.seeAtSchool}</a></p>}
+              {o.checked && <p class="proof small muted">{T.checked} {dateLoc(o.checked, lc)}</p>}
+            </li>;
+          })}</ul>
+        </>);
+      })()}
+    </section>)}
+
+    <p class="small muted" style="margin-top:2rem">{T.wrong} <a href={mail}>{T.report}</a>.</p>
+  </div>
+</Base>

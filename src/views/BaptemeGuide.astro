@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Mountains from '../components/Mountains.astro';
+import { MARKET } from '../config';
+import { href } from '../i18n/ui';
+import { bapRows, money, median, type Loc, type BapRow } from '../lib/compare';
+const { locale = 'fr' } = Astro.props as { locale?: Loc };
+const rows = bapRows(locale);
+const where = { fr: { FR: 'en France', CH: 'en Suisse romande', BE: 'en Belgique francophone' }, en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' } }[locale][MARKET.code as 'FR'];
+const cmpUrl = (q: string) => `${href('baptemeCompare', locale)}?${q}`;
+const prof = (key: string) => rows.filter((r) => r.profiles.includes(key));
+const stat = (list: BapRow[]) => ({ n: list.length, med: median(list.map((r) => r.total as number)), low: list.slice(0, 3) });
+const photoYes = rows.filter((r) => r.photo === 'yes'), photoExtra = rows.filter((r) => r.photo === 'extra');
+const photoUnknown = rows.filter((r) => r.photo === 'unknown').length;
+const liftExtra = rows.filter((r) => r.lift === 'extra').length;
+const P = [
+  { key: 'Première fois', q: 'profile=Première fois', set: 'first' },
+  { key: 'Enfant', q: 'profile=Enfant', set: 'child' },
+  { key: 'Sensations', q: 'profile=Sensations', set: 'thrill' },
+  { key: 'Longue durée', q: 'profile=Longue durée', set: 'long' },
+  { key: 'Petit budget', q: 'profile=Petit budget', set: 'budget' },
+] as const;
+const C = {
+  fr: {
+    title: `Quel baptême de parapente choisir pour cette personne ? Guide ${where}`,
+    desc: `Premier vol, enfant, sensations, vol long, petit budget, souvenir photo/vidéo : quel baptême de parapente choisir ${where} ? Conseils, formules comparées, prix et suppléments.`,
+    h1: 'Quel baptême de parapente choisir pour cette personne ?', lead: 'Cinq questions simples, un lien vers les formules qui correspondent, et ce que chaque option change au prix final.',
+    sets: { first: ['Pour un premier vol, sans stress', 'Visez un vol court ou moyen et un décollage tranquille. Demandez à l’école si le site est adapté aux débutants et ce qui se passe en cas d’appréhension.'], child: ['Pour un enfant', 'L’âge minimum et le poids minimum varient selon l’école et le site : vérifiez-les avant de réserver et demandez si la sellette enfant est fournie.'], thrill: ['Pour les sensations', 'Certaines écoles proposent des vols plus dynamiques (virages serrés, acrobatie). Ils sont décrits dans le nom ou le programme de la formule.'], long: ['Pour un vol long', 'Les vols de plus de 30 minutes dépendent des conditions et du site. Le comparateur les classe par durée annoncée.'], budget: ['Pour un petit budget', 'Les formules les plus basses du moment. Vérifiez la durée et les suppléments avant de comparer deux prix.'] },
+    flights: 'formules', median: 'total médian', cheapest: 'Les moins chères :', see: 'Voir ces formules',
+    photoTitle: 'Photo et vidéo : qui les inclut ?', photoText: (a: number, b: number, c: number) => `Sur ${a + b + c} formules, ${a} incluent la photo ou la vidéo et ${b} la proposent en supplément avec un prix publié. Pour ${c}, l’information n’est pas encore confirmée : posez la question à l’école avant de réserver.`,
+    photoIncl: 'Photo ou vidéo incluse', photoExtra: 'En supplément (prix publié)', photoSee: 'Comparer avec photo/vidéo',
+    suppTitle: 'Quels suppléments prévoir ?', supp: ['La photo ou la vidéo, quand elle n’est pas incluse.', `La remontée mécanique, qui n’est pas dans le prix de ${liftExtra} formules.`, 'Un supplément de poids ou de saison, si l’école en applique : il figure dans la colonne « À confirmer » du comparateur quand nous le connaissons.'],
+    gift: 'Pour offrir', giftText: 'Vous choisissez pour quelqu’un d’autre ? Le bon cadeau est vendu directement par l’école.', giftBtn: 'Voir les bons cadeaux', compare: 'Ouvrir le comparateur de baptêmes',
+    note: 'Les profils sont proposés d’après la durée, le prix et la description publiés ; ils guident le choix mais ne remplacent pas l’avis du pilote.',
+  },
+  en: {
+    title: `Which tandem paragliding flight should I choose for this person? Guide ${where}`,
+    desc: `First flight, child, thrill, long flight, low budget, photo/video souvenir: which tandem paragliding flight to choose ${where}? Advice, compared flights, prices and extras.`,
+    h1: 'Which tandem paragliding flight suits this person?', lead: 'Five simple profiles, a link to the matching flights, and what each option changes in the final price.',
+    sets: { first: ['For a calm first flight', 'Look for a short or medium flight and an easy take-off. Ask the school whether the site suits beginners and what happens if you feel nervous.'], child: ['For a child', 'Minimum age and weight vary by school and site: check them before booking and ask whether a child harness is provided.'], thrill: ['For thrills', 'Some schools offer more dynamic flights (tight turns, acrobatics). They are described in the flight’s name or programme.'], long: ['For a long flight', 'Flights over 30 minutes depend on conditions and site. The comparator ranks them by announced duration.'], budget: ['For a low budget', 'The lowest-priced flights right now. Check duration and extras before comparing two prices.'] },
+    flights: 'flights', median: 'median total', cheapest: 'Cheapest:', see: 'See these flights',
+    photoTitle: 'Photo and video: who includes them?', photoText: (a: number, b: number, c: number) => `Out of ${a + b + c} flights, ${a} include photo or video and ${b} offer it as an extra with a published price. For ${c}, it is not confirmed yet: ask the school before booking.`,
+    photoIncl: 'Photo or video included', photoExtra: 'Extra (published price)', photoSee: 'Compare with photo/video',
+    suppTitle: 'Which extras to expect?', supp: ['Photo or video, when it is not included.', `The cable car, which is not part of the price of ${liftExtra} flights.`, 'A weight or season surcharge, if the school applies one: it shows in the “To confirm” column of the comparator when we know it.'],
+    gift: 'To give as a present', giftText: 'Choosing for someone else? The gift voucher is sold directly by the school.', giftBtn: 'See gift vouchers', compare: 'Open the tandem comparator',
+    note: 'Profiles are suggested from the published duration, price and description; they guide the choice but do not replace the pilot’s advice.',
+  },
+  de: {
+    title: `Welcher Gleitschirm-Tandemflug passt zu dieser Person? Ratgeber ${where}`,
+    desc: `Erstflug, Kind, Nervenkitzel, langer Flug, kleines Budget, Foto-/Videoerinnerung: Welchen Tandemflug wählen ${where}? Tipps, verglichene Flüge, Preise und Zusatzkosten.`,
+    h1: 'Welcher Tandemflug passt zu dieser Person?', lead: 'Fünf einfache Profile, ein Link zu den passenden Flügen und was jede Option am Endpreis ändert.',
+    sets: { first: ['Für einen ruhigen Erstflug', 'Wählen Sie einen kurzen oder mittleren Flug und einen leichten Start. Fragen Sie die Schule, ob der Platz für Anfänger geeignet ist und was bei Angst passiert.'], child: ['Für ein Kind', 'Mindestalter und Mindestgewicht unterscheiden sich je nach Schule und Platz: Prüfen Sie sie vor der Buchung und fragen Sie, ob ein Kindergurtzeug gestellt wird.'], thrill: ['Für Nervenkitzel', 'Manche Schulen bieten dynamischere Flüge an (enge Kurven, Akrobatik). Sie stehen im Namen oder Programm des Flugs.'], long: ['Für einen langen Flug', 'Flüge über 30 Minuten hängen von Bedingungen und Platz ab. Der Vergleich sortiert sie nach angegebener Dauer.'], budget: ['Für ein kleines Budget', 'Die derzeit günstigsten Flüge. Prüfen Sie Dauer und Zusatzkosten, bevor Sie zwei Preise vergleichen.'] },
+    flights: 'Flüge', median: 'mittlere Summe', cheapest: 'Die günstigsten:', see: 'Diese Flüge ansehen',
+    photoTitle: 'Foto und Video: Wer bietet sie an?', photoText: (a: number, b: number, c: number) => `Von ${a + b + c} Flügen enthalten ${a} Foto oder Video und ${b} bieten es gegen veröffentlichten Aufpreis an. Bei ${c} ist es noch nicht bestätigt: Fragen Sie vor der Buchung bei der Schule nach.`,
+    photoIncl: 'Foto oder Video inklusive', photoExtra: 'Aufpreis (veröffentlichter Preis)', photoSee: 'Mit Foto/Video vergleichen',
+    suppTitle: 'Mit welchen Zusatzkosten ist zu rechnen?', supp: ['Foto oder Video, wenn nicht inklusive.', `Die Bergbahn, die bei ${liftExtra} Flügen nicht im Preis enthalten ist.`, 'Ein Gewichts- oder Saisonzuschlag, falls die Schule einen erhebt: Er steht in der Spalte „Zu klären“ des Vergleichs, sofern wir ihn kennen.'],
+    gift: 'Zum Verschenken', giftText: 'Sie wählen für jemand anderen? Der Gutschein wird direkt von der Schule verkauft.', giftBtn: 'Gutscheine ansehen', compare: 'Tandemflug-Vergleich öffnen',
+    note: 'Die Profile werden aus veröffentlichter Dauer, Preis und Beschreibung abgeleitet; sie helfen bei der Wahl, ersetzen aber nicht den Rat des Piloten.',
+  },
+}[locale];
+---
+<Base title={C.title} description={C.desc} locale={locale} pageKey="baptemeGuide">
+  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section type-page">
+    <p><a class="btn" href={href('baptemeCompare', locale)}>{C.compare}</a></p>
+    {P.map((p) => { const st = stat(prof(p.key)); const [h, t] = C.sets[p.set]; return st.n > 0 && <section>
+      <h2>{h}</h2><p>{t}</p>
+      <p class="small muted"><strong>{st.n}</strong> {C.flights}{st.med != null ? ` · ${C.median} ${money(st.med, locale)}` : ''}</p>
+      <ul class="cards">{st.low.map((r) => <li class="school-li"><div class="card" style="padding:0.9rem 1rem;gap:0.25rem"><span class="name">{r.offer}</span><span class="where">{r.school}{r.city ? ` · ${r.city}` : ''}</span><span class="meta"><strong>{money(r.total as number, locale)}</strong>{r.durMin ? ` · ${r.durMin}${r.durMax && r.durMax !== r.durMin ? '–' + r.durMax : ''} min` : ''}</span></div></li>)}</ul>
+      <p><a href={cmpUrl(p.q)}>{C.see}</a></p>
+    </section>; })}
+    <section>
+      <h2>{C.photoTitle}</h2><p>{C.photoText(photoYes.length, photoExtra.length, photoUnknown)}</p>
+      <div class="two-col">
+        {photoYes.length > 0 && <div><h3>{C.photoIncl}</h3><ul>{photoYes.slice(0, 8).map((r) => <li>{r.offer} — {r.school} ({money(r.total as number, locale)})</li>)}</ul></div>}
+        {photoExtra.length > 0 && <div><h3>{C.photoExtra}</h3><ul>{photoExtra.slice(0, 8).map((r) => <li>{r.offer} — {r.school} (+{money(r.photoPrice as number, locale)})</li>)}</ul></div>}
+      </div>
+      <p><a href={cmpUrl('photo=any')}>{C.photoSee}</a></p>
+    </section>
+    <section><h2>{C.suppTitle}</h2><ul>{C.supp.map((t) => <li>{t}</li>)}</ul></section>
+    <section><h2>{C.gift}</h2><p>{C.giftText}</p><p><a class="btn ghost" href={href('giftChristmas', locale)}>{C.giftBtn}</a></p></section>
+    <p class="small muted">{C.note}</p>
+  </div>
+</Base>

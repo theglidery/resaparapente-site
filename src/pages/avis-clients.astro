@@ -1,0 +1,36 @@
+---
+import DocPage from '../components/DocPage.astro';
+import { REVIEWS } from '../config';
+---
+<DocPage title="Avis des participants : comment ils sont contrôlés" description="Qui peut donner un avis sur une école de parapente, comment il est vérifié, relu et publié sur Resa Parapente, et ce que les écoles peuvent faire.">
+  <h2>Qui peut donner un avis</h2>
+  <p>Toute personne ayant fait un baptême ou un stage dans l’école concernée. Un avis par personne et par expérience. Chaque avis indique la date de publication et le mois de l’expérience.</p>
+  <h2>Comment nous vérifions</h2>
+  <ul>
+    <li><strong>« Demande vérifiée »</strong> : la personne a envoyé une demande de réservation à cette école depuis Resa Parapente, puis a reçu par email un lien personnel pour donner son avis. Nous ne savons pas si le vol a eu lieu : nous savons que la personne s’est adressée à l’école par ce site.</li>
+    <li><strong>Sans mention</strong> : avis déposé sans lien personnel. Il est relu comme les autres, mais nous ne pouvons pas rattacher son auteur à une demande.</li>
+  </ul>
+  <p>Resa Parapente ne reçoit aucun paiement et n’a pas la preuve du vol. L’école peut contester un avis si elle pense que son auteur n’a jamais été son client : nous demandons alors des éléments à l’auteur.</p>
+  <h2>Relecture avant publication</h2>
+  <p>Chaque avis est relu par une personne avant d’être publié, sous 7 jours en général. Nous refusons un avis qui :</p>
+  <ul>
+    <li>contient des insultes, des accusations sans fait précis, ou des propos discriminatoires ;</li>
+    <li>donne des coordonnées ou des données personnelles (téléphone, email, nom complet d’un tiers) ;</li>
+    <li>fait de la publicité ou renvoie vers un autre site ;</li>
+    <li>parle d’une autre école ou d’un autre sujet que l’expérience vécue ;</li>
+    <li>vient d’une personne liée à l’école (salariée, dirigeante) ou à une école concurrente ;</li>
+    <li>est manifestement faux ou en double.</li>
+  </ul>
+  <p>Nous publions les avis positifs comme les avis négatifs, sans les modifier. Nous pouvons masquer un passage qui enfreint ces règles. Un avis refusé reçoit un motif par email.</p>
+  <h2>Aucune contrepartie</h2>
+  <p>Personne ne reçoit de remise, de cadeau ou d’avantage en échange d’un avis, et aucune école ne peut acheter, retirer ou modifier un avis. Les écoles peuvent répondre publiquement ; leur réponse est signalée comme telle.</p>
+  <h2>Note moyenne et classement</h2>
+  <p>La note affichée est la moyenne simple des avis publiés pour l’école. Les avis sont présentés du plus récent au plus ancien. Le tri « Mieux notées » n’apparaît qu’à partir de {REVIEWS.minOnCard} avis par école, et n’est jamais le tri par défaut. Voir aussi <a href="/classement-et-referencement/">le classement des écoles</a>.</p>
+  <h2 id="google">Notes Google Maps</h2>
+  <p>Quand une école est affichée avec sa note Google Maps, elle est lue chez Google à l’ouverture de la page, indiquée comme telle et reliée à sa source. Nous ne la modifions pas et ne la contrôlons pas : ce sont les règles de Google qui s’appliquent. Elle est distincte des avis déposés sur Resa Parapente.</p>
+  <h2>Vos données et vos droits</h2>
+  <p>Sont publiés : votre prénom, l’initiale de votre nom, la note, le texte et les dates. Votre email n’est pas publié ; il sert à la vérification et à vous répondre. L’école reçoit votre avis. Vous pouvez demander la modification ou le retrait de votre avis à tout moment : <a href="mailto:contact@resaparapente.fr?subject=Avis">contact@resaparapente.fr</a>. Détails : <a href="/politique-de-confidentialite/">politique de confidentialité</a>. Durée de conservation : <mark class="todo">[à fixer avec le conseil juridique]</mark>.</p>
+  <h2>Signaler un avis</h2>
+  <p>Un avis vous paraît faux ou contraire à ces règles ? Écrivez-nous avec le nom de l’école et la date de l’avis : <a href="mailto:contact@resaparapente.fr?subject=Signalement%20d%27un%20avis">contact@resaparapente.fr</a>. Nous répondons sous 7 jours.</p>
+  <p class="muted small">Dernière mise à jour : <mark class="todo">[date]</mark></p>
+</DocPage>

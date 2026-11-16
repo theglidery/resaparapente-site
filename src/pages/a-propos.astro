@@ -1,0 +1,26 @@
+---
+import DocPage from '../components/DocPage.astro';
+import { withOffers, schools } from '../lib/data';
+const nAll = schools.length;
+const nOffers = new Set([...withOffers('bapteme'), ...withOffers('stage')].map((s) => s.id)).size;
+---
+<DocPage title="À propos de Resa Parapente" h1="À propos" lead="Un seul endroit pour trouver une école de parapente et lui envoyer gratuitement votre demande de baptême ou de stage." description="Resa Parapente répertorie les écoles de parapente de France, présente leurs baptêmes et stages avec la date de relevé des prix, et affiche les liens vers les bons cadeaux qu’elles vendent.">
+  <h2>Ce que vous trouvez ici</h2>
+  <ul>
+    <li>Un répertoire de <strong>plus de {Math.floor(nAll / 10) * 10} écoles de parapente</strong> en France, avec leurs coordonnées et leur présentation.</li>
+    <li>Pour {nOffers} d’entre elles, les <strong>baptêmes et stages réservables</strong>, avec le prix publié, la durée et la date à laquelle nous l’avons relevé.</li>
+    <li>Un <strong>calendrier des stages</strong> qui se remplit au fil des dates publiées par les écoles.</li>
+    <li>Les <strong>bons cadeaux proposés par les écoles</strong> : un lien vers leur page de vente, sans intermédiaire.</li>
+    <li>Des pages pour <strong>apprendre le parapente</strong> : baptême en biplace, stages par niveau, brevets de la FFVL et cours de théorie.</li>
+  </ul>
+  <h2>Comment ça marche</h2>
+  <p>Vous choisissez une école, une formule et vous envoyez une demande de réservation gratuite et sans engagement. L’école vous répond, confirme la date et le prix, organise le paiement et vous accueille le jour du vol. ResaParapente ne vend rien et ne perçoit aucun paiement. Pour un cadeau, certaines écoles vendent leur propre bon : nous affichons le lien vers leur page.</p>
+  <h2>Notre engagement</h2>
+  <p>Les prix affichés sont ceux publiés par les écoles, avec leur date de relevé. Quand une école change ses tarifs, l’offre est signalée « à vérifier » plutôt que laissée en place. Vous voulez savoir comment les écoles sont classées ? Lisez la page <a href="/classement-et-referencement/">Classement et référencement</a>.</p>
+  <h2>Le parapente s’apprend avec un professionnel</h2>
+  <p>Un baptême se vole avec un pilote professionnel diplômé. Un stage se suit avec un moniteur diplômé, dans une école déclarée. Les écoles sont seules responsables de leurs vols et de leur encadrement. Nous vous conseillons de vérifier le label de l’école et le contenu de la formule avant de vous engager.</p>
+  <h2>Qui édite le site</h2>
+  <p>Resa Parapente est édité par TheGlidery SAS, à Saint-Martin-d’Uriage, une entreprise qui vit du parapente (location de matériel neuf avec Locawing, location courte durée avec Locadune). Voir les <a href="/mentions-legales/">mentions légales</a>.</p>
+  <h2>Vous êtes une école ?</h2>
+  <p>Vous voulez publier vos stages, vos baptêmes, le lien vers votre bon cadeau ou vos offres promotionnelles, ou corriger votre fiche ? C’est sans frais : <a href="/pour-les-ecoles/">consultez la page Pour les écoles</a> ou <a href="/contact/">écrivez-nous</a>.</p>
+</DocPage>

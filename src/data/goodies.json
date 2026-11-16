@@ -1,0 +1,21 @@
+[
+ {
+  "id": "GD-006",
+  "name": "Carnet de progression (PDF gratuit)",
+  "for_": "Stage",
+  "shop": "monparapente.fr",
+  "countries": [
+   "FR",
+   "CH",
+   "BE"
+  ],
+  "url": "/documents/carnet-de-progression-parapente.pdf",
+  "price": 0.0,
+  "discount": 0.0,
+  "final": 0.0,
+  "shipping": 0.0,
+  "delivered": 0.0,
+  "code": null,
+  "note": "Gratuit, téléchargement direct (PDF de 8 pages généré par scripts/build-carnet-pdf.py) : fait découvrir MonParapente avant le stage. Version en allemand et en anglais à faire pour myparaglide.com."
+ }
+]

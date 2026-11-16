@@ -1,0 +1,28 @@
+---
+// Logo of the current brand (see markets.mjs). Uses logo-<brand>.png when the file exists, else the default logo.
+// A visitor arriving from a European domain (?brand=de / ?brand=en, kept in the rp_brand cookie) gets that brand's logo when the file exists.
+import { existsSync } from 'node:fs';
+import { BRAND, BRANDS, MARKET, isRegional } from '../config';
+const has = (f: string) => existsSync(`public/images/brand/${f}`);
+const own = has(BRAND.logo);
+// Regional market without its own logo yet: pictogram + domain name as text, so the Swiss site never shows a ".fr" logo.
+const wordmark = isRegional && !own ? new URL(MARKET.origin).hostname.replace(/^www\./, '') : null;
+const logo = own ? BRAND.logo : 'logo.png';
+const logo2 = has(BRAND.logo2x) ? BRAND.logo2x : 'logo@2x.png';
+const available = Object.fromEntries(Object.entries(BRANDS).filter(([, b]) => has(b.logo)).map(([k, b]) => [k, { logo: `/images/brand/${b.logo}`, logo2: has(b.logo2x) ? `/images/brand/${b.logo2x}` : null, name: b.name }]));
+---
+{wordmark ? <span class="wordmark" id="brand-logo" data-brands={JSON.stringify(available)}><img src="/images/brand/pictogramme.png" alt="" width="34" height="40" /><span><b>resa</b>parapente<i>{wordmark.replace(/^resaparapente/, '')}</i></span></span> : <img id="brand-logo" src={`/images/brand/${logo}`} srcset={`/images/brand/${logo} 1x, /images/brand/${logo2} 2x`} alt={BRAND.name} width="200" height="42" data-brands={JSON.stringify(available)} />}
+<script is:inline>
+  (function () {
+    try {
+      var img = document.getElementById('brand-logo'); if (!img) return;
+      var wm = img.tagName !== 'IMG';
+      var all = JSON.parse(img.getAttribute('data-brands') || '{}');
+      var q = new URLSearchParams(location.search).get('brand');
+      if (q && all[q]) document.cookie = 'rp_brand=' + q + '; path=/; max-age=2592000; SameSite=Lax';
+      var m = document.cookie.match(/(?:^|; )rp_brand=([a-z]+)/), b = (q && all[q]) ? q : (m && all[m[1]] ? m[1] : null);
+      if (b && wm) { var n = document.createElement('img'); n.id = 'brand-logo'; n.width = 200; n.height = 42; n.setAttribute('data-brands', img.getAttribute('data-brands')); img.replaceWith(n); img = n; wm = false; }
+      if (b) { img.src = all[b].logo; img.srcset = all[b].logo + ' 1x' + (all[b].logo2 ? ', ' + all[b].logo2 + ' 2x' : ''); img.alt = all[b].name; }
+    } catch (e) {}
+  })();
+</script>

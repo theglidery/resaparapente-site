@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from './PageHero.astro';
+import SchoolCard from './SchoolCard.astro';
+import SearchFilters from './SearchFilters.astro';
+import SchoolCta from './SchoolCta.astro';
+import { withOffers, regionCounts, levelCounts } from '../lib/data';
+interface Props { kind: 'bapteme' | 'stage' }
+const { kind } = Astro.props;
+const isB = kind === 'bapteme';
+const list = withOffers(kind).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+const regions = regionCounts(kind) as [string, number][];
+const levels = isB ? [] : levelCounts();
+const title = isB ? 'Baptême de parapente : choisissez une école' : 'Stage de parapente : choisissez une école';
+const description = isB
+  ? `Comparez ${list.length} écoles qui proposent un baptême de parapente en France, avec le prix publié et la date de relevé. Réservez auprès de l'école.`
+  : `Comparez ${list.length} écoles qui proposent des stages de parapente en France (initiation, progression, perfectionnement), avec le prix publié et la date de relevé.`;
+---
+<Base title={title} description={description}>
+  <PageHero name={kind}
+    title={isB ? 'Baptême de parapente' : 'Stage de parapente'}
+    lead={isB
+      ? 'Découvrez les joies du vol libre et choisissez où et avec quelle école agréée voler'
+      : 'Trouvez le stage qui vous correspond le mieux, dans votre budget'} />
+
+  <div class="wrap" style="padding-top:1rem"><p class="notice">{isB
+    ? <>Comparez les prix, durées, photos et remontées : <a href="/comparateur-baptemes-parapente/">comparateur de baptêmes</a> · <a href="/quel-bapteme-parapente-choisir/">quel baptême choisir ?</a> · <a href="/bon-cadeau-parapente-noel/">offrir un baptême</a></>
+    : <>Combien coûte la formation jusqu’au brevet ? <a href="/comparateur-prix-formation-parapente/">Comparateur de prix de formation</a> · <a href="/quand-commencer-parapente/">quand commencer ?</a> · <a href="/cursus-brevets-parapente/">parcours et brevets</a></>}</p></div>
+  <div class="wrap section" style="padding-top:1rem">
+    <SearchFilters regions={regions} levels={levels} allLabel="Toutes les écoles" allCount={list.length} flags={isB ? [{ key: 'kids', label: 'Accepte les enfants' }, { key: 'winter', label: 'Vol en hiver' }, { key: 'gift', label: 'Bon cadeau de l’école' }] : [{ key: 'gift', label: 'Bon cadeau de l’école' }]} />
+  </div>
+
+  <div class="wrap">
+    <div class="board-head">
+      <h2 style="margin:0"><span id="count" aria-live="polite">{list.length} écoles</span></h2>
+      <span class="muted small" id="price-note">Prix par personne, relevés sur les sites des écoles</span>
+    </div>
+    <ul class="cards" id="board">
+      {list.map((s) => <SchoolCard school={s} kind={kind} />)}
+    </ul>
+    <div class="empty" id="none" hidden>
+      Aucune école dans ce périmètre. Augmentez la distance, changez de niveau ou de région, ou effacez la ville.
+    </div>
+  </div>
+
+  <div class="wrap"><SchoolCta type={isB ? 'bapteme' : 'stage'} /></div>
+  <script>import '../scripts/listing.js';</script>
+</Base>

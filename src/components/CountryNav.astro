@@ -1,0 +1,8 @@
+---
+import { MARKET, marketLinks } from '../config';
+const preview = MARKET.code === 'FR' ? marketLinks.find((x) => x.code !== 'FR' && x.preview === Astro.url.pathname) : undefined;
+const activeCode = preview?.code ?? MARKET.code;
+---
+<nav class="country-nav" aria-label="Choisir un pays">
+  {marketLinks.map((country) => <a href={country.href} aria-current={activeCode === country.code ? 'true' : undefined} lang={country.locale}>{country.label}</a>)}
+</nav>

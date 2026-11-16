@@ -1,0 +1,19 @@
+---
+import DocPage from '../components/DocPage.astro';
+import cgv from '../content/cgv.html?raw';
+---
+<DocPage title="Conditions du site (CGV)" h1="Conditions du site ResaParapente" description="Conditions applicables aux utilisateurs de ResaParapente : demandes de réservation gratuites, bons cadeaux vendus par les écoles, sécurité, référencement, données personnelles, réclamations et médiation.">
+  <p class="muted">Version <mark class="todo">[date d’entrée en vigueur]</mark></p>
+  <p class="notice">Ces conditions s’appliquent à l’utilisation de resaparapente.fr : consulter les offres des écoles, leur envoyer une demande de réservation gratuite et accéder aux bons cadeaux vendus par les écoles. Les passages surlignés sont à compléter avant l’ouverture du site.</p>
+  <nav class="toc" aria-label="Sommaire">
+    <ol>
+      <li><a href="#art-1">Éditeur et services du site</a></li>
+      <li><a href="#art-2">Offres et demandes de réservation</a></li>
+      <li><a href="#art-3">Bons cadeaux des écoles</a></li>
+      <li><a href="#art-4">Sécurité et conditions de participation</a></li>
+      <li><a href="#art-5">Référencement et données personnelles</a></li>
+      <li><a href="#art-6">Réclamations, médiation et droit applicable</a></li>
+    </ol>
+  </nav>
+  <div set:html={cgv} />
+</DocPage>

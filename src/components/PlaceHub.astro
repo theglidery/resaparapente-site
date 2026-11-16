@@ -1,0 +1,38 @@
+---
+// Hub: every destination page of a kind (regions, départements, cities), a strong internal-linking page.
+import Base from '../layouts/Base.astro';
+import PageHero from './PageHero.astro';
+import SchoolCta from './SchoolCta.astro';
+import { placesFor, pathOf, type Kind } from '../lib/places';
+import { SITE } from '../config';
+interface Props { kind: Kind }
+const { kind } = Astro.props;
+const isB = kind === 'bapteme';
+const all = placesFor(kind);
+const groups = [
+  { id: 'regions', h: 'Par région', list: all.filter((p) => p.type === 'region').sort((a, b) => b.schools[kind].length - a.schools[kind].length) },
+  { id: 'departements', h: 'Par département', list: all.filter((p) => p.type === 'dept').sort((a, b) => b.schools[kind].length - a.schools[kind].length) },
+  { id: 'villes', h: 'Près d’une grande ville', list: all.filter((p) => p.type === 'city').sort((a, b) => a.name.localeCompare(b.name, 'fr')) },
+].filter((g) => g.list.length);
+const title = isB ? 'Baptême de parapente en France : toutes les destinations' : 'Stage de parapente en France : toutes les destinations';
+const description = isB
+  ? `Trouvez un baptême de parapente par région, département ou grande ville : ${all.length} destinations, des écoles et des prix relevés sur leurs sites.`
+  : `Trouvez un stage de parapente par région, département ou grande ville : ${all.length} destinations, des écoles et des prix relevés sur leurs sites.`;
+const jsonLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url + '/' },
+  { '@type': 'ListItem', position: 2, name: isB ? 'Baptême de parapente' : 'Stage de parapente', item: SITE.url + (isB ? '/bapteme-parapente/' : '/stage-parapente/') }] };
+---
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <PageHero name={kind} title={isB ? 'Baptême de parapente : où voler ?' : 'Stage de parapente : où apprendre ?'}
+    lead="Choisissez une destination, comparez les écoles et envoyez gratuitement votre demande." />
+  <div class="wrap section type-page" style="padding-top:1rem">
+    {groups.map((g) => (
+      <section id={g.id} aria-labelledby={`h-${g.id}`}>
+        <h2 id={`h-${g.id}`}>{g.h}</h2>
+        <ul class="type-grid">{g.list.map((p) => <li><a href={pathOf(kind, p)}><strong>{p.type === 'city' ? p.name : p.name}</strong><span>{p.schools[kind].length} écoles {p.inName}</span></a></li>)}</ul>
+      </section>
+    ))}
+    <p><a class="btn" href={isB ? '/bapteme/' : '/stage/'}>Rechercher par ville, prix ou niveau</a></p>
+    <SchoolCta type={kind} />
+  </div>
+</Base>

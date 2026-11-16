@@ -1,0 +1,23 @@
+---
+// Ridge lines drawn at build time: a quiet "map of the sky" for the hero. No image to download.
+const W = 1440, H = 300, N = 16;
+const paths: string[] = [];
+for (let i = 0; i < N; i++) {
+  const base = 40 + i * 15;
+  const amp = 26 - i * 0.9;
+  const pts: string[] = [];
+  for (let x = 0; x <= W; x += 40) {
+    const y = base
+      + Math.sin(x / 210 + i * 0.35) * amp
+      + Math.sin(x / 95 + i * 0.8) * (amp * 0.35)
+      + Math.cos(x / 430 - i * 0.2) * amp * 0.9;
+    pts.push(`${x},${y.toFixed(1)}`);
+  }
+  paths.push('M' + pts.join(' L'));
+}
+---
+<div class="hero-art" aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-linejoin="round">
+    {paths.map((d, i) => <path d={d} stroke-width={i === 5 ? 2.4 : 1.2} opacity={0.18 + (i / N) * 0.55} />)}
+  </svg>
+</div>

@@ -1,0 +1,6362 @@
+{
+ "S001": {
+  "name": "2 Alpes Parapente",
+  "email": "xavdauboin@gmail.com",
+  "offers": {
+   "OFF-R4-0B674AF8F095": [
+    "bapteme",
+    "Prestige – après-midi"
+   ],
+   "OFF-R4-0FB7424E0E35": [
+    "bapteme",
+    "Grand Vol Matin"
+   ],
+   "OFF-R4-402A0680F056": [
+    "bapteme",
+    "Passion"
+   ],
+   "OFF-R4-45D372B82FC3": [
+    "bapteme",
+    "Découverte – adulte après-midi"
+   ],
+   "OFF-R4-6CECDDCD95AB": [
+    "bapteme",
+    "Découverte – enfant"
+   ],
+   "OFF-R4-732FD02C54C5": [
+    "bapteme",
+    "Découverte – adulte matin"
+   ],
+   "OFF-R4-C6A54309A79F": [
+    "bapteme",
+    "Prestige – matin"
+   ]
+  }
+ },
+ "S002": {
+  "name": "2D Parapente",
+  "email": "2dparapente@gmail.com",
+  "offers": {
+   "OFF-0008": [
+    "bapteme",
+    "Baptême biplace en station"
+   ]
+  }
+ },
+ "S003": {
+  "name": "2SkiFly",
+  "email": "info@2skifly.com",
+  "offers": {
+   "OFF-1B0CC33ACEE9": [
+    "bapteme",
+    "Vol Tête des Saix hiver"
+   ],
+   "OFF-3B8244232148": [
+    "bapteme",
+    "Vol Découverte été"
+   ],
+   "OFF-4EB83FD930A0": [
+    "bapteme",
+    "Vol Premium"
+   ],
+   "OFF-9C033D2BE1F7": [
+    "bapteme",
+    "Vol Horizon"
+   ],
+   "OFF-C43EA719404E": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-DC2A86E441B3": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-F04958D825E7": [
+    "bapteme",
+    "Vol Tête des Saix été"
+   ],
+   "OFF-470A6B6BECC4": [
+    "stage",
+    "Découverte de sites"
+   ],
+   "OFF-677F34AB64DC": [
+    "stage",
+    "SIV – pilotage"
+   ],
+   "OFF-7EBFD633DE91": [
+    "stage",
+    "Thermique + brevet pilote"
+   ],
+   "OFF-A223DAE3E9CA": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-B1F531888419": [
+    "stage",
+    "Cross"
+   ],
+   "OFF-DE2978CED4E5": [
+    "stage",
+    "Autonomie + brevet initial"
+   ]
+  }
+ },
+ "S004": {
+  "name": "974 Parapente",
+  "email": "974parapente@gmail.com",
+  "offers": {
+   "OFF-R4-E1BCAD726F20": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-R4-FC718059D14E": [
+    "bapteme",
+    "Vol Marmaille"
+   ],
+   "OFF-R4-FC7A3B150368": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S005": {
+  "name": "À Bout d'Aile Comme un Oiseau (ABACO)",
+  "email": "infos@commeunoiseau.com",
+  "offers": {
+   "OFF-R5-0E378C512AAE": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-444201350C22": [
+    "bapteme",
+    "Vol Bonheur"
+   ],
+   "OFF-R5-D345A81A8B59": [
+    "bapteme",
+    "Vol de durée"
+   ],
+   "OFF-R5-F1464281C55C": [
+    "bapteme",
+    "Vol Grandiose"
+   ]
+  }
+ },
+ "S006": {
+  "name": "À l'Air Libre Parapente",
+  "email": "alairlibre@laposte.net",
+  "offers": {
+   "OFF-R4-4E597A2C3861": [
+    "bapteme",
+    "Vol Aiglon"
+   ],
+   "OFF-R4-600DF7A60D22": [
+    "bapteme",
+    "Vol Dynamique"
+   ],
+   "OFF-R4-757BE581CBDF": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R4-896269AA5F33": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R4-D79B6FCE2058": [
+    "bapteme",
+    "Vol Ascendance"
+   ]
+  }
+ },
+ "S007": {
+  "name": "A Parapente",
+  "email": "slap@aparapente.com",
+  "offers": {
+   "OFF-0045": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-0046": [
+    "bapteme",
+    "Vol Méribel"
+   ],
+   "OFF-0047": [
+    "bapteme",
+    "Vol Premium"
+   ]
+  }
+ },
+ "S008": {
+  "name": "A Travers Ciel",
+  "email": "contacts@atraversciel.com",
+  "offers": {
+   "OFF-28966D0282A6": [
+    "bapteme",
+    "Vol Évasion"
+   ],
+   "OFF-50DC26D48CFB": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-5F508D0F9EBC": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-AD42EE22CE72": [
+    "bapteme",
+    "Vol Aventure"
+   ],
+   "OFF-EB41E8A2F3A6": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-EEF9ED136575": [
+    "bapteme",
+    "Vol Panorama"
+   ],
+   "OFF-2F0921FD71DC": [
+    "stage",
+    "Initiation compétition FFVL"
+   ]
+  }
+ },
+ "S009": {
+  "name": "A2L Parapente",
+  "email": "a2lparapente@gmail.com",
+  "offers": {
+   "OFF-0068": [
+    "bapteme",
+    "CALIENTE"
+   ],
+   "OFF-0069": [
+    "bapteme",
+    "FUEGO"
+   ],
+   "OFF-0070": [
+    "bapteme",
+    "PITCHOUNE"
+   ],
+   "OFF-0071": [
+    "bapteme",
+    "SALSA"
+   ],
+   "OFF-0072": [
+    "bapteme",
+    "SUNSET"
+   ]
+  }
+ },
+ "S010": {
+  "name": "A2L Parapente Guadeloupe",
+  "email": "a2lparapente@gmail.com",
+  "offers": {
+   "OFF-0074": [
+    "bapteme",
+    "CALIENTE"
+   ],
+   "OFF-0075": [
+    "bapteme",
+    "DESIRADA"
+   ],
+   "OFF-0076": [
+    "bapteme",
+    "DUO KA VOLÉ"
+   ],
+   "OFF-0077": [
+    "bapteme",
+    "KARUKERA"
+   ],
+   "OFF-0078": [
+    "bapteme",
+    "P.M.R"
+   ],
+   "OFF-0079": [
+    "bapteme",
+    "SALSA"
+   ],
+   "OFF-0080": [
+    "bapteme",
+    "TI'MOUN"
+   ],
+   "OFF-0081": [
+    "stage",
+    "Biplace pédagogique"
+   ],
+   "OFF-0082": [
+    "stage",
+    "CAP AUTONOMIE :"
+   ],
+   "OFF-0083": [
+    "stage",
+    "DÉCOUVRIR :"
+   ],
+   "OFF-0084": [
+    "stage",
+    "OPTIMISER"
+   ]
+  }
+ },
+ "S011": {
+  "name": "ABC d'Air",
+  "email": "abcdair06@free.fr",
+  "offers": {
+   "OFF-V8-23BD1369C613": [
+    "bapteme",
+    "Baptême biplace – Sospel"
+   ],
+   "OFF-V8-C887382E01A2": [
+    "bapteme",
+    "Baptême biplace – Roquebrune-Cap-Martin"
+   ]
+  }
+ },
+ "S012": {
+  "name": "ABC École de Parapente des Portes du Soleil",
+  "email": "contact@parapente-morzine.com",
+  "offers": {
+   "OFF-205E2B844352": [
+    "bapteme",
+    "Vol Prestige + sensation"
+   ],
+   "OFF-64FDD2EB3063": [
+    "bapteme",
+    "Vol Prestige + sensation + pédagogique"
+   ],
+   "OFF-7031F67EE0DF": [
+    "bapteme",
+    "Vol Pédagogique"
+   ],
+   "OFF-C9897057B73F": [
+    "bapteme",
+    "Vol Super Morzine"
+   ],
+   "OFF-EB068DBC5DE6": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-082B4F1D0733": [
+    "stage",
+    "Initiation 2 – découverte rapide"
+   ],
+   "OFF-4043314A2DC5": [
+    "stage",
+    "Autonomie – découverte multisites"
+   ]
+  }
+ },
+ "S013": {
+  "name": "Absis Chamonix Parapente",
+  "email": "contact@absis-chamonix.com",
+  "offers": {
+   "OFF-0099": [
+    "bapteme",
+    "Aiguille du Midi"
+   ],
+   "OFF-0100": [
+    "bapteme",
+    "Plan Praz adulte"
+   ],
+   "OFF-0101": [
+    "bapteme",
+    "Plan Praz enfant"
+   ],
+   "OFF-0102": [
+    "bapteme",
+    "Plan de l’Aiguille"
+   ],
+   "OFF-0103": [
+    "bapteme",
+    "Planpraz XL"
+   ]
+  }
+ },
+ "S014": {
+  "name": "Absolu Parapente",
+  "email": "contact@absoluparapente.com",
+  "offers": {
+   "OFF-8565C527EC64": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-950A92E52C92": [
+    "bapteme",
+    "Vol Pédagogique"
+   ],
+   "OFF-C14A2B478264": [
+    "bapteme",
+    "Vol VIP"
+   ],
+   "OFF-C842DFB6FC77": [
+    "bapteme",
+    "Vol Longue durée"
+   ]
+  }
+ },
+ "S015": {
+  "name": "Absolute Chamonix",
+  "email": "info@absolute-chamonix.com",
+  "offers": {
+   "OFF-R4-00450991B5E3": [
+    "bapteme",
+    "Long-courrier à Planpraz"
+   ],
+   "OFF-R4-5D890A7A8A59": [
+    "bapteme",
+    "Sensation avec une femme championne"
+   ],
+   "OFF-R4-7919D7EB5B98": [
+    "bapteme",
+    "Aiguille du Midi"
+   ],
+   "OFF-R4-94AE06555249": [
+    "bapteme",
+    "Découverte avec une femme championne"
+   ],
+   "OFF-R4-D48C75D1B116": [
+    "bapteme",
+    "Sensation au Plan de l’Aiguille"
+   ],
+   "OFF-R4-D58E3F5E4020": [
+    "bapteme",
+    "Découverte au Plan de l’Aiguille"
+   ],
+   "OFF-R4-DEB39478A692": [
+    "bapteme",
+    "Découverte à Planpraz Brévent"
+   ],
+   "OFF-R4-FE1C4C1CA0F8": [
+    "bapteme",
+    "Sensation à Planpraz Brévent"
+   ]
+  }
+ },
+ "S016": {
+  "name": "Acrobi Parapente",
+  "email": "acrobi.parapente@gmail.com",
+  "offers": {
+   "OFF-R3-876E4F197355": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-9E0AF5B1ABDC": [
+    "bapteme",
+    "Long Courrier"
+   ],
+   "OFF-R3-AC72ED767079": [
+    "bapteme",
+    "Sensations"
+   ],
+   "OFF-R3-264CDBD6A273": [
+    "stage",
+    "Progression — Privé"
+   ],
+   "OFF-R3-3212ECA992B7": [
+    "stage",
+    "Initiation — Base"
+   ],
+   "OFF-R3-531B32A1E67C": [
+    "stage",
+    "Progression — Semaine"
+   ],
+   "OFF-R3-5425560C1C58": [
+    "stage",
+    "SIV"
+   ],
+   "OFF-R3-5DF87A93F7A3": [
+    "stage",
+    "Cross / distance"
+   ],
+   "OFF-R3-6A207A8FF719": [
+    "stage",
+    "Ascendances — 5 séance(s) — matériel personnel"
+   ],
+   "OFF-R3-911FB4ACAB0C": [
+    "stage",
+    "Ascendances — 1 séance(s) — tarif standard"
+   ],
+   "OFF-R3-96C23151AD9D": [
+    "stage",
+    "Initiation — Classique"
+   ],
+   "OFF-R3-AA283F60CDC8": [
+    "stage",
+    "Initiation — Privé"
+   ],
+   "OFF-R3-BB2910B8F475": [
+    "stage",
+    "Ascendances — 1 séance(s) — matériel personnel"
+   ],
+   "OFF-R3-D8E80AB35D40": [
+    "stage",
+    "Progression — Week-ends"
+   ],
+   "OFF-R3-E41400CFB48E": [
+    "stage",
+    "Initiation — Deux week-ends"
+   ],
+   "OFF-R3-E7D800BBD99F": [
+    "stage",
+    "Ascendances — 5 séance(s) — tarif standard"
+   ]
+  }
+ },
+ "S017": {
+  "name": "ADDICT PARAPENTE",
+  "email": "info@addictparapente.com",
+  "offers": {
+   "OFF-V8-78AF73FEBB60": [
+    "bapteme",
+    "Vol Marmay"
+   ],
+   "OFF-V8-778489AA52B0": [
+    "bapteme",
+    "Vol Biplace"
+   ],
+   "OFF-V8-7A299B8A9E3A": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-V8-A23807341B20": [
+    "bapteme",
+    "Vol Acrobatique"
+   ],
+   "OFF-V8-6108A916F19B": [
+    "bapteme",
+    "Vol Grande Découverte"
+   ]
+  }
+ },
+ "S018": {
+  "name": "Adrénaline Parapente",
+  "email": "adrenalineparapente@gmail.com",
+  "offers": {
+   "OFF-R5-618C917B3C4D": [
+    "bapteme",
+    "Découverte XXL"
+   ],
+   "OFF-R5-6BC57741A97F": [
+    "bapteme",
+    "Vol du Maïdo"
+   ],
+   "OFF-R5-BEA73F5CBEAC": [
+    "bapteme",
+    "Découverte L"
+   ],
+   "OFF-R5-CA8119013D94": [
+    "bapteme",
+    "Vol des hauts – Le 1500"
+   ],
+   "OFF-R5-D563AA2B75AF": [
+    "bapteme",
+    "Découverte XL"
+   ]
+  }
+ },
+ "S021": {
+  "name": "Aero Bi Parapente",
+  "email": "aero-bi@hotmail.fr",
+  "offers": {
+   "OFF-R6-0297B2E55A35": [
+    "bapteme",
+    "Must"
+   ],
+   "OFF-R6-0BA1DD1A63DD": [
+    "bapteme",
+    "Sport"
+   ],
+   "OFF-R6-399DCCF6057F": [
+    "bapteme",
+    "Classique adulte"
+   ],
+   "OFF-R6-5E51C347245C": [
+    "bapteme",
+    "Classique enfant"
+   ],
+   "OFF-R6-9B0C1B275868": [
+    "bapteme",
+    "Pédagogique"
+   ],
+   "OFF-R6-A326E74BF2C7": [
+    "bapteme",
+    "Performance"
+   ],
+   "OFF-R6-9A8F0FC654DA": [
+    "stage",
+    "Initiation parapente"
+   ]
+  }
+ },
+ "S022": {
+  "name": "Aerodream",
+  "email": "contact@aerodream-parapente.com",
+  "offers": {
+   "OFF-8869AA08B5B4": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-A850B6951AAA": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-42472ECFBDE0": [
+    "stage",
+    "Cross initiation"
+   ],
+   "OFF-635749908993": [
+    "stage",
+    "Cross confirmé"
+   ],
+   "OFF-91FE942258DA": [
+    "stage",
+    "Autonomie"
+   ],
+   "OFF-DFF7305F2D54": [
+    "stage",
+    "Thermique"
+   ]
+  }
+ },
+ "S024": {
+  "name": "AEROGLISS",
+  "email": "divers@aerogliss.com",
+  "offers": {
+   "OFF-V8-6CC8F193E0AC": [
+    "bapteme",
+    "Vol enfants"
+   ],
+   "OFF-V8-36F8898C90CF": [
+    "bapteme",
+    "Vol découverte"
+   ],
+   "OFF-V8-DF86FB69F707": [
+    "bapteme",
+    "Vol ascendant"
+   ],
+   "OFF-V8-A2D476BF1A65": [
+    "bapteme",
+    "Vol handi-bi"
+   ],
+   "OFF-V8-7A59A92A9BF1": [
+    "stage",
+    "Stage initiation"
+   ],
+   "OFF-V8-A1FBD1AEEFDE": [
+    "stage",
+    "Stage initiation jeunes"
+   ],
+   "OFF-V8-1FF1F8FA4B58": [
+    "stage",
+    "Perfectionnement"
+   ],
+   "OFF-V8-57B0E00292C4": [
+    "stage",
+    "Perf JEUNES 12/17 ans"
+   ],
+   "OFF-V8-E25F013DFA8C": [
+    "stage",
+    "Perf weekend"
+   ],
+   "OFF-V8-F652E990A50E": [
+    "stage",
+    "Perf spécial Progression été"
+   ],
+   "OFF-V8-0CA507713E63": [
+    "stage",
+    "XC master-stage cross"
+   ],
+   "OFF-V8-A8C3F8F5C604": [
+    "stage",
+    "Stage dune du Pilat"
+   ],
+   "OFF-V8-25EDFCE7833B": [
+    "stage",
+    "Stage de parapente Initiation Handi/Valide"
+   ]
+  }
+ },
+ "S025": {
+  "name": "Aerolift Parapente",
+  "email": "contact@aerolift-parapente.com",
+  "offers": {
+   "OFF-DESC-493BFB567D44": [
+    "bapteme",
+    "Le 20’ – glisse du matin"
+   ],
+   "OFF-DESC-7BF960C861A8": [
+    "bapteme",
+    "Vol des Pionniers"
+   ],
+   "OFF-DESC-B430B08F9B4F": [
+    "bapteme",
+    "Le 20’ – ascendance"
+   ],
+   "OFF-DESC-3EAB75751145": [
+    "bapteme",
+    "Le 30’ – ascendance"
+   ],
+   "OFF-DESC-ED2819CBDB6D": [
+    "bapteme",
+    "Le 40’ – ascendance"
+   ]
+  }
+ },
+ "S027": {
+  "name": "Aeroslide",
+  "email": "contact@aeroslide.com",
+  "offers": {
+   "OFF-R5-1244A993EB75": [
+    "bapteme",
+    "Vol La Clusaz Hiver"
+   ],
+   "OFF-R5-34C632188913": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-3FC38E971B71": [
+    "bapteme",
+    "Vol La Clusaz Hiver Sensation"
+   ],
+   "OFF-R5-799823826B65": [
+    "bapteme",
+    "Vol Le Corbier Hiver"
+   ],
+   "OFF-R5-8E7811BE805C": [
+    "bapteme",
+    "Vol Horizon Annecy"
+   ],
+   "OFF-R5-9B475EDBE24E": [
+    "bapteme",
+    "Vol Fun"
+   ],
+   "OFF-R5-AB6BE5CD8364": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-R5-B108A84BF504": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-R5-DAE41F683A72": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-R5-E78850E86286": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S028": {
+  "name": "Aerotrek Parapente",
+  "email": "contact@aerotrek.fr",
+  "offers": {
+   "OFF-R6-5571C90F1D13": [
+    "bapteme",
+    "El Niño"
+   ],
+   "OFF-R6-A20A8C66A7AE": [
+    "bapteme",
+    "El Classico"
+   ]
+  }
+ },
+ "S029": {
+  "name": "Aiguebelette Parapente",
+  "email": "info@aiguebeletteparapente.fr",
+  "offers": {
+   "OFF-R4-30104DCB5FAA": [
+    "bapteme",
+    "Baptême Prestige"
+   ],
+   "OFF-R4-6B9C53E30A75": [
+    "bapteme",
+    "Baptême Enfant"
+   ],
+   "OFF-R4-A1D0DEA37F28": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-R5-09358756EBDD": [
+    "stage",
+    "Stage Itinérant"
+   ],
+   "OFF-R5-15085352F0CD": [
+    "stage",
+    "Stage Hike & Fly"
+   ],
+   "OFF-R5-228FB659D40E": [
+    "stage",
+    "Pente école"
+   ],
+   "OFF-R5-556A57AC729C": [
+    "stage",
+    "Stage SIV"
+   ],
+   "OFF-R5-62BFB0471587": [
+    "stage",
+    "Stage Progression"
+   ],
+   "OFF-R5-7E06B45F6285": [
+    "stage",
+    "Stage Initiation week-ends"
+   ],
+   "OFF-R5-7F38293DB8D9": [
+    "stage",
+    "Stage Cross"
+   ],
+   "OFF-R5-C8AFB829B07A": [
+    "stage",
+    "Stage Performance"
+   ],
+   "OFF-R5-DBB9CB9F7788": [
+    "stage",
+    "Stage Progression week-end"
+   ],
+   "OFF-R5-DE27AB5AB024": [
+    "stage",
+    "Stage Initiation"
+   ]
+  }
+ },
+ "S030": {
+  "name": "Aile Libre Parapente",
+  "email": "ailelibre@gmail.com",
+  "offers": {
+   "OFF-R3-054BDA121EA0": [
+    "bapteme",
+    "Grasse — Performance"
+   ],
+   "OFF-R3-2CD5CA8CE786": [
+    "bapteme",
+    "Roquebrune — Découverte"
+   ],
+   "OFF-R3-495E92BF5CBA": [
+    "bapteme",
+    "Roquebrune — Évasion"
+   ],
+   "OFF-R3-52CE29A3F248": [
+    "bapteme",
+    "Grasse — Ascendance"
+   ],
+   "OFF-R3-886FB7BFD4C0": [
+    "bapteme",
+    "Grasse — Évasion"
+   ],
+   "OFF-R3-8CCC50A955BA": [
+    "bapteme",
+    "Grasse — Découverte"
+   ],
+   "OFF-R3-BED11B110C9C": [
+    "bapteme",
+    "Roquebrune — Performance"
+   ],
+   "OFF-R3-C9407F72608C": [
+    "bapteme",
+    "Roquebrune — Ascendance"
+   ]
+  }
+ },
+ "S031": {
+  "name": "Ailéments – Nice Parapente",
+  "email": "info@ailements.fr",
+  "offers": {
+   "OFF-A64BAB597E08": [
+    "bapteme",
+    "Duo — 2 vols Ascendant"
+   ],
+   "OFF-AAB3DA920301": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-AE82623324D0": [
+    "bapteme",
+    "Vol Ascendant"
+   ],
+   "OFF-C7321AFD5F3D": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-F44D85ED755A": [
+    "bapteme",
+    "Duo — 2 vols Prestige"
+   ],
+   "OFF-0639ACF364F6": [
+    "stage",
+    "Journée à la carte"
+   ],
+   "OFF-0649FD3008EB": [
+    "stage",
+    "Découverte du Sud"
+   ],
+   "OFF-6366941F94F0": [
+    "stage",
+    "Dune du Pilat — Sans navette"
+   ],
+   "OFF-658B164480D0": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-7D32B7D270A3": [
+    "stage",
+    "Dune du Pilat — Avec navette"
+   ],
+   "OFF-91D62A5BD22F": [
+    "stage",
+    "Progression – 5 jours"
+   ],
+   "OFF-BBEEAB89CAC4": [
+    "stage",
+    "Progression – 3 jours"
+   ],
+   "OFF-FF5F2277BFF7": [
+    "stage",
+    "Découverte"
+   ]
+  }
+ },
+ "S032": {
+  "name": "Ailes des Aravis",
+  "email": "info@ailesdesaravis.com",
+  "offers": {
+   "OFF-R4-07A63EEB3CD2": [
+    "bapteme",
+    "Vol parapente Petit Prince"
+   ],
+   "OFF-R4-07CB258C4BED": [
+    "bapteme",
+    "Vol parapente Découverte – depuis Beauregard"
+   ],
+   "OFF-R4-27327BEB9421": [
+    "bapteme",
+    "Vol parapente Horizon"
+   ],
+   "OFF-R4-776EFE17261F": [
+    "bapteme",
+    "Vol parapente Majestic"
+   ],
+   "OFF-R4-7C89E838AD2B": [
+    "bapteme",
+    "Vol parapente Prestige – depuis l’Aiguille"
+   ],
+   "OFF-R4-B4D3B1682BA1": [
+    "bapteme",
+    "Vol parapente Émotion – depuis le Crêt du Loup"
+   ],
+   "OFF-R4-E2944044ABAF": [
+    "bapteme",
+    "Vol parapente Évasion"
+   ]
+  }
+ },
+ "S034": {
+  "name": "Air 2 Alpes",
+  "email": "info@air2alpes.com",
+  "offers": {
+   "OFF-R4-258CAEF625CF": [
+    "bapteme",
+    "Prestige hiver"
+   ]
+  }
+ },
+ "S036": {
+  "name": "Air Ailes Parapente",
+  "email": "parapente.2alpes@free.fr",
+  "offers": {
+   "OFF-R6-294AD4D5DB85": [
+    "bapteme",
+    "Biplace hiver – adulte"
+   ],
+   "OFF-R6-A5C2E857BE56": [
+    "bapteme",
+    "Biplace hiver – enfant"
+   ]
+  }
+ },
+ "S037": {
+  "name": "AIR ALPIN",
+  "email": "air-alpin@air-alpin.com",
+  "offers": {
+   "OFF-R3-611D2900D53D": [
+    "stage",
+    "Week-end progression"
+   ],
+   "OFF-R3-6954E0B23762": [
+    "stage",
+    "Week-end ascendance"
+   ],
+   "OFF-R3-83AD99F01F3F": [
+    "stage",
+    "Découverte"
+   ],
+   "OFF-R3-8D8BEEB41CA6": [
+    "stage",
+    "Week-end nouvelles glisses"
+   ],
+   "OFF-R3-93901F0344BA": [
+    "stage",
+    "Mini-stage"
+   ],
+   "OFF-R3-A2528DF73AAF": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-V8-36850861401A": [
+    "stage",
+    "STAGE INITIATION 5 jours"
+   ],
+   "OFF-V8-139D956810BF": [
+    "stage",
+    "STAGE PROGRESSION 5 jours"
+   ],
+   "OFF-V8-3783D4E29B65": [
+    "stage",
+    "W.E. PROGRESSION"
+   ],
+   "OFF-V8-84646956B9B9": [
+    "stage",
+    "MINI STAGE initiation"
+   ]
+  }
+ },
+ "S038": {
+  "name": "Air Attitude – École de parapente",
+  "email": "infos@air-attitude.com",
+  "offers": {
+   "OFF-R4-04BBC5EB84BC": [
+    "bapteme",
+    "Vol Pilotage"
+   ],
+   "OFF-R4-190A0A13E335": [
+    "bapteme",
+    "Vol Passion"
+   ],
+   "OFF-R4-38855D8FF42B": [
+    "bapteme",
+    "Vol Plaisir"
+   ],
+   "OFF-R4-65F863D7F9AA": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-R4-C04985726EEC": [
+    "bapteme",
+    "Vol Émotions"
+   ],
+   "OFF-R4-D6C532C85D1F": [
+    "bapteme",
+    "Vol Émotions VIP"
+   ],
+   "OFF-R4-E245A46CEC12": [
+    "bapteme",
+    "Vol Passion VIP"
+   ],
+   "OFF-R6-99996C42C64A": [
+    "stage",
+    "Séjour La Réunion"
+   ],
+   "OFF-R6-B65CC51832BB": [
+    "stage",
+    "Séjour soaring en Afrique du Sud"
+   ]
+  }
+ },
+ "S040": {
+  "name": "Air Aventure Pyrénées",
+  "email": "aap.vol.biplace@gmail.com",
+  "offers": {
+   "OFF-R5-0DF6C4AE8499": [
+    "stage",
+    "Stage Cycle 1"
+   ],
+   "OFF-R5-48F99D2594DD": [
+    "stage",
+    "Stage Découverte"
+   ],
+   "OFF-R5-66F43B269CB7": [
+    "stage",
+    "Stage Itinérant"
+   ],
+   "OFF-R5-C12AC4E27B66": [
+    "stage",
+    "Stage Cycle 2"
+   ],
+   "OFF-R5-D4F27FC953B6": [
+    "stage",
+    "Stage Cycle 3"
+   ]
+  }
+ },
+ "S041": {
+  "name": "Air Element",
+  "email": "airelementair@gmail.com",
+  "offers": {
+   "OFF-WEB-A4DD8244D2EE": [
+    "bapteme",
+    "Vol Zen"
+   ],
+   "OFF-WEB-6A98A97D1A29": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-WEB-97D12D4571B4": [
+    "bapteme",
+    "Vol VIP"
+   ],
+   "OFF-WEB-E38BC6B29976": [
+    "bapteme",
+    "Vol No Limit"
+   ],
+   "OFF-WEB-4F843ED69EA3": [
+    "stage",
+    "Stage initiation 5 jours"
+   ],
+   "OFF-WEB-593F5888245C": [
+    "stage",
+    "Stage progression 4 jours"
+   ]
+  }
+ },
+ "S042": {
+  "name": "AIR ET AVENTURE",
+  "email": "ecole@airetaventure.com",
+  "offers": {
+   "OFF-R3-1346B80E8934": [
+    "bapteme",
+    "Performance"
+   ],
+   "OFF-R3-A46E832C1CC2": [
+    "bapteme",
+    "EVG / EVJF"
+   ],
+   "OFF-R3-C2EA685A76EF": [
+    "bapteme",
+    "Grand Condor"
+   ],
+   "OFF-R3-E86FC8EF086E": [
+    "bapteme",
+    "Objectif Saint-Eynard"
+   ],
+   "OFF-R3-26F09A570048": [
+    "stage",
+    "Perf thermique"
+   ],
+   "OFF-R3-3A8A3878AEB1": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R3-8B3C18022DB4": [
+    "stage",
+    "Dune"
+   ],
+   "OFF-R3-9B0C268D830B": [
+    "stage",
+    "Mini-stage découverte"
+   ],
+   "OFF-R3-EA3D34586A09": [
+    "stage",
+    "Progression"
+   ],
+   "OFF-V8-64CC09E2A519": [
+    "stage",
+    "Initiation WE 1/2 – 319 €"
+   ],
+   "OFF-V8-BF13EC456208": [
+    "stage",
+    "Initiation WE 2/2 – 319 €"
+   ],
+   "OFF-V8-FFB35E52C09D": [
+    "stage",
+    "Progression – 319 €"
+   ],
+   "OFF-V8-BF072AA321E7": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-V8-D8FF29037AFD": [
+    "stage",
+    "Progression – 349 €"
+   ],
+   "OFF-V8-0B2AEAC98FA5": [
+    "stage",
+    "Initiation WE 1/2 – 345 €"
+   ],
+   "OFF-V8-EFE4EF3BD488": [
+    "stage",
+    "Stage féminin"
+   ],
+   "OFF-V8-467ECD0A480D": [
+    "stage",
+    "Initiation WE 2/2 – 345 €"
+   ],
+   "OFF-V8-C08989B37C2B": [
+    "stage",
+    "Mini stage Découverte"
+   ],
+   "OFF-V8-33903A5B8769": [
+    "stage",
+    "Stage Dune Pilotage"
+   ],
+   "OFF-V8-0C6CD51D6CFF": [
+    "stage",
+    "Perfectionnement Thermique"
+   ],
+   "OFF-V8-118E3A2DCB93": [
+    "stage",
+    "CROSS Niv 2"
+   ],
+   "OFF-V8-38BB326E19F6": [
+    "stage",
+    "Progression – 789 €"
+   ],
+   "OFF-V8-20FCCE8188B5": [
+    "stage",
+    "CROSS Niv 1"
+   ],
+   "OFF-V8-5B798186A4AC": [
+    "stage",
+    "Marche et vol"
+   ],
+   "OFF-V8-3A874F9A9EE2": [
+    "stage",
+    "Préformation Qualification Biplace"
+   ],
+   "OFF-V8-0D87F069F848": [
+    "stage",
+    "Qualification Bi place"
+   ]
+  }
+ },
+ "S043": {
+  "name": "Air Guadeloupe",
+  "email": "info@air-guadeloupe.com",
+  "offers": {
+   "OFF-R5-15295EE6A292": [
+    "bapteme",
+    "Vol Initiation Pilotage"
+   ],
+   "OFF-R5-4F47858EC93F": [
+    "bapteme",
+    "Vol Grande Balade Littoral"
+   ],
+   "OFF-R5-CD5C4BD13F9D": [
+    "bapteme",
+    "Vol Sunset’apéro"
+   ],
+   "OFF-R5-E53CDAFFBAB5": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S044": {
+  "name": "Air Lagon Parapente",
+  "email": "info@airlagon.re",
+  "offers": {
+   "OFF-R4-18337F46C1E9": [
+    "bapteme",
+    "Vol Extra Long"
+   ],
+   "OFF-R4-2FA24F266BE0": [
+    "bapteme",
+    "Vol Long"
+   ],
+   "OFF-R4-40383A0F9905": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R4-6D17B19B1E56": [
+    "bapteme",
+    "Vol Panoramique"
+   ],
+   "OFF-R4-C918B41873B6": [
+    "bapteme",
+    "Vol du Maïdo"
+   ],
+   "OFF-R4-E1FAAC8FF79D": [
+    "bapteme",
+    "Formule enfant"
+   ]
+  }
+ },
+ "S046": {
+  "name": "AIR MAGIC",
+  "email": "contact@air-magic-parapente.com",
+  "offers": {
+   "OFF-R6-3C6DE78C568C": [
+    "bapteme",
+    "Vol XXL"
+   ],
+   "OFF-R6-4A98CDC99153": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-R6-6665AAEEC682": [
+    "bapteme",
+    "Vol XL"
+   ],
+   "OFF-R6-D16B2A624AFE": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-F4BE985EF0A2": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-R6-614E354F3E0D": [
+    "stage",
+    "Stage initiation"
+   ],
+   "OFF-R6-697D76E9E119": [
+    "stage",
+    "Stage perfectionnement"
+   ],
+   "OFF-R6-A0951A7448BC": [
+    "stage",
+    "Matinée initiation + biplace Découverte"
+   ],
+   "OFF-DESC-6E63577420C3": [
+    "stage",
+    "Matinée initiation + biplace Ascendance"
+   ]
+  }
+ },
+ "S047": {
+  "name": "Air Passion Parapente Les Carroz",
+  "email": "contact@airpassionlescarroz.fr",
+  "offers": {
+   "OFF-0362": [
+    "bapteme",
+    "Ascendance"
+   ],
+   "OFF-0363": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-0364": [
+    "bapteme",
+    "Performance"
+   ],
+   "OFF-0365": [
+    "bapteme",
+    "Prestige"
+   ]
+  }
+ },
+ "S048": {
+  "name": "Air Plume Parapente",
+  "email": "airplume@orange.fr",
+  "offers": {
+   "OFF-R5-BA663A6E5FC4": [
+    "bapteme",
+    "Vol Ascendances"
+   ]
+  }
+ },
+ "S049": {
+  "name": "Air Réunion Parapente",
+  "email": "airreunion@gmail.com",
+  "offers": {
+   "OFF-R6-EBB72DD21157": [
+    "stage",
+    "Vol supplémentaire de formation"
+   ]
+  }
+ },
+ "S050": {
+  "name": "Air Sports Chamonix",
+  "email": "info@airsportschamonix.fr",
+  "offers": {
+   "OFF-R6-58D2506A8A1D": [
+    "stage",
+    "Initiation collective – tarif standard"
+   ],
+   "OFF-R6-6CC97CD9BF57": [
+    "stage",
+    "Initiation collective – du 15 juin au 30 septembre"
+   ]
+  }
+ },
+ "S051": {
+  "name": "Air Tandem Les Arcs",
+  "email": "airtandemlesarcs@gmail.com",
+  "offers": {
+   "OFF-R4-58D5DB971EBA": [
+    "bapteme",
+    "Vol Vallée"
+   ],
+   "OFF-R4-622C066A63DB": [
+    "bapteme",
+    "Vol Massif"
+   ],
+   "OFF-R4-80F1D63A36A6": [
+    "bapteme",
+    "Vol des Forts"
+   ],
+   "OFF-R4-C42E196FA8CE": [
+    "bapteme",
+    "Vol Plaisir"
+   ],
+   "OFF-R4-CD3DED4CAD0B": [
+    "bapteme",
+    "Vol Station"
+   ],
+   "OFF-R4-EB1077B8C980": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R4-FF5AC464B089": [
+    "bapteme",
+    "Vol hiver à pied"
+   ]
+  }
+ },
+ "S052": {
+  "name": "Air Tarentaise - Air La Plagne",
+  "email": "agence@pure-illusion.com",
+  "offers": {
+   "OFF-R3-11850E8D7F38": [
+    "bapteme",
+    "Alpages Pra Plan"
+   ],
+   "OFF-R3-306073F7D150": [
+    "bapteme",
+    "Découverte La Plagne"
+   ],
+   "OFF-R3-3A6EF89DD2DE": [
+    "bapteme",
+    "Prestige hiver"
+   ],
+   "OFF-R3-407DD171E4C6": [
+    "bapteme",
+    "King hiver"
+   ],
+   "OFF-R3-62376079EEB9": [
+    "bapteme",
+    "Prestige"
+   ],
+   "OFF-R3-746DAA6DF866": [
+    "bapteme",
+    "Panoramique hiver"
+   ],
+   "OFF-R3-87EFB56D708C": [
+    "bapteme",
+    "Panoramique Granier"
+   ],
+   "OFF-R3-957ABFFBC38E": [
+    "bapteme",
+    "Découverte hiver"
+   ],
+   "OFF-R3-CA73134D2C61": [
+    "bapteme",
+    "Panoramique Bourg"
+   ],
+   "OFF-R3-E4FDDA174182": [
+    "bapteme",
+    "Alpages Fort de la Platte"
+   ],
+   "OFF-R3-FC52062E91DC": [
+    "bapteme",
+    "King coucher de soleil"
+   ]
+  }
+ },
+ "S053": {
+  "name": "Air-2-Ailes",
+  "email": "air2ailes@gmail.com",
+  "offers": {
+   "OFF-R3-012B4E269C1A": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-4B25BD23C176": [
+    "bapteme",
+    "Découverte duo"
+   ],
+   "OFF-R3-6DAE2D0F3144": [
+    "bapteme",
+    "Enfant"
+   ],
+   "OFF-R3-70CC8A11B984": [
+    "bapteme",
+    "Plaisir"
+   ],
+   "OFF-R3-AEFB76BDD893": [
+    "bapteme",
+    "Sensation"
+   ],
+   "OFF-R3-B897B902D929": [
+    "bapteme",
+    "Migrateur"
+   ],
+   "OFF-R3-08644253DB3A": [
+    "stage",
+    "Découverte"
+   ],
+   "OFF-R3-0A9022DDBBF6": [
+    "stage",
+    "Progression — 5 jours"
+   ],
+   "OFF-R3-4D798C510213": [
+    "stage",
+    "Perfectionnement — 3 jours"
+   ],
+   "OFF-R3-65EBCC97ED56": [
+    "stage",
+    "Progression — 3 jours"
+   ],
+   "OFF-R3-6A7A4D99AE11": [
+    "stage",
+    "Perfectionnement — 5 jours"
+   ]
+  }
+ },
+ "S055": {
+  "name": "Airéole - École de Parapente à Morzine",
+  "email": "aireolecontact@gmail.com",
+  "offers": {
+   "OFF-V8-71C464A46FF5": [
+    "bapteme",
+    "Cool été"
+   ],
+   "OFF-V8-D25D88140EB2": [
+    "bapteme",
+    "Gravity été"
+   ],
+   "OFF-V8-943F79AF707B": [
+    "bapteme",
+    "Mad Max été"
+   ],
+   "OFF-V8-8CCDDD9E1BAC": [
+    "bapteme",
+    "Indiana"
+   ],
+   "OFF-V8-3A04E22FD241": [
+    "bapteme",
+    "Light"
+   ],
+   "OFF-V8-C85F713D4A36": [
+    "bapteme",
+    "Vol pédagogique"
+   ],
+   "OFF-V8-E3248C834A58": [
+    "bapteme",
+    "Cool hiver"
+   ],
+   "OFF-V8-89970FBA88AF": [
+    "bapteme",
+    "Gravity hiver"
+   ],
+   "OFF-V8-A726B634E049": [
+    "bapteme",
+    "Mad Max hiver"
+   ],
+   "OFF-V8-D05D86A6B407": [
+    "bapteme",
+    "Grands Espaces"
+   ]
+  }
+ },
+ "S056": {
+  "name": "Airexperience",
+  "email": "contact@airexperience.fr",
+  "offers": {
+   "OFF-R6-3BBB32AFDBF5": [
+    "stage",
+    "Week-end découverte"
+   ],
+   "OFF-R6-C3B2B3CC7A8B": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-EE385159A542": [
+    "stage",
+    "Migrateur"
+   ]
+  }
+ },
+ "S057": {
+  "name": "AirLinks",
+  "email": "info@airlinks.org",
+  "offers": {
+   "OFF-R3-4074CA1AD4C0": [
+    "bapteme",
+    "Sensation hiver"
+   ],
+   "OFF-R3-CD02BCA056D6": [
+    "bapteme",
+    "Sensation été"
+   ],
+   "OFF-R3-5F2D2FCDF199": [
+    "stage",
+    "Initiation cross"
+   ],
+   "OFF-R3-6A019490FC1C": [
+    "stage",
+    "Vol bivouac"
+   ],
+   "OFF-R3-75CF8AF80B04": [
+    "stage",
+    "Vol rando"
+   ],
+   "OFF-R3-932AB5D27CBB": [
+    "stage",
+    "Thermique"
+   ]
+  }
+ },
+ "S058": {
+  "name": "Airlinks Aveyron Parapente",
+  "email": "airlinksaveyronparapente@gmail.com",
+  "offers": {
+   "OFF-R6-B5BA973386BB": [
+    "stage",
+    "Accompagnement en vol"
+   ]
+  }
+ },
+ "S059": {
+  "name": "Airmania",
+  "email": "info@airmania.fr",
+  "offers": {
+   "OFF-R6-DD0D9146BA43": [
+    "bapteme",
+    "Performance"
+   ],
+   "OFF-R6-513CB5F5D79A": [
+    "stage",
+    "Progression – week-end"
+   ],
+   "OFF-R6-D2047DF0ED38": [
+    "stage",
+    "Progression – 4 jours"
+   ],
+   "OFF-R6-F94E1132EB3A": [
+    "stage",
+    "Progression – journée"
+   ]
+  }
+ },
+ "S060": {
+  "name": "Airmax Parapente",
+  "email": "airmaxparapente@gmail.com",
+  "offers": {
+   "OFF-WEB-2790E699FD44": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-WEB-B1363F3B5DD6": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-WEB-D5B05603E522": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-WEB-DDBB3D0644AD": [
+    "bapteme",
+    "Vol Émotion"
+   ],
+   "OFF-WEB-501EED339A08": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-WEB-C2D0FDA4989B": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S062": {
+  "name": "Airzone Parapente",
+  "email": "airzoneparapente@gmail.com",
+  "offers": {
+   "OFF-R6-2D7EBCC8E175": [
+    "bapteme",
+    "Vol Classique +"
+   ],
+   "OFF-R6-321C51BF77A8": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-82E0C67C8D6A": [
+    "bapteme",
+    "Vol Classique"
+   ],
+   "OFF-R6-862279F6FE5E": [
+    "bapteme",
+    "Vol Long Courrier"
+   ],
+   "OFF-R6-C6820CB48E5D": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-R6-0878314EEEE0": [
+    "stage",
+    "Séance à la carte"
+   ],
+   "OFF-R6-0DE3E70DC03A": [
+    "stage",
+    "Initiation – Week-end"
+   ],
+   "OFF-R6-1ED2E2929D3F": [
+    "stage",
+    "Formule Découverte"
+   ],
+   "OFF-R6-5349AA9BC6FC": [
+    "stage",
+    "Stage Cross Montagne"
+   ],
+   "OFF-R6-CE06C5D02499": [
+    "stage",
+    "Progression – Semaine"
+   ],
+   "OFF-R6-E8DAD2D2AD39": [
+    "stage",
+    "Initiation – Semaine"
+   ],
+   "OFF-R6-FCF9FF01A169": [
+    "stage",
+    "Progression – Week-end"
+   ]
+  }
+ },
+ "S063": {
+  "name": "Aix en Vol Parapente",
+  "email": "info@aixenvol.fr",
+  "offers": {
+   "OFF-R6-58BAEBB898B4": [
+    "bapteme",
+    "Vol Initiation"
+   ],
+   "OFF-R6-91BA7423B6FC": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-R6-B35A581C5118": [
+    "bapteme",
+    "Vol Plaisir"
+   ],
+   "OFF-R6-B4BD735C5436": [
+    "bapteme",
+    "Vol Émotion"
+   ],
+   "OFF-R6-C88962729F3B": [
+    "bapteme",
+    "Vol Plénitude"
+   ]
+  }
+ },
+ "S064": {
+  "name": "Akènefly Parapente",
+  "email": "info@akenefly.fr",
+  "offers": {
+   "OFF-V8-5B395396DE43": [
+    "bapteme",
+    "Grand Vol"
+   ],
+   "OFF-V8-0337AB6FBA37": [
+    "bapteme",
+    "Vol Kid"
+   ],
+   "OFF-V8-7890031D37F3": [
+    "bapteme",
+    "Vol d’altitude"
+   ],
+   "OFF-V8-4F17A7614388": [
+    "bapteme",
+    "Vol en ascendance"
+   ],
+   "OFF-V8-DC2D708EDF9A": [
+    "bapteme",
+    "Vol Prestige (Premium Flight)"
+   ],
+   "OFF-V8-BFEF41BE0D3B": [
+    "bapteme",
+    "Grand Vol hiver"
+   ],
+   "OFF-V8-CEBECBA8786D": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-V8-888E249BE959": [
+    "bapteme",
+    "Vol d’altitude hiver"
+   ],
+   "OFF-V8-E4629C03BD23": [
+    "bapteme",
+    "Vol Prestige hiver (Premium Flight Winter)"
+   ]
+  }
+ },
+ "S065": {
+  "name": "Alizé Parapente",
+  "email": "alizeparapente974@icloud.com",
+  "offers": {
+   "OFF-V8-695BEFB32BA5": [
+    "bapteme",
+    "Baptême enfant – 800 m"
+   ],
+   "OFF-V8-487C1E17F1E3": [
+    "bapteme",
+    "Découverte – 800 m"
+   ],
+   "OFF-V8-85193AF3CAB1": [
+    "bapteme",
+    "Découverte Plus – 800 m"
+   ],
+   "OFF-V8-1AADACE6415C": [
+    "bapteme",
+    "Découverte Max – 800 m"
+   ],
+   "OFF-V8-37A8FC1CB9D1": [
+    "bapteme",
+    "Baptême – 1 500 m"
+   ],
+   "OFF-V8-24354AB5F88D": [
+    "bapteme",
+    "Mafate / Maïdo – 2 000 m"
+   ]
+  }
+ },
+ "S067": {
+  "name": "ALTITUDE PARAPENTE",
+  "email": "info@altitudeparapente.fr",
+  "offers": {
+   "OFF-R6-56F5FEF24004": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-8CF556B5D5AF": [
+    "stage",
+    "Perfectionnement Vosges – sans équipement personnel"
+   ],
+   "OFF-R6-90888DE9CF2F": [
+    "stage",
+    "Perfectionnement Vosges – matériel personnel"
+   ],
+   "OFF-R6-B32B6EDD5EF6": [
+    "stage",
+    "Journée perfectionnement"
+   ],
+   "OFF-R6-BAEBFD890E6E": [
+    "stage",
+    "Perfectionnement sur le massif"
+   ]
+  }
+ },
+ "S073": {
+  "name": "Aravis Parapente",
+  "email": "samuelporret@gmail.com",
+  "offers": {
+   "OFF-R4-046A43514722": [
+    "bapteme",
+    "Vol Aiguille hiver"
+   ],
+   "OFF-R4-22032C4B75C8": [
+    "bapteme",
+    "Vol Loup hiver"
+   ],
+   "OFF-R4-5715C86EBF2E": [
+    "bapteme",
+    "Vol Performance"
+   ],
+   "OFF-R4-BC863778B8B6": [
+    "bapteme",
+    "Vol Plaisir"
+   ],
+   "OFF-R4-C437D828C7BE": [
+    "bapteme",
+    "Vol Beauregard hiver"
+   ],
+   "OFF-R4-CCDFC002FB67": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R4-DEEEA94741C4": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S076": {
+  "name": "Ascendance",
+  "email": "info@ascendance.fr",
+  "offers": {
+   "OFF-R6-A715D6722F5E": [
+    "bapteme",
+    "Combo Sensation"
+   ],
+   "OFF-R6-DCFD1556A7A3": [
+    "bapteme",
+    "Thermik"
+   ],
+   "OFF-R6-DD56FA6A0ED5": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R6-E5F504564CBD": [
+    "bapteme",
+    "Initiation Pilotage VIP"
+   ],
+   "OFF-R5-34C84FEC2628": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R5-921DF0D950AE": [
+    "stage",
+    "Évolution"
+   ],
+   "OFF-R5-BFEF65DF2C9A": [
+    "stage",
+    "Thermik"
+   ],
+   "OFF-R5-DCF3B90001B7": [
+    "stage",
+    "Évolution +"
+   ]
+  }
+ },
+ "S077": {
+  "name": "Ascendance",
+  "email": "info@ascendance.fr",
+  "offers": {
+   "OFF-0492": [
+    "bapteme",
+    "Biplace Découverte — video: Avec"
+   ],
+   "OFF-0493": [
+    "bapteme",
+    "Biplace Découverte — video: Sans"
+   ],
+   "OFF-0496": [
+    "stage",
+    "Initiation 3 séances"
+   ],
+   "OFF-0497": [
+    "stage",
+    "Initiation 5 séances"
+   ],
+   "OFF-0498": [
+    "stage",
+    "Perfectionnement 1-2-3 — type: Au vol ; materiel personnel: Avec"
+   ],
+   "OFF-0499": [
+    "stage",
+    "Perfectionnement 1-2-3 — type: Au vol ; materiel personnel: Sans"
+   ],
+   "OFF-0500": [
+    "stage",
+    "Perfectionnement 1-2-3 — type: À la journée ; materiel personnel: Avec"
+   ],
+   "OFF-0501": [
+    "stage",
+    "Perfectionnement 1-2-3 — type: À la journée ; materiel personnel: Sans"
+   ]
+  }
+ },
+ "S078": {
+  "name": "Ascendance Parapente",
+  "email": "info@ascendance.fr",
+  "offers": {
+   "OFF-R5-28B010C8DB34": [
+    "bapteme",
+    "Baptême Maïdo"
+   ],
+   "OFF-R5-30EEFF718D5A": [
+    "bapteme",
+    "Baptême Grand Tourisme"
+   ],
+   "OFF-R5-3FCCA58624A8": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-R5-7864F2619169": [
+    "bapteme",
+    "Baptême Marmaille"
+   ],
+   "OFF-R5-AEF34B46C1EF": [
+    "bapteme",
+    "Baptême Ascendance"
+   ],
+   "OFF-R6-6A8D82AB180D": [
+    "stage",
+    "Initiation niveau 1"
+   ],
+   "OFF-R6-DAF3E8893F47": [
+    "stage",
+    "Progression niveau 2"
+   ]
+  }
+ },
+ "S079": {
+  "name": "Ascendance Parapente Chamonix",
+  "email": "xavier.blanes67@gmail.com",
+  "offers": {
+   "OFF-WEB-84A62C328872": [
+    "bapteme",
+    "Vol découverte enfant"
+   ],
+   "OFF-WEB-6116429F3D49": [
+    "bapteme",
+    "Vol découverte / sensation (hiver)"
+   ],
+   "OFF-WEB-08ED4B272AAB": [
+    "bapteme",
+    "Vol du Plan de l’Aiguille"
+   ],
+   "OFF-WEB-D59636B760E0": [
+    "bapteme",
+    "Vol XL"
+   ],
+   "OFF-WEB-38D1E09C14D3": [
+    "bapteme",
+    "Vol XXL"
+   ],
+   "OFF-WEB-DEA49CBD41FA": [
+    "bapteme",
+    "Vol de l’Aiguille du Midi"
+   ]
+  }
+ },
+ "S080": {
+  "name": "Atelier du Vent",
+  "email": "adv@atelierduvent.com",
+  "offers": {
+   "OFF-WEB-3C96163839BB": [
+    "bapteme",
+    "Trinity"
+   ],
+   "OFF-WEB-243143483669": [
+    "bapteme",
+    "Everest"
+   ],
+   "OFF-WEB-112B424A463A": [
+    "bapteme",
+    "Crossrock"
+   ],
+   "OFF-WEB-9BF0ED303BDF": [
+    "bapteme",
+    "Émotion (hiver)"
+   ]
+  }
+ },
+ "S083": {
+  "name": "Axesse",
+  "email": "info@axesse.com",
+  "offers": {
+   "OFF-R5-02146EB80135": [
+    "bapteme",
+    "Vol Ascendance – hiver"
+   ],
+   "OFF-R5-0521F9658A29": [
+    "bapteme",
+    "Vol Découverte – été"
+   ],
+   "OFF-R5-5AF31219081C": [
+    "bapteme",
+    "Vol Thermique – été"
+   ],
+   "OFF-R5-7B0B0C367E04": [
+    "bapteme",
+    "Vol Première aile petits poids – été"
+   ],
+   "OFF-R5-B79E34CC3311": [
+    "bapteme",
+    "Vol Sensation – hiver"
+   ],
+   "OFF-R5-C3FDB97585AD": [
+    "bapteme",
+    "Vol Découverte – hiver"
+   ],
+   "OFF-R6-0F6AE8DD291D": [
+    "stage",
+    "Journée +"
+   ],
+   "OFF-R6-17832CE2EE9D": [
+    "stage",
+    "Pack initiation"
+   ],
+   "OFF-R6-42C8FC1909B6": [
+    "stage",
+    "Journée"
+   ]
+  }
+ },
+ "S084": {
+  "name": "Axiom Parapente",
+  "email": "axiom.para@gmail.com",
+  "offers": {
+   "OFF-WEB-32229AD3A735": [
+    "bapteme",
+    "Baptême / vol découverte"
+   ],
+   "OFF-WEB-89AA0343E55F": [
+    "bapteme",
+    "Vol ascendance"
+   ]
+  }
+ },
+ "S085": {
+  "name": "Azur Parapente",
+  "email": "thierry@azur-parapente.fr",
+  "offers": {
+   "OFF-R5-0ECB15EC2270": [
+    "bapteme",
+    "Vol Balade aérienne"
+   ],
+   "OFF-R5-23B7D1E8F5E5": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S090": {
+  "name": "Bauges Parapente",
+  "email": "contact@bauges-parapente.com",
+  "offers": {
+   "OFF-R3-04CA61FE2386": [
+    "bapteme",
+    "Vol Majestic"
+   ],
+   "OFF-R3-0DB0D27F386D": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-R3-6F100F539A8E": [
+    "bapteme",
+    "Vol Ascendances"
+   ],
+   "OFF-R3-BCB50E8F6939": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R3-D9454B3B0A51": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R3-065032A232D8": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R3-1776C81FDBC5": [
+    "stage",
+    "Autonomie"
+   ],
+   "OFF-R3-463643D22E52": [
+    "stage",
+    "Vol rando"
+   ],
+   "OFF-R3-94224B9FCFF3": [
+    "stage",
+    "Thermique"
+   ]
+  }
+ },
+ "S091": {
+  "name": "Benjamin Raisson Parapente",
+  "email": "parapente@raisson.net",
+  "offers": {
+   "OFF-DESC-DD112377ECC5": [
+    "bapteme",
+    "Vol Station"
+   ],
+   "OFF-DESC-EB3DE76373F5": [
+    "bapteme",
+    "Vol Vallée"
+   ],
+   "OFF-DESC-5E260AF93FBC": [
+    "bapteme",
+    "Vol Massif"
+   ],
+   "OFF-DESC-4171C3B60389": [
+    "bapteme",
+    "Vol Kids"
+   ]
+  }
+ },
+ "S093": {
+  "name": "Black Air Parapente",
+  "email": "blackairparapente@gmail.com",
+  "offers": {
+   "OFF-R4-08C068BE11B5": [
+    "bapteme",
+    "Les Sommets – Piton des Neiges"
+   ],
+   "OFF-R4-0AE4ECDD990D": [
+    "bapteme",
+    "Le 800 Mètres"
+   ],
+   "OFF-R4-1BDD31A2E86F": [
+    "bapteme",
+    "Le Marmaille"
+   ],
+   "OFF-R4-20597D0627EA": [
+    "bapteme",
+    "Pack baptême parapente et plongée"
+   ],
+   "OFF-R4-2747A57EE66D": [
+    "bapteme",
+    "Les Sommets – Les Makes"
+   ],
+   "OFF-R4-64D0CBEF534D": [
+    "bapteme",
+    "Les Sommets – Le Dimitile"
+   ],
+   "OFF-R4-7A771BA31AE2": [
+    "bapteme",
+    "Le 1500 Mètres"
+   ],
+   "OFF-R4-92837B18E95A": [
+    "bapteme",
+    "Le Sunset"
+   ],
+   "OFF-R4-9CDCAC899D71": [
+    "bapteme",
+    "Les Sommets – Dos d’Âne"
+   ],
+   "OFF-R4-BDE9A3D0515F": [
+    "bapteme",
+    "Les Sommets – Le Maïdo"
+   ],
+   "OFF-R4-CBDA9C07A60F": [
+    "bapteme",
+    "Le 800 Mètres Plus"
+   ]
+  }
+ },
+ "S094": {
+  "name": "Bourbon Parapente",
+  "email": "ecole@bourbonparapente.com",
+  "offers": {
+   "OFF-R6-5271D57A2F8B": [
+    "bapteme",
+    "Le Roi Phaonce"
+   ],
+   "OFF-R6-946397317D58": [
+    "bapteme",
+    "Le Colimaçon"
+   ],
+   "OFF-R6-D37B74D6AD37": [
+    "bapteme",
+    "Le Colimaçon – option Balade"
+   ],
+   "OFF-R6-2B12B01FBADA": [
+    "stage",
+    "Initiation – biplace pédagogique"
+   ],
+   "OFF-R6-91775A3B7C10": [
+    "stage",
+    "Initiation"
+   ]
+  }
+ },
+ "S095": {
+  "name": "Bradafly Parapente",
+  "email": "contact@bradafly-parapente.fr",
+  "offers": {
+   "OFF-R5-01CF1112EC65": [
+    "stage",
+    "Lot de 2 journées Stage"
+   ],
+   "OFF-R5-0F3C1DA3B98E": [
+    "stage",
+    "Journée Stage"
+   ],
+   "OFF-R5-3A13A2C3484E": [
+    "stage",
+    "Week-end Performance"
+   ],
+   "OFF-R5-58823A7E0492": [
+    "stage",
+    "Week-end Progression"
+   ],
+   "OFF-R5-BE7B4FA00734": [
+    "stage",
+    "Lot de 5 journées Stage"
+   ]
+  }
+ },
+ "S096": {
+  "name": "By Air Parapente",
+  "email": "byair.parapente@gmail.com",
+  "offers": {
+   "OFF-R5-31ECC63563F2": [
+    "bapteme",
+    "Vol Freestyle"
+   ],
+   "OFF-R5-54C4B478513B": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-601319C2AE90": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R5-61EF7774ACD9": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-R5-AC096D470522": [
+    "bapteme",
+    "Vol Performance"
+   ]
+  }
+ },
+ "S097": {
+  "name": "CANTAL AIR LIBRE",
+  "email": "ecole@cantalairlibre.com",
+  "offers": {
+   "OFF-R6-041AD2A637D5": [
+    "bapteme",
+    "Baptême de l’air découverte"
+   ]
+  }
+ },
+ "S099": {
+  "name": "Centre École du Markstein",
+  "email": "c.e.markstein@gmail.com",
+  "offers": {
+   "OFF-R5-C0F004A6991C": [
+    "bapteme",
+    "Biplace Longue durée"
+   ],
+   "OFF-R6-6BDE47BFDD2A": [
+    "stage",
+    "Qualification biplace"
+   ]
+  }
+ },
+ "S101": {
+  "name": "Cévennes Parapente",
+  "email": "contact@cevennesparapente.fr",
+  "offers": {
+   "OFF-DESC-70AAB3E58EF3": [
+    "stage",
+    "Stage initiation"
+   ]
+  }
+ },
+ "S102": {
+  "name": "Chamonix Parapente",
+  "email": "ecole@chamonix-parapente.fr",
+  "offers": {
+   "OFF-R5-35B0F90A57D2": [
+    "stage",
+    "Hike and Fly"
+   ],
+   "OFF-R5-AA313A557860": [
+    "stage",
+    "Initiation personnalisée"
+   ],
+   "OFF-R5-AA3A2EC9ECCF": [
+    "stage",
+    "Initiation collective"
+   ],
+   "OFF-R5-C0B0FE63525C": [
+    "stage",
+    "Progression / perfectionnement"
+   ],
+   "OFF-R5-DD0951E5B78A": [
+    "stage",
+    "Forfait journée stage"
+   ]
+  }
+ },
+ "S103": {
+  "name": "Chamrousse Parapente",
+  "email": "jeff@chamrousseparapente.fr",
+  "offers": {
+   "OFF-0613": [
+    "bapteme",
+    "Biplace air agité à pied"
+   ],
+   "OFF-0614": [
+    "bapteme",
+    "Biplace distance 15–20 km"
+   ],
+   "OFF-0615": [
+    "bapteme",
+    "Biplace à pied première fois"
+   ],
+   "OFF-0616": [
+    "bapteme",
+    "Biplace à ski"
+   ]
+  }
+ },
+ "S105": {
+  "name": "Coccin'ailes",
+  "email": "info@coccinailes.com",
+  "offers": {
+   "OFF-DESC-2378F9F67906": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-DESC-98E80C1E4B5C": [
+    "bapteme",
+    "Vol Découverte +"
+   ],
+   "OFF-DESC-00F2E498ECA2": [
+    "bapteme",
+    "Vol Évasion"
+   ],
+   "OFF-DESC-28F5E931985C": [
+    "bapteme",
+    "Vol Cross — Tartavello → Honolulu"
+   ]
+  }
+ },
+ "S109": {
+  "name": "Cumulus Parapente",
+  "email": "info@cumulus-parapente.com",
+  "offers": {
+   "OFF-R6-73D882D25F8A": [
+    "stage",
+    "Gardons le contrôle"
+   ],
+   "OFF-R6-975D97497B28": [
+    "stage",
+    "Thermique – premiers cross"
+   ],
+   "OFF-R6-A248ADAB6676": [
+    "stage",
+    "Journée découverte"
+   ]
+  }
+ },
+ "S110": {
+  "name": "Darentasia École de Parapente",
+  "email": "contact@darentasia.com",
+  "offers": {
+   "OFF-R3-010B8E48C1C3": [
+    "bapteme",
+    "Station Les Arcs"
+   ],
+   "OFF-R3-088FEF5DEBA3": [
+    "bapteme",
+    "Des Forts"
+   ],
+   "OFF-R3-0B2F9E6575B1": [
+    "bapteme",
+    "Plaisir"
+   ],
+   "OFF-R3-4DFF8EF15570": [
+    "bapteme",
+    "Grand Vol Les Arcs"
+   ],
+   "OFF-R3-F5B3A8C3CA50": [
+    "bapteme",
+    "Prestige"
+   ],
+   "OFF-R3-1BFFE4C800FB": [
+    "stage",
+    "Perfectionnement 1 et 2"
+   ]
+  }
+ },
+ "S112": {
+  "name": "Delta Evasion",
+  "email": "info@deltaevasion.com",
+  "offers": {
+   "OFF-R3-109698DA459A": [
+    "bapteme",
+    "Top Flight"
+   ],
+   "OFF-R3-8FFB442431BD": [
+    "bapteme",
+    "Panoramique"
+   ],
+   "OFF-R3-A8687FAE271E": [
+    "bapteme",
+    "Enfant"
+   ],
+   "OFF-R3-B9381F691AA6": [
+    "bapteme",
+    "X-Aile"
+   ],
+   "OFF-R3-C3822CD3221C": [
+    "bapteme",
+    "Prestige"
+   ],
+   "OFF-R3-F69E903AD5F0": [
+    "bapteme",
+    "Zen"
+   ]
+  }
+ },
+ "S113": {
+  "name": "Digne Parapente",
+  "email": "david@digne-parapente.fr",
+  "offers": {
+   "OFF-R6-3690CB506793": [
+    "bapteme",
+    "Biplace Ascension"
+   ],
+   "OFF-R6-02FAC2ECC163": [
+    "stage",
+    "Perfectionnement thermique et cheminement"
+   ],
+   "OFF-R6-9E03C401F12F": [
+    "stage",
+    "Progression"
+   ],
+   "OFF-R6-EB5BE11AD704": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-EC4B16DABAD7": [
+    "stage",
+    "Perfectionnement"
+   ]
+  }
+ },
+ "S115": {
+  "name": "Dune Parapente",
+  "email": "contact@dune-parapente.com",
+  "offers": {
+   "OFF-R4-3D89EB732101": [
+    "bapteme",
+    "Vol Cool – 20 minutes"
+   ],
+   "OFF-R4-4DD4305E227C": [
+    "bapteme",
+    "Vol Fun – 20 minutes"
+   ],
+   "OFF-R4-60D20383CBD3": [
+    "bapteme",
+    "Vol Cool – 10 minutes"
+   ],
+   "OFF-R4-6ABD045F2083": [
+    "bapteme",
+    "Vol Fun – 10 minutes"
+   ]
+  }
+ },
+ "S116": {
+  "name": "Dynamic Parapente",
+  "email": "contact@dynamicparapente.com",
+  "offers": {
+   "OFF-R6-37E168D4773E": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-8753012B5F7A": [
+    "bapteme",
+    "Vol MaxiBiplace"
+   ]
+  }
+ },
+ "S120": {
+  "name": "École de parapente – Libre comme l'Air",
+  "email": "contact@librecommelair.com",
+  "offers": {
+   "OFF-R6-43B86458C68B": [
+    "bapteme",
+    "Vol Famille"
+   ],
+   "OFF-R6-9C9C5212C6E6": [
+    "bapteme",
+    "Vol Enfant"
+   ],
+   "OFF-R6-DA7BE370A3B3": [
+    "bapteme",
+    "Vol Adulte"
+   ],
+   "OFF-R6-9C1B85CD97FA": [
+    "stage",
+    "Stage initiation"
+   ]
+  }
+ },
+ "S124": {
+  "name": "École de Parapente de Val Louron (EPVL)",
+  "email": "epvl@epvl.fr",
+  "offers": {
+   "OFF-R5-6F3C91C0824F": [
+    "bapteme",
+    "Biplace Évolution"
+   ],
+   "OFF-R5-717F146D65F5": [
+    "bapteme",
+    "Biplace Découverte"
+   ],
+   "OFF-BAG-254D368C6339": [
+    "stage",
+    "Autonomie et Visualisation mentale"
+   ]
+  }
+ },
+ "S125": {
+  "name": "École de parapente des Arcs",
+  "email": "pgoutagny73@gmail.com",
+  "offers": {
+   "OFF-R3-0CF50140C703": [
+    "bapteme",
+    "Découverte été"
+   ],
+   "OFF-R3-16E95C477968": [
+    "bapteme",
+    "Adrénaline hiver"
+   ],
+   "OFF-R3-3CF5B4BB81C5": [
+    "bapteme",
+    "Piéton hiver"
+   ],
+   "OFF-R3-DD5C5A55EEA9": [
+    "bapteme",
+    "Performance été"
+   ],
+   "OFF-R3-E2244BA5284C": [
+    "bapteme",
+    "VIP hiver"
+   ],
+   "OFF-R3-E7609BD01DA8": [
+    "bapteme",
+    "Contemplation hiver"
+   ],
+   "OFF-R3-EE78FC16A16C": [
+    "bapteme",
+    "Découverte hiver"
+   ],
+   "OFF-R3-0661DD80BFE7": [
+    "stage",
+    "Progression 1 — Juillet–août"
+   ],
+   "OFF-R3-3EDEE08AAF42": [
+    "stage",
+    "Initiation — Juillet–août"
+   ],
+   "OFF-R3-554AA99A4E4C": [
+    "stage",
+    "Jeux dans le vent et thermique"
+   ],
+   "OFF-R3-594F13AD42D6": [
+    "stage",
+    "Initiation — Basse saison"
+   ],
+   "OFF-R3-82E25FF535FC": [
+    "stage",
+    "Cross Team pilote"
+   ],
+   "OFF-R3-92413322BA14": [
+    "stage",
+    "Progression 1 — Basse saison"
+   ],
+   "OFF-R3-99CC5CF45BEF": [
+    "stage",
+    "Progression 2 — Basse saison"
+   ],
+   "OFF-R3-B6B5B3713DA2": [
+    "stage",
+    "Progression 2 — Juillet–août"
+   ]
+  }
+ },
+ "S126": {
+  "name": "École de parapente Vol'Aime",
+  "email": "volaime@volaime.com",
+  "offers": {
+   "OFF-R5-902A4A245178": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S127": {
+  "name": "ECOLE DES BARONNIES",
+  "email": "info@provence-parapente.com",
+  "offers": {
+   "OFF-R5-1EF67AD386A2": [
+    "bapteme",
+    "Baptême Prestige"
+   ],
+   "OFF-R5-2307AEBE4275": [
+    "bapteme",
+    "Baptême Sensation et pilotage"
+   ],
+   "OFF-R5-688C00F74114": [
+    "bapteme",
+    "Baptême Performance / balade aérienne"
+   ],
+   "OFF-R5-7914D5027642": [
+    "bapteme",
+    "Baptême Durée"
+   ],
+   "OFF-R5-E17A7513BFA5": [
+    "bapteme",
+    "Baptême Découverte"
+   ]
+  }
+ },
+ "S134": {
+  "name": "Élévation Parapente",
+  "email": "contact@elevation-parapente.com",
+  "offers": {
+   "OFF-R6-1E8D7099C960": [
+    "stage",
+    "Marche et vol"
+   ],
+   "OFF-R6-28F2D0E09A09": [
+    "stage",
+    "Vol encadré"
+   ],
+   "OFF-R6-44C8FC53575F": [
+    "stage",
+    "Progression – deux demi-journées"
+   ],
+   "OFF-R6-4A417591FFD0": [
+    "stage",
+    "Préparation mentale et hypnose"
+   ],
+   "OFF-R6-645DE7BD3754": [
+    "stage",
+    "Carte de 7 vols"
+   ],
+   "OFF-R6-AEFC749BB1B3": [
+    "stage",
+    "Progression – demi-journée"
+   ],
+   "OFF-R6-FFC2E0E264F7": [
+    "stage",
+    "Progression – journée"
+   ]
+  }
+ },
+ "S135": {
+  "name": "Emotion'Air",
+  "email": "emotionairparapente@gmail.com",
+  "offers": {
+   "OFF-R4-2833A9FF2468": [
+    "bapteme",
+    "Vol Découverte adulte"
+   ],
+   "OFF-R4-316CD6BC111B": [
+    "bapteme",
+    "Vol Tour des vallées"
+   ],
+   "OFF-R4-54BF519E4E63": [
+    "bapteme",
+    "Vol Prestige – Thermique été"
+   ],
+   "OFF-R4-7CF20785D04A": [
+    "bapteme",
+    "Vol Prestige – Thermique hiver"
+   ],
+   "OFF-R4-C00A2750403A": [
+    "bapteme",
+    "Vol Découverte adulte – hiver"
+   ],
+   "OFF-R4-C1C65BC27CED": [
+    "bapteme",
+    "Vol Performance été"
+   ],
+   "OFF-R4-C5C4DB831A75": [
+    "bapteme",
+    "Vol Performance hiver"
+   ],
+   "OFF-R6-77D69AE34BA4": [
+    "stage",
+    "Stage complet"
+   ],
+   "OFF-R6-8EBBBA241CC8": [
+    "stage",
+    "Perfectionnement intense"
+   ],
+   "OFF-R6-C962ADBC99B2": [
+    "stage",
+    "SIV – formule deux jours"
+   ],
+   "OFF-R6-E6D210F881DB": [
+    "stage",
+    "Découverte du treuil"
+   ],
+   "OFF-R6-EA8F03495F4A": [
+    "stage",
+    "Initiation collective"
+   ]
+  }
+ },
+ "S136": {
+  "name": "Envergure Parapente",
+  "email": "ecole.envergure@gmail.com",
+  "offers": {
+   "OFF-R6-C9345DD256B9": [
+    "bapteme",
+    "L’Envol d’été"
+   ]
+  }
+ },
+ "S139": {
+  "name": "Envol de Provence",
+  "email": "info@envolprovence.com",
+  "offers": {
+   "OFF-R3-0B73F68DFA91": [
+    "stage",
+    "Initiation deux week-ends"
+   ],
+   "OFF-R3-15174ABFBDEE": [
+    "stage",
+    "Perfectionnement 4 jours"
+   ],
+   "OFF-R3-82F8E038F2EF": [
+    "stage",
+    "Perfectionnement 5 jours"
+   ],
+   "OFF-R3-9CB5774A96F2": [
+    "stage",
+    "Journée découverte"
+   ],
+   "OFF-R3-D4F80B744CE3": [
+    "stage",
+    "Initiation semaine"
+   ],
+   "OFF-R3-E011F4C0B94D": [
+    "stage",
+    "Perfectionnement 3 jours"
+   ]
+  }
+ },
+ "S140": {
+  "name": "Espace 3D Parapente",
+  "email": "info@espace3d.fr",
+  "offers": {
+   "OFF-R3-02CF731E774A": [
+    "bapteme",
+    "Automne-hiver"
+   ],
+   "OFF-R3-42C5FCC825F2": [
+    "bapteme",
+    "Zen"
+   ],
+   "OFF-R3-4701D1D2A00C": [
+    "bapteme",
+    "Prestige"
+   ],
+   "OFF-R3-79A6374CE1D3": [
+    "bapteme",
+    "Performance"
+   ],
+   "OFF-R3-831ACD62B39C": [
+    "bapteme",
+    "Enfant"
+   ],
+   "OFF-R3-CADA31EC1C54": [
+    "bapteme",
+    "Sensation"
+   ],
+   "OFF-R3-D33B0A60CB61": [
+    "bapteme",
+    "Famille parent/enfant"
+   ],
+   "OFF-R3-1D2B92A65A98": [
+    "stage",
+    "Progression — 2 jours avec matériel"
+   ],
+   "OFF-R3-20991160E740": [
+    "stage",
+    "SIV / pilotage — 2 jours"
+   ],
+   "OFF-R3-26134FB86E1C": [
+    "stage",
+    "Cross"
+   ],
+   "OFF-R3-3D9A078194B9": [
+    "stage",
+    "SIV / pilotage — 3 jours"
+   ],
+   "OFF-R3-5E39E370955D": [
+    "stage",
+    "Initiation — 5 jours — Basse saison"
+   ],
+   "OFF-R3-94E53BD62CCA": [
+    "stage",
+    "Initiation — 4 jours — Basse saison"
+   ],
+   "OFF-R3-9CD332AD5C79": [
+    "stage",
+    "Initiation — 5 jours — Juillet–août"
+   ],
+   "OFF-R3-AA0A568D94DF": [
+    "stage",
+    "Progression — 4 jours avec matériel"
+   ],
+   "OFF-R3-DC7A8D482556": [
+    "stage",
+    "Progression — 5 jours avec matériel"
+   ],
+   "OFF-R3-DDAA4F05B298": [
+    "stage",
+    "Progression — 3 jours avec matériel"
+   ]
+  }
+ },
+ "S141": {
+  "name": "ESPRIT PARAPENTE",
+  "email": "espritparapente@gmail.com",
+  "offers": {
+   "OFF-R5-349914169B76": [
+    "bapteme",
+    "Baptême Balade"
+   ],
+   "OFF-R5-42E42E55A241": [
+    "bapteme",
+    "Baptême Esprit"
+   ],
+   "OFF-R5-5FA01CCD818E": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-R5-01EE03AD8DF8": [
+    "stage",
+    "Vol rando"
+   ],
+   "OFF-R5-8AD3931100E4": [
+    "stage",
+    "Vol encadré ou séance de gonflage"
+   ],
+   "OFF-R5-985D12FF550B": [
+    "stage",
+    "Journée de formation"
+   ]
+  }
+ },
+ "S143": {
+  "name": "Evolution 2 Millau – Parapente",
+  "email": "quentin.simon@evolution2.com",
+  "offers": {
+   "OFF-R6-24E824AA7A3C": [
+    "bapteme",
+    "Classique +"
+   ],
+   "OFF-R6-7D5056B7B10F": [
+    "bapteme",
+    "Classique"
+   ],
+   "OFF-R6-8C0815E670C7": [
+    "bapteme",
+    "Découverte"
+   ]
+  }
+ },
+ "S144": {
+  "name": "Existenciel Parapente",
+  "email": "info@existenciel-parapente.fr",
+  "offers": {
+   "OFF-V8-D241D9CB72FB": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-V8-AA8672698836": [
+    "bapteme",
+    "Exploration"
+   ],
+   "OFF-V8-C1C3EC6B2EEC": [
+    "bapteme",
+    "Aventure"
+   ],
+   "OFF-V8-29BB437E4E4B": [
+    "bapteme",
+    "Vol à ski"
+   ],
+   "OFF-V8-F328CC0BDA17": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-V8-0F6D035B1F65": [
+    "stage",
+    "Progression"
+   ],
+   "OFF-V8-0C591786EC68": [
+    "stage",
+    "Perf – Ascendances"
+   ],
+   "OFF-V8-0FCD779AFAFA": [
+    "stage",
+    "Itinérant"
+   ],
+   "OFF-V8-AC61C23D4824": [
+    "stage",
+    "Déplacement – Cross"
+   ],
+   "OFF-V8-FD592EB2B998": [
+    "stage",
+    "Primo compétiteur"
+   ]
+  }
+ },
+ "S145": {
+  "name": "FBI Parapente Tandem",
+  "email": "syndicatlocalfbi@gmail.com",
+  "offers": {
+   "OFF-R4-87D79123D1A3": [
+    "bapteme",
+    "Vol Parapente Optimum"
+   ],
+   "OFF-R4-9BD2D418BD45": [
+    "bapteme",
+    "Vol Parapente Majestic"
+   ],
+   "OFF-R4-9FE6AF9323F3": [
+    "bapteme",
+    "Vol Panoramique Ascendance"
+   ],
+   "OFF-R4-E6784FB2FDF2": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S147": {
+  "name": "Fly Chamonix",
+  "email": "info@fly-chamonix.com",
+  "offers": {
+   "OFF-R6-852B7F78AFD3": [
+    "bapteme",
+    "Planpraz Brévent – réservation standard"
+   ],
+   "OFF-R6-B03C4CCA1C5B": [
+    "bapteme",
+    "Aiguille du Midi"
+   ]
+  }
+ },
+ "S149": {
+  "name": "Fly Millau Parapente",
+  "email": "flymillauparapente@gmail.com",
+  "offers": {
+   "OFF-R6-EA01C061399E": [
+    "bapteme",
+    "Vol Découverte Spécial Kid"
+   ],
+   "OFF-R5-31BEB2655F8D": [
+    "stage",
+    "Découverte"
+   ],
+   "OFF-R5-49511066C2DA": [
+    "stage",
+    "Initiation juillet–août"
+   ],
+   "OFF-R5-8BDD142F7FF6": [
+    "stage",
+    "Perfectionnement 5 matinées"
+   ],
+   "OFF-R5-B88E8C2A8530": [
+    "stage",
+    "Thermique basse saison"
+   ],
+   "OFF-R5-D808F29AC873": [
+    "stage",
+    "Initiation hors saison"
+   ],
+   "OFF-R5-E86A43927D23": [
+    "stage",
+    "Thermique haute saison"
+   ]
+  }
+ },
+ "S150": {
+  "name": "Fly Mont Blanc",
+  "email": "flymontblanc@yahoo.com",
+  "offers": {
+   "OFF-R4-00C014E12FD1": [
+    "bapteme",
+    "Plan de l’Aiguille"
+   ],
+   "OFF-R4-6281A53C8557": [
+    "bapteme",
+    "Chamonix Planpraz"
+   ],
+   "OFF-R4-FDE72611FD88": [
+    "bapteme",
+    "Vol XXL"
+   ]
+  }
+ },
+ "S151": {
+  "name": "Fly Tandem",
+  "email": "flytandem@parapente-peisey-vallandry.com",
+  "offers": {
+   "OFF-R5-08747E738C2E": [
+    "bapteme",
+    "Vol Adrénaline Piéton"
+   ],
+   "OFF-R5-1F880D7C1C13": [
+    "bapteme",
+    "Vol Découverte à ski"
+   ],
+   "OFF-R5-2C8FFBB3BD04": [
+    "bapteme",
+    "Vol VIP Piéton"
+   ],
+   "OFF-R5-37456B49215E": [
+    "bapteme",
+    "Vol Contemplation à ski"
+   ],
+   "OFF-R5-499BF5F53383": [
+    "bapteme",
+    "Vol Adrénaline à ski"
+   ],
+   "OFF-R5-5587D6EE9935": [
+    "bapteme",
+    "Vol Piéton"
+   ],
+   "OFF-R5-AF75221B639E": [
+    "bapteme",
+    "Vol Performance été"
+   ],
+   "OFF-R5-E7B8B3DFFE3C": [
+    "bapteme",
+    "Vol Découverte été"
+   ],
+   "OFF-R5-FCDCA350054B": [
+    "bapteme",
+    "Vol VIP à ski"
+   ]
+  }
+ },
+ "S152": {
+  "name": "Flyeo Parapente",
+  "email": "info@flyeo.com",
+  "offers": {
+   "OFF-V8-322A5DCE2AC1": [
+    "stage",
+    "SIV FR Fabien – 540 €"
+   ],
+   "OFF-V8-AD13EA4C9A91": [
+    "stage",
+    "SIV EN Fabien – 540 €"
+   ],
+   "OFF-V8-99B6286FDA64": [
+    "stage",
+    "SIV EN Fabien – 810 €"
+   ],
+   "OFF-V8-0FAE1D353081": [
+    "stage",
+    "SIV FR  Régis – 810 €"
+   ],
+   "OFF-V8-E27950368CC5": [
+    "stage",
+    "SIV FR  Régis – 540 €"
+   ],
+   "OFF-V8-2EE5E15D5989": [
+    "stage",
+    "SIV FR Fabien – 810 €"
+   ],
+   "OFF-V8-7F5A4DE912DF": [
+    "stage",
+    "Dune du Pyla Fabien et Régis"
+   ]
+  }
+ },
+ "S153": {
+  "name": "Flyeol Parapente",
+  "email": "flyeolparapente@gmail.com",
+  "offers": {
+   "OFF-R6-0CDBAD139937": [
+    "bapteme",
+    "Vol découverte"
+   ],
+   "OFF-R6-491FC96C9C41": [
+    "bapteme",
+    "Vol sensation up"
+   ],
+   "OFF-R6-B0254E5EC97E": [
+    "bapteme",
+    "Vol sensation"
+   ]
+  }
+ },
+ "S154": {
+  "name": "Flying Puy de Dôme",
+  "email": "contact@flying-puydedome.fr",
+  "offers": {
+   "OFF-R5-15DBFADA497E": [
+    "stage",
+    "Carnet 10 vols"
+   ],
+   "OFF-R5-63F23BC1CCE1": [
+    "stage",
+    "Journée d’enseignement"
+   ],
+   "OFF-R5-7AC01946C3B1": [
+    "stage",
+    "Stage tous niveaux"
+   ],
+   "OFF-R5-81EFAA6FAE66": [
+    "stage",
+    "Stage individuel tous niveaux"
+   ],
+   "OFF-R5-8CC5B64FB34A": [
+    "stage",
+    "Pack Initiation + Perfectionnement ou deux Perfectionnements"
+   ],
+   "OFF-R5-8D4E61C04BE4": [
+    "stage",
+    "Journée découverte"
+   ],
+   "OFF-R5-A2F25A060167": [
+    "stage",
+    "Week-end perfectionnement"
+   ],
+   "OFF-R5-AF253BE9FB02": [
+    "stage",
+    "Stage Andalousie – 10 jours"
+   ],
+   "OFF-R5-BFD91F3ABAD0": [
+    "stage",
+    "Stage Andalousie – 15 jours"
+   ],
+   "OFF-R5-DD06934EF2DF": [
+    "stage",
+    "Carnet 25 vols"
+   ]
+  }
+ },
+ "S157": {
+  "name": "Freedom Parapente",
+  "email": "contact@freedom-parapente.fr",
+  "offers": {
+   "OFF-R3-1F500192ACC9": [
+    "bapteme",
+    "VIP"
+   ],
+   "OFF-R3-7B1F892F4A1E": [
+    "bapteme",
+    "Adrénaline"
+   ],
+   "OFF-R3-9321E1E8F599": [
+    "bapteme",
+    "Longue durée"
+   ],
+   "OFF-R3-DA9B846F35D3": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-F141B1AEA418": [
+    "bapteme",
+    "Enfant"
+   ],
+   "OFF-R3-44DE7CE9CD06": [
+    "stage",
+    "Itinérant"
+   ],
+   "OFF-R3-52F07ABD17F4": [
+    "stage",
+    "Marche et vol"
+   ],
+   "OFF-R3-7CAF0A3781E9": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R3-B9BC95045BAA": [
+    "stage",
+    "Progression"
+   ]
+  }
+ },
+ "S158": {
+  "name": "FUSION PARAPENTE",
+  "email": "infos@fusion-parapente.com",
+  "offers": {
+   "OFF-R6-05151FAA5999": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-R6-C96FBE73100D": [
+    "bapteme",
+    "Baptême Balade"
+   ],
+   "OFF-R6-E30EBDB2A58F": [
+    "bapteme",
+    "Baptême Plaisir"
+   ]
+  }
+ },
+ "S160": {
+  "name": "Got2fly Parapente",
+  "email": "got2fly.parapente@gmail.com",
+  "offers": {
+   "OFF-V8-854D40841616": [
+    "bapteme",
+    "Vol Mini"
+   ],
+   "OFF-V8-E9C7E16BB28A": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-V8-C9C27E6F5112": [
+    "bapteme",
+    "Vol Contemplation"
+   ],
+   "OFF-V8-53692188E947": [
+    "bapteme",
+    "Vol Oiseau"
+   ],
+   "OFF-V8-15F4AB2489EF": [
+    "bapteme",
+    "Pic Nic & Fly"
+   ]
+  }
+ },
+ "S161": {
+  "name": "Gravity Parapente",
+  "email": "contact@gravity-parapente.fr",
+  "offers": {
+   "OFF-R5-477DED86E258": [
+    "bapteme",
+    "Baptême Prestige"
+   ],
+   "OFF-R5-5A173B4E6BD2": [
+    "bapteme",
+    "Baptême Enfant"
+   ],
+   "OFF-R5-80EE7628FF13": [
+    "bapteme",
+    "Baptême Ascendance"
+   ],
+   "OFF-R5-896E58C4B277": [
+    "bapteme",
+    "Baptême Panoramique"
+   ]
+  }
+ },
+ "S162": {
+  "name": "GYPAETE",
+  "email": "gypaetes@wanadoo.fr",
+  "offers": {
+   "OFF-R6-2C6A78E00AC2": [
+    "bapteme",
+    "Les Enfants"
+   ],
+   "OFF-R6-78C99A3A4598": [
+    "bapteme",
+    "Le Supersonic"
+   ],
+   "OFF-R6-C846519D3C3C": [
+    "bapteme",
+    "Le Vol de durée"
+   ],
+   "OFF-R6-FD57A176DBA8": [
+    "bapteme",
+    "Le Découverte"
+   ]
+  }
+ },
+ "S167": {
+  "name": "Hegaldaka Parapente",
+  "email": "baigura@communaute-paysbasque.fr",
+  "offers": {
+   "OFF-R6-0827B55C199A": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-57CDEDD4A087": [
+    "stage",
+    "Perfectionnement – semaine"
+   ]
+  }
+ },
+ "S168": {
+  "name": "Horizon Millau",
+  "email": "info@horizon-millau.com",
+  "offers": {
+   "OFF-R5-2E9065840169": [
+    "bapteme",
+    "Vol Durée"
+   ],
+   "OFF-R5-E3DF22E42938": [
+    "bapteme",
+    "Vol Plaisir"
+   ],
+   "OFF-R5-F7542F459748": [
+    "bapteme",
+    "Vol Horizon"
+   ],
+   "OFF-R5-F75FEAB9C830": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-7594751F9BA3": [
+    "stage",
+    "Découverte"
+   ],
+   "OFF-R6-9F827C71B6FE": [
+    "stage",
+    "Initiation"
+   ]
+  }
+ },
+ "S169": {
+  "name": "IMAGIN'AIR",
+  "email": "info@parapente-roquebrune.fr",
+  "offers": {
+   "OFF-04A484C38051": [
+    "bapteme",
+    "La Colmiane — Découverte"
+   ],
+   "OFF-276FDE73B35E": [
+    "bapteme",
+    "La Colmiane — Ascendances"
+   ],
+   "OFF-3727542F5667": [
+    "bapteme",
+    "Roquebrune-Cap-Martin — Ascendances"
+   ],
+   "OFF-3EC0908F5294": [
+    "bapteme",
+    "Roquebrune-Cap-Martin — Découverte"
+   ],
+   "OFF-80DE4B8FCC53": [
+    "bapteme",
+    "La Colmiane — Pitchoun"
+   ],
+   "OFF-D04CE33E5E48": [
+    "bapteme",
+    "Roquebrune-Cap-Martin — Évasion"
+   ],
+   "OFF-FF7A58DBC914": [
+    "bapteme",
+    "La Colmiane — Évasion"
+   ],
+   "OFF-097D030E9BFA": [
+    "stage",
+    "Autonomie — 5 jour(s) — matériel école"
+   ],
+   "OFF-0A4BDA77A0FF": [
+    "stage",
+    "SIV – pilotage, journée"
+   ],
+   "OFF-0D1A16039AD0": [
+    "stage",
+    "Combo SIV + perfectionnement — matériel école"
+   ],
+   "OFF-1563BDDDAF92": [
+    "stage",
+    "Thermique — 5 jour(s) — matériel personnel"
+   ],
+   "OFF-2BCC6FD61388": [
+    "stage",
+    "Thermique — 1 jour(s) — matériel personnel"
+   ],
+   "OFF-2FC9EA0C922B": [
+    "stage",
+    "Thermique — 3 jour(s) — matériel personnel"
+   ],
+   "OFF-48DCA2AC1E96": [
+    "stage",
+    "Autonomie — 1 jour(s) — matériel école"
+   ],
+   "OFF-4D6F1B502E0E": [
+    "stage",
+    "Autonomie — 5 jour(s) — matériel personnel"
+   ],
+   "OFF-55F1D724846A": [
+    "stage",
+    "Autonomie — 1 jour(s) — matériel personnel"
+   ],
+   "OFF-58D91697B316": [
+    "stage",
+    "Initiation cross — 5 jour(s) — matériel personnel"
+   ],
+   "OFF-6E2EE331E0DB": [
+    "stage",
+    "Autonomie — 4 jour(s) — matériel personnel"
+   ],
+   "OFF-85D52F2799C6": [
+    "stage",
+    "Initiation cross — 1 jour(s) — matériel école"
+   ],
+   "OFF-86ABCE53E65F": [
+    "stage",
+    "Initiation cross — 5 jour(s) — matériel école"
+   ],
+   "OFF-8CF7115676F0": [
+    "stage",
+    "Autonomie — 3 jour(s) — matériel personnel"
+   ],
+   "OFF-8D9F9F9AD27F": [
+    "stage",
+    "Autonomie — 3 jour(s) — matériel école"
+   ],
+   "OFF-91A951824704": [
+    "stage",
+    "Thermique — 1 jour(s) — matériel école"
+   ],
+   "OFF-96336B24AD97": [
+    "stage",
+    "Autonomie — 4 jour(s) — matériel école"
+   ],
+   "OFF-973B31C96E2D": [
+    "stage",
+    "Thermique — 4 jour(s) — matériel personnel"
+   ],
+   "OFF-99AFDE14EA22": [
+    "stage",
+    "Initiation cross — 1 jour(s) — matériel personnel"
+   ],
+   "OFF-9C81FCDE2072": [
+    "stage",
+    "Initiation — 5 jours"
+   ],
+   "OFF-C384A0975F43": [
+    "stage",
+    "Thermique — 3 jour(s) — matériel école"
+   ],
+   "OFF-CEEB35627CB6": [
+    "stage",
+    "Initiation — 4 jours"
+   ],
+   "OFF-D9AE28429FFD": [
+    "stage",
+    "Thermique — 5 jour(s) — matériel école"
+   ],
+   "OFF-DA57AA012295": [
+    "stage",
+    "Combo SIV + perfectionnement — matériel personnel"
+   ],
+   "OFF-E66111EEEC81": [
+    "stage",
+    "Initiation — 3 jours"
+   ],
+   "OFF-F2788608DFBA": [
+    "stage",
+    "Thermique — 4 jour(s) — matériel école"
+   ]
+  }
+ },
+ "S174": {
+  "name": "Insul'Air Parapente",
+  "email": "insul.air974@gmail.com",
+  "offers": {
+   "OFF-R6-60AADEA766CD": [
+    "bapteme",
+    "Le Lagon First Class"
+   ],
+   "OFF-R6-6F9C11CFC063": [
+    "bapteme",
+    "Le Grand Lagon"
+   ],
+   "OFF-R6-A160E0F05081": [
+    "bapteme",
+    "La Forêt Primaire"
+   ],
+   "OFF-R6-BC150BB8D1CB": [
+    "bapteme",
+    "Le Petit Lagon"
+   ],
+   "OFF-R6-BFED69B61CD3": [
+    "bapteme",
+    "Le Piou-Piou"
+   ]
+  }
+ },
+ "S176": {
+  "name": "Itinér'Air Parapente (Air St-Ger)",
+  "email": "info@itinerair-parapente.com",
+  "offers": {
+   "OFF-R6-112BFA05C7FE": [
+    "bapteme",
+    "Rando"
+   ],
+   "OFF-R6-147E4D78ABD6": [
+    "bapteme",
+    "Altitude"
+   ],
+   "OFF-R6-559A21202E53": [
+    "bapteme",
+    "Balade"
+   ],
+   "OFF-R6-B1DBF0E0A775": [
+    "bapteme",
+    "Marmotton"
+   ]
+  }
+ },
+ "S180": {
+  "name": "Joël Houdouin Biplace parapente",
+  "email": "joelhoudouin@yahoo.fr",
+  "offers": {
+   "OFF-R5-7A333CBB75EB": [
+    "bapteme",
+    "Vol Plus haut"
+   ],
+   "OFF-R5-DE3A72D293FE": [
+    "bapteme",
+    "Vol Dynamique"
+   ],
+   "OFF-R5-E622698CFAB8": [
+    "bapteme",
+    "Vol Vers l’infini"
+   ],
+   "OFF-R5-E78A3F3F7EF8": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S181": {
+  "name": "JOK'AIR PARAPENTE",
+  "email": "jok.air@live.fr",
+  "offers": {
+   "OFF-R6-09EC37669544": [
+    "stage",
+    "Biplace pédagogique – 1 jour(s)"
+   ],
+   "OFF-R6-1A42E30CED62": [
+    "stage",
+    "Initiation par le biplace"
+   ],
+   "OFF-R6-FE686DA02117": [
+    "stage",
+    "Biplace pédagogique – 2 jour(s)"
+   ]
+  }
+ },
+ "S182": {
+  "name": "JP Fly",
+  "email": "jpfly.parapente@gmail.com",
+  "offers": {
+   "OFF-R6-39043DD192E0": [
+    "bapteme",
+    "Sensation"
+   ],
+   "OFF-R6-480DCFF7BD6C": [
+    "bapteme",
+    "Big Cross"
+   ],
+   "OFF-R6-CCAF868364E2": [
+    "bapteme",
+    "Loisir"
+   ]
+  }
+ },
+ "S183": {
+  "name": "JP Parapente 05 (Parapente Adventure)",
+  "email": "jeanraza@hotmail.fr",
+  "offers": {
+   "OFF-R6-01D7EAE73B0E": [
+    "bapteme",
+    "Ascendances"
+   ],
+   "OFF-R6-62B6210EB0D2": [
+    "bapteme",
+    "Balade Aérienne"
+   ],
+   "OFF-R6-AE9F13CF4C69": [
+    "bapteme",
+    "Découverte"
+   ]
+  }
+ },
+ "S184": {
+  "name": "Jura Airlines",
+  "email": "travelseb@hotmail.fr",
+  "offers": {
+   "OFF-WEB-9318693E573C": [
+    "bapteme",
+    "Faucon crécerelle"
+   ],
+   "OFF-WEB-C9879FCD9D73": [
+    "bapteme",
+    "Milan royal"
+   ]
+  }
+ },
+ "S185": {
+  "name": "K2 Parapente",
+  "email": "contact@k2parapente.com",
+  "offers": {
+   "OFF-R3-027E82ED28F3": [
+    "bapteme",
+    "Prestige"
+   ],
+   "OFF-R3-03067576706D": [
+    "bapteme",
+    "Duo"
+   ],
+   "OFF-R3-166E407EF190": [
+    "bapteme",
+    "Ascendance"
+   ],
+   "OFF-R3-5CE23400BB9C": [
+    "bapteme",
+    "Sensations"
+   ],
+   "OFF-R3-6E71B2469E39": [
+    "bapteme",
+    "Minipouss"
+   ],
+   "OFF-R3-74E3E75AECC8": [
+    "bapteme",
+    "Origin’aile"
+   ],
+   "OFF-R3-A23E6B3B8ADC": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-C50A2EB3E61C": [
+    "bapteme",
+    "Le K2"
+   ],
+   "OFF-R3-DBB75F4B2D2D": [
+    "bapteme",
+    "Performance"
+   ],
+   "OFF-R3-140E7DEA7143": [
+    "stage",
+    "Pilotage en groupe"
+   ],
+   "OFF-R3-455D287A6A30": [
+    "stage",
+    "SIV / pilotage — 2 jours"
+   ],
+   "OFF-R3-733B76A4DCD2": [
+    "stage",
+    "Thermique / cross"
+   ],
+   "OFF-R3-9EBAC322D014": [
+    "stage",
+    "SIV / pilotage — 3 jours"
+   ]
+  }
+ },
+ "S186": {
+  "name": "Kailash Parapente",
+  "email": "info@kailash-parapente.com",
+  "offers": {
+   "OFF-R5-27B2C1BF52F1": [
+    "bapteme",
+    "Sensations longue durée"
+   ],
+   "OFF-R5-560414EF9E9A": [
+    "bapteme",
+    "Découverte Planpraz Brévent"
+   ],
+   "OFF-R5-AA7B59EC9E82": [
+    "bapteme",
+    "Découverte longue durée Planpraz"
+   ],
+   "OFF-R5-C83FF23FF131": [
+    "bapteme",
+    "Haute montagne – Aiguille du Midi"
+   ]
+  }
+ },
+ "S187": {
+  "name": "KYMAYA",
+  "email": "contact@kymaya.com",
+  "offers": {
+   "OFF-1673F3E14902": [
+    "stage",
+    "Carnet de 20 vols"
+   ],
+   "OFF-45DBEA4FE058": [
+    "stage",
+    "Initiation — Septembre–juin"
+   ],
+   "OFF-5334AA89473D": [
+    "stage",
+    "Initiation — Juillet–août"
+   ],
+   "OFF-6C589995FBDC": [
+    "stage",
+    "Carnet de 15 vols"
+   ],
+   "OFF-730EE5D257B5": [
+    "stage",
+    "Carnet de 10 vols"
+   ],
+   "OFF-CFEC6A1A28D4": [
+    "stage",
+    "Carnet de 5 vols"
+   ],
+   "OFF-E26F55E2F55B": [
+    "stage",
+    "Thermique / cross à Ager"
+   ]
+  }
+ },
+ "S188": {
+  "name": "Là-Haut Parapente",
+  "email": "parapente.lahaut@gmail.com",
+  "offers": {
+   "OFF-R4-6735F4FC8572": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-R4-73E48F4261D7": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R4-B6BF021FC022": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S189": {
+  "name": "LACRHOFIL DE L O",
+  "email": "fred.mazzia@gmail.com",
+  "offers": {
+   "OFF-R6-292605194D23": [
+    "stage",
+    "Perfectionnement"
+   ],
+   "OFF-R6-36458D58686A": [
+    "stage",
+    "SIV – pilotage"
+   ],
+   "OFF-R6-4C8E24CB728A": [
+    "stage",
+    "Initiation"
+   ]
+  }
+ },
+ "S198": {
+  "name": "Les Gens d'Air",
+  "email": "contact@lesgensdair.com",
+  "offers": {
+   "OFF-1055": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-1056": [
+    "bapteme",
+    "Vol Découverte avec photos/vidéo"
+   ],
+   "OFF-1058": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-1059": [
+    "stage",
+    "Stage Initiation"
+   ],
+   "OFF-1060": [
+    "stage",
+    "Stage Perfectionnement"
+   ],
+   "OFF-1061": [
+    "stage",
+    "Stage Thermique"
+   ]
+  }
+ },
+ "S199": {
+  "name": "Les Gets Parapente",
+  "email": "jlafarie@gmail.com",
+  "offers": {
+   "OFF-R6-9904F2E3EAA6": [
+    "bapteme",
+    "Biplace Classic +"
+   ],
+   "OFF-R6-D681D6E48C81": [
+    "bapteme",
+    "Biplace Évasion"
+   ]
+  }
+ },
+ "S200": {
+  "name": "Les Grands Espaces",
+  "email": "info@grandsespaces.com",
+  "offers": {
+   "OFF-R3-1ECB52EEAE47": [
+    "bapteme",
+    "Grands Espaces"
+   ],
+   "OFF-R3-1F073D1A1066": [
+    "bapteme",
+    "Ascendance"
+   ],
+   "OFF-R3-40851708FD20": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-540BBC2A0401": [
+    "bapteme",
+    "Loupiot"
+   ],
+   "OFF-R3-9C6FFD843F98": [
+    "bapteme",
+    "Prestige"
+   ],
+   "OFF-R3-A6D9A4C7E413": [
+    "bapteme",
+    "Grande Envolée"
+   ],
+   "OFF-R3-04FEDB53CA4D": [
+    "stage",
+    "Initiation week-ends"
+   ],
+   "OFF-R3-09A08732A465": [
+    "stage",
+    "Autonomie journée"
+   ],
+   "OFF-R3-19A7F7ECD77A": [
+    "stage",
+    "BI-Perf"
+   ],
+   "OFF-R3-229B6062C6A0": [
+    "stage",
+    "Thermique / initiation cross journée"
+   ],
+   "OFF-R3-37B6915D04E2": [
+    "stage",
+    "Forfait à la carte 5 jours"
+   ],
+   "OFF-R3-3EC14AAA7E64": [
+    "stage",
+    "Thermique / initiation cross semaine"
+   ],
+   "OFF-R3-46539AB28386": [
+    "stage",
+    "Initiation semaine"
+   ],
+   "OFF-R3-491648B32BDB": [
+    "stage",
+    "BI-Thermique"
+   ],
+   "OFF-R3-60945F7E581D": [
+    "stage",
+    "Autonomie semaine"
+   ],
+   "OFF-R3-B3296F1A9720": [
+    "stage",
+    "Cross"
+   ],
+   "OFF-R3-BC5DDF2DA5FA": [
+    "stage",
+    "BI-Cross"
+   ],
+   "OFF-R3-CFBD5A2E0994": [
+    "stage",
+    "Mono surface"
+   ],
+   "OFF-R3-D3DBD66700B0": [
+    "stage",
+    "BI-Pilotage"
+   ],
+   "OFF-R3-D43FE7887F28": [
+    "stage",
+    "Thermique / initiation cross week-end"
+   ],
+   "OFF-V8-6CEBA972BF8F": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-V8-BB96538AE638": [
+    "stage",
+    "Autonomie"
+   ]
+  }
+ },
+ "S202": {
+  "name": "Les Passagers Du Vent",
+  "email": "contact@lespassagersduvent.com",
+  "offers": {
+   "OFF-R4-04719C1B4D2E": [
+    "bapteme",
+    "Vol Premium"
+   ],
+   "OFF-R4-06A891E4589E": [
+    "bapteme",
+    "Vol Evasion"
+   ],
+   "OFF-R4-0724C2D9002A": [
+    "bapteme",
+    "Vol Horizon"
+   ],
+   "OFF-R4-74113CB0BA80": [
+    "bapteme",
+    "Vol Majestic"
+   ],
+   "OFF-R4-86C9782FA4AC": [
+    "bapteme",
+    "Vol Petit Prince"
+   ]
+  }
+ },
+ "S204": {
+  "name": "Les Volatiles",
+  "email": "volatiles@wanadoo.fr",
+  "offers": {
+   "OFF-R5-1712D30DD601": [
+    "bapteme",
+    "Exp’AIRience hélicoptère et parapente"
+   ],
+   "OFF-R5-56B63D57FFC3": [
+    "bapteme",
+    "Biplace hiver"
+   ],
+   "OFF-R5-9402BDEEF01A": [
+    "bapteme",
+    "Biplace découverte"
+   ],
+   "OFF-R5-A30D7E3BF97E": [
+    "bapteme",
+    "Biplace ascendance"
+   ],
+   "OFF-R5-CC843BF295AF": [
+    "bapteme",
+    "Biplace Premium"
+   ]
+  }
+ },
+ "S205": {
+  "name": "Les Voyageurs du Ciel",
+  "email": "contact@voyageursduciel.com",
+  "offers": {
+   "OFF-R6-00FDB659AE5A": [
+    "stage",
+    "Perfectionnement 3 jours"
+   ],
+   "OFF-R6-57A241DA4F92": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-5B5A6CB997B9": [
+    "stage",
+    "Perfectionnement 5 jours"
+   ],
+   "OFF-R6-A971317BC9D0": [
+    "stage",
+    "Journée découverte à Gréolières"
+   ],
+   "OFF-R6-FE187257553E": [
+    "stage",
+    "Progression"
+   ]
+  }
+ },
+ "S206": {
+  "name": "Libre Envol",
+  "email": "libreenvol74@gmail.com",
+  "offers": {
+   "OFF-R3-08D27C178AE7": [
+    "bapteme",
+    "Découverte photo/vidéo"
+   ],
+   "OFF-R3-3F6477BA096A": [
+    "bapteme",
+    "Sensations photo/vidéo"
+   ],
+   "OFF-R3-427891560F8E": [
+    "bapteme",
+    "Ascendance photo/vidéo"
+   ],
+   "OFF-R3-5A0260D6CB20": [
+    "bapteme",
+    "Ascendance"
+   ],
+   "OFF-R3-8DFFBFE3923B": [
+    "bapteme",
+    "Prestige"
+   ],
+   "OFF-R3-B4314A293C99": [
+    "bapteme",
+    "Bambin"
+   ],
+   "OFF-R3-C8DDE6061E3E": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-E30AE397B999": [
+    "bapteme",
+    "Prestige photo/vidéo"
+   ],
+   "OFF-R3-E68F795307B9": [
+    "bapteme",
+    "Sensations"
+   ],
+   "OFF-R3-EC9015B2283A": [
+    "bapteme",
+    "Bambin photo/vidéo"
+   ],
+   "OFF-R3-120AADF286F5": [
+    "stage",
+    "Journée découverte"
+   ],
+   "OFF-R3-1CC192529F0C": [
+    "stage",
+    "Journée découverte avec vidéo"
+   ],
+   "OFF-R3-3DCA4FDDFCFA": [
+    "stage",
+    "Progression autonomie"
+   ],
+   "OFF-R3-509BF7B9FEC4": [
+    "stage",
+    "Initiation vol montagne"
+   ]
+  }
+ },
+ "S208": {
+  "name": "Magma Parapente",
+  "email": "contact@magma-parapente.fr",
+  "offers": {
+   "OFF-R6-9A8690F9BF85": [
+    "stage",
+    "Encadrement sur mesure"
+   ]
+  }
+ },
+ "S209": {
+  "name": "MARSEILLE PARAPENTE",
+  "email": "jc@marseille-parapente.fr",
+  "offers": {
+   "OFF-R6-68C64DA99D24": [
+    "bapteme",
+    "Baptême saut de puce"
+   ],
+   "OFF-R6-EFFA8DAACF3F": [
+    "bapteme",
+    "Baptême vol biplace"
+   ]
+  }
+ },
+ "S211": {
+  "name": "Matheysine Parapente",
+  "email": "info@matheysineparapente.fr",
+  "offers": {
+   "OFF-R5-294D434AC775": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-R5-ED20FF733908": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-FE24F193FA15": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S213": {
+  "name": "Mc Fly Paragliding & Speed Riding School",
+  "email": "info@mcfly-parapente.com",
+  "offers": {
+   "OFF-V8-563E6654B8D3": [
+    "stage",
+    "Prog Perf / Advanced – 165 €"
+   ],
+   "OFF-V8-F3687321575F": [
+    "stage",
+    "Initiation / beginners"
+   ],
+   "OFF-V8-B1484175703B": [
+    "stage",
+    "Prog Perf / Advanced – 330 €"
+   ],
+   "OFF-V8-45DA76EE2106": [
+    "stage",
+    "Initiation basse saison/ Beginners low season – 525 €"
+   ],
+   "OFF-V8-6166364578AA": [
+    "stage",
+    "Perf basse saison / Advanced low season – 525 €"
+   ],
+   "OFF-V8-0EE2924228DD": [
+    "stage",
+    "Prog Perf / Advanced – 825 €"
+   ],
+   "OFF-V8-A8838E7FCF7F": [
+    "stage",
+    "Perf thermique"
+   ],
+   "OFF-V8-54ECD8B63EAA": [
+    "stage",
+    "Perf  / Advanced Hike & fly"
+   ],
+   "OFF-V8-2282526FFFF1": [
+    "stage",
+    "Initiation basse saison/ Beginners low season – 825 €"
+   ],
+   "OFF-V8-B556FCCF3E91": [
+    "stage",
+    "Perf basse saison / Advanced low season – 825 €"
+   ],
+   "OFF-BAG-AAB68C84CAB1": [
+    "stage",
+    "SPEEDRIDING COLLECTIF"
+   ]
+  }
+ },
+ "S214": {
+  "name": "Megève Parapente",
+  "email": "megeve.parapente@gmail.com",
+  "offers": {
+   "OFF-R4-296F02A1B38F": [
+    "bapteme",
+    "Découverte adulte"
+   ],
+   "OFF-R4-4C726C393A78": [
+    "bapteme",
+    "Sensation enfant"
+   ],
+   "OFF-R4-4CBC3E30BBFE": [
+    "bapteme",
+    "Ascendance"
+   ],
+   "OFF-R4-B715CD6CC669": [
+    "bapteme",
+    "Découverte enfant"
+   ],
+   "OFF-R4-C2AB1370A151": [
+    "bapteme",
+    "Découverte adulte après-midi"
+   ],
+   "OFF-R4-CDA4917FC7EA": [
+    "bapteme",
+    "Autre site"
+   ],
+   "OFF-R4-E281F87D35C4": [
+    "bapteme",
+    "Sensation adulte"
+   ]
+  }
+ },
+ "S218": {
+  "name": "My Playground Parapente",
+  "email": "myplaygroundparapente@gmail.com",
+  "offers": {
+   "OFF-R5-2D7FF7C562B1": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R5-B35B2D4959B7": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-R5-E881A53DFD7E": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-FACA1CED6615": [
+    "bapteme",
+    "Vol Spécial Enfant"
+   ]
+  }
+ },
+ "S219": {
+  "name": "Orcières Parapente",
+  "email": "info@orciair.com",
+  "offers": {
+   "OFF-R6-3556C34B6E18": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-6F2884C42E47": [
+    "bapteme",
+    "Vol Plaisir"
+   ],
+   "OFF-R6-82DC7FC59096": [
+    "bapteme",
+    "Pack Découverte Famille"
+   ]
+  }
+ },
+ "S220": {
+  "name": "Ouest Parapente",
+  "email": "ouestparapenteplanning@gmail.com",
+  "offers": {
+   "OFF-R6-2AC8FD32D58A": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R6-9D5E2E4EFE9F": [
+    "bapteme",
+    "Vol Envergure"
+   ],
+   "OFF-R6-BD6E2875254B": [
+    "bapteme",
+    "Vol Ascendance"
+   ]
+  }
+ },
+ "S229": {
+  "name": "PARAPENTE 07",
+  "email": "contact@parapente07.com",
+  "offers": {
+   "OFF-WEB-6B14D4F7D92C": [
+    "bapteme",
+    "Vol Poussin"
+   ],
+   "OFF-WEB-97FE2B1744CD": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-WEB-9A0B40424F50": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-WEB-5EDC690B002C": [
+    "bapteme",
+    "Vol Balade"
+   ],
+   "OFF-WEB-37CC3C744936": [
+    "bapteme",
+    "Vol Performance"
+   ],
+   "OFF-WEB-E8D6418E8DC5": [
+    "bapteme",
+    "Vol Long Courrier"
+   ]
+  }
+ },
+ "S231": {
+  "name": "Parapente 66",
+  "email": "contact@parapente66.com",
+  "offers": {
+   "OFF-R3-963ADFF00F8E": [
+    "bapteme",
+    "Exploration"
+   ],
+   "OFF-R3-C96394426B9F": [
+    "bapteme",
+    "Douceur"
+   ],
+   "OFF-R3-F5564DFFC2E2": [
+    "bapteme",
+    "Horizon"
+   ],
+   "OFF-R3-075F70D6C1A8": [
+    "stage",
+    "Perfectionnement — 2 jours"
+   ],
+   "OFF-R3-0CC6A213E502": [
+    "stage",
+    "Perfectionnement — 3 jours"
+   ],
+   "OFF-R3-318B6E1D6B81": [
+    "stage",
+    "Progression — 3 jours"
+   ],
+   "OFF-R3-38460D35913B": [
+    "stage",
+    "Petite initiation"
+   ],
+   "OFF-R3-428D457AFE73": [
+    "stage",
+    "Progression — 5 jours"
+   ],
+   "OFF-R3-4475B3E7453F": [
+    "stage",
+    "Cross"
+   ],
+   "OFF-R3-6306B8397EBF": [
+    "stage",
+    "Progression — 2 jours"
+   ],
+   "OFF-R3-70B39B0AE091": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R3-89742373EB11": [
+    "stage",
+    "Perfectionnement — 4 jours"
+   ],
+   "OFF-R3-924E5DB222A2": [
+    "stage",
+    "Itinérant"
+   ],
+   "OFF-R3-9993935F96B5": [
+    "stage",
+    "Progression — 4 jours"
+   ],
+   "OFF-R3-D98A5A5C310C": [
+    "stage",
+    "Perfectionnement — 5 jours"
+   ],
+   "OFF-V8-160F94050DDB": [
+    "stage",
+    "Reprise d'activités – 390 €"
+   ],
+   "OFF-V8-187612AD1FCC": [
+    "stage",
+    "Progression Autonomie – 300 €"
+   ],
+   "OFF-V8-D24CE8C76D70": [
+    "stage",
+    "Reprise d'activités – 518 €"
+   ],
+   "OFF-V8-366E54FCD799": [
+    "stage",
+    "Progression Autonomie – 438 €"
+   ],
+   "OFF-V8-D3E5BAD5D4AA": [
+    "stage",
+    "Progression Autonomie – 568 €"
+   ],
+   "OFF-V8-F2159BE3E190": [
+    "stage",
+    "Progression Autonomie – 690 €"
+   ],
+   "OFF-V8-41E38C24E139": [
+    "stage",
+    "Voyage AGER - Pyrénées Espagnoles Cross"
+   ]
+  }
+ },
+ "S232": {
+  "name": "Parapente Air Line",
+  "email": "contact@parapenteairline.com",
+  "offers": {
+   "OFF-R6-275D7FCEFE06": [
+    "stage",
+    "Pente école à la carte"
+   ],
+   "OFF-R6-3F95B6772D80": [
+    "stage",
+    "Demi-journée découverte personnalisée"
+   ],
+   "OFF-R6-6456C49331E4": [
+    "stage",
+    "Perfectionnement à la carte – 5 vols"
+   ],
+   "OFF-R6-73EC986F1A91": [
+    "stage",
+    "Grands vols à la carte"
+   ],
+   "OFF-R6-DA718B6C66F5": [
+    "stage",
+    "Perfectionnement"
+   ],
+   "OFF-R6-E0EA3DEB6CC3": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-EBB4FB42C583": [
+    "stage",
+    "Perfectionnement à la carte – 10 vols"
+   ],
+   "OFF-R6-EFA78F9217D2": [
+    "stage",
+    "Perfectionnement à la carte – 20 vols"
+   ]
+  }
+ },
+ "S233": {
+  "name": "Parapente Alpes de Haute Provence",
+  "email": "lucas@parapente-alpes-de-haute-provence.fr",
+  "offers": {
+   "OFF-R6-2B04626CFBEA": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-78A3456023F0": [
+    "bapteme",
+    "Vol Ascendance"
+   ]
+  }
+ },
+ "S234": {
+  "name": "PARAPENTE ALTO",
+  "email": "info@parapente-alto.com",
+  "offers": {
+   "OFF-1200": [
+    "bapteme",
+    "Baptême Découverte — option: vol"
+   ],
+   "OFF-1201": [
+    "bapteme",
+    "Baptême Découverte — option: volphotos-video"
+   ],
+   "OFF-1202": [
+    "bapteme",
+    "Baptême sensation — option: vol"
+   ],
+   "OFF-1203": [
+    "bapteme",
+    "Baptême sensation — option: volphotos-video"
+   ],
+   "OFF-1204": [
+    "stage",
+    "Initiation 5 jours — saison: basse-saison"
+   ],
+   "OFF-1205": [
+    "stage",
+    "Initiation 5 jours — saison: haute-saison"
+   ],
+   "OFF-1207": [
+    "stage",
+    "Pack Perfectionnement — saison: haute-saison"
+   ],
+   "OFF-1208": [
+    "stage",
+    "Perfectionnement 5 jours — saison: basse-saison"
+   ],
+   "OFF-1209": [
+    "stage",
+    "Perfectionnement 5 jours — saison: haute-saison"
+   ],
+   "OFF-1210": [
+    "stage",
+    "Progression 5 jours — saison: basse-saison"
+   ],
+   "OFF-1211": [
+    "stage",
+    "Progression 5 jours — saison: haute-saison"
+   ],
+   "OFF-1212": [
+    "stage",
+    "Stage Thermique — jours: 3"
+   ],
+   "OFF-1213": [
+    "stage",
+    "Stage Thermique — jours: 4"
+   ]
+  }
+ },
+ "S235": {
+  "name": "Parapente Annecy",
+  "email": "contact@annecy-parapente.fr",
+  "offers": {
+   "OFF-WEB-80C95D68AB13": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-WEB-3AEB38C90B66": [
+    "bapteme",
+    "Vol Ascendances"
+   ],
+   "OFF-WEB-A248E99FCB5D": [
+    "bapteme",
+    "Vol Sensations"
+   ],
+   "OFF-WEB-8C949C3E0C88": [
+    "bapteme",
+    "Vol spécial enfant"
+   ],
+   "OFF-WEB-A63C866936A9": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S237": {
+  "name": "Parapente Châtel",
+  "email": "info@parapente-chatel.fr",
+  "offers": {
+   "OFF-R5-6FBA885C7064": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-901A337DDB9E": [
+    "bapteme",
+    "Vol Thermique"
+   ],
+   "OFF-R5-D16543F747E6": [
+    "bapteme",
+    "Grand Vol"
+   ]
+  }
+ },
+ "S240": {
+  "name": "Parapente Family",
+  "email": "reservation@parapentefamily.com",
+  "offers": {
+   "OFF-R3-0C54A3E14E0A": [
+    "bapteme",
+    "Sensation"
+   ],
+   "OFF-R3-767B203C94AF": [
+    "bapteme",
+    "Évasion"
+   ],
+   "OFF-R3-A4B1B676E1D2": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-BE5AD403BF75": [
+    "bapteme",
+    "Longue durée"
+   ],
+   "OFF-R3-1D4D22A5F238": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R3-6831A565C83B": [
+    "stage",
+    "Autonomie"
+   ],
+   "OFF-R3-744FA5B8998F": [
+    "stage",
+    "Vol rando"
+   ],
+   "OFF-R3-7AA32D25428D": [
+    "stage",
+    "Itinérant"
+   ],
+   "OFF-R3-FD7E30867548": [
+    "stage",
+    "Marche & vol"
+   ]
+  }
+ },
+ "S241": {
+  "name": "Parapente Grenoble",
+  "email": "contact@parapentegrenoble.com",
+  "offers": {
+   "OFF-R6-60804BE11B82": [
+    "bapteme",
+    "Vol Sensations"
+   ],
+   "OFF-R6-64A7F614911B": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-E6E2380F16C8": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S245": {
+  "name": "Parapente Luchon – Freddy Sutra",
+  "email": "freddy.sutra@wanadoo.fr",
+  "offers": {
+   "OFF-WEB-7BA439A703FA": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-WEB-3DB2428A7067": [
+    "bapteme",
+    "Vol Découverte enfants"
+   ],
+   "OFF-WEB-3F6E52496972": [
+    "bapteme",
+    "Vol Ascendances"
+   ],
+   "OFF-WEB-685F66C84F71": [
+    "bapteme",
+    "Vol Panoramique"
+   ]
+  }
+ },
+ "S246": {
+  "name": "Parapente Mania Normandie",
+  "email": "contact@parapentemania.fr",
+  "offers": {
+   "OFF-R3-4A2CDD886366": [
+    "bapteme",
+    "Découverte Plus"
+   ],
+   "OFF-R3-54DB52C05CBF": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-AB489CDAD9BF": [
+    "bapteme",
+    "Premium"
+   ],
+   "OFF-R3-BB9D09F3E0EF": [
+    "bapteme",
+    "Sensation’aile"
+   ],
+   "OFF-R3-BC1CA83BF7B9": [
+    "bapteme",
+    "Piou-Piou"
+   ]
+  }
+ },
+ "S247": {
+  "name": "Parapente Max",
+  "email": "contact@parapentemax.com",
+  "offers": {
+   "OFF-R5-004B0AC42F16": [
+    "bapteme",
+    "Vol biplace Longue Durée"
+   ],
+   "OFF-R5-25CB580AE234": [
+    "bapteme",
+    "Vol biplace Majestueux"
+   ],
+   "OFF-R5-A8EF28B30070": [
+    "bapteme",
+    "Vol biplace de distance"
+   ],
+   "OFF-R5-FFB1AB6BA67F": [
+    "bapteme",
+    "Vol biplace Découverte"
+   ],
+   "OFF-R5-03D8945616FC": [
+    "stage",
+    "Programme spécial jeunes"
+   ],
+   "OFF-R5-52364CBC3C9A": [
+    "stage",
+    "Cross"
+   ],
+   "OFF-R5-80919F7D2DD6": [
+    "stage",
+    "Journée d’enseignement"
+   ],
+   "OFF-R5-9236991FA83D": [
+    "stage",
+    "Progression ou Thermiques"
+   ],
+   "OFF-R5-D3DECF4266A5": [
+    "stage",
+    "Initiation"
+   ]
+  }
+ },
+ "S249": {
+  "name": "Parapente Planète",
+  "email": "info@parapente-planete.com",
+  "offers": {
+   "OFF-1264": [
+    "bapteme",
+    "Cross"
+   ],
+   "OFF-1265": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-1266": [
+    "bapteme",
+    "Performance"
+   ],
+   "OFF-1267": [
+    "bapteme",
+    "Thermique"
+   ],
+   "OFF-1269": [
+    "stage",
+    "Init3 premier vol — Basse saison"
+   ],
+   "OFF-1270": [
+    "stage",
+    "Init3 premier vol — Haute saison"
+   ],
+   "OFF-1271": [
+    "stage",
+    "Init5 six vols — Basse saison"
+   ],
+   "OFF-1272": [
+    "stage",
+    "Init5 six vols — Haute saison"
+   ],
+   "OFF-1273": [
+    "stage",
+    "Journée Découverte"
+   ],
+   "OFF-1277": [
+    "stage",
+    "Perfectionnement progression — Basse saison"
+   ],
+   "OFF-1278": [
+    "stage",
+    "Perfectionnement progression — Haute saison"
+   ],
+   "OFF-1279": [
+    "stage",
+    "Progression matériel personnel — Basse saison"
+   ],
+   "OFF-1280": [
+    "stage",
+    "Progression matériel personnel — Haute saison"
+   ]
+  }
+ },
+ "S250": {
+  "name": "PARAPENTE PUY MARY",
+  "email": "info@parapente-puy-mary.com",
+  "offers": {
+   "OFF-V8-6DBE2FA9B16F": [
+    "bapteme",
+    "Vol Biplace"
+   ],
+   "OFF-V8-369E9BA81B15": [
+    "bapteme",
+    "Vol Biplace + Vidéo HD"
+   ]
+  }
+ },
+ "S251": {
+  "name": "Parapente Réunion",
+  "email": "parapente.reunion.stleu@gmail.com",
+  "offers": {
+   "OFF-R6-00CE7830832E": [
+    "bapteme",
+    "Vol Marmaille"
+   ],
+   "OFF-R6-14A70FE102C9": [
+    "bapteme",
+    "Vol Découverte – 40 à 50 min"
+   ],
+   "OFF-R6-563F56869CF3": [
+    "bapteme",
+    "Vol Découverte – 50 à 60 min"
+   ],
+   "OFF-R6-6DA96B016A75": [
+    "bapteme",
+    "Vol Découverte – 30 à 40 min"
+   ],
+   "OFF-R6-D3C62A9168CD": [
+    "bapteme",
+    "Vol Découverte – 15 à 20 min"
+   ],
+   "OFF-R6-F68898EA0343": [
+    "bapteme",
+    "Vol Découverte – 20 à 30 min"
+   ]
+  }
+ },
+ "S253": {
+  "name": "PARAPENTE SUD",
+  "email": "contact@parapente-sud.com",
+  "offers": {
+   "OFF-R5-616804228C6E": [
+    "bapteme",
+    "Baptême Maxi Plus"
+   ],
+   "OFF-R5-9828EE200DDD": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-R5-C9D454B3C4C3": [
+    "bapteme",
+    "Baptême Standard"
+   ],
+   "OFF-R5-EA085ECFB250": [
+    "bapteme",
+    "Baptême Maxi"
+   ],
+   "OFF-R6-132C3F0E1C86": [
+    "stage",
+    "Initiation pour deux élèves"
+   ],
+   "OFF-R6-17F957192DE6": [
+    "stage",
+    "Perfectionnement 2"
+   ],
+   "OFF-R6-1DCCFC257AB7": [
+    "stage",
+    "Journée encadrée"
+   ],
+   "OFF-R6-376D5671AAA8": [
+    "stage",
+    "Week-end encadré"
+   ],
+   "OFF-R6-38D422651570": [
+    "stage",
+    "Journée découverte"
+   ],
+   "OFF-R6-54F10470FCEA": [
+    "stage",
+    "Initiation 5 jours"
+   ],
+   "OFF-R6-796341B0F81D": [
+    "stage",
+    "Week-end découverte"
+   ],
+   "OFF-R6-90C574DBFE58": [
+    "stage",
+    "Perfectionnement 1"
+   ],
+   "OFF-R6-AF1173124033": [
+    "stage",
+    "Séance pente école"
+   ],
+   "OFF-R6-B07B8F5620D7": [
+    "stage",
+    "Initiation individuelle"
+   ],
+   "OFF-R6-BBD2E2577A0E": [
+    "stage",
+    "Forfait 10 séances"
+   ],
+   "OFF-R6-C1817DFC6D12": [
+    "stage",
+    "Initiation 4 jours"
+   ],
+   "OFF-R6-C21452142ED6": [
+    "stage",
+    "Séance de vol encadré"
+   ],
+   "OFF-R6-D1D8FE16D041": [
+    "stage",
+    "Perfectionnement 3"
+   ],
+   "OFF-R6-D5B1B8879CEF": [
+    "stage",
+    "Forfait 5 séances"
+   ],
+   "OFF-R6-DDA9F14AD76E": [
+    "stage",
+    "Forfait 20 séances"
+   ]
+  }
+ },
+ "S254": {
+  "name": "Parapente Thomas Charles (Paraddict Luchon)",
+  "email": "yoniprod@gmail.com",
+  "offers": {
+   "OFF-R6-BF98ACE5A1A6": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-R6-F7447549B665": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S255": {
+  "name": "Parapente Valley",
+  "email": "celine@parapente-valley.com",
+  "offers": {
+   "OFF-R6-2A4870B1FA1E": [
+    "bapteme",
+    "Biplace Classique"
+   ],
+   "OFF-R6-84F53E892CFA": [
+    "bapteme",
+    "Biplace Découverte"
+   ],
+   "OFF-R6-95C6E20E74EE": [
+    "bapteme",
+    "Biplace Performance"
+   ],
+   "OFF-R6-536971698626": [
+    "stage",
+    "Journée découverte"
+   ],
+   "OFF-R6-6F1DF0792117": [
+    "stage",
+    "Demi-journée de formation"
+   ],
+   "OFF-R6-8197973CA248": [
+    "stage",
+    "Initiation 5 jours"
+   ],
+   "OFF-R6-C4EA86FC5E99": [
+    "stage",
+    "Initiation 4 jours"
+   ],
+   "OFF-R6-E0A74E5AC99E": [
+    "stage",
+    "Perfectionnement / autonomie / cross"
+   ],
+   "OFF-R6-F7EDAD05DE92": [
+    "stage",
+    "Journée de formation"
+   ]
+  }
+ },
+ "S256": {
+  "name": "Parapente Valmorel",
+  "email": "contact@parapente-valmorel.fr",
+  "offers": {
+   "OFF-R4-19C3FEA78C12": [
+    "bapteme",
+    "Le biplace Lanchettes"
+   ],
+   "OFF-R4-92D569C6958A": [
+    "bapteme",
+    "Le vol prestige"
+   ],
+   "OFF-R4-BA9398E119B2": [
+    "bapteme",
+    "Le biplace du Gollet"
+   ],
+   "OFF-R4-BDD1EBE30E0D": [
+    "bapteme",
+    "Vol spécial enfants"
+   ],
+   "OFF-R5-812393E2ADB1": [
+    "stage",
+    "Perfectionnement"
+   ],
+   "OFF-R5-8AAA9EAC2C4A": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R5-AB7EF0C4CCF9": [
+    "stage",
+    "Progression"
+   ],
+   "OFF-R5-BF87797530AF": [
+    "stage",
+    "Du nord au sud des Alpes"
+   ],
+   "OFF-R5-DDD0A723A386": [
+    "stage",
+    "Voile et parapente en Corse"
+   ]
+  }
+ },
+ "S257": {
+  "name": "Parapente Voler Info",
+  "email": "contact@biplace.info",
+  "offers": {
+   "OFF-1318": [
+    "bapteme",
+    "Horizon"
+   ],
+   "OFF-1319": [
+    "bapteme",
+    "Speedy"
+   ],
+   "OFF-1320": [
+    "bapteme",
+    "TopUp"
+   ],
+   "OFF-1321": [
+    "bapteme",
+    "UpSky"
+   ]
+  }
+ },
+ "S260": {
+  "name": "Pegase Air Samoëns",
+  "email": "courrier@parapente-samoens.com",
+  "offers": {
+   "OFF-R5-0D70BDAFE614": [
+    "bapteme",
+    "Biplace Sensation"
+   ],
+   "OFF-R5-411ABD76ABBA": [
+    "bapteme",
+    "Biplace Panoramique été"
+   ],
+   "OFF-R5-5BC4354A2988": [
+    "bapteme",
+    "Biplace Panoramique hiver"
+   ],
+   "OFF-R5-C604DDB6A9D7": [
+    "bapteme",
+    "Biplace Plaisir"
+   ],
+   "OFF-R5-CBFE8050930A": [
+    "bapteme",
+    "Biplace Première leçon de pilotage"
+   ],
+   "OFF-R5-D858999CF056": [
+    "bapteme",
+    "Biplace Prestige"
+   ],
+   "OFF-R5-DAD13B2C91E5": [
+    "bapteme",
+    "Biplace Enfant – Le Petit Montagnard"
+   ],
+   "OFF-R5-F0C25A1229E3": [
+    "bapteme",
+    "Biplace Découverte"
+   ],
+   "OFF-R6-29FE9CCF2DD5": [
+    "stage",
+    "Progression vers l’autonomie"
+   ],
+   "OFF-BAG-BE56F08B797B": [
+    "stage",
+    "Progression vers l'autonomie"
+   ],
+   "OFF-BAG-32FE85CA533E": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-BAG-D32B37C624D7": [
+    "stage",
+    "Evasion accès aux vols thermiques"
+   ]
+  }
+ },
+ "S261": {
+  "name": "PEGASE ET PARTICULE",
+  "email": "contact@pegase-particule.com",
+  "offers": {
+   "OFF-R3-109233116C94": [
+    "bapteme",
+    "Ascendance"
+   ],
+   "OFF-R3-1937A5CD240F": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-792807F55D84": [
+    "bapteme",
+    "Balade"
+   ],
+   "OFF-R3-9081D21CB01C": [
+    "bapteme",
+    "Super Héros"
+   ],
+   "OFF-R3-FF57760E4EB2": [
+    "bapteme",
+    "Géant hiver"
+   ],
+   "OFF-R3-27E9CD1D6887": [
+    "stage",
+    "P3 brevet pilote"
+   ],
+   "OFF-R3-2FF3D65F2FE2": [
+    "stage",
+    "P2 perfectionnement initiation"
+   ],
+   "OFF-V8-AC406E09C58A": [
+    "stage",
+    "Préformation biplace 2 jours"
+   ],
+   "OFF-V8-39004CC206AD": [
+    "stage",
+    "Formation qualification biplace 6 jours"
+   ],
+   "OFF-V8-6498A14E42F1": [
+    "stage",
+    "Orientation progression 4 jours Week end n°1"
+   ],
+   "OFF-V8-F7C3CFD8C9EF": [
+    "stage",
+    "Parcours d'initiation 5 jours – 725 €"
+   ],
+   "OFF-V8-28850AA2AB65": [
+    "stage",
+    "Orientation progression 5 jours"
+   ],
+   "OFF-V8-9CCEEC125B79": [
+    "stage",
+    "Orientation progression 4 jours Week end n°2"
+   ],
+   "OFF-V8-FAC844E5F97E": [
+    "stage",
+    "Parcours d'initiation 5 jours – 720 €"
+   ],
+   "OFF-V8-BF4A7B5CC3DE": [
+    "stage",
+    "Exploration thermique1 week-end"
+   ],
+   "OFF-V8-B1DAA2734615": [
+    "stage",
+    "Parcours d'initiation 4 jours Week end n°1"
+   ],
+   "OFF-V8-F023086391FC": [
+    "stage",
+    "Evasion aérienne cross initiation 5 jours"
+   ],
+   "OFF-V8-35CF277F059A": [
+    "stage",
+    "Parcours d'initiation 4 jours Week end n°2"
+   ]
+  }
+ },
+ "S262": {
+  "name": "Plaine Altitude",
+  "email": "contact@plaine-altitude.com",
+  "offers": {
+   "OFF-R5-1C0C5AAA1DF7": [
+    "bapteme",
+    "Baptême Évasion"
+   ],
+   "OFF-R5-3729B6466C68": [
+    "bapteme",
+    "Baptême Totale"
+   ],
+   "OFF-R5-684B5358A36A": [
+    "bapteme",
+    "Côte de Nacre"
+   ],
+   "OFF-R5-8752DC80237D": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-R5-8DF62C3E4EC7": [
+    "bapteme",
+    "Handicare"
+   ],
+   "OFF-R5-A557717686EE": [
+    "bapteme",
+    "Baptême XL"
+   ],
+   "OFF-R5-E2D50A35395F": [
+    "bapteme",
+    "Baby Fly"
+   ],
+   "OFF-R6-A63862875EA9": [
+    "stage",
+    "Initiation"
+   ]
+  }
+ },
+ "S265": {
+  "name": "POLLEN PARAPENTE",
+  "email": "contact@pollenparapente.com",
+  "offers": {
+   "OFF-R3-24EF6BCAAAF4": [
+    "bapteme",
+    "Pelvoux"
+   ],
+   "OFF-R3-632CF14219B0": [
+    "bapteme",
+    "Alpinisme"
+   ],
+   "OFF-R3-67643E63BE13": [
+    "bapteme",
+    "Hiver"
+   ],
+   "OFF-R3-7CCA85A3CAA0": [
+    "bapteme",
+    "Ascendances"
+   ],
+   "OFF-R3-9E122D85EC90": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R3-B5BB50541258": [
+    "bapteme",
+    "Grande évasion"
+   ],
+   "OFF-R3-B89D983DF439": [
+    "bapteme",
+    "Poids plume"
+   ],
+   "OFF-R3-D80178312265": [
+    "bapteme",
+    "Écrins"
+   ],
+   "OFF-V8-F614F3A570FC": [
+    "bapteme",
+    "Biplace Poids Plume"
+   ],
+   "OFF-V8-60C50FEDDB95": [
+    "bapteme",
+    "Biplace Découverte"
+   ],
+   "OFF-V8-FA4FB0648A1F": [
+    "bapteme",
+    "Biplace Ascendances"
+   ],
+   "OFF-V8-8E407DAF2A39": [
+    "bapteme",
+    "Biplace Hiver"
+   ],
+   "OFF-V8-AD8695121335": [
+    "bapteme",
+    "Biplace Pelvoux"
+   ],
+   "OFF-R3-1D0CD5C28330": [
+    "stage",
+    "Vol rando"
+   ],
+   "OFF-R3-48A4029FC3EB": [
+    "stage",
+    "Vol haute montagne"
+   ],
+   "OFF-R3-A5544CC14C32": [
+    "stage",
+    "Vol rando itinérant"
+   ],
+   "OFF-R3-BB47BAB8DDC7": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R3-BDC2FA485A63": [
+    "stage",
+    "SIV – pilotage Lac de Garde"
+   ]
+  }
+ },
+ "S266": {
+  "name": "Poupet Vol Libre",
+  "email": "info.ecole@poupetvollibre.com",
+  "offers": {
+   "OFF-R5-61D273859C2C": [
+    "bapteme",
+    "Biplace Découverte"
+   ],
+   "OFF-R5-CC79AB40A9F6": [
+    "bapteme",
+    "Biplace Milan"
+   ],
+   "OFF-R5-F544F9076690": [
+    "bapteme",
+    "Biplace Prestige"
+   ],
+   "OFF-R5-31C7730B2147": [
+    "stage",
+    "Journée grands vols – progression"
+   ],
+   "OFF-R5-5B284E258151": [
+    "stage",
+    "Journée grands vols – perfectionnement"
+   ],
+   "OFF-R5-5E5D1ACADAEF": [
+    "stage",
+    "Initiation 4 jours"
+   ],
+   "OFF-R5-9155B94FEA4F": [
+    "stage",
+    "Initiation 5 jours"
+   ]
+  }
+ },
+ "S267": {
+  "name": "Praloup Parapente",
+  "email": "praloup.parapente@gmail.com",
+  "offers": {
+   "OFF-WEB-7A564FF6054B": [
+    "bapteme",
+    "Vol Évasion (parapente à ski)"
+   ],
+   "OFF-WEB-4C003C8D71D2": [
+    "bapteme",
+    "Vol Exploration (parapente à ski)"
+   ]
+  }
+ },
+ "S268": {
+  "name": "Prévol",
+  "email": "prevol@prevol.com",
+  "offers": {
+   "OFF-R5-49CC3E21147B": [
+    "bapteme",
+    "Biplace Performance"
+   ],
+   "OFF-R5-B98C56148357": [
+    "bapteme",
+    "Biplace Évasion"
+   ],
+   "OFF-R5-C392AB113C7B": [
+    "bapteme",
+    "Biplace Kid"
+   ],
+   "OFF-R5-D298A57C9A12": [
+    "bapteme",
+    "Biplace Découverte"
+   ],
+   "OFF-R6-88BE3196BA90": [
+    "stage",
+    "Compétition parapente – première manche"
+   ],
+   "OFF-V8-D84C0062F174": [
+    "stage",
+    "PERF1 / PERF2 WE"
+   ]
+  }
+ },
+ "S269": {
+  "name": "Profeel Parapente",
+  "email": "rodair@wanadoo.fr",
+  "offers": {
+   "OFF-V8-78BF0D9B9AF7": [
+    "bapteme",
+    "Vol enfant"
+   ],
+   "OFF-V8-3ECFDCD4CEDC": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-V8-99976C1ED49C": [
+    "bapteme",
+    "Vol Criou"
+   ],
+   "OFF-V8-664CD32ECC4B": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S272": {
+  "name": "Pyla Parapente",
+  "email": "contact@pyla-parapente.com",
+  "offers": {
+   "OFF-1393": [
+    "bapteme",
+    "10 minutes (vol contemplatif)"
+   ],
+   "OFF-1394": [
+    "bapteme",
+    "10 minutes (vol contemplatif) / avec pilotage"
+   ],
+   "OFF-1395": [
+    "bapteme",
+    "10 minutes (vol contemplatif) / avec pilotage / avec vidéo HD"
+   ],
+   "OFF-1396": [
+    "bapteme",
+    "10 minutes (vol contemplatif) / avec vidéo HD"
+   ],
+   "OFF-1397": [
+    "bapteme",
+    "10 minutes (vol sensations)"
+   ],
+   "OFF-1398": [
+    "bapteme",
+    "10 minutes (vol sensations) / avec pilotage"
+   ],
+   "OFF-1399": [
+    "bapteme",
+    "10 minutes (vol sensations) / avec pilotage / avec vidéo HD"
+   ],
+   "OFF-1400": [
+    "bapteme",
+    "10 minutes (vol sensations) / avec vidéo HD"
+   ],
+   "OFF-1401": [
+    "bapteme",
+    "20 minutes (vol contemplatif)"
+   ],
+   "OFF-1402": [
+    "bapteme",
+    "20 minutes (vol contemplatif) / avec pilotage"
+   ],
+   "OFF-1403": [
+    "bapteme",
+    "20 minutes (vol contemplatif) / avec pilotage / avec vidéo HD"
+   ],
+   "OFF-1404": [
+    "bapteme",
+    "20 minutes (vol contemplatif) / avec vidéo HD"
+   ],
+   "OFF-1405": [
+    "bapteme",
+    "20 minutes (vol sensations)"
+   ],
+   "OFF-1406": [
+    "bapteme",
+    "20 minutes (vol sensations) / avec pilotage"
+   ],
+   "OFF-1407": [
+    "bapteme",
+    "20 minutes (vol sensations) / avec pilotage / avec vidéo HD"
+   ],
+   "OFF-1408": [
+    "bapteme",
+    "20 minutes (vol sensations) / avec vidéo HD"
+   ],
+   "OFF-1409": [
+    "bapteme",
+    "30 minutes (sur mesure)"
+   ],
+   "OFF-1410": [
+    "bapteme",
+    "30 minutes (sur mesure) / avec pilotage"
+   ],
+   "OFF-1411": [
+    "bapteme",
+    "30 minutes (sur mesure) / avec pilotage / avec vidéo HD"
+   ],
+   "OFF-1412": [
+    "bapteme",
+    "30 minutes (sur mesure) / avec vidéo HD"
+   ]
+  }
+ },
+ "S274": {
+  "name": "Reims Parapente",
+  "email": "reims.parapente@gmail.com",
+  "offers": {
+   "OFF-R6-33B162824664": [
+    "bapteme",
+    "Baptême biplace"
+   ]
+  }
+ },
+ "S275": {
+  "name": "RESSOURCES PARAPENTE",
+  "email": "ressourcesparapente@gmail.com",
+  "offers": {
+   "OFF-R5-73B0CBD22C77": [
+    "bapteme",
+    "Vol Horizon"
+   ],
+   "OFF-R5-CE19E63A72A4": [
+    "bapteme",
+    "Vol Sensation"
+   ],
+   "OFF-R5-E9F22808B534": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S278": {
+  "name": "Rocnvol",
+  "email": "rocnvol@gmail.com",
+  "offers": {
+   "OFF-V8-EBEC91045FE1": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-V8-CC968EB03EB6": [
+    "bapteme",
+    "Évasion"
+   ],
+   "OFF-V8-7476A6D8367C": [
+    "bapteme",
+    "Évasion Prestige"
+   ],
+   "OFF-V8-2391F1D46504": [
+    "bapteme",
+    "Valeur Parc Découverte"
+   ],
+   "OFF-V8-7090BFFF8D0C": [
+    "bapteme",
+    "Valeur Parc Évasion"
+   ]
+  }
+ },
+ "S279": {
+  "name": "Roquebrune Cap Martin Parapente (L'Art de l'Air)",
+  "email": "yann@roquebrunecapmartinparapente.com",
+  "offers": {
+   "OFF-1418": [
+    "bapteme",
+    "Double temps"
+   ],
+   "OFF-1419": [
+    "bapteme",
+    "Vol au pays des oiseaux"
+   ],
+   "OFF-1420": [
+    "bapteme",
+    "Vol découverte"
+   ]
+  }
+ },
+ "S280": {
+  "name": "Run Parapente",
+  "email": "contact@runparapente.re",
+  "offers": {
+   "OFF-R3-282043EDFB4F": [
+    "bapteme",
+    "Cumulus"
+   ],
+   "OFF-R3-443BBDBD9751": [
+    "bapteme",
+    "Enfant"
+   ],
+   "OFF-R3-589777D7912C": [
+    "bapteme",
+    "Nirvana"
+   ],
+   "OFF-R3-67DCB34122FC": [
+    "bapteme",
+    "Fin d’après-midi"
+   ],
+   "OFF-R3-837DFF3B9770": [
+    "bapteme",
+    "Mafate"
+   ],
+   "OFF-R3-84D714BE0D80": [
+    "bapteme",
+    "Balade"
+   ],
+   "OFF-R3-B84696468718": [
+    "bapteme",
+    "Ascendances"
+   ],
+   "OFF-R3-D3154A387F3C": [
+    "bapteme",
+    "Longue distance"
+   ]
+  }
+ },
+ "S282": {
+  "name": "Sacha Parapente",
+  "email": "sachaparapente@gmail.com",
+  "offers": {
+   "OFF-R6-47D07AC54536": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-R6-A71FF7A4D170": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S284": {
+  "name": "Salève Airlines",
+  "email": "info@saleveairlines.com",
+  "offers": {
+   "OFF-V8-0A8DB39BDDCF": [
+    "bapteme",
+    "Vol tandem Découverte"
+   ],
+   "OFF-V8-6F9390B423D6": [
+    "bapteme",
+    "Vol tandem Classique"
+   ],
+   "OFF-V8-79795DD44512": [
+    "bapteme",
+    "Vol tandem Prestige"
+   ]
+  }
+ },
+ "S286": {
+  "name": "Serre Chevalier Parapente",
+  "email": "clementpons5@gmail.com",
+  "offers": {
+   "OFF-WEB-3784177E932C": [
+    "bapteme",
+    "Aventure"
+   ],
+   "OFF-WEB-FBDA427C0422": [
+    "bapteme",
+    "Durée"
+   ],
+   "OFF-WEB-0A0AB142FCBE": [
+    "bapteme",
+    "Longue Durée"
+   ],
+   "OFF-WEB-6955F70AC573": [
+    "bapteme",
+    "Enfant"
+   ],
+   "OFF-WEB-9B5FD784BD57": [
+    "bapteme",
+    "Hiver"
+   ]
+  }
+ },
+ "S288": {
+  "name": "Smiles Paragliding",
+  "email": "contact@smiles-parapente.com",
+  "offers": {
+   "OFF-WEB-B4C1FFC3B72B": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-WEB-457425A57D19": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-WEB-5037FE4F581F": [
+    "bapteme",
+    "Vol Prestige"
+   ],
+   "OFF-WEB-7B31033E545A": [
+    "bapteme",
+    "Vol Enfant (Kids)"
+   ],
+   "OFF-WEB-5FE19D7839CF": [
+    "bapteme",
+    "Vol Horizon (hiver, à ski)"
+   ],
+   "OFF-WEB-174580AFF0D1": [
+    "bapteme",
+    "Vol Sensation (hiver)"
+   ],
+   "OFF-WEB-8333C52F33EA": [
+    "bapteme",
+    "Vol Premium (hiver)"
+   ]
+  }
+ },
+ "S289": {
+  "name": "Soaring",
+  "email": "academie@soaring.fr",
+  "offers": {
+   "OFF-R6-174779F14A63": [
+    "bapteme",
+    "Luchon – découverte"
+   ],
+   "OFF-R6-2002C56CBC50": [
+    "bapteme",
+    "Vallée d’Oô – découverte"
+   ],
+   "OFF-R6-9C1D4AB2FF80": [
+    "bapteme",
+    "Luchon – performance"
+   ],
+   "OFF-R6-12B4E347C142": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-9A75A8A88CEE": [
+    "stage",
+    "Progression thermique Àger"
+   ]
+  }
+ },
+ "S290": {
+  "name": "Solid'Air Parapente",
+  "email": "contact@solidair-parapente.fr",
+  "offers": {
+   "OFF-R5-00F5FC8B1900": [
+    "bapteme",
+    "Kolim 60"
+   ],
+   "OFF-R5-3335695485D7": [
+    "bapteme",
+    "Kolim 45"
+   ],
+   "OFF-R5-6AD9C6A80F21": [
+    "bapteme",
+    "Kolim 25"
+   ],
+   "OFF-R5-7230F7C945EE": [
+    "bapteme",
+    "Panoramik"
+   ],
+   "OFF-R5-7F2253B52A53": [
+    "bapteme",
+    "Dos d’Âne"
+   ],
+   "OFF-R5-B6C5F6B0A5FF": [
+    "bapteme",
+    "Le Maïdo"
+   ],
+   "OFF-R5-F22A15FB3F4A": [
+    "bapteme",
+    "Marmaille"
+   ]
+  }
+ },
+ "S294": {
+  "name": "SUD OUEST PARAPENTE",
+  "email": "contact@sud-ouest-parapente.fr",
+  "offers": {
+   "OFF-R6-931EDD55B10C": [
+    "bapteme",
+    "Sensation – 10 min"
+   ],
+   "OFF-R6-A2D07030B4C7": [
+    "bapteme",
+    "Sensation – 30 min"
+   ],
+   "OFF-R6-D6D45D5C8893": [
+    "bapteme",
+    "Sensation – 20 min"
+   ],
+   "OFF-R6-D9C66771C175": [
+    "bapteme",
+    "Sensation – 30 min avec vidéo 360°"
+   ]
+  }
+ },
+ "S295": {
+  "name": "SURF'AIR",
+  "email": "surfair@free.fr",
+  "offers": {
+   "OFF-R5-2DDA24F164B0": [
+    "bapteme",
+    "Vol Émotion"
+   ],
+   "OFF-R5-73C843CFA977": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-A2B9D2D577A9": [
+    "bapteme",
+    "Vol Découverte enfant"
+   ],
+   "OFF-R6-4DD356E30E2A": [
+    "stage",
+    "Stage cross Àger"
+   ]
+  }
+ },
+ "S297": {
+  "name": "Takamaka Annecy",
+  "email": "info@takamaka.fr",
+  "offers": {
+   "OFF-R6-0096100AEB13": [
+    "stage",
+    "Progression"
+   ],
+   "OFF-R6-44544B68EBFD": [
+    "stage",
+    "Initiation 4 jours"
+   ],
+   "OFF-R6-56F7A0B2F38D": [
+    "stage",
+    "Initiation juillet–août"
+   ],
+   "OFF-R6-F38D9FE520A9": [
+    "stage",
+    "Initiation 5 jours"
+   ]
+  }
+ },
+ "S300": {
+  "name": "TARANIS PARAPENTE",
+  "email": "taranisparapente@gmail.com",
+  "offers": {
+   "OFF-WEB-D1E087FF7337": [
+    "bapteme",
+    "Baptême Coccin’Ailes (enfants)"
+   ],
+   "OFF-WEB-7E8B26F69EA0": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-WEB-5966B7FF9B13": [
+    "bapteme",
+    "Baptême Prestige"
+   ]
+  }
+ },
+ "S303": {
+  "name": "Tete à l'envAIR parapente",
+  "email": "info@tetealenvairparapente.com",
+  "offers": {
+   "OFF-R5-04BAFFFC7D6E": [
+    "bapteme",
+    "Vol Découverte du matin"
+   ],
+   "OFF-R5-365BDE61437E": [
+    "bapteme",
+    "Vol ascendance +"
+   ],
+   "OFF-R5-3EED1D1D8875": [
+    "bapteme",
+    "Vol de durée +"
+   ],
+   "OFF-R5-A5A77E827D2E": [
+    "bapteme",
+    "Vol voltige Tête à l’envAIR"
+   ],
+   "OFF-R5-A80488C8E56E": [
+    "bapteme",
+    "Vol ascendance"
+   ],
+   "OFF-R5-D9BD551368F4": [
+    "bapteme",
+    "Vol de durée"
+   ]
+  }
+ },
+ "S305": {
+  "name": "Thollon Parapente",
+  "email": "parapente-paramoteur@hotmail.fr",
+  "offers": {
+   "OFF-R6-443A5B910631": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-68A8B1D07224": [
+    "bapteme",
+    "Vol Prestige"
+   ]
+  }
+ },
+ "S307": {
+  "name": "Toulouse Parapente",
+  "email": "info@toulouseparapente.fr",
+  "offers": {
+   "OFF-R3-ACFA0B4784F8": [
+    "bapteme",
+    "Découverte Plus"
+   ],
+   "OFF-R3-AF6446AE7EB2": [
+    "bapteme",
+    "Adrénaline"
+   ],
+   "OFF-R3-407CC8CEE035": [
+    "stage",
+    "Initiation 4 jours"
+   ],
+   "OFF-R3-98C970C1A1A3": [
+    "stage",
+    "Perfectionnement + vol montagne"
+   ],
+   "OFF-R3-D2D94330049C": [
+    "stage",
+    "Initiation 3 jours"
+   ]
+  }
+ },
+ "S308": {
+  "name": "Tropic Parapente",
+  "email": "tropicparapentereunion@gmail.com",
+  "offers": {
+   "OFF-01B36018F6D5": [
+    "bapteme",
+    "Vol Ascendance"
+   ],
+   "OFF-05D1F0593E4C": [
+    "bapteme",
+    "Vol Ascendance Plus"
+   ],
+   "OFF-914538813292": [
+    "bapteme",
+    "Vol Marmaille"
+   ],
+   "OFF-A556180DFCFF": [
+    "bapteme",
+    "Vol Découverte"
+   ]
+  }
+ },
+ "S309": {
+  "name": "Ubaye Parapente",
+  "email": "info@ubaye-parapente.com",
+  "offers": {
+   "OFF-R3-707AF96958A0": [
+    "bapteme",
+    "Premium"
+   ],
+   "OFF-R3-7BA360303A94": [
+    "bapteme",
+    "Point de vue"
+   ],
+   "OFF-R3-7D6D6B2AC907": [
+    "bapteme",
+    "Vol du soir"
+   ],
+   "OFF-R3-9F89256D8F07": [
+    "bapteme",
+    "Soleille-Boeuf matin"
+   ],
+   "OFF-R3-A3C407E5D23F": [
+    "bapteme",
+    "Premium Maxi"
+   ],
+   "OFF-R3-CD4809A6BE92": [
+    "bapteme",
+    "Dôme de l’Alpe"
+   ],
+   "OFF-R3-E6C5AB2F1479": [
+    "bapteme",
+    "Point de vue hiver à pied"
+   ],
+   "OFF-R3-04EE75A0F8A4": [
+    "stage",
+    "Progression — matériel école"
+   ],
+   "OFF-R3-0F44F990F82C": [
+    "stage",
+    "Progression — matériel personnel"
+   ],
+   "OFF-R3-166E0836878C": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R3-2BE530C78742": [
+    "stage",
+    "Vols encadrés — 10 vol(s) — matériel école"
+   ],
+   "OFF-R3-2FEE74618F01": [
+    "stage",
+    "Progression individualisée biplace"
+   ],
+   "OFF-R3-420480DF2CFC": [
+    "stage",
+    "Vols encadrés — 10 vol(s) — matériel personnel"
+   ],
+   "OFF-R3-4BDCD7FD8A3D": [
+    "stage",
+    "Vols encadrés — 1 vol(s) — matériel personnel"
+   ],
+   "OFF-R3-551124C76C28": [
+    "stage",
+    "Nomades — matériel personnel"
+   ],
+   "OFF-R3-645DF66C052C": [
+    "stage",
+    "Journée progression/perfectionnement — matériel personnel"
+   ],
+   "OFF-R3-8960E1835EAA": [
+    "stage",
+    "Vols encadrés — 1 vol(s) — matériel école"
+   ],
+   "OFF-R3-BB752CB7C7A4": [
+    "stage",
+    "Vols encadrés — 20 vol(s) — matériel école"
+   ],
+   "OFF-R3-C2AAABB97F06": [
+    "stage",
+    "Journée progression/perfectionnement — matériel école"
+   ],
+   "OFF-R3-C9FDE33319A6": [
+    "stage",
+    "Nomades — matériel école"
+   ],
+   "OFF-R3-DAF696783A65": [
+    "stage",
+    "Journée découverte"
+   ],
+   "OFF-R3-E13FAEA9F3CA": [
+    "stage",
+    "Perfectionnement — matériel personnel"
+   ],
+   "OFF-R3-E4EBB4BC5E5A": [
+    "stage",
+    "Perfectionnement — matériel école"
+   ],
+   "OFF-R3-EDD2DEDC00DF": [
+    "stage",
+    "Vols encadrés — 20 vol(s) — matériel personnel"
+   ]
+  }
+ },
+ "S312": {
+  "name": "Val's en l'Air",
+  "email": "contact@valsenlair.fr",
+  "offers": {
+   "OFF-R6-509BA7426741": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R6-B0237B1CBDA4": [
+    "bapteme",
+    "Vol Panoramique"
+   ]
+  }
+ },
+ "S314": {
+  "name": "Ventoux Parapente",
+  "email": "fly@ventoux-parapente.com",
+  "offers": {
+   "OFF-WEB-FC2A250D06F7": [
+    "bapteme",
+    "Formule découverte (Pays de Sault)"
+   ],
+   "OFF-WEB-E431C59EEC03": [
+    "bapteme",
+    "Formule évasion (Pays de Sault)"
+   ],
+   "OFF-WEB-B3C4D4345775": [
+    "bapteme",
+    "Formule piou-piou (enfants)"
+   ],
+   "OFF-WEB-AB7CE8BBD7D5": [
+    "bapteme",
+    "Vol du Mont Ventoux"
+   ],
+   "OFF-WEB-8C3A3912A840": [
+    "bapteme",
+    "Vol VIP (du Ventoux à la vallée de Sault)"
+   ]
+  }
+ },
+ "S315": {
+  "name": "Vercors Passions / Aérolab Parapente",
+  "email": "info@aerolabparapente.fr",
+  "offers": {
+   "OFF-R6-26217D130489": [
+    "bapteme",
+    "Vol découverte"
+   ],
+   "OFF-R6-711778B0A7A3": [
+    "bapteme",
+    "Vol Thermique"
+   ],
+   "OFF-R6-BDAB1563A059": [
+    "bapteme",
+    "Bi Péda"
+   ],
+   "OFF-R6-13817339AFD3": [
+    "stage",
+    "Progression"
+   ],
+   "OFF-R6-30BBB98897D6": [
+    "stage",
+    "Thermique"
+   ],
+   "OFF-R6-6F21DDFC350E": [
+    "stage",
+    "Cross"
+   ],
+   "OFF-R6-A17CB26B90B7": [
+    "stage",
+    "Initiation"
+   ]
+  }
+ },
+ "S316": {
+  "name": "VERDON PASSION",
+  "email": "info@verdon-passion.com",
+  "offers": {
+   "OFF-R6-01E681678A52": [
+    "bapteme",
+    "Vol biplace découverte"
+   ],
+   "OFF-R6-224FDD8268AF": [
+    "stage",
+    "Forfait 10 vols encadrés"
+   ],
+   "OFF-R6-390F6D98FCC8": [
+    "stage",
+    "Séance du soir"
+   ],
+   "OFF-R6-5BDE58A54873": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-921AEE8D37CA": [
+    "stage",
+    "Séance du matin"
+   ]
+  }
+ },
+ "S317": {
+  "name": "Viento Parapente",
+  "email": "viento.parapente@gmail.com",
+  "offers": {
+   "OFF-R5-155378ED1F6A": [
+    "bapteme",
+    "Baptême Pitchou"
+   ],
+   "OFF-R5-6631090408BD": [
+    "bapteme",
+    "Baptême Classique"
+   ],
+   "OFF-R5-DE3E33A1DC14": [
+    "bapteme",
+    "Baptême Class Plus"
+   ]
+  }
+ },
+ "S318": {
+  "name": "Virevolte",
+  "email": "ecole.virevolte@libertysurf.fr",
+  "offers": {
+   "OFF-8D15685C7125": [
+    "bapteme",
+    "Baptême Plaisir"
+   ],
+   "OFF-96670C252A69": [
+    "bapteme",
+    "Baptême Découverte"
+   ],
+   "OFF-D8CBCD2F4C56": [
+    "bapteme",
+    "Baptême Évasion"
+   ],
+   "OFF-37E04199921C": [
+    "stage",
+    "Progression pédagogique en biplace — 1 pilote"
+   ],
+   "OFF-4B375B3F95C7": [
+    "stage",
+    "Passage brevet pilote / confirmé"
+   ],
+   "OFF-5ADA296CA1D2": [
+    "stage",
+    "Journée découverte"
+   ],
+   "OFF-5E508C46E3F7": [
+    "stage",
+    "Perfectionnement"
+   ],
+   "OFF-661929A2D30D": [
+    "stage",
+    "Cours individualisé — 1 pilote"
+   ],
+   "OFF-7356B99C92DB": [
+    "stage",
+    "Marche & cross"
+   ],
+   "OFF-759808A5F3C8": [
+    "stage",
+    "Hand’Icare"
+   ],
+   "OFF-7C47955422CE": [
+    "stage",
+    "Thermique Espagne"
+   ],
+   "OFF-A03A9BBF954E": [
+    "stage",
+    "Marche & vol — thermique et itinérance"
+   ],
+   "OFF-B2213E485DB1": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-B401C022203D": [
+    "stage",
+    "Cross Espagne"
+   ],
+   "OFF-D061B3C59A48": [
+    "stage",
+    "Initiation cross"
+   ],
+   "OFF-EDD9133E139E": [
+    "stage",
+    "Dolomites — via ferrata, marche et vol"
+   ],
+   "OFF-BAG-EA0E0189055B": [
+    "stage",
+    "Stage Perfectionnement Espagne Pension Complète"
+   ],
+   "OFF-BAG-27E221E75ACA": [
+    "stage",
+    "Stage itinérant"
+   ],
+   "OFF-BAG-8BA080B02F3F": [
+    "stage",
+    "Stage Week-end Initiation : Niveau 1"
+   ],
+   "OFF-BAG-F9F82F929986": [
+    "stage",
+    "Stage premiers thermiques"
+   ],
+   "OFF-BAG-CA24CDD3909F": [
+    "stage",
+    "Stage Week-end Perfectionnement : Niveau 3"
+   ],
+   "OFF-BAG-AE8B92A6EFCB": [
+    "stage",
+    "Stage Week-end Perfectionnement Préparation Mentale"
+   ],
+   "OFF-BAG-F0F81C91F3F0": [
+    "stage",
+    "Acclimatation à la turbulence"
+   ],
+   "OFF-BAG-1038AE40DECD": [
+    "stage",
+    "Stage itinérant Ardèche"
+   ],
+   "OFF-BAG-A4E9CDA5DBDD": [
+    "stage",
+    "Stage Itinérant Aragon/ Catalogne"
+   ]
+  }
+ },
+ "S320": {
+  "name": "Vol libre Louron",
+  "email": "contact@vol-libre-louron.fr",
+  "offers": {
+   "OFF-R6-085879304E2D": [
+    "bapteme",
+    "Gypaète"
+   ],
+   "OFF-R6-57EB7094E0A2": [
+    "bapteme",
+    "Maynats"
+   ],
+   "OFF-R6-69F88AF8952E": [
+    "bapteme",
+    "Aigle Royal"
+   ],
+   "OFF-R6-6CF436EFEAB3": [
+    "bapteme",
+    "Hiver ski"
+   ],
+   "OFF-R6-8AED290632C9": [
+    "bapteme",
+    "Découverte"
+   ],
+   "OFF-R6-C245A8F04CDF": [
+    "bapteme",
+    "Spirale"
+   ]
+  }
+ },
+ "S322": {
+  "name": "Volcanik Parapente",
+  "email": "info@volcanik-parapente.re",
+  "offers": {
+   "OFF-R5-0BCFAA7BE0E2": [
+    "bapteme",
+    "Vol Découverte"
+   ],
+   "OFF-R5-3CA2710034A3": [
+    "bapteme",
+    "Vol PERF"
+   ],
+   "OFF-R5-763BE28BD382": [
+    "bapteme",
+    "Vol Tip-Top"
+   ],
+   "OFF-R5-763C0A86BE7E": [
+    "bapteme",
+    "Vol Thermik"
+   ],
+   "OFF-R5-BA72DE6E71D4": [
+    "bapteme",
+    "Vol Marmaille"
+   ],
+   "OFF-R6-0E7BFD0A99FE": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-DA8AB6C3F493": [
+    "stage",
+    "Sortie Piton Textor ou Piton Rond"
+   ],
+   "OFF-R6-FEA608A80C4D": [
+    "stage",
+    "Progression – matinée"
+   ]
+  }
+ },
+ "S323": {
+  "name": "Vosges Parapente (Vosges dans l'Vent)",
+  "email": "danslevent88@gmail.com",
+  "offers": {
+   "OFF-R6-59918AE43777": [
+    "stage",
+    "Initiation"
+   ],
+   "OFF-R6-8CDA3074B4A9": [
+    "stage",
+    "Journée découverte"
+   ]
+  }
+ },
+ "S324": {
+  "name": "VUDUCIEL PARAPENTE",
+  "email": "vuducielparapente@free.fr",
+  "offers": {
+   "OFF-R6-73A056BCCC12": [
+    "bapteme",
+    "Vol ascendances"
+   ],
+   "OFF-R6-A40E14D590AB": [
+    "bapteme",
+    "Vol découverte"
+   ],
+   "OFF-R6-DA6B42C9EC81": [
+    "bapteme",
+    "Grand biplace"
+   ]
+  }
+ },
+ "S325": {
+  "name": "WAGGAS SCHOOL",
+  "email": "waggas.school@gmail.com",
+  "offers": {
+   "OFF-R5-451361914BE3": [
+    "bapteme",
+    "Baptême Sensation – Waggas – 30 min"
+   ],
+   "OFF-R5-5B77EB9CA7BB": [
+    "bapteme",
+    "Baptême Sensation – Waggas – 20 min"
+   ],
+   "OFF-R5-66C01109F8C1": [
+    "bapteme",
+    "Baptême Découverte – 10 min"
+   ],
+   "OFF-R5-9C4377F6DBF8": [
+    "bapteme",
+    "Baptême Découverte – 20 min"
+   ],
+   "OFF-R5-AF62E7BBB2AC": [
+    "bapteme",
+    "Baptême Sensation – Waggas – 10 min"
+   ],
+   "OFF-R5-DF0F941E3001": [
+    "bapteme",
+    "Baptême Découverte – 30 min"
+   ]
+  }
+ },
+ "S328": {
+  "name": "MMVL – Millevaches Monédières Vol Libre",
+  "email": "parapentecorreze@gmail.com",
+  "offers": {
+   "OFF-R6-AEB8C7C7F028": [
+    "bapteme",
+    "Vol biplace découverte"
+   ],
+   "OFF-R6-D5F87D740E0C": [
+    "bapteme",
+    "Vol biplace performance"
+   ],
+   "OFF-R6-876ACA8DDE0C": [
+    "stage",
+    "Stage initiation"
+   ],
+   "OFF-R6-92479BA8DA00": [
+    "stage",
+    "Journée unitaire de formation"
+   ]
+  }
+ }
+}

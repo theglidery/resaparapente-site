@@ -1,0 +1,4 @@
+Déposez ici les images d'en-tête (voir IMAGES.md à la racine du projet).
+Noms attendus : home.jpg, bapteme.jpg, stage.jpg, bon-cadeau-bapteme.jpg, bon-cadeau-stage.jpg
+Version mobile facultative : bapteme-mobile.jpg, etc. Formats : jpg, webp, avif, png.
+Tant qu'un fichier manque, la page affiche un motif de courbes de niveau.

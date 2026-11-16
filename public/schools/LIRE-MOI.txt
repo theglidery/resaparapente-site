@@ -1,0 +1,6 @@
+Un dossier par école, nommé comme la colonne "Slug (URL)" du classeur (onglet Écoles), par exemple : les-grands-espaces/
+  logo.png (ou .svg, .webp)   logo de l'école
+  main.jpg                    photo principale fournie par l'école
+  photo-2.jpg, photo-3.jpg, photo-4.jpg   trois photos plus petites
+Une photo fournie par l'école remplace la photo de la bibliothèque.
+Voir IMAGES.md.

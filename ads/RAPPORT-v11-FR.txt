@@ -1,0 +1,6 @@
+Généré le 2026-11-15 · marché FR · budget 10/jour par campagne (conquête : 15/jour) · tout en pause
+9 campagnes, 110 groupes d’annonces, 772 baptêmes comparés, 174 écoles, dès 40
+37 titres ou descriptions trop longs écartés (limites 30 et 90 caractères)
+7 mots-clés en double écartés (un mot-clé n’est porté que par une seule campagne)
+LOCAL « Paris » : aucune page locale (pas de page prévue) : groupes ignorés. À créer si des écoles existent là.
+LOCAL « Corse » : aucune page locale (pas de page prévue) : groupes ignorés. À créer si des écoles existent là.

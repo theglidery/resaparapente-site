@@ -1,0 +1,250 @@
+786|Second weekend
+787|Aerial route
+788|Flight in calm air.
+789|Long-duration flight.
+790|Calm conditions
+791|Plateau d’Arâches
+792|BPC level – cross-country
+793|Flight in rising air.
+794|Seven supervised flights.
+795|Short tandem flight.
+796|Aerobatic manoeuvres
+797|Child’s flight in the morning.
+798|Extended tandem flight.
+799|Tandem flight of longer duration.
+800|Piloting and thermals
+801|Thermal lift
+802|2 consecutive weekends
+803|End-of-day flight.
+804|Introductory morning.
+805|SIV taught by Régis
+806|First tandem flight
+807|Pass valid for one year.
+808|Flight suited to children.
+809|SIV taught by Fabien
+810|Day-long course.
+811|Winter flight at Le Corbier.
+812|Flight for a lighter passenger.
+813|Aerobatics-oriented tandem.
+814|Competition basics.
+815|Introduction to paragliding.
+816|Winter flight at La Clusaz.
+817|Single supervised flight.
+818|First-flight package.
+819|First flights in the mountains
+820|Panoramic winter flight.
+821|First flight in calm air.
+822|Learning-oriented flight.
+823|Piloting in a safe setting
+824|Hike-and-fly practice.
+825|Day-long teaching.
+826|Improvement course.
+827|Initial licence level and above
+828|Getting back into it, with a supervised flight.
+829|First tandem flight
+830|Extended thrill flight.
+831|Flight with 1,200 m of vertical drop.
+832|Piloting with dual controls
+833|Aerobatic flight.
+834|Training towards independence.
+835|Flight in rising air currents.
+836|Flight of intermediate duration.
+837|! SIV taught in English !
+838|Thermal or ridge-lift flight.
+839|Goal: independence on the island
+840|Introduction to thermal flying.
+841|Extended flight in rising air.
+842|Tandem flight with thrills.
+843|Performance over a weekend.
+844|Progression over a weekend.
+845|Thrill-seeker’s tandem flight.
+846|Duration and distance flight.
+847|Single skin or mountain wing
+848|Thermal flying practice.
+849|Extended performance flight.
+850|First tandem flight at Arbas.
+851|Working on thermal flying.
+852|First long solo flights.
+853|Personalised tandem lesson
+854|Évasion Valeur Parc variant.
+855|Flight in rising conditions.
+856|Thrill flight with manoeuvres.
+857|Classic flight at the child rate.
+858|Summer flight offered at 4:30 pm.
+859|Short flight for ages 5 to 10.
+860|Half-day progression.
+861|Flight close to the take-off.
+862|Flight in thermal lift.
+863|Working on piloting basics.
+864|Long thrill flight.
+865|Working on distance flying.
+866|Ground practice on the training slope.
+867|Aerobatic flight with spins.
+868|First flight geared to discovery.
+869|First flight suited to children.
+870|First introduction in tandem.
+871|Group training for beginners.
+872|Paragliding trip in Andalusia
+873|Child’s flight early in the morning.
+874|Introduction to free flight in summer.
+875|Day of flights for progression.
+876|Long flight in thermals.
+877|Flight from Superbagnères.
+878|10-minute thrill flight.
+879|Introductory flight at the child rate.
+880|Flight in calm air with an exercise.
+881|Improvement course over two days.
+882|Two consecutive half-days.
+883|Individual course over five days.
+884|Extended flight above Les Gets.
+885|Flight with piloting and thrills.
+886|Découverte Valeur Parc variant.
+887|Initial paragliding training.
+888|Thermal progression at Àger.
+889|Introduction to aerobatics.
+890|Child’s tandem flight in calm air.
+891|Extended flight along the coastline.
+892|Extended flight above Millau.
+893|Paragliding training for all levels.
+894|Short improvement format.
+895|Long flight reserved for adults.
+896|Supervised flights with assistance.
+897|Training slope; instructional tandem
+898|Flight with more thrills.
+899|Morning flight in calm conditions.
+900|Prestige variant of the Évasion flight.
+901|Morning flight from 1,500 m.
+902|Extended flight in the Monédières.
+903|Flight focused on strong thrills.
+904|Tailor-made session according to level.
+905|Extended flight depending on conditions.
+906|Extended flight for athletic passengers.
+907|Extended tandem paragliding flight.
+908|Introductory flight at Superbagnères.
+909|First flight in calm air in the morning.
+910|Session of long supervised flights.
+911|Learning to paraglide.
+912|Improvement after the introduction.
+913|Introduction to piloting in tandem.
+914|Beginner course in July and August.
+915|Extended flight, 1,250 m of vertical drop.
+916|Extended flight in rising air.
+917|Tandem flight with 770 m of vertical drop.
+918|Mountain flight from the Maïdo.
+919|Extended flight from Les Colimaçons.
+920|Day of training in the massif.
+921|Flight with about 1,000 m of vertical drop.
+922|Group training over ten days.
+923|Flight logbook for teaching.
+924|Paragliding basics and first flights
+925|Tandem flight of intermediate duration.
+926|Ground training on the training slope.
+927|Training slope and instructional tandem.
+928|Gentle introduction to paragliding.
+929|Extended flight thanks to rising air.
+930|Extended introductory tandem flight.
+931|Getting back into it over a weekend.
+932|Distance flight at the Àger site.
+933|Varied conditions and pilot licence
+934|Progression flights over the morning.
+935|Follow-up after the course; contact the school
+936|Long flight above Annecy.
+937|Improving distance flying.
+938|Rising air, piloting and thrills.
+939|Improving distance flying.
+940|Introduction at the high-season rate.
+941|Flight above the whole site.
+942|Tandem flight for children.
+943|Introductory paragliding course.
+944|Long flight above Les Gets.
+945|Training slope, then instructional tandem
+946|First paragliding flight at Orcières.
+947|Day of flights for improvement.
+948|Descent from the summit of the Salève.
+949|Extended version of the rising-air flight.
+950|First tandem flight in the Vercors.
+951|Long flight, 525 m of vertical drop.
+952|Tandem flight with 1,200 m of vertical drop.
+953|Panoramic flight from 1,500 m.
+954|Flight with piloting on dual controls.
+955|Longer flight, higher and further.
+956|Summer flight offered all day.
+957|Child rate for the winter package.
+958|Speed-flying, parakite and single-skin wings
+959|First flight with a qualified instructor.
+960|Ski flight from the ski area.
+961|Distance-flying course in the mountains.
+962|Hike, then fly, with supervision.
+963|Flying techniques and radio assistance
+964|Progression towards the pilot licence.
+965|Advanced Single skin or mountain wing
+966|Classic flight of intermediate duration.
+967|Learning to fly solo under the wing.
+968|Child’s flight above Loudenvielle.
+969|Flight over Venosc in calm conditions.
+970|Long tandem paragliding flight.
+971|Introduction to thermal lift.
+972|Long flight depending on conditions.
+973|Aerial route above the valleys.
+974|Introduction to paragliding.
+975|Short, gentle flight suited to children.
+976|Gentle flight with 500 m of vertical drop.
+977|First flight above Lake Annecy.
+978|Extended flight in thermal conditions.
+979|Progression or thermal work.
+980|Training for two, outside July and August.
+981|Thrill flight above Samoëns.
+982|Long flight above Allevard.
+983|Extended flight from 800 m at Saint-Leu.
+984|Introductory paragliding training.
+985|Flight from Orcier, near Thonon.
+986|Introductory flight in calm conditions.
+987|Introduction to free flight over five days.
+988|Day of teaching by appointment.
+989|Extended flight in thermal lift.
+990|Gentle flight above the Dune du Pilat.
+991|Calm flight in the morning or without lift.
+992|Course at the Dune du Pilat with Fabien and Régis
+993|Panoramic morning flight from 1,500 m.
+994|Making use of thermal lift
+995|Short flight reserved for children in the morning.
+996|First flight with the instructor.
+997|Scenic flight making use of rising air.
+998|Practical and theoretical improvement
+999|Classic tandem, 1,000 m of vertical drop.
+1000|Calm flight at Millau, suited to children.
+1001|Scenic flight above the Haut-Jura.
+1002|Long flight in thermals or ridge lift.
+1003|Very long flight near the summits.
+1004|Discovering the sites on the east of the island.
+1005|Introductory tandem, 565 m of vertical drop.
+1006|Gentle flight for children; HD album included.
+1007|Extended flight from the 800 m site.
+1008|Tandem flight with an adapted adaptive-sport seat.
+1009|Introductory flight above the coastline.
+1010|Flight over the Les Arcs and Paradiski area.
+1011|Long flight above the Savoie.
+1012|Gentle flight for children; photos included.
+1013|Introductory flight from 800 m of vertical drop.
+1014|Extended variant in gentle conditions.
+1015|High-mountain flight, 2,550 m of vertical drop.
+1016|Weekend improvement pass.
+1017|Child’s tandem from 800 m at Saint-Leu.
+1018|Extended flight to gain altitude.
+1019|Course to build independence, all levels
+1020|Piloting progression over a week.
+1021|Child’s flight in calm air, in the morning.
+1022|Flight in rising air from Allevard.
+1023|First flight above the Oô valley.
+1024|Introductory flight from 800 m at Saint-Leu.
+1025|Long flight above the Louron.
+1026|Flight in calm air with 525 m of vertical drop.
+1027|Calm descent for a first flight.
+1028|First child’s flight in the morning in calm air.
+1029|First take-offs and basic learning.
+1030|Training with one instructor per student.
+1031|First flight with a soft landing.
+1032|First flight with a search for rising air.
+1033|First solo flights, Monday to Friday.
+1034|Long flight from the 800 m site.
+1035|Extended flight in thermals or ridge lift.

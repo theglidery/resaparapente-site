@@ -1,0 +1,23 @@
+---
+import DocPage from '../../components/DocPage.astro';
+import { posts, dateLong } from '../../data/blog';
+export function getStaticPaths() { return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } })); }
+const { post } = Astro.props;
+// Body text is plain text with [label](/path/) links only.
+const md = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\[([^\]]+)\]\((\/[^)]*)\)/g, '<a href="$2">$1</a>');
+const others = posts.filter((p) => p.slug !== post.slug).slice(0, 3);
+---
+<DocPage title={post.title} h1={post.title} description={post.excerpt}
+  jsonLd={{ '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.excerpt, datePublished: post.date, dateModified: post.date, image: 'https://resaparapente.fr/images/brand/og-image.png', mainEntityOfPage: `https://resaparapente.fr/blog/${post.slug}/`, author: { '@type': 'Organization', name: 'Resa Parapente' }, publisher: { '@type': 'Organization', name: 'Resa Parapente', logo: { '@type': 'ImageObject', url: 'https://resaparapente.fr/images/brand/logo@2x.png' } } }}>
+  <p class="muted small">{post.tag} · {dateLong(post.date)}</p>
+  <div class="article">{post.body.map((t) => <p set:html={md(t)} />)}</div>
+  <div class="btn-row" style="margin-top:2rem">
+    <a class="btn" href="/bapteme/">Trouver un baptême</a>
+    <a class="btn ghost" href="/stage/">Trouver un stage</a>
+  </div>
+  <h2 style="margin-top:3rem">À lire aussi</h2>
+  <ul class="post-list">
+    {others.map((p) => <li class="post-card"><span class="tag">{p.tag}</span><h3><a href={`/blog/${p.slug}/`}>{p.title}</a></h3><p>{p.excerpt}</p></li>)}
+  </ul>
+  <p style="margin-top:1.5rem"><a href="/blog/">Tous les articles</a></p>
+</DocPage>

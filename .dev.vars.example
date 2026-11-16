@@ -1,0 +1,9 @@
+# Local Cloudflare Pages Functions secrets for `wrangler pages dev dist`
+# Copy this file to `.dev.vars` (never commit `.dev.vars`)
+
+RESEND_API_KEY=re_xxxxxxxxx
+BOOKING_FROM="Resa Parapente <demandes@resaparapente.fr>"
+BOOKING_TEST_TO=your-test-email@example.com
+BOOKING_TEAM_TO=contact@resaparapente.fr
+EXPORT_TOKEN=replace-with-at-least-32-random-characters
+GOOGLE_PLACES_API_KEY=

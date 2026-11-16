@@ -1,0 +1,65 @@
+---
+// One school as a card: photo, logo, name, where, number of formulas and starting price.
+import Logo from './Logo.astro';
+import { eur, dateFr, fromPrice, offerPrice, LEVELS, giftsOf, promosOf, type School } from '../lib/data';
+import { schoolImages } from '../lib/images';
+import { kidsOf, winterOf } from '../lib/places';
+import { reviewStats } from '../lib/data';
+import { REVIEWS } from '../config';
+interface Props { school: School; kind: 'bapteme' | 'stage' }
+const { school: s, kind } = Astro.props;
+const list = kind === 'bapteme' ? s.baptemes : s.stages;
+const price = fromPrice(s, kind);
+const { logo, main } = schoolImages(s);
+const norm = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const byLevel: Record<string, { n: number; p: number | null }> = {};
+if (kind === 'stage') for (const l of LEVELS) {
+  const os = s.stages.filter((o) => o.levelKey === l.key);
+  if (os.length) { const ps = os.map(offerPrice).filter((v): v is number => v != null); byLevel[l.key] = { n: os.length, p: ps.length ? Math.min(...ps) : null }; }
+}
+// Partner promotion running today (price + essential conditions, no badge, no effect on the order of the list)
+const ids = new Set(list.map((o) => o.id));
+const promo = promosOf(s.id).filter((p) => !p.offerId || ids.has(p.offerId)).sort((a, b) => a.price - b.price)[0];
+const gift = giftsOf(s.id).some((x) => !x.kind || x.kind === 'Baptême et stage' || x.kind === 'Montant libre' || x.kind === (kind === 'bapteme' ? 'Baptême' : 'Stage'));
+const flags = [kind === 'bapteme' && list.some(kidsOf) && 'kids', kind === 'bapteme' && list.some(winterOf) && 'winter', gift && 'gift'].filter(Boolean).join(' ');
+const rv = reviewStats(s.id);
+const rated = rv && rv.count >= REVIEWS.minOnCard ? rv : null;
+const near = s.mainCity && s.mainCity !== s.city ? `près de ${s.mainCity}` : '';
+const n = list.length;
+// Flight length range (baptême) or the levels covered (stage), as one short line
+let meta = '';
+if (kind === 'bapteme') {
+  const d = s.baptemes.flatMap((o) => [o.durMin, o.durMax]).filter((v): v is number => typeof v === 'number' && v > 0);
+  if (d.length) { const a = Math.min(...d), b = Math.max(...d); meta = a === b ? `Vol de ${a} min` : `Vols de ${a} à ${b} min`; }
+} else {
+  const names = LEVELS.filter((l) => byLevel[l.key] && l.key !== 'autre').map((l) => l.name.split(',')[0]);
+  meta = names.slice(0, 3).join(' · ');
+}
+---
+<li class="school-li"
+    data-name={norm(s.name)} data-city={norm(s.city ?? '')} data-dept={norm(s.dept ?? '')} data-region={s.region ?? ''}
+    data-near={s.nearCities.map(norm).join('|')} data-lat={s.lat ?? ''} data-lng={s.lng ?? ''} data-price={price ?? ''} data-rating={rated ? rated.avg : ''} data-reviews={rated ? rated.count : ''}
+    data-flags={flags} data-levels={Object.keys(byLevel).join(' ')} data-bylevel={kind === 'stage' ? JSON.stringify(byLevel) : undefined}>
+  <a class="card" data-track="select_school" data-school={s.id} data-kind={kind} href={`/ecoles/${s.slug}/?parcours=${kind}`}>
+    <span class={`card-media${main ? '' : ' none'}`}>
+      {main && <img src={main.src} alt="" loading="lazy" decoding="async" width="480" height="320" />}
+      <span class="card-logo"><Logo name={s.name} src={logo} /></span>
+    </span>
+    <span class="card-body">
+      <span class="name">{s.name}</span>
+      <span class="where">{s.dept ?? s.city}{near ? ` · ${near}` : ''}<span class="dist"></span></span>
+      {rated && <span class="meta rate"><span class="stars" aria-hidden="true">★</span> <strong>{rated.avg.toLocaleString('fr-FR', { minimumFractionDigits: 1 })}</strong> ({rated.count} avis)</span>}
+      {meta && <span class="meta">{meta}</span>}
+      {(flags.includes('kids') || flags.includes('winter')) && <span class="tags">{flags.includes('kids') && <span class="tag-s">Enfants</span>}{flags.includes('winter') && <span class="tag-s">Vol en hiver</span>}</span>}
+      {promo && <span class="promo-line" data-promo data-end={promo.end}><strong>{promo.title ?? 'Offre'} : {eur(promo.price)}</strong>{promo.regular && <> <s>{eur(promo.regular)}</s></>} · jusqu’au {dateFr(promo.end, { day: 'numeric', month: 'long' })}{promo.conditions ? ` · ${promo.conditions}` : ''}</span>}
+      {gift && <span class="gift-line">Bon cadeau proposé par l’école</span>}
+    </span>
+    <span class="card-foot">
+      <span class="count">{n} formule{n > 1 ? 's' : ''}</span>
+      <span class="price">
+        <span class="price-main">{price !== null ? `dès ${eur(price)}` : 'prix selon formule'}</span>
+        <small class="price-sub">{price !== null ? 'par personne' : ''}</small>
+      </span>
+    </span>
+  </a>
+</li>

@@ -1,0 +1,218 @@
+// Content of the seven stage-type pages (/stage/<slug>/). Written in our own words from several sources
+// (FFVL brevet levels, school course pages, tourist-office course sheets, training guides): see docs/CONTENT-SOURCES.md.
+// Prices are NOT written here: the page computes them from the prices published by the schools in the workbook.
+// `key` is the level key of the workbook ("Niveau (normalisé)" -> "Clé site"); the order is the order of the learning path.
+export type StageType = {
+  key: string; slug: string; menu: string; h1: string; lead: string; description: string;
+  brief: { duree: string; public: string; objectif: string; brevet: string };
+  pour: string[]; objectif: string[]; prerequis: string[];
+  programme: { titre: string; texte: string }[];
+  fourni: string; apporter: string; periode: string;
+  choisir: string[]; suite: { key: string; texte: string } | null;
+  faq: { q: string; a: string }[];
+};
+
+export const STAGE_TYPES: StageType[] = [
+  {
+    key: 'decouverte', slug: 'decouverte', menu: 'Découverte et mini-stage',
+    h1: 'Stage découverte et mini-stage de parapente',
+    lead: 'Un jour ou deux pour essayer de piloter soi-même, sans s’engager sur un stage complet.',
+    description: 'Mini-stage ou journée découverte de parapente : gonflage, premiers petits vols sur la pente-école, prix relevés et écoles qui le proposent en France.',
+    brief: { duree: '1 à 2 jours', public: 'Curieux qui veulent essayer avant de s’inscrire à un stage complet', objectif: 'Gonfler une voile, sentir le décollage et voler sur de petites hauteurs', brevet: 'Aucun brevet visé' },
+    pour: ['Vous avez déjà fait un baptême et voulez savoir si piloter vous-même vous plaît.', 'Vous hésitez entre un baptême et un stage d’initiation de plusieurs jours.', 'Vous voulez offrir ou vous offrir une première expérience active, plus engageante qu’un vol en biplace.'],
+    objectif: ['Comprendre comment une voile se gonfle et se contrôle au sol.', 'Réaliser vos premiers décollages et vols courts sur une pente douce, avec l’instructeur à la radio.', 'Décider en connaissance de cause de poursuivre ou non avec une initiation.'],
+    prerequis: ['Aucune expérience : vous apprenez tout sur place.', 'Une condition physique normale (courir quelques pas avec la voile, marcher sur de l’herbe).', 'Un âge minimum et un poids maximum fixés par chaque école ; une autorisation parentale pour les mineurs.'],
+    programme: [
+      { titre: 'Accueil et sécurité', texte: 'Présentation du matériel, de la météo du jour et des règles du terrain d’entraînement.' },
+      { titre: 'Gonflage au sol', texte: 'Vous apprenez à sortir la voile, la gonfler, la stabiliser au-dessus de vous et la poser, plusieurs fois, avec des corrections de l’instructeur.' },
+      { titre: 'Premiers petits vols', texte: 'Selon le vent, courses d’envol et vols sur de faibles hauteurs sur la pente-école, avec l’atterrissage devant vous.' },
+      { titre: 'Bilan', texte: 'L’instructeur vous dit ce que vous avez acquis et si vous pouvez enchaîner sur une initiation ; certaines écoles déduisent le prix du mini-stage d’un stage ultérieur (à demander).' },
+    ],
+    fourni: 'Voile, sellette, casque et radio sont prêtés par l’école.', apporter: 'Chaussures de marche ou baskets montantes, vêtements chauds et coupe-vent, lunettes de soleil, eau.',
+    periode: 'Du printemps à l’automne. Le matin et la fin d’après-midi sont souvent les créneaux les plus calmes.',
+    choisir: ['Un terrain d’entraînement avec une pente douce et un grand atterrissage dégagé.', 'Un petit groupe : le temps de vol effectif dépend du nombre d’élèves.', 'Des moniteurs diplômés d’État et une assurance pour l’activité.', 'Les conditions d’annulation en cas de mauvaise météo (report ou remboursement).'],
+    suite: { key: 'initiation', texte: 'Si l’essai vous a plu, le stage d’initiation (environ cinq jours) vous mène jusqu’à vos premiers vols en autonomie.' },
+    faq: [
+      { q: 'Quelle différence avec un baptême ?', a: 'En baptême, le pilote vole pour vous. Dans un mini-stage, c’est vous qui gonflez la voile et qui pilotez, sur de petites hauteurs et avec l’instructeur à la radio.' },
+      { q: 'Dois-je avoir une licence ?', a: 'L’école précise ce qui est demandé. La licence fédérale (FFVL) comprend l’assurance et est le plus souvent proposée à l’inscription.' },
+      { q: 'Et si le vent est trop fort ?', a: 'La journée est reportée ou remboursée selon les conditions de l’école, ou remplacée par du travail au sol et de la théorie quand c’est possible.' },
+    ],
+  },
+  {
+    key: 'initiation', slug: 'initiation', menu: 'Initiation',
+    h1: 'Stage d’initiation au parapente',
+    lead: 'La première étape pour apprendre à voler seul : environ cinq jours, du gonflage au premier grand vol.',
+    description: 'Stage d’initiation au parapente : durée, prix relevés, programme jour par jour, matériel, brevet initial FFVL et écoles qui proposent le stage en France.',
+    brief: { duree: 'Environ 5 jours (4 à 7 selon les écoles)', public: 'Débutants complets', objectif: 'Voler en autonomie sur le site-école, avec le brevet initial en ligne de mire', brevet: 'Brevet initial FFVL (niveau vert)' },
+    pour: ['Vous n’avez jamais piloté de parapente et voulez apprendre à voler seul.', 'Vous avez fait un baptême ou un mini-stage et êtes prêt à vous engager sur une semaine.', 'Vous voulez un encadrement diplômé et du matériel prêté, sans rien acheter pour commencer.'],
+    objectif: ['Maîtriser le gonflage, le décollage, le pilotage de base et l’atterrissage.', 'Comprendre la météo utile à un débutant : vent, thermiques, quand renoncer.', 'Réaliser vos premiers grands vols, guidés à la radio, puis de plus en plus seul.', 'Préparer le brevet initial de la FFVL : évaluation pratique par un moniteur et questionnaire théorique.'],
+    prerequis: ['Aucun niveau requis.', 'Une condition physique normale : porter son sac, courir quelques pas, marcher sur terrain en pente.', 'Un âge minimum (souvent entre 12 et 16 ans selon l’école, avec autorisation parentale pour les mineurs) et un poids maximum lié au matériel (souvent autour de 100 kg).', 'Une licence FFVL en cours : parfois incluse dans le prix, parfois à ajouter.'],
+    programme: [
+      { titre: 'Jour 1 : matériel et premiers gonflages', texte: 'Présentation de la voile, de la sellette et des consignes de sécurité ; gonflages au sol sur la pente-école ; bases d’aérologie.' },
+      { titre: 'Jour 2 : contrôle de la voile', texte: 'Courses d’envol et petits vols près du sol ; apprentissage de la direction et de l’atterrissage face au vent.' },
+      { titre: 'Jour 3 : premier grand vol', texte: 'Si la météo le permet, premier vol depuis le haut du site, guidé à la radio, avec l’aide de l’instructeur au décollage.' },
+      { titre: 'Jour 4 : enchaîner les vols', texte: 'Plusieurs vols dans la journée : virages, approche, atterrissage dans la zone ; débriefing, souvent avec vidéo.' },
+      { titre: 'Jour 5 : plus d’autonomie', texte: 'Vols avec moins de guidage radio et bilan des acquis ; certaines écoles font passer l’évaluation pratique du brevet initial.' },
+      { titre: 'Jours de mauvais temps', texte: 'Théorie (météo, matériel, règles de l’air) et gonflage au sol quand le vent le permet.' },
+    ],
+    fourni: 'Voile, sellette avec protection dorsale, parachute de secours, casque et radio sont fournis par l’école.', apporter: 'Chaussures de randonnée, coupe-vent et vêtements chauds, lunettes de soleil, casquette, gourde et en-cas ; gants fins en saison fraîche.',
+    periode: 'Printemps et automne sont souvent conseillés : l’air est plus calme qu’en plein été. Les stages d’été commencent plus tôt le matin pour éviter les thermiques.',
+    choisir: ['Un site-école avec une pente douce, un grand atterrissage et un décollage accessible.', 'Un petit groupe par moniteur, pour plus de vols effectifs.', 'Le label FFVL et des moniteurs diplômés d’État.', 'Ce que le prix comprend : matériel, licence, repas, hébergement, navette.', 'La règle météo : report, remboursement ou jours de rattrapage.'],
+    suite: { key: 'progression', texte: 'Après l’initiation, le stage de progression vous apprend à voler sur d’autres sites et à gérer des conditions variées, jusqu’au brevet de pilote.' },
+    faq: [
+      { q: 'Combien de temps pour voler seul ?', a: 'En général dès le troisième ou quatrième jour pour un premier grand vol guidé à la radio. L’autonomie complète demande ensuite d’autres vols, souvent lors d’un stage de progression.' },
+      { q: 'Faut-il acheter du matériel avant ?', a: 'Non. Les écoles prêtent le matériel pendant le stage. Il vaut mieux attendre d’avoir volé et reçu les conseils de son moniteur avant d’acheter.' },
+      { q: 'Quel est le prix d’un stage d’initiation ?', a: 'Les prix publiés par les écoles sont indiqués plus bas sur cette page. Ils varient selon la durée, la région et ce qui est inclus.' },
+      { q: 'Que se passe-t-il s’il pleut ?', a: 'Le programme est adapté : théorie et travail au sol. Si le stage ne peut pas se dérouler, l’école propose selon ses conditions un report ou un remboursement.' },
+      { q: 'Le stage donne-t-il le brevet ?', a: 'Il prépare le brevet initial de la FFVL (évaluation pratique par un moniteur et questionnaire à choix multiples). Demandez à l’école si l’évaluation est comprise.' },
+    ],
+  },
+  {
+    key: 'progression', slug: 'progression', menu: 'Progression et autonomie',
+    h1: 'Stage de progression et d’autonomie en parapente',
+    lead: 'Voler sur plusieurs sites et dans des conditions variées, jusqu’au brevet de pilote.',
+    description: 'Stage de progression en parapente : prérequis, programme, brevet de pilote FFVL, prix relevés et écoles qui le proposent en France.',
+    brief: { duree: '3 à 5 jours', public: 'Pilotes sortis d’initiation ou titulaires du brevet initial', objectif: 'Gagner en autonomie sur des sites et conditions variés', brevet: 'Brevet de pilote FFVL (niveau bleu)' },
+    pour: ['Vous avez fini une initiation et vous voulez enchaîner les vols pour devenir autonome.', 'Vous volez déjà sur un site que vous connaissez et voulez oser d’autres décollages et atterrissages.', 'Vous visez le brevet de pilote.'],
+    objectif: ['Voler en sécurité sur des sites inconnus, avec une analyse météo plus fine.', 'Améliorer décollages par vent faible ou fort, virages, approche et atterrissage de précision.', 'Découvrir le vol dynamique et les premiers thermiques, avec des consignes radio.', 'Préparer l’évaluation pratique et le questionnaire du brevet de pilote.'],
+    prerequis: ['Savoir gonfler, décoller, piloter et atterrir seul sur un site-école (niveau d’un stage d’initiation).', 'Souvent le brevet initial, ou un niveau équivalent évalué par l’école.', 'Une licence FFVL en cours et un certificat ou une attestation de non-contre-indication si l’école le demande.'],
+    programme: [
+      { titre: 'Bilan de départ', texte: 'Le moniteur évalue vos acquis sur un vol de reprise pour adapter la suite du stage.' },
+      { titre: 'Nouveaux sites', texte: 'Décollage et atterrissage sur plusieurs sites, avec repérage au sol et choix de la trajectoire.' },
+      { titre: 'Pilotage actif', texte: 'Virages engagés, gestion des mouvements de la voile, atterrissage dans une zone précise.' },
+      { titre: 'Météo et aérologie', texte: 'Lire les prévisions et les signes sur le terrain : vent, brises, thermiques, rotors.' },
+      { titre: 'Théorie du brevet', texte: 'Règlementation, matériel, météo, facteurs humains : préparation au questionnaire du brevet de pilote.' },
+    ],
+    fourni: 'Matériel prêté par la plupart des écoles ; certaines demandent d’apporter sa propre voile une fois autonome.', apporter: 'Chaussures de randonnée, vêtements chauds, gants, lunettes de soleil, eau et pique-nique ; votre carnet de vol FFVL.',
+    periode: 'Mars à octobre selon la région. Hors été, les journées sont plus stables pour progresser.',
+    choisir: ['Plusieurs sites de vol différents à proximité de l’école.', 'Un encadrement radio constant et un moniteur diplômé d’État.', 'Un groupe de niveau homogène.', 'La possibilité de passer l’évaluation pratique à la fin du stage.'],
+    suite: { key: 'perfectionnement', texte: 'Une fois le brevet de pilote en poche, le perfectionnement apporte la gestion des fermetures, les spirales et les premiers thermiques.' },
+    faq: [
+      { q: 'Quelle différence avec l’initiation ?', a: 'L’initiation apprend les gestes de base sur un site-école. La progression vous fait voler sur d’autres sites, dans des conditions variées, pour devenir autonome.' },
+      { q: 'Faut-il avoir son matériel ?', a: 'Pas forcément. Beaucoup d’écoles prêtent la voile. Posez la question à l’inscription.' },
+      { q: 'Combien de temps pour avoir le brevet de pilote ?', a: 'Cela dépend du nombre de vols et de la météo, souvent sur plusieurs stages et une saison de pratique. L’évaluation est faite par un moniteur fédéral.' },
+    ],
+  },
+  {
+    key: 'perfectionnement', slug: 'perfectionnement', menu: 'Perfectionnement, thermique et cross',
+    h1: 'Stage de perfectionnement, thermique et cross en parapente',
+    lead: 'Mieux gérer sa voile, voler en thermique et préparer ses premiers vols de distance.',
+    description: 'Stage de perfectionnement, thermique et cross en parapente : prérequis, programme, matériel, prix relevés et écoles qui le proposent en France.',
+    brief: { duree: '2 à 5 jours selon l’école', public: 'Pilotes autonomes avec le brevet initial ou de pilote', objectif: 'Gérer incidents de vol, thermiques et premiers vols de distance', brevet: 'Prépare le brevet de pilote puis le brevet de pilote confirmé' },
+    pour: ['Vous volez en autonomie et voulez un niveau de pilotage plus sûr.', 'Vous voulez comprendre les thermiques et rester en l’air plus longtemps.', 'Vous préparez un premier cross ou le brevet de pilote confirmé.'],
+    objectif: ['Gérer une fermeture asymétrique et un décrochage dans de bonnes conditions d’apprentissage.', 'Maîtriser les descentes rapides (oreilles, 360°, spirale).', 'Voler en dynamique et en thermique, et choisir sa route.', 'Voler et atterrir sur un site inconnu en sécurité.'],
+    prerequis: ['Brevet initial au minimum ; pour un stage de cross, le brevet de pilote est généralement demandé.', 'Une licence FFVL en cours ou un certificat médical récent.', 'Pour les stages de cross : vario, GPS, radio et téléphone.'],
+    programme: [
+      { titre: 'Pilotage actif', texte: 'Maîtrise des mouvements de la voile, virages, gestion de l’énergie et de la vitesse.' },
+      { titre: 'Incidents de vol', texte: 'Fermetures asymétriques, descentes rapides, 360° : exercices guidés selon le niveau du groupe et le site.' },
+      { titre: 'Dynamique et thermique', texte: 'Lecture du ciel, centrage d’un thermique, décisions d’atterrissage ; vols de plus en plus longs.' },
+      { titre: 'Cross', texte: 'Lecture de carte, choix d’itinéraire selon la météo, gestion du temps et de l’endurance sur des vols de plusieurs heures.' },
+      { titre: 'Théorie', texte: 'Météo, aérologie, règlementation et préparation aux épreuves du brevet.' },
+    ],
+    fourni: 'Variable selon l’école : le stage de perfectionnement peut prêter une voile adaptée ; le cross se fait en général avec son matériel.', apporter: 'Chaussures de randonnée, vêtements chauds et coupe-vent, gants, lunettes de soleil ; pour le cross : vario, GPS, radio, téléphone.',
+    periode: 'D’avril à septembre pour les thermiques, avec les créneaux de milieu de journée.',
+    choisir: ['Le niveau demandé et le nombre de pilotes par moniteur.', 'La qualité des sites : décollage et relief adaptés au thermique.', 'Le suivi radio et le débriefing vidéo.', 'Le matériel fourni ou à apporter.'],
+    suite: { key: 'siv', texte: 'Pour aller plus loin sur la sécurité, un stage SIV vous fait vivre les incidents de vol au-dessus de l’eau, avec une équipe de sécurité.' },
+    faq: [
+      { q: 'Quel brevet faut-il ?', a: 'Au minimum le brevet initial ; les stages de cross demandent en général le brevet de pilote. Chaque école indique son prérequis.' },
+      { q: 'Dois-je venir avec mon matériel ?', a: 'Pour un cross, oui en général. Pour un perfectionnement de base, certaines écoles prêtent une voile. Vérifiez avant de réserver.' },
+      { q: 'Quelle différence avec un stage SIV ?', a: 'Le SIV est centré sur les incidents de vol (fermetures, décrochages) au-dessus d’un lac. Le perfectionnement est plus large : pilotage, thermique, sites inconnus.' },
+    ],
+  },
+  {
+    key: 'siv', slug: 'siv', menu: 'SIV et pilotage',
+    h1: 'Stage SIV : simulation d’incidents en vol',
+    lead: 'S’entraîner à gérer fermetures, décrochages et départs en vrille, au-dessus de l’eau et avec une équipe de sécurité.',
+    description: 'Stage SIV de parapente (simulation d’incidents en vol) : prérequis, déroulé, matériel, prix relevés et écoles qui le proposent en France.',
+    brief: { duree: '2 à 4 jours, une dizaine de vols selon la météo', public: 'Pilotes autonomes', objectif: 'Reconnaître et gérer les incidents de vol dans un cadre sûr', brevet: 'Aucun brevet visé, souvent demandé pour progresser en vol de performance' },
+    pour: ['Vous volez seul et voulez savoir comment réagir en cas de fermeture ou de décrochage.', 'Vous allez changer de voile ou de catégorie.', 'Vous voulez piloter plus activement et gagner en confiance.'],
+    objectif: ['Reconnaître les signes avant-coureurs d’un incident et réagir à temps.', 'Pratiquer fermetures, décrochages, vrilles et leur récupération.', 'Mieux utiliser les commandes et les mouvements de votre voile.', 'Utiliser un parachute de secours dans un cadre d’apprentissage, selon l’école.'],
+    prerequis: ['Être autonome au décollage, en vol et à l’atterrissage.', 'Un parachute de secours en état et récemment replié, un casque et une radio : demandez à l’école ce qu’elle fournit.', 'Une voile adaptée : beaucoup d’écoles demandent d’apporter la vôtre pour travailler dessus.', 'Une licence FFVL en cours ; signalez à l’école toute contrainte physique avant de réserver.'],
+    programme: [
+      { titre: 'Briefing', texte: 'Matériel, consignes radio, rôle de l’équipe de sécurité, procédure en cas de problème.' },
+      { titre: 'Premiers exercices', texte: 'Contrôle du tangage et du roulis, oreilles, descentes rapides, fermetures asymétriques légères.' },
+      { titre: 'Incidents plus marqués', texte: 'Fermetures plus grandes, décrochages, départs en vrille, avec récupération guidée à la radio.' },
+      { titre: 'Débriefing vidéo', texte: 'Analyse des vols et choix des exercices pour le jour suivant.' },
+    ],
+    fourni: 'Radio, gilet de sauvetage et embarcation de sécurité fournis par la plupart des écoles ; la voile est souvent à apporter.', apporter: 'Votre voile, sellette, parachute de secours replié, casque, gants, vêtements pour l’eau et chaussures adaptées.',
+    periode: 'D’avril à octobre, au-dessus de lacs adaptés ; les stages se remplissent tôt.',
+    choisir: ['Une équipe de sécurité avec embarcation et moniteur radio.', 'Un groupe réduit (souvent six pilotes au plus).', 'Un moniteur expérimenté en SIV.', 'La gestion des conditions météo et le report éventuel.'],
+    suite: { key: 'perfectionnement', texte: 'Le SIV complète le perfectionnement : thermique, cross et pilotage actif sont les étapes suivantes.' },
+    faq: [
+      { q: 'Faut-il avoir son matériel ?', a: 'En général oui : voile, sellette, parachute replié, casque. Demandez la liste à l’école.' },
+      { q: 'Est-ce dangereux ?', a: 'Les exercices sont réalisés au-dessus de l’eau avec un bateau de sécurité, mais le risque n’est jamais nul. L’école adapte les exercices à votre niveau et à la météo.' },
+      { q: 'Quel niveau minimum ?', a: 'Une autonomie complète en vol. Beaucoup d’écoles demandent le brevet de pilote.' },
+    ],
+  },
+  {
+    key: 'encadre', slug: 'vols-encadres', menu: 'Vols encadrés et séances',
+    h1: 'Vols encadrés et séances de coaching en parapente',
+    lead: 'Voler accompagné d’un moniteur à la journée ou à la demi-journée pour progresser sans s’inscrire à un stage.',
+    description: 'Vols encadrés, coaching et séances de parapente avec un moniteur : prérequis, déroulé, matériel et écoles qui les proposent en France.',
+    brief: { duree: 'Demi-journée à journée', public: 'Pilotes autonomes, brevet initial ou plus', objectif: 'Voler sur un site conseillé et progresser avec un moniteur', brevet: 'Aucun brevet visé' },
+    pour: ['Vous volez peu et voulez reprendre confiance avec un moniteur.', 'Vous découvrez un nouveau site et voulez être guidé.', 'Vous voulez travailler un point précis : décollage, atterrissage, gonflage, pilotage.'],
+    objectif: ['Voler sur un site avec une météo adaptée, avec un conseil radio.', 'Travailler un exercice précis avec retour du moniteur.', 'Consolider vos gestes avant de voler seul.'],
+    prerequis: ['Être autonome à votre niveau et savoir gonfler et décoller seul.', 'Une licence FFVL en cours.', 'Votre matériel dans la plupart des cas, à vérifier avec l’école.'],
+    programme: [
+      { titre: 'Point de départ', texte: 'Échange sur votre niveau, votre matériel, vos envies et la météo.' },
+      { titre: 'Vols commentés', texte: 'Un ou plusieurs vols avec consignes radio et retour du moniteur après chaque vol.' },
+      { titre: 'Exercice ciblé', texte: 'Un point technique à travailler : gonflage, décollage, atterrissage, virage.' },
+    ],
+    fourni: 'Variable : radio fournie par l’école en général, matériel à vérifier.', apporter: 'Votre matériel de vol, vêtements adaptés, eau et en-cas.',
+    periode: 'Toute la saison de vol, selon la région et les conditions.',
+    choisir: ['Le type de site et son niveau de difficulté.', 'Le ratio élèves par moniteur.', 'La possibilité de voler plusieurs jours de suite.'],
+    suite: { key: 'perfectionnement', texte: 'Pour progresser en pilotage et en thermique, passez au perfectionnement.' },
+    faq: [
+      { q: 'Faut-il avoir son propre matériel ?', a: 'Souvent oui. Certaines écoles prêtent une voile : demandez-le à l’inscription.' },
+      { q: 'Quel est le prix d’une séance ?', a: 'Les prix relevés auprès des écoles sont affichés plus bas. Ils varient selon la durée et le lieu.' },
+    ],
+  },
+  {
+    key: 'marche-vol', slug: 'marche-et-vol', menu: 'Marche et vol',
+    h1: 'Stages de marche et vol (hike and fly)',
+    lead: 'Monter à pied avec une voile légère, puis voler pour redescendre : une journée ou un week-end en montagne avec un guide.',
+    description: 'Stages de marche et vol (hike and fly, vol rando) : prérequis, déroulé, matériel léger, niveau de marche et écoles qui les proposent.',
+    brief: { duree: '1 jour à un week-end', public: 'Pilotes autonomes à l’aise en montagne, parfois initiation', objectif: 'Découvrir le vol de randonnée en sécurité', brevet: 'Aucun brevet visé' },
+    pour: ['Vous aimez la randonnée et voulez la combiner avec le vol.', 'Vous voulez voler sur de nouveaux sites avec un guide qui connaît la montagne.', 'Vous cherchez une sortie courte, sans voyage lointain.'],
+    objectif: ['Préparer un sac de marche et vol avec un matériel léger.', 'Évaluer la météo en altitude et choisir son décollage.', 'Voler sur des sites inconnus accompagné d’un guide.'],
+    prerequis: ['Autonomie en vol et expérience de la montagne : brevet de pilote conseillé (certaines écoles proposent une initiation).', 'Une bonne condition physique pour la marche avec le sac.', 'Un matériel léger adapté ; l’école précise ce qu’elle prête.'],
+    programme: [
+      { titre: 'Préparation', texte: 'Matériel, météo, itinéraire et consignes de sécurité.' },
+      { titre: 'Montée à pied', texte: 'Marche jusqu’au décollage avec le sac, à votre rythme, avec pauses.' },
+      { titre: 'Vol et retour', texte: 'Décollage et vol jusqu’à l’atterrissage, avec consignes radio du guide.' },
+    ],
+    fourni: 'Selon l’école : radio, parfois le matériel de vol pour une initiation.', apporter: 'Votre voile (légère), chaussures de montagne, vêtements en couches, eau, pique-nique.',
+    periode: 'De mai à octobre en montagne, selon la météo et l’enneigement.',
+    choisir: ['Le niveau de marche et le dénivelé indiqués.', 'Un guide ou un moniteur diplômé pour le vol de montagne.', 'Le ratio d’encadrement et la possibilité de reporter selon la météo.'],
+    suite: { key: 'voyage', texte: 'Envie de plus long ? Les séjours et voyages permettent de voler plusieurs jours de suite, en France ou à l’étranger.' },
+    faq: [
+      { q: 'Quel matériel pour le marche et vol ?', a: 'Une voile, une sellette et un parachute légers réduisent le poids du sac. Les écoles précisent ce qu’elles conseillent ou prêtent.' },
+      { q: 'Faut-il être pilote ?', a: 'Certaines sorties s’adressent aux pilotes autonomes, d’autres proposent une initiation : lisez la fiche et demandez à l’école.' },
+    ],
+  },
+  {
+    key: 'voyage', slug: 'sejours-et-voyages', menu: 'Séjours et voyages',
+    h1: 'Séjours et voyages de parapente',
+    lead: 'Partir plusieurs jours voler en groupe, en France ou à l’étranger : stages itinérants, séjours en altitude ou au soleil, voyages accompagnés.',
+    description: 'Séjours et voyages de parapente, stages itinérants en France et à l’étranger : niveau demandé, ce qui est compris, matériel, période et écoles qui les organisent.',
+    brief: { duree: 'De 3 jours à 2 semaines', public: 'Débutants (selon séjour) à pilotes autonomes', objectif: 'Voler beaucoup, sur plusieurs sites, avec un encadrement', brevet: 'Selon le séjour' },
+    pour: ['Vous voulez voler plusieurs jours de suite, sans organiser la logistique.', 'Vous cherchez des conditions plus stables que chez vous (soleil, thermiques, vol de pente).', 'Vous aimez voler en groupe et découvrir de nouveaux sites.'],
+    objectif: ['Accumuler des heures de vol dans des conditions variées.', 'Progresser avec des conseils d’un moniteur sur le terrain.', 'Découvrir de nouveaux sites sans organiser le déplacement.'],
+    prerequis: ['Le niveau demandé est précisé pour chaque séjour : initiation, progression ou pilote autonome.', 'Une bonne condition physique selon le programme.', 'Souvent votre propre voile ; pour un séjour d’initiation, l’école prête le matériel.'],
+    programme: [
+      { titre: 'Arrivée et briefing', texte: 'Accueil, météo, présentation des sites et du programme.' },
+      { titre: 'Journées de vol', texte: 'Choix du site chaque matin selon la météo, vols et conseils du moniteur.' },
+      { titre: 'Logistique', texte: 'Navettes, hébergement et repas selon la formule.' },
+    ],
+    fourni: 'Selon la formule : navettes, hébergement, repas, radio, parfois le matériel de vol et l’assurance.', apporter: 'Votre voile si elle n’est pas fournie, équipement de vol complet, vêtements adaptés au climat, assurance voyage.',
+    periode: 'Selon la destination et son climat ; en France, surtout de mai à octobre.',
+    choisir: ['Ce que comprend le prix : hébergement, repas, transport, matériel, assurance.', 'Le niveau demandé et le nombre de participants par moniteur.', 'Les conditions d’annulation et d’assurance, surtout à l’étranger.', 'Le plan B en cas de météo défavorable.'],
+    suite: { key: 'perfectionnement', texte: 'Un perfectionnement vous aidera à gagner en confiance avant de voler sur des sites exigeants.' },
+    faq: [
+      { q: 'Un séjour est-il adapté à un débutant ?', a: 'Certains séjours proposent de l’initiation, d’autres demandent une autonomie complète : lisez la fiche et demandez à l’école.' },
+      { q: 'Que se passe-t-il si la météo est mauvaise ?', a: 'Les écoles prévoient en général un autre site ou une autre activité ; les conditions de remboursement varient, demandez-les avant de réserver.' },
+    ],
+  },
+];
+
+export const stageTypeByKey = (k: string) => STAGE_TYPES.find((t) => t.key === k);

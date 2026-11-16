@@ -1,0 +1,73 @@
+---
+import CountryNav from './CountryNav.astro';
+import { SITE } from '../config';
+import { STAGE_TYPES } from '../data/stage-types';
+import { WHY_MENU, WHY_ROOT } from '../data/why-fly';
+import { LEARN_MENU } from '../data/learn';
+const { current, enHref } = Astro.props as { current: string; enHref?: string };
+const stageSub = [{ href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' }, { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' }, { href: '/cursus-brevets-parapente/', label: 'Parcours et brevets' }, { href: '/calendrier/', label: 'Prochains stages' }, ...STAGE_TYPES.map((t) => ({ href: `/stage/${t.slug}/`, label: t.menu }))];
+const GUIDE = '/bapteme/biplace-saut-en-parapente/';
+const baptemeSub = [
+  { href: '/bapteme/', label: 'Trouver un baptême' },
+  { href: '/comparateur-baptemes-parapente/', label: 'Comparateur de baptêmes' },
+  { href: '/quel-bapteme-parapente-choisir/', label: 'Quel baptême choisir ?' },
+  { href: '/saut-en-parapente/', label: 'Saut en parapente' },
+  { href: GUIDE, label: 'Biplace : le guide' },
+  { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau pour Noël' },
+];
+const links = [
+  { href: '/bapteme/', label: 'Baptême', sub: baptemeSub },
+  { href: '/stage/', label: 'Stage', sub: stageSub },
+  { href: '/apprendre/', label: 'Apprendre le parapente', sub: LEARN_MENU },
+  { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau' },
+];
+const isCurrent = (l: { href: string; sub?: { href: string }[] }) => current.startsWith(l.href) || (l.sub?.some((x) => x.href !== '/' && current.startsWith(x.href)) ?? false);
+---
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label={`${SITE.name} : accueil`}>
+      <img src="/images/brand/logo.png" srcset="/images/brand/logo.png 1x, /images/brand/logo@2x.png 2x" alt={SITE.name} width="200" height="42" />
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <ul>
+        <li class="has-sub why-nav">
+          <details id="why-navigation">
+            <summary class:list={{ active: current.startsWith(WHY_ROOT) }}>
+              Pourquoi voler <span class="caret" aria-hidden="true"></span>
+            </summary>
+            <ul class="sub">
+              {WHY_MENU.map((item) => <li><a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>)}
+            </ul>
+          </details>
+        </li>
+        {links.map((l) => (
+          <li class={l.sub ? 'has-sub' : undefined}>
+            <a href={l.href} aria-current={isCurrent(l) ? 'page' : undefined} aria-haspopup={l.sub ? 'true' : undefined}>{l.label}{l.sub && <span class="caret" aria-hidden="true"></span>}</a>
+            {l.sub && (
+              <ul class="sub">
+                {l.sub.map((x) => <li><a href={x.href} aria-current={current === x.href ? 'page' : undefined}>{x.label}</a></li>)}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+    {enHref && <nav class="lang-switch" aria-label="Langue"><a href="/" hreflang="fr" lang="fr" aria-current="true">FR</a><a href={enHref} hreflang="en" lang="en">EN</a></nav>}
+    <CountryNav />
+  </div>
+</header>
+
+<script>
+  const why = document.querySelector<HTMLDetailsElement>('#why-navigation');
+  if (why) {
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !why.contains(event.target)) why.open = false;
+    });
+    why.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && why.open) {
+        why.open = false;
+        why.querySelector('summary')?.focus();
+      }
+    });
+  }
+</script>

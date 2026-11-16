@@ -1,0 +1,339 @@
+---
+import bookingSchools from '../../data/booking-schools.json';
+import Base from '../../layouts/Base.astro';
+import Logo from '../../components/Logo.astro';
+import ContourArt from '../../components/ContourArt.astro';
+import { schools, sessions, reviewsOf, reviewStats, eur, dateFr, sortBaptemes, sortStages, giftsOf, promosOf, type Offer, type School } from '../../lib/data';
+import { schoolImages, schoolVideo } from '../../lib/images';
+import Reviews from '../../components/Reviews.astro';
+import { SITE, BOOKING, CONTACT_TYPES } from '../../config';
+import { offerTabs } from '../../lib/content';
+import { schoolIntro, nearbySchools, placeLinksFor } from '../../lib/school-text';
+import { placesFor, pathOf } from '../../lib/places';
+
+export function getStaticPaths() {
+  return schools.map((s) => ({ params: { slug: s.slug }, props: { school: s } }));
+}
+const { school: s } = Astro.props as { school: School };
+const hasB = s.baptemes.length > 0, hasS = s.stages.length > 0;
+const thin = !hasB && !hasS;
+const canSend = BOOKING.enabled && bookingSchools.includes(s.id);
+const where = [s.city, s.dept].filter(Boolean).join(', ');
+const near = s.mainCity && s.mainCity !== s.city ? `près de ${s.mainCity}` : '';
+const img = schoolImages(s);
+const video = schoolVideo(s);
+const ownStats = reviewStats(s.id);
+const ownReviews = reviewsOf(s.id);
+const rating = s.rating && s.rating.value >= 1 && s.rating.value <= 5 ? s.rating : null;
+// Vouchers are sold by the school itself: we only show a link to its sales page. Promotions are the partner prices valid today.
+const schoolGifts = giftsOf(s.id);
+const schoolPromos = promosOf(s.id);
+const promoFor = (o: Offer) => schoolPromos.find((p) => p.offerId === o.id);
+const generalPromos = schoolPromos.filter((p) => !p.offerId || !s.baptemes.concat(s.stages).some((o) => o.id === p.offerId));
+const giftFor = (kind: string) => schoolGifts.find((x) => !x.kind || x.kind === 'Montant libre' || x.kind === 'Baptême et stage' || x.kind === (kind === 'bapteme' ? 'Baptême' : 'Stage'));
+const hostOf = (u: string | null) => { try { return u ? new URL(u).hostname.replace(/^www\./, '') : ''; } catch { return ''; } };
+const activity = hasB && hasS ? 'baptêmes et stages de parapente' : hasB ? 'baptêmes de parapente' : hasS ? 'stages de parapente' : 'fiche parapente';
+const title = `${s.name}${s.city ? ` à ${s.city}` : ''} : ${activity}`;
+const description = thin
+  ? `Fiche de l'école de parapente ${s.name}${s.city ? ` à ${s.city}` : ''}.`
+  : `${s.name}${s.city ? `, ${s.city}` : ''} : ${[hasB && `${s.baptemes.length} formule${s.baptemes.length > 1 ? 's' : ''} de baptême`, hasS && `${s.stages.length} stage${s.stages.length > 1 ? 's' : ''}`].filter(Boolean).join(' et ')}. Prix publiés par l'école, avec date de relevé.`;
+
+const baptemes = sortBaptemes(s.baptemes);
+const stages = sortStages(s.stages);
+const stageGroups: { name: string; list: Offer[] }[] = [];
+for (const o of stages) {
+  const label = !o.levelName || o.levelName === 'À classer' ? 'Autres stages' : o.levelName;
+  const last = stageGroups[stageGroups.length - 1];
+  if (last && last.name === label) last.list.push(o);
+  else stageGroups.push({ name: label, list: [o] });
+}
+const sections = [
+  { kind: 'bapteme', label: 'Baptêmes', groups: baptemes.length ? [{ name: '', list: baptemes }] : [] },
+  { kind: 'stage', label: 'Stages', groups: stageGroups },
+].filter((x) => x.groups.length);
+
+const priceMain = (o: Offer) => o.priceLabel ?? (o.price ? eur(o.price) : 'Prix à confirmer');
+const priceNote = (o: Offer) => {
+  if (o.perPerson && o.unitCode !== 'PERSONNE' && o.unitCode !== 'JOUR') return `soit ${eur(o.perPerson)} par personne`;
+  if (o.unitCode === 'PERSONNE' && o.priceMax && o.priceMax !== o.price) return `jusqu’à ${eur(o.priceMax)} selon variante`;
+  return '';
+};
+const book = (o: Offer) => o.bookUrl ?? o.url ?? s.website ?? '';
+const durée = (o: Offer) => o.durText ?? (o.durMin ? `${o.durMin}${o.durMax && o.durMax !== o.durMin ? `–${o.durMax}` : ''} ${o.durUnit ?? 'min'}` : null);
+const onlyKind = sections.length === 1 ? (sections[0].kind as 'bapteme' | 'stage') : null;
+const contactTitle = onlyKind ? CONTACT_TYPES[onlyKind].title : null;
+const sessOf = (o: Offer) => sessions.filter((x) => x.offerId === o.id && x.start >= today && x.status === 'Actif' && x.places !== 0).map((x) => ({ start: x.start, end: x.end }));
+const allOffers = s.baptemes.concat(s.stages);
+const lowest = allOffers.map((o) => o.perPerson ?? o.price).filter((v): v is number => typeof v === 'number' && v > 0);
+const fromLabel = lowest.length ? `Dès ${eur(Math.min(...lowest))} par personne` : s.name;
+const today = new Date(Date.now() + BOOKING.minDaysAhead * 864e5).toISOString().slice(0, 10);
+
+const pageUrl = `${SITE.url}/ecoles/${s.slug}/`;
+const orgId = `${pageUrl}#ecole`;
+const introText = s.desc ?? schoolIntro(s);
+const nearby = nearbySchools(s, hasB ? 'bapteme' : 'stage', 6);
+const localLinks = placeLinksFor(s);
+const mainKind = hasB ? 'bapteme' : 'stage';
+const deptPlace = placesFor(mainKind).find((p) => p.type === 'dept' && p.name === s.dept);
+const crumb2 = deptPlace ? { name: `${mainKind === 'bapteme' ? 'Baptême' : 'Stage'} ${deptPlace.inName}`, href: pathOf(mainKind, deptPlace) } : { name: 'Écoles', href: '/bapteme/' };
+const offerNode = (o: Offer, service: string) => (o.price && o.unitCode === 'PERSONNE' && ['Prix publié', 'Variante exacte'].includes(o.priceNature ?? '') ? {
+  '@type': 'Offer', name: o.name, price: o.price, priceCurrency: 'EUR', url: pageUrl, priceValidUntil: undefined,
+  itemOffered: { '@type': 'Service', name: o.name, serviceType: service, provider: { '@id': orgId } },
+} : null);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'BreadcrumbList', itemListElement: [{ name: 'Accueil', href: '/' }, crumb2, { name: s.name, href: `/ecoles/${s.slug}/` }].map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.name, item: SITE.url + x.href })) },
+    {
+      '@type': 'SportsActivityLocation', '@id': orgId, name: s.name, url: s.website ?? pageUrl, description: introText,
+      address: { '@type': 'PostalAddress', streetAddress: s.address ?? undefined, postalCode: s.zip ?? undefined, addressLocality: s.city ?? undefined, addressRegion: s.region ?? undefined, addressCountry: 'FR' },
+      logo: img.logo ? `${SITE.url}${img.logo}` : undefined,
+      image: img.main ? `${SITE.url}${img.main.src}` : undefined,
+      geo: s.lat && s.lng ? { '@type': 'GeoCoordinates', latitude: s.lat, longitude: s.lng } : undefined,
+      makesOffer: [...s.baptemes.map((o) => offerNode(o, 'Baptême de parapente en biplace')), ...s.stages.map((o) => offerNode(o, 'Stage de parapente'))].filter(Boolean),
+      // Markup only from reviews collected and published on this site (Google does not accept ratings copied from other sites).
+      aggregateRating: ownStats ? { '@type': 'AggregateRating', ratingValue: ownStats.avg, reviewCount: ownStats.count, bestRating: 5, worstRating: 1 } : undefined,
+      review: ownReviews.slice(0, 10).map((r) => ({ '@type': 'Review', author: { '@type': 'Person', name: r.author }, datePublished: r.published, name: r.title ?? undefined, reviewBody: r.text, reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5, worstRating: 1 } })),
+    },
+  ],
+};
+import { schoolPath } from '../../i18n/routes.mjs';
+import { marketLocales } from '../../i18n/ui';
+const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr' as const, href: schoolPath(s.slug, 'fr') }, { locale: 'en' as const, href: schoolPath(s.slug, 'en') }] : [];
+---
+<Base title={title} description={description} noindex={thin} jsonLd={jsonLd} alternates={schoolAlternates}>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Fil d’Ariane"><a href="/">Accueil</a> / <a href={crumb2.href}>{crumb2.name}</a> / {s.name}</nav>
+    <header class="school-head">
+      <Logo name={s.name} src={img.logo} size="lg" />
+      <div>
+        <h1 style="margin:0 0 0.2em">{s.name}</h1>
+        <p class="muted" style="margin:0">{where}{near ? ` · ${near}` : ''}{s.region && s.region !== 'À vérifier' ? ` · ${s.region}` : ''}</p>
+        {ownStats && <p class="rating small"><span class="stars" aria-hidden="true">★</span> <strong>{ownStats.avg.toLocaleString('fr-FR', { minimumFractionDigits: 1 })}/5</strong> ({ownStats.count} avis de participants) · <a href="#avis">Lire les avis</a></p>}
+        {s.googlePlaceId && <p class="rating small google-rating" data-place={s.googlePlaceId} data-school={s.id} hidden><span class="stars g-stars" aria-hidden="true"></span> <strong class="g-val"></strong><span class="g-count"></span> sur <span class="g-brand">Google Maps</span> · <a class="g-link" target="_blank" rel="noopener nofollow" hidden>Voir sur Google Maps</a> · <a href="/avis-clients/#google">Notes Google : comment elles sont affichées</a></p>}
+        {rating && <p class="rating small"><span class="stars" aria-hidden="true">★</span> <strong>{rating.value.toLocaleString('fr-FR', { maximumFractionDigits: 1 })}/5</strong>{rating.count > 0 && ` (${rating.count} avis)`} · avis publiés sur {rating.url ? <a href={rating.url} target="_blank" rel="noopener nofollow">{rating.source}</a> : rating.source}</p>}
+        <p class="school-desc">{introText}</p>
+        {s.orig && (
+          <div class="more-info" id="more-info">
+            <button type="button" class="more-info-btn" aria-expanded="false" aria-controls="more-info-panel">Plus d’information sur l’école <span aria-hidden="true">▾</span></button>
+            <div class="more-info-panel" id="more-info-panel" hidden>
+              <p class="small muted" style="margin:0 0 0.4rem">Extrait du site de l’école</p>
+              {s.orig.text && <blockquote>{s.orig.text}</blockquote>}
+              {s.orig.url && <p style="margin:0.6rem 0 0"><a href={s.orig.url} target="_blank" rel="noopener">Lire la présentation complète sur le site de l’école</a></p>}
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+
+    {img.main
+      ? <div class="gallery">
+          <img class="main" src={img.main.src} alt={img.main.alt} width="1200" height="450" fetchpriority="high" />
+          {img.extras.map((p) => <img class="thumb" src={p.src} alt={p.alt} width="400" height="300" loading="lazy" />)}
+          {(img.main.credit || img.extras.some((p) => p.credit)) && <p class="credit small muted">Photos : {[...new Set([img.main, ...img.extras].map((p) => p.credit).filter(Boolean))].join(', ')}</p>}
+        </div>
+      : <div class="hero-band empty-art short" aria-hidden="true"><ContourArt /></div>}
+
+    {video && (
+      <section class="school-video" aria-label="Vidéo de l’école">
+        {video.kind === 'file'
+          ? <video controls preload="none" playsinline poster={img.main?.src} title={video.title}><source src={video.src} type="video/mp4" /></video>
+          : <button type="button" class="video-facade" data-embed={video.src} data-title={video.title} data-track="play_video" data-school={s.id} style={video.thumb ? `background-image:url(${video.thumb})` : undefined} aria-label="Lire la vidéo de l’école"><span class="play" aria-hidden="true">▶</span><span class="small">Lire la vidéo (hébergée par un service tiers, chargée au clic)</span></button>}
+      </section>
+    )}
+
+    <div class="stack" style="max-width:68ch;margin-top:1.5rem">
+      {s.sites.length > 0 && (
+        <div><strong>Sites de vol</strong><ul class="sites">{s.sites.map((x) => <li>{x.name}</li>)}</ul></div>
+      )}
+    </div>
+
+    {(schoolGifts.length > 0 || generalPromos.length > 0) && (
+      <section class="school-extras" aria-label="Bons cadeaux et offres de l’école">
+        {generalPromos.map((p) => (
+          <div class="extra promo-card" data-promo data-end={p.end}>
+            <span class="promo-tag">Offre promotionnelle</span>
+            <h2>{p.title}</h2>
+            <p class="promo-price">{p.regular && <s class="was">{eur(p.regular)}</s>} <strong>{eur(p.price)}</strong> <small>TTC · du {dateFr(p.start)} au {dateFr(p.end)}</small></p>
+            {p.conditions && <p class="small">{p.conditions}</p>}
+            {p.url && <a class="btn small ext" data-track="click_promo" data-school={s.id} href={p.url} target="_blank" rel="noopener">Voir l’offre sur le site de l’école</a>}
+          </div>
+        ))}
+        {schoolGifts.map((gf) => (
+          <div class="extra gift-card">
+            <h2>Bon cadeau de l’école</h2>
+            <p class="gift-name"><strong>{gf.name}</strong></p>
+            <ul class="facts">
+              {gf.price && <li>Prix : {eur(gf.price)} TTC</li>}
+              {gf.validity && <li>Validité : {gf.validity} mois</li>}
+              {gf.conditions && <li>{gf.conditions}</li>}
+            </ul>
+            <a class="btn ext" data-track="click_voucher" data-school={s.id} href={gf.url} target="_blank" rel="noopener">Voir le bon cadeau sur le site de l’école</a>
+            <p class="small muted" style="margin:0.5rem 0 0">Bon vendu et géré par {s.name}. Achat sur son site{hostOf(gf.url) ? ` (${hostOf(gf.url)})` : ''}.{gf.checked && <> Lien vérifié le {dateFr(gf.checked)}.</>}</p>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {thin ? (
+      <div class="empty" style="margin-top:2rem">
+        Nous n’avons pas encore d’offre vérifiée pour cette école.
+        {s.website && <> Consultez <a href={s.website} rel="noopener" target="_blank">son site officiel</a>.</>}
+      </div>
+    ) : (
+      <div class="school-layout">
+        <div class="offers-col">
+          <div class="tabs" role="tablist" id="tabs" hidden>
+            {sections.map((x) => <button role="tab" type="button" data-kind={x.kind} aria-selected="false">{x.label} ({x.groups.reduce((n, g) => n + g.list.length, 0)})</button>)}
+          </div>
+          {sections.map((x) => (
+            <section data-section={x.kind} aria-labelledby={`h-${x.kind}`} style="margin-top:2rem">
+              <h2 id={`h-${x.kind}`}>{x.label}</h2>
+              {x.groups.map((g) => (
+                <>
+                  {g.name && <h3 class="level-title">{g.name}</h3>}
+                  <ul class="board" style="margin-bottom:1.5rem">
+                    {g.list.map((o) => (
+                      <li class="offer" id={`offre-${o.id}`} data-offer data-id={o.id} data-kind={x.kind} data-name={o.name} data-price-label={priceMain(o)}
+                          data-weight={'weight' in o ? o.weight ?? '' : ''} data-book={book(o)} data-sessions={JSON.stringify(sessOf(o))}>
+                        <div>
+                          <h4 class="offer-name">{o.name}</h4>
+                          <ul class="facts">
+                            {durée(o) && <li>Durée : {durée(o)}</li>}
+                            {o.place && <li>Lieu : {o.place}</li>}
+                            {o.period && <li>Période : {o.period}</li>}
+                            {o.age && <li>{o.age}</li>}
+                            {'weight' in o && o.weight && <li>{o.weight}</li>}
+                            {'group' in o && x.kind === 'stage' && o.group && <li>{o.group}</li>}
+                          </ul>
+                          {sessOf(o).length > 0 && <p class="small" style="margin:0 0 0.4rem"><strong>Prochaines dates :</strong> {sessOf(o).map((d) => `${dateFr(d.start, { day: 'numeric', month: 'short' })} au ${dateFr(d.end, { day: 'numeric', month: 'short', year: 'numeric' })}`).join(' ; ')}</p>}
+                          {(o.program || o.included || o.notIncluded) && (
+                            <details class="more">
+                              <summary>Détails de l’offre</summary>
+                              {o.program && <p>{o.program}</p>}
+                              {o.included && <p><strong>Inclus :</strong> {o.included}</p>}
+                              {o.notIncluded && <p><strong>Non compris :</strong> {o.notIncluded}</p>}
+                            </details>
+                          )}
+                          {o.checked && <p class="proof">Prix vérifié le {dateFr(o.checked)}{o.url && <> · <a href={o.url} rel="noopener" target="_blank">source</a></>}</p>}
+                        </div>
+                        <div class="buy">
+                          {promoFor(o)
+                            ? <div class="amount promo-amount" data-promo data-end={promoFor(o)!.end}>
+                                <span class="promo-tag">Offre promotionnelle</span>
+                                <s class="was">{promoFor(o)!.regular ? eur(promoFor(o)!.regular!) : priceMain(o)}</s> {eur(promoFor(o)!.price)}
+                                <small>jusqu’au {dateFr(promoFor(o)!.end)}{promoFor(o)!.conditions ? ` · ${promoFor(o)!.conditions}` : ''}</small>
+                              </div>
+                            : <div class="amount">{priceMain(o)}{priceNote(o) && <small>{priceNote(o)}</small>}</div>}
+                          {canSend
+                            ? <button class="btn choose" type="button" aria-pressed="false">Demander un créneau</button>
+                            : <a class="btn choose" data-track="click_school_site" data-school={s.id} data-kind={x.kind} data-offer={o.id} href={book(o) || `mailto:${SITE.contactEmail}`} rel="noopener" target="_blank">Voir chez l’école</a>}
+                          {giftFor(x.kind) && <a class="btn ghost small gift-link" data-track="click_voucher" data-school={s.id} data-kind={x.kind} href={giftFor(x.kind)!.url} target="_blank" rel="noopener" title={`Bon cadeau vendu et géré par ${s.name}, achat sur son site`}>Offrir</a>}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ))}
+              <div class="offer-info" id={`info-${x.kind}`}>
+                {x.groups.flatMap((gr) => gr.list).map((o, i) => (
+                  <div class="info-block" data-info-for={o.id} hidden={i !== 0}>
+                    <h3>Tout savoir sur la formule : {o.name}</h3>
+                    {offerTabs(s, o, x.kind as 'bapteme' | 'stage', schoolGifts).map((t, j) => (
+                      <details class="info-tab" name={`info-${o.id}`} open={j === 0}>
+                        <summary>{t.title}</summary>
+                        {t.items.map((it) => (
+                          <div class="info-item"><h4>{it.label}</h4>{it.text.split('\n').map((para) => <p>{para}</p>)}</div>
+                        ))}
+                        {t.link && <p class="info-link"><a class="btn small ext" href={t.link.href} target="_blank" rel="noopener">{t.link.label}</a></p>}
+                      </details>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+
+        <aside class="booking" id="booking" aria-label="Demande de réservation">
+          <button type="button" class="btn ghost small sheet-close" id="sheet-close">Fermer</button>
+          <form id="booking-form" method="post" novalidate data-contact-types={JSON.stringify(CONTACT_TYPES)} data-endpoint={BOOKING.endpoint} data-can-send={canSend ? '1' : '0'} data-max={BOOKING.maxPassengers} data-school={s.name} data-school-id={s.id} data-school-slug={s.slug} data-only-kind={onlyKind ?? ''} data-website={s.website ?? ''}>
+            <h2 id="booking-title">Demande de réservation</h2>
+            <p class="small muted" style="margin:0 0 0.8rem">{canSend ? `Demande gratuite. ${s.name} vous répond et confirme le créneau.` : 'Contactez l’école pour confirmer le créneau et le tarif.'}</p>
+            <div id="chosen" class="chosen" aria-live="polite"><p class="muted" style="margin:0">Choisissez une formule dans la liste pour ouvrir les détails et le contact de l’école.</p></div>
+
+            <div hidden={!canSend}>
+            <ol class="form-steps" aria-label="Étapes de la demande"><li id="fs-1" aria-current="step"><span>1</span> Vos coordonnées</li><li id="fs-2"><span>2</span> Participants et envoi</li></ol>
+            <div id="step-1">
+            <fieldset>
+              <legend id="contact-legend">{contactTitle ? `${contactTitle} : vos coordonnées` : 'Vos coordonnées'}</legend>
+              <input type="hidden" name="contactType" id="b-ctype" value={onlyKind ? CONTACT_TYPES[onlyKind].code : ''} />
+              <div class="field"><label for="b-name">Nom et prénom</label><input id="b-name" name="name" type="text" autocomplete="name" /></div>
+              <div class="field"><label for="b-email">Email</label><input id="b-email" name="email" type="email" autocomplete="email" /></div>
+              <div class="field"><label for="b-phone">Téléphone (facultatif)</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" /></div>
+            </fieldset>
+
+            <fieldset>
+              <legend id="date-legend">Date souhaitée</legend>
+              <div class="field"><label for="b-d1" id="d1-label">Date souhaitée (facultative)</label><input id="b-d1" name="d1" type="date" min={today} /></div>
+              <div id="sess-chips" class="chips" hidden></div>
+              <div id="alts" hidden>
+                <p class="small muted" style="margin:0.6rem 0 0.4rem"><strong>Dates de repli en cas de météo (facultatif).</strong> Proposez jusqu’à deux autres dates : l’école choisira celle qui lui convient.</p>
+                <div class="field"><label for="b-d2">Deuxième choix (facultatif)</label><input id="b-d2" name="d2" type="date" min={today} /></div>
+                <div class="field"><label for="b-d3">Troisième choix (facultatif)</label><input id="b-d3" name="d3" type="date" min={today} /></div>
+              </div>
+            </fieldset>
+            <button class="btn" type="button" id="step-next" style="width:100%;margin-top:1rem">Continuer</button>
+            <div id="step1-msg" role="status" class="small" tabindex="-1"></div>
+            </div>
+
+            <div id="step-2" hidden>
+            <button type="button" class="linklike" id="step-back">← Modifier mes coordonnées</button>
+            <fieldset>
+              <legend id="pax-legend">{onlyKind === 'bapteme' ? 'Passagers' : 'Participants'}</legend>
+              <div class="field"><label for="b-n" id="n-label">{onlyKind === 'bapteme' ? 'Nombre de passagers' : 'Nombre de participants'}</label>
+                <select id="b-n" name="n">{Array.from({ length: BOOKING.maxPassengers }, (_, i) => <option value={i + 1}>{i + 1}</option>)}</select>
+              </div>
+              <p id="weight-hint" class="small muted" hidden></p>
+              <div id="pax-rows" class="pax-rows"></div>
+
+            </fieldset>
+
+            <div class="field"><label for="b-msg">Message pour l’école (facultatif)</label><textarea id="b-msg" name="msg" rows="3" maxlength="800"></textarea></div>
+            {canSend && <label class="check"><input type="checkbox" id="b-optin" /> <span>Je souhaite recevoir par email les conseils et offres de MonParapente.fr (facultatif, désinscription à tout moment).</span></label>}
+            {canSend && <label class="check"><input type="checkbox" id="b-consent" /> <span>J’accepte la transmission de ma demande à <strong>{s.name}</strong> pour qu’elle me réponde.</span></label>}
+            <input type="text" id="b-website" name="website" hidden tabindex="-1" autocomplete="off" />
+            <p class="small muted" style="margin:0.5rem 0 0">{canSend ? 'TheGlidery transmet votre demande à l’école.' : 'Contact et paiement directement auprès de l’école.'} Détails : <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
+
+            <button class="btn" type="submit" style="width:100%;margin-top:1rem">{canSend ? 'Envoyer ma demande à l’école' : 'Préparer ma demande'}</button>
+            <div id="booking-msg" role="status" class="small" tabindex="-1"></div>
+            </div>
+            </div>
+            <noscript><p>Contactez directement l’école via le lien ci-dessous.</p></noscript>
+            <p class="small" style="margin-top:0.8rem"><a class={canSend ? undefined : "btn"} id="school-link" data-track="click_school_site" data-school={s.id} href={s.website || `mailto:${SITE.contactEmail}`} target="_blank" rel="noopener">Contacter l’école</a></p>
+          </form>
+        </aside>
+      </div>
+      <div class="sticky-cta" id="sticky-cta" hidden>
+        <div><strong id="sticky-label">{fromLabel}</strong></div>
+        <button type="button" class="btn" id="sticky-btn">Demander un créneau</button>
+      </div>
+    )}
+
+    {!thin && <Reviews school={s} kinds={sections.map((x) => x.kind as 'bapteme' | 'stage')} />}
+
+    {(nearby.length > 0 || localLinks.length > 0) && (
+      <section class="nearby" aria-labelledby="h-nearby">
+        <h2 id="h-nearby">Autres écoles {s.city ? `près de ${s.city}` : 'dans la région'}</h2>
+        {nearby.length > 0 && <ul class="chips-links">{nearby.map((x) => <li><a href={`/ecoles/${x.s.slug}/?parcours=${mainKind}`}>{x.s.name}{x.s.city ? ` · ${x.s.city}` : ''} · {Math.round(x.d)} km</a></li>)}</ul>}
+        {localLinks.length > 0 && <p class="small" style="margin-top:0.8rem">{localLinks.map((l, i) => <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>)}</p>}
+      </section>
+    )}
+
+    <p class="small muted" style="margin-top:2.5rem">
+      Une information est fausse ou périmée ? <a href={`mailto:${SITE.contactEmail}?subject=${encodeURIComponent('Correction : ' + s.name)}`}>Signalez-la</a>.
+      {s.website && <> Site officiel : <a href={s.website} rel="noopener" target="_blank">{new URL(s.website).hostname.replace(/^www\./, '')}</a>.</>}
+    </p>
+  </div>
+  <script>import '../../scripts/school.js'; import '../../scripts/reviews.js'; import '../../scripts/google-rating.js';</script>
+</Base>

@@ -1,0 +1,21 @@
+---
+import type { Section } from '../data/article-types';
+interface Props { sections: Section[] }
+const { sections } = Astro.props;
+---
+{sections.map((s) => (
+  <section id={s.id} aria-labelledby={`h-${s.id}`}>
+    <h2 id={`h-${s.id}`}>{s.h}</h2>
+    {s.p?.map((t) => <p>{t}</p>)}
+    {s.ul && <ul>{s.ul.map((t) => <li>{t}</li>)}</ul>}
+    {s.steps && <ol class="steps">{s.steps.map((x) => <li><strong>{x.t}</strong>{x.d}</li>)}</ol>}
+    {s.table && (
+      <table>
+        {s.table[0].length === 3
+          ? <><thead><tr>{s.table[0].map((c) => <th scope="col" style="width:auto">{c}</th>)}</tr></thead><tbody>{s.table.slice(1).map((r) => <tr>{r.map((c, i) => i === 0 ? <th scope="row">{c}</th> : <td>{c}</td>)}</tr>)}</tbody></>
+          : <tbody>{s.table.map((r) => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td></tr>)}</tbody>}
+      </table>
+    )}
+    {s.note && <p class="next">{s.note}</p>}
+  </section>
+))}

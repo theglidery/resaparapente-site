@@ -1,0 +1,16 @@
+---
+// Consent banner: rendered only when a measurement ID is configured (src/config.ts, ANALYTICS). "Accept" and "Refuse" have the same weight.
+import { ANALYTICS } from '../config';
+---
+{ANALYTICS.enabled && (
+  <div id="consent-banner" class="consent" role="dialog" aria-modal="false" aria-labelledby="consent-title" hidden>
+    <p id="consent-title"><strong>Mesure d’audience et publicité</strong></p>
+    <p class="small">Avec votre accord, nous utilisons Google Analytics et Google Ads pour comprendre l’usage du site et mesurer l’efficacité de nos annonces. Rien n’est déposé si vous refusez. Vous pouvez changer d’avis à tout moment (lien « Gérer mes cookies » en bas de page). <a href="/politique-de-confidentialite/#cookies">En savoir plus</a></p>
+    <div class="btn-row">
+      <button type="button" class="btn" data-consent="granted">Tout accepter</button>
+      <button type="button" class="btn ghost" data-consent="denied">Tout refuser</button>
+    </div>
+  </div>
+)}
+<script type="application/json" id="rp-analytics" set:html={JSON.stringify({ ga4: ANALYTICS.ga4, ads: ANALYTICS.ads, adsLeadLabel: ANALYTICS.adsLeadLabel })} />
+<script>import '../scripts/analytics.js';</script>

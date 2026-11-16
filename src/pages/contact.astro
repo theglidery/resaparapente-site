@@ -1,0 +1,40 @@
+---
+import DocPage from '../components/DocPage.astro';
+import { SITE } from '../config';
+---
+<DocPage title="Contact" lead="Une question sur une demande de réservation, une fiche d’école, un bon cadeau affiché sur le site ? Écrivez-nous, nous répondons dès que possible." description="Contacter l’équipe de Resa Parapente : demande de réservation, bon cadeau d’une école, correction d’une fiche école.">
+  <div class="contact-grid">
+    <form id="contact-form" class="contact-form" novalidate>
+      <div class="field"><label for="c-topic">Sujet</label>
+        <select id="c-topic"><option>Une demande de réservation</option><option>Un lien de bon cadeau à corriger</option><option>Corriger une fiche d’école</option><option>Je suis une école : publier mes stages ou baptêmes</option><option>Autre question</option></select></div>
+      <div class="field"><label for="c-name">Nom et prénom</label><input id="c-name" type="text" autocomplete="name" /></div>
+      <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" autocomplete="email" /></div>
+      <div class="field"><label for="c-ref">Nom de l’école concernée (facultatif)</label><input id="c-ref" type="text" /></div>
+      <div class="field"><label for="c-msg">Votre message</label><textarea id="c-msg" rows="6"></textarea></div>
+      <button class="btn" type="submit">Envoyer le message</button>
+      <p id="c-status" class="small" role="status" tabindex="-1"></p>
+    </form>
+    <aside class="contact-side">
+      <h2>Par email</h2>
+      <p><a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></p>
+      <h2>Pour un bon cadeau</h2>
+      <p class="small">Les bons sont vendus et gérés par les écoles : contactez l’école qui l’a émis. Pour signaler un lien cassé ou périmé, écrivez-nous.</p>
+      <h2>Vous êtes une école ?</h2>
+      <p class="small"><a href="/pour-les-ecoles/">Publiez vos stages, baptêmes, bon cadeau et promotions</a>, sans frais.</p>
+      <h2>Pour un vol ou un stage</h2>
+      <p class="small">Les questions sur le déroulement, la météo ou les conditions de participation se posent directement à l’école. Ses coordonnées figurent sur sa fiche.</p>
+    </aside>
+  </div>
+  <script define:vars={{ to: SITE.contactEmail }}>
+    // Mockup: opens the visitor's mail program. The developer replaces this with the contact endpoint (docs/BOOKING-AND-CONTACTS.md).
+    const f = document.getElementById('contact-form'), st = document.getElementById('c-status');
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (id) => document.getElementById(id).value.trim();
+      if (!v('c-name') || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('c-email')) || !v('c-msg')) { st.className = 'small error'; st.textContent = 'Indiquez votre nom, un email valide et votre message.'; st.focus(); return; }
+      const body = `${v('c-msg')}\n\n${v('c-name')} (${v('c-email')})${v('c-ref') ? '\nÉcole : ' + v('c-ref') : ''}`;
+      location.href = `mailto:${to}?subject=${encodeURIComponent(v('c-topic'))}&body=${encodeURIComponent(body)}`;
+      st.className = 'small ok'; st.textContent = 'Votre programme de messagerie s’ouvre avec le message prêt à envoyer.';
+    });
+  </script>
+</DocPage>

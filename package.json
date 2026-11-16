@@ -1,0 +1,20 @@
+{
+  "name": "resaparapente-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/build-markets.mjs",
+    "preview": "astro preview",
+    "ads": "node scripts/make-ads-csv.mjs",
+    "data": "python3 scripts/export-data.py data/resaparapente-base-ecoles-offres-v11.xlsx",
+    "cgv": "python3 scripts/build-cgv.py"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource/public-sans": "^5.3.0",
+    "astro": "^7.4.11"
+  }
+}

@@ -1,0 +1,25 @@
+---
+// Title block with an optional picture band. Put the picture in public/images/hero/<name>.jpg (see IMAGES.md).
+import { heroImage } from '../lib/images';
+import { HERO_ALT, HERO_RATIO, HERO_POS } from '../config';
+import ContourArt from './ContourArt.astro';
+import Mountains from './Mountains.astro';
+interface Props { name: string; title: string; lead?: string }
+const { name, title, lead } = Astro.props;
+const img = heroImage(name);
+---
+<div class="page-head">
+  <div class="wrap">
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
+  <Mountains />
+</div>
+<div class="wrap" style="margin-top:1.2rem">
+  {img
+    ? <picture class="hero-band" style={`${HERO_RATIO[name] ? `--ratio:${HERO_RATIO[name]};` : ''}${HERO_POS[name] ? `--pos:${HERO_POS[name]}` : ''}` || undefined}>
+        {img.mobile && <source media="(max-width: 700px)" srcset={img.mobile} />}
+        <img src={img.desktop} alt={HERO_ALT[name] ?? ''} width="1280" height="420" fetchpriority="high" />
+      </picture>
+    : <div class="hero-band empty-art" aria-hidden="true"><ContourArt /></div>}
+</div>

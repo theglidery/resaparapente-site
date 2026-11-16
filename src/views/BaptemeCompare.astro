@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import { schoolHref } from '../i18n/routes.mjs';
+import Mountains from '../components/Mountains.astro';
+import { MARKET } from '../config';
+import { href } from '../i18n/ui';
+import { bapRows, money, median, dateLoc, host, type Loc } from '../lib/compare';
+const { locale = 'fr' } = Astro.props as { locale?: Loc };
+const rows = bapRows(locale);
+const regions = [...new Set(rows.map((r) => r.region).filter(Boolean) as string[])].sort((a, b) => a.localeCompare(b, 'fr'));
+const hasLang = rows.filter((r) => r.langs.length).length >= 10;
+const langs = hasLang ? [...new Set(rows.flatMap((r) => r.langs))].sort() : [];
+const totals = rows.map((r) => r.total as number);
+const med = median(totals), lo = totals.length ? Math.min(...totals) : null, hi = totals.length ? Math.max(...totals) : null;
+const withPhoto = rows.filter((r) => r.photo === 'yes').length, withPhotoExtra = rows.filter((r) => r.photo === 'extra').length;
+const nSchools = new Set(rows.map((r) => r.slug)).size;
+const country = { fr: { FR: 'en France', CH: 'en Suisse romande', BE: 'en Belgique francophone' }, en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' } }[locale][MARKET.code as 'FR'];
+const C = {
+  fr: {
+    title: `Comparateur de baptêmes de parapente ${country} : prix, durée, photos, remontées`,
+    desc: `Comparez ${rows.length} baptêmes de parapente (biplace) ${country} : prix publiés, durée de vol, photo et vidéo, remontée mécanique, total à prévoir. Réservation chez l’école.`,
+    h1: `Comparateur de baptêmes de parapente ${country}`,
+    lead: `${rows.length} formules de ${nSchools} écoles, avec le prix publié, la durée de vol, la photo/vidéo, la remontée mécanique et le total à prévoir quand on le connaît.`,
+    method: 'Chaque prix est relevé sur le site de l’école, à la date indiquée sur la ligne. Le total additionne le prix du vol et la remontée quand l’école indique qu’elle est en supplément avec un montant. Ce qui n’est pas confirmé s’affiche dans la colonne « À confirmer » : nous n’inventons aucun supplément.',
+    region: 'Région', dur: 'Durée de vol', durAll: 'Toutes', dur1: '15 min ou moins', dur2: '16 à 30 min', dur3: 'Plus de 30 min', budget: 'Budget total max.', photo: 'Photo / vidéo', photoAll: 'Peu importe', photoYes: 'Incluse', photoAny: 'Incluse ou en supplément chiffré',
+    lift: 'Remontée mécanique', liftAll: 'Peu importe', liftYes: 'Incluse dans le prix', lang: 'Langue du pilote', profile: 'Pour qui ?', profileAll: 'Tous profils',
+    profiles: { 'Première fois': 'Première fois', Enfant: 'Enfant', Sensations: 'Sensations', 'Longue durée': 'Vol long', 'Petit budget': 'Petit budget', 'Souvenir photo/vidéo': 'Souvenir photo/vidéo' },
+    sort: 'Trier par', sTotal: 'Total le plus bas', sPrice: 'Prix publié', sDur: 'Durée la plus longue', sPerMin: 'Prix par minute de vol',
+    cOffer: 'Formule et école', cDur: 'Durée', cPrice: 'Prix publié', cPhoto: 'Photo / vidéo', cLift: 'Remontée', cTotal: 'Total estimé', cTodo: 'À confirmer', cGo: 'Choisir',
+    extra: 'en supplément', unknown: 'non précisé', incl: 'incluse', yes: 'incluse', perMin: '≈ par min de vol', more: 'Afficher plus de formules', count: 'formules affichées', none: 'Aucune formule ne correspond. Élargissez un filtre.', complete: 'Rien d’autre à confirmer', reset: 'Réinitialiser',
+    seeOffer: 'Voir l’offre', school: 'Fiche de l’école', checked: 'Relevé le',
+    stats: 'Les chiffres du moment', statsText: `Total estimé médian : ${med ? money(med, 'fr') : '—'} (de ${lo ? money(lo, 'fr') : '—'} à ${hi ? money(hi, 'fr') : '—'}). ${withPhoto} formules incluent la photo ou la vidéo, ${withPhotoExtra} la proposent en supplément avec un prix publié ; pour les autres, l’information n’est pas encore confirmée.`,
+    faqTitle: 'Questions fréquentes', faq: [
+      ['Quel est le prix d’un baptême de parapente ?', `Selon les formules publiées ${country}, le total estimé va de ${lo ? money(lo, 'fr') : '—'} à ${hi ? money(hi, 'fr') : '—'}, avec une médiane à ${med ? money(med, 'fr') : '—'}. Le prix dépend surtout de la durée du vol, du site de décollage et des options (photo, vidéo, remontée).`],
+      ['La photo ou la vidéo est-elle incluse ?', 'Cela dépend de l’école et de la formule. Le tableau l’indique quand l’école l’a publié ; sinon la mention « non précisé » vous invite à poser la question avant de réserver.'],
+      ['Faut-il payer la remontée en plus ?', 'Dans certaines stations, la remontée mécanique n’est pas comprise dans le prix du vol. Le tableau ajoute son montant au total quand l’école le publie.'],
+      ['Où réserve-t-on ?', 'Chez l’école : le bouton ouvre sa page de réservation. ResaParapente compare les offres, il ne vend pas les vols.'],
+    ],
+    next: 'Pour aller plus loin', links: [['baptemeGuide', 'Quel baptême choisir pour cette personne ?'], ['giftChristmas', 'Offrir un baptême : bon cadeau'], ['jump', 'Saut en parapente : ce qu’il faut savoir']],
+  },
+  en: {
+    title: `Tandem paragliding price comparison ${country}: price, duration, photos, lifts`,
+    desc: `Compare ${rows.length} tandem paragliding flights ${country}: published prices, flight time, photo and video, cable car, estimated total. You book with the school.`,
+    h1: `Compare tandem paragliding flights ${country}`,
+    lead: `${rows.length} flights from ${nSchools} schools, with the published price, flight time, photo/video, cable car and the estimated total when it is known.`,
+    method: 'Every price comes from the school’s own website, on the date shown on the row. The total adds the flight price and the lift when the school says it costs extra and gives an amount. Anything not confirmed appears in the “To confirm” column: we never invent a supplement.',
+    region: 'Region', dur: 'Flight time', durAll: 'Any', dur1: '15 min or less', dur2: '16 to 30 min', dur3: 'More than 30 min', budget: 'Max. total budget', photo: 'Photo / video', photoAll: 'Any', photoYes: 'Included', photoAny: 'Included or priced extra',
+    lift: 'Cable car / lift', liftAll: 'Any', liftYes: 'Included in the price', lang: 'Pilot language', profile: 'Who is it for?', profileAll: 'Any',
+    profiles: { 'Première fois': 'First time', Enfant: 'Child', Sensations: 'Thrill', 'Longue durée': 'Long flight', 'Petit budget': 'Low budget', 'Souvenir photo/vidéo': 'Photo/video souvenir' },
+    sort: 'Sort by', sTotal: 'Lowest total', sPrice: 'Published price', sDur: 'Longest flight', sPerMin: 'Price per flight minute',
+    cOffer: 'Flight and school', cDur: 'Time', cPrice: 'Published price', cPhoto: 'Photo / video', cLift: 'Lift', cTotal: 'Estimated total', cTodo: 'To confirm', cGo: 'Choose',
+    extra: 'extra', unknown: 'not stated', incl: 'included', yes: 'included', perMin: '≈ per flight min', more: 'Show more flights', count: 'flights shown', none: 'No flight matches. Widen a filter.', complete: 'Nothing else to confirm', reset: 'Reset',
+    seeOffer: 'See the offer', school: 'School page', checked: 'Checked on',
+    stats: 'Current figures', statsText: `Median estimated total: ${med ? money(med, 'en') : '—'} (from ${lo ? money(lo, 'en') : '—'} to ${hi ? money(hi, 'en') : '—'}). ${withPhoto} flights include photo or video, ${withPhotoExtra} offer it as a priced extra; for the rest the school has not confirmed it yet.`,
+    faqTitle: 'Frequently asked questions', faq: [
+      ['How much does a tandem paragliding flight cost?', `Based on the published flights ${country}, the estimated total runs from ${lo ? money(lo, 'en') : '—'} to ${hi ? money(hi, 'en') : '—'}, with a median of ${med ? money(med, 'en') : '—'}. The price depends mostly on flight time, take-off site and options (photo, video, lift).`],
+      ['Are photos or video included?', 'It depends on the school and the flight. The table says so when the school has published it; otherwise “not stated” means you should ask before booking.'],
+      ['Do I pay for the cable car on top?', 'In some resorts the lift is not part of the flight price. The table adds its amount to the total when the school publishes it.'],
+      ['Where do I book?', 'With the school: the button opens its booking page. ResaParapente compares offers; it does not sell the flights.'],
+    ],
+    next: 'Keep going', links: [['baptemeGuide', 'Which flight suits this person?'], ['giftChristmas', 'Give a flight: gift vouchers'], ['jump', 'Tandem paragliding jump: what to know']],
+  },
+  de: {
+    title: `Tandemflug-Vergleich Gleitschirm ${country}: Preis, Flugdauer, Fotos, Bahn`,
+    desc: `Vergleichen Sie ${rows.length} Gleitschirm-Tandemflüge ${country}: veröffentlichte Preise, Flugdauer, Foto und Video, Bergbahn, geschätzter Gesamtpreis. Gebucht wird bei der Schule.`,
+    h1: `Gleitschirm-Tandemflüge vergleichen ${country}`,
+    lead: `${rows.length} Flüge von ${nSchools} Schulen, mit dem veröffentlichten Preis, der Flugdauer, Foto/Video, Bergbahn und dem geschätzten Gesamtpreis, sofern bekannt.`,
+    method: 'Jeder Preis stammt von der Website der Schule, mit dem Datum in der Zeile. Der Gesamtpreis addiert den Flugpreis und die Bahn, wenn die Schule sie als Aufpreis mit Betrag angibt. Was nicht bestätigt ist, steht in der Spalte „Zu klären“: Wir erfinden keine Zuschläge.',
+    region: 'Region', dur: 'Flugdauer', durAll: 'Beliebig', dur1: '15 Min. oder weniger', dur2: '16 bis 30 Min.', dur3: 'Über 30 Min.', budget: 'Max. Gesamtbudget', photo: 'Foto / Video', photoAll: 'Egal', photoYes: 'Inklusive', photoAny: 'Inklusive oder mit Aufpreis',
+    lift: 'Bergbahn', liftAll: 'Egal', liftYes: 'Im Preis inbegriffen', lang: 'Sprache des Piloten', profile: 'Für wen?', profileAll: 'Alle',
+    profiles: { 'Première fois': 'Erstflug', Enfant: 'Kind', Sensations: 'Nervenkitzel', 'Longue durée': 'Langer Flug', 'Petit budget': 'Kleines Budget', 'Souvenir photo/vidéo': 'Foto-/Videoerinnerung' },
+    sort: 'Sortieren nach', sTotal: 'Niedrigster Gesamtpreis', sPrice: 'Veröffentlichter Preis', sDur: 'Längster Flug', sPerMin: 'Preis pro Flugminute',
+    cOffer: 'Flug und Schule', cDur: 'Dauer', cPrice: 'Veröff. Preis', cPhoto: 'Foto / Video', cLift: 'Bahn', cTotal: 'Geschätzter Gesamtpreis', cTodo: 'Zu klären', cGo: 'Wählen',
+    extra: 'Aufpreis', unknown: 'nicht angegeben', incl: 'inklusive', yes: 'inklusive', perMin: '≈ pro Flugminute', more: 'Mehr Flüge anzeigen', count: 'Flüge angezeigt', none: 'Kein Flug passt. Lockern Sie einen Filter.', complete: 'Nichts weiter zu klären', reset: 'Zurücksetzen',
+    seeOffer: 'Angebot ansehen', school: 'Seite der Schule', checked: 'Geprüft am',
+    stats: 'Aktuelle Zahlen', statsText: `Mittlerer geschätzter Gesamtpreis: ${med ? money(med, 'de') : '—'} (von ${lo ? money(lo, 'de') : '—'} bis ${hi ? money(hi, 'de') : '—'}). ${withPhoto} Flüge enthalten Foto oder Video, ${withPhotoExtra} bieten es gegen Aufpreis an; bei den übrigen hat die Schule es noch nicht bestätigt.`,
+    faqTitle: 'Häufige Fragen', faq: [
+      ['Was kostet ein Gleitschirm-Tandemflug?', `Nach den veröffentlichten Flügen ${country} liegt der geschätzte Gesamtpreis zwischen ${lo ? money(lo, 'de') : '—'} und ${hi ? money(hi, 'de') : '—'}, der Mittelwert bei ${med ? money(med, 'de') : '—'}. Der Preis hängt vor allem von Flugdauer, Startplatz und Optionen (Foto, Video, Bahn) ab.`],
+      ['Sind Fotos oder Video inklusive?', 'Das hängt von Schule und Flug ab. Die Tabelle zeigt es, wenn die Schule es veröffentlicht hat; bei „nicht angegeben“ fragen Sie vor der Buchung nach.'],
+      ['Kommt die Bergbahn extra dazu?', 'In manchen Orten ist die Bahn nicht im Flugpreis enthalten. Die Tabelle addiert den Betrag zum Gesamtpreis, wenn die Schule ihn veröffentlicht.'],
+      ['Wo buche ich?', 'Bei der Schule: Der Button öffnet deren Buchungsseite. ResaParapente vergleicht Angebote und verkauft keine Flüge.'],
+    ],
+    next: 'Weiterlesen', links: [['baptemeGuide', 'Welcher Flug passt zu dieser Person?'], ['giftChristmas', 'Einen Flug verschenken: Gutscheine'], ['jump', 'Tandemsprung mit dem Gleitschirm: Das sollten Sie wissen']],
+  },
+}[locale];
+const dur = (r: typeof rows[number]) => (r.durMin ? (r.durMax && r.durMax !== r.durMin ? `${r.durMin}–${r.durMax}` : `${r.durMin}`) + ' ' + ({ fr: 'min', en: 'min', de: 'Min.' }[locale]) : '—');
+const tri = (v: string, price: number | null) => v === 'yes' ? C.yes : v === 'extra' ? (price ? `${C.extra} (${money(price, locale)})` : C.extra) : C.unknown;
+const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: C.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
+const maxVisible = 40;
+---
+<Base title={C.title} description={C.desc} locale={locale} pageKey="baptemeCompare" jsonLd={faq}>
+  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section cmp" data-cmp="bapteme" data-max={maxVisible}>
+    <p class="notice">{C.method}</p>
+    <form class="filters cmp-filters" onsubmit="return false" aria-label="Filtres">
+      <label>{C.region}<select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
+      <label>{C.dur}<select name="dur"><option value="">{C.durAll}</option><option value="1">{C.dur1}</option><option value="2">{C.dur2}</option><option value="3">{C.dur3}</option></select></label>
+      <label>{C.budget} ({MARKET.currency})<input type="number" name="budget" min="0" step="10" inputmode="numeric" /></label>
+      <label>{C.photo}<select name="photo"><option value="">{C.photoAll}</option><option value="yes">{C.photoYes}</option><option value="any">{C.photoAny}</option></select></label>
+      <label>{C.lift}<select name="lift"><option value="">{C.liftAll}</option><option value="yes">{C.liftYes}</option></select></label>
+      {hasLang && <label>{C.lang}<select name="lang"><option value="">—</option>{langs.map((l) => <option value={l}>{l}</option>)}</select></label>}
+      <label>{C.profile}<select name="profile"><option value="">{C.profileAll}</option>{Object.entries(C.profiles).map(([k, v]) => <option value={k}>{v}</option>)}</select></label>
+      <label>{C.sort}<select name="sort"><option value="total">{C.sTotal}</option><option value="price">{C.sPrice}</option><option value="dur">{C.sDur}</option><option value="permin">{C.sPerMin}</option></select></label>
+      <div class="btn-row"><button class="btn ghost small" type="reset">{C.reset}</button></div>
+    </form>
+    <p class="cmp-count" role="status" aria-live="polite"><strong id="cmp-n">{rows.length}</strong> {C.count}</p>
+    <div class="table-wrap"><table class="data-table cmp-table">
+      <thead><tr><th>{C.cOffer}</th><th>{C.cDur}</th><th>{C.cPrice}</th><th>{C.cPhoto}</th><th>{C.cLift}</th><th>{C.cTotal}</th><th>{C.cTodo}</th><th></th></tr></thead>
+      <tbody id="cmp-body">
+        {rows.map((r, i) => (
+          <tr class="cmp-row" hidden={i >= maxVisible} data-total={r.total} data-price={r.price} data-dmin={r.durMin ?? ''} data-dmax={r.durMax ?? r.durMin ?? ''} data-permin={r.perMin ?? ''}
+            data-region={r.region ?? ''} data-photo={r.photo} data-lift={r.lift} data-profiles={r.profiles.join('|')} data-langs={r.langs.join('|')}>
+            <th scope="row"><strong>{r.offer}</strong><span class="small muted">{r.school}{r.city ? ` · ${r.city}` : ''}{r.region ? ` · ${r.region}` : ''}</span></th>
+            <td data-label={C.cDur}>{dur(r)}</td>
+            <td data-label={C.cPrice}>{money(r.price as number, locale)}</td>
+            <td data-label={C.cPhoto}>{tri(r.photo, r.photoPrice)}</td>
+            <td data-label={C.cLift}>{tri(r.lift, r.liftPrice)}</td>
+            <td data-label={C.cTotal}><strong>{money(r.total as number, locale)}</strong>{r.perMin && <span class="small muted">{C.perMin} : {new Intl.NumberFormat(locale === 'fr' ? MARKET.locale : locale, { maximumFractionDigits: 1 }).format(r.perMin)}</span>}</td>
+            <td class="small" data-label={C.cTodo}>{r.todo ?? C.complete}</td>
+            <td>
+              <a class="btn small ext" href={r.bookUrl ?? r.url ?? schoolHref(r.slug, locale)} target="_blank" rel="noopener">{C.cGo}</a>
+              <a class="small" href={schoolHref(r.slug, locale)}>{C.school}</a>
+              {r.checked && <span class="small muted">{C.checked} {dateLoc(r.checked, locale, { day: 'numeric', month: 'short', year: 'numeric' })}{host(r.bookUrl ?? r.url) ? ` · ${host(r.bookUrl ?? r.url)}` : ''}</span>}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table></div>
+    <p class="empty" id="cmp-empty" hidden>{C.none}</p>
+    <p><button class="btn ghost" id="cmp-more" type="button">{C.more}</button></p>
+
+    <section><h2>{C.stats}</h2><p>{C.statsText}</p></section>
+    <section class="faq"><h2>{C.faqTitle}</h2>{C.faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</section>
+    <section><h2>{C.next}</h2><ul class="chips-links">{C.links.map(([k, l]) => <li><a href={href(k as 'baptemeGuide', locale)}>{l}</a></li>)}</ul></section>
+  </div>
+</Base>
+<script>import '../scripts/cmp-bapteme.js';</script>

@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Mountains from '../components/Mountains.astro';
+import SchoolCta from '../components/SchoolCta.astro';
+import { gifts, schools, eur, dateFr } from '../lib/data';
+const byId = new Map(schools.map((s) => [s.id, s]));
+const rows = gifts.map((g) => ({ g, s: byId.get(g.schoolId)! })).filter((x) => x.s).sort((a, b) => a.s.name.localeCompare(b.s.name, 'fr'));
+const host = (u: string) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
+---
+<Base title="Bons cadeaux de parapente vendus par les écoles" description="Offrir un baptême ou un stage de parapente : les bons cadeaux proposés par les écoles elles-mêmes, avec un lien vers leur page de vente.">
+  <div class="page-head"><div class="wrap">
+    <h1>Bons cadeaux des écoles</h1>
+    <p class="lead">Offrir un vol ou un stage : les écoles qui vendent leur propre bon cadeau, avec le lien direct vers leur page.</p>
+  </div><Mountains /></div>
+  <div class="wrap section type-page" style="padding-top:1.2rem">
+    <p class="notice">Vous cherchez une idée de cadeau pour Noël ? <a href="/bon-cadeau-parapente-noel/">Choisissez la bonne formule et demandez le bon à l’école</a>.</p>
+    <section style="margin-top:0">
+      <h2>Comment ça marche</h2>
+      <ol class="steps">
+        <li><strong>Choisissez une école</strong>Chaque bon est émis, vendu et géré par l’école. ResaParapente ne vend pas de bon et ne perçoit aucun paiement.</li>
+        <li><strong>Ouvrez la page de l’école</strong>Le bouton vous mène directement à la page de vente sur le site de l’école : prix TTC, validité, formules couvertes et conditions y sont indiqués.</li>
+        <li><strong>Achetez et offrez</strong>La commande, le paiement et l’envoi du bon se font chez l’école, qui traite aussi l’utilisation du bon, les reports et les remboursements.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>Les bons cadeaux proposés par les écoles</h2>
+      {rows.length ? (
+        <ul class="cards" id="gift-board">
+          {rows.map(({ g, s }) => (
+            <li class="school-li">
+              <div class="card" style="padding:1.1rem 1.2rem;gap:0.4rem">
+                <span class="name"><a href={`/ecoles/${s.slug}/`} style="text-decoration:none;color:inherit">{s.name}</a></span>
+                <span class="where">{[s.city, s.dept].filter(Boolean).join(', ')}{s.region && s.region !== 'À vérifier' ? ` · ${s.region}` : ''}</span>
+                <span class="meta"><strong>{g.name}</strong></span>
+                {(g.price || g.validity) && <span class="meta">{g.price ? `${eur(g.price)} TTC` : ''}{g.price && g.validity ? ' · ' : ''}{g.validity ? `valable ${g.validity} mois` : ''}</span>}
+                {g.conditions && <span class="small muted">{g.conditions}</span>}
+                <a class="btn ext" style="margin-top:0.5rem" href={g.url} target="_blank" rel="noopener">Voir le bon cadeau sur le site de l’école</a>
+                <span class="small muted">Bon vendu et géré par {s.name}. Achat sur son site ({host(g.url)}).{g.checked && <> Lien vérifié le {dateFr(g.checked)}.</>}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : <p class="empty">Aucun bon cadeau n’est publié pour l’instant.</p>}
+      <p class="muted small" style="margin-top:1rem">Nous ne référençons un bon que si l’école l’annonce sur son site officiel et que la page donne accès à son parcours de vente. Une information est périmée ou une école souhaite retirer son lien ? <a href={`mailto:contact@resaparapente.fr?subject=${encodeURIComponent('Bon cadeau : correction ou retrait')}`}>Écrivez-nous</a>, nous corrigeons ou retirons le lien.</p>
+    </section>
+    <section>
+      <h2>Votre école n’apparaît pas ?</h2>
+      <p>Une école peut vendre un bon sans que nous l’ayons déjà référencé. Retrouvez-la dans <a href="/bapteme/">l’annuaire</a> et regardez son site officiel, ou demandez-lui directement. Les écoles qui vendent un bon peuvent nous envoyer le lien : c’est gratuit.</p>
+    </section>
+    <SchoolCta type="bon" />
+  </div>
+</Base>

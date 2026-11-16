@@ -1,0 +1,16 @@
+---
+import DocPage from '../../components/DocPage.astro';
+import { posts, dateLong } from '../../data/blog';
+---
+<DocPage title="Blog parapente : conseils, baptêmes, stages" h1="Le blog" lead="Conseils pour préparer un baptême, choisir un stage ou offrir un vol." description="Articles pratiques sur le parapente : déroulement d’un baptême, niveaux de stage, météo, bon cadeau, choix d’une école.">
+  <ul class="post-list">
+    {posts.map((p) => (
+      <li class="post-card">
+        <span class="tag">{p.tag}</span>
+        <h2><a href={`/blog/${p.slug}/`}>{p.title}</a></h2>
+        <p>{p.excerpt}</p>
+        <span class="muted small">{dateLong(p.date)}</span>
+      </li>
+    ))}
+  </ul>
+</DocPage>

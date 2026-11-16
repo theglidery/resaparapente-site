@@ -1,0 +1,2 @@
+Bibliothèque de photos libres de droits (voir IMAGES.md).
+Une photo = un fichier ici + une ligne dans l'onglet "Bibliothèque photos" du classeur (ID, fichier, type, texte alternatif, crédit, licence, "Statut" = Prête).

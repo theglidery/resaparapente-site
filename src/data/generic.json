@@ -1,0 +1,23 @@
+{
+ "bapteme.infos.saison": "Sur rendez-vous, en fonction de la météo. L’école vous confirme les jours et l’horaire quand elle répond à votre demande.",
+ "bapteme.infos.participation": "Le moniteur décide du vol selon la météo et votre forme du jour. Pour un mineur, l’autorisation d’un responsable légal est demandée.",
+ "bapteme.infos.temps": "Prévoyez un créneau large : le vol se fait au meilleur moment selon la météo et peut être décalé. L’école vous donne l’heure de rendez-vous.",
+ "bapteme.infos.tenue": "Chaussures fermées (sport ou marche), vêtements adaptés à la saison et à l’altitude, lunettes de soleil. Le casque et le harnais sont fournis par l’école.",
+ "bapteme.infos.langues": "Français. Pour une autre langue, précisez-le dans votre demande.",
+ "bapteme.infos.savoir": "Les vols biplace commerciaux sont encadrés par un moniteur diplômé d’État et l’organisateur doit être couvert par une assurance de responsabilité civile professionnelle. Le vol est reporté ou annulé si la météo ne permet pas de voler en sécurité.",
+ "ecole.presentation": "Présentation de l’école à venir.",
+ "ecole.commandes": "Le vol est encadré par un moniteur de parapente diplômé d’État. Il vole avec vous en biplace et vous explique chaque étape.",
+ "ecole.appareil": "Le vol se fait sous un parapente biplace homologué, avec un harnais double. Le matériel est contrôlé et révisé régulièrement par l’école.",
+ "bapteme.vol.photos.oui": "Cette formule inclut les photos et la vidéo du vol.",
+ "bapteme.vol.photos.non": "Les photos et la vidéo du vol ne sont pas incluses. Demandez à l’école si elle les propose en option.",
+ "bapteme.vol.photos.inconnu": "À confirmer avec l’école : demandez-lui si les photos et la vidéo du vol sont proposées.",
+ "bapteme.vol.programme": "Briefing et équipement au décollage, vol en biplace avec un moniteur diplômé d’État, puis atterrissage à l’endroit prévu par l’école. La durée, le dénivelé et les options dépendent de la formule et de la météo.",
+ "stage.infos.saison": "Dates et périodes selon le calendrier de l’école. Demandez les prochaines sessions dans votre demande.",
+ "stage.infos.participation": "L’école vérifie votre niveau et votre condition physique avant de confirmer. Pour un mineur, l’autorisation d’un responsable légal est demandée.",
+ "stage.infos.apporter": "Chaussures de montagne ou de marche qui tiennent la cheville, vêtements adaptés à la météo, lunettes de soleil, crème solaire. L’école indique le matériel de vol fourni.",
+ "stage.infos.hebergement": "À confirmer avec l’école : hébergement et repas ne sont pas toujours inclus.",
+ "stage.infos.savoir": "Les stages sont encadrés par des moniteurs diplômés d’État et l’organisateur doit être couvert par une assurance de responsabilité civile professionnelle. Une journée de vol peut être annulée ou décalée selon la météo : voir les conditions de l’école.",
+ "stage.ecole.commandes": "Le stage est encadré par des moniteurs de parapente diplômés d’État.",
+ "stage.ecole.appareil": "Le matériel de vol prêté par l’école est contrôlé et révisé régulièrement. Précisez dans votre demande si vous venez avec votre propre aile.",
+ "stage.detail.programme": "Le programme détaillé est confirmé par l’école. Il dépend du niveau du groupe et de la météo."
+}

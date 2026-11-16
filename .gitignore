@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-ch/
+dist-be/
+.astro/
+.wrangler/
+.dev.vars
+.env
+.env.*
+.DS_Store
+__pycache__/

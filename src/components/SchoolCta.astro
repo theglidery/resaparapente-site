@@ -1,0 +1,18 @@
+---
+// "Vous êtes une école de parapente ?" band: sends schools to the submission page with the right topic preselected.
+interface Props { type?: 'stage' | 'bapteme' | 'bon' | 'promo' }
+const { type = 'stage' } = Astro.props;
+const T = {
+  stage: { text: 'Publiez vos dates de stage ici et recevez les demandes de réservation.', btn: 'Publier mes stages' },
+  bapteme: { text: 'Présentez vos baptêmes ici et recevez les demandes de réservation.', btn: 'Publier mes baptêmes' },
+  bon: { text: 'Faites connaître le bon cadeau que vous vendez : un lien vers votre site, sans frais.', btn: 'Proposer mon bon cadeau' },
+  promo: { text: 'Affichez vos offres promotionnelles sur votre fiche, sans frais.', btn: 'Publier mes offres' },
+}[type];
+---
+<aside class="school-cta" aria-label="Pour les écoles de parapente">
+  <div>
+    <h2>Vous êtes une école de parapente ?</h2>
+    <p>{T.text}</p>
+  </div>
+  <a class="btn light" data-track="click_school_cta" data-kind={type} href={`/pour-les-ecoles/?type=${type}`}>{T.btn}</a>
+</aside>

@@ -1,0 +1,9 @@
+---
+// School logo (rectangular, as supplied), or the school's initials in a circle when there is no logo to show.
+interface Props { name: string; src?: string | null; size?: 'sm' | 'lg' }
+const { name, src, size = 'sm' } = Astro.props;
+const mono = name.replace(/[^A-Za-zÀ-ÿ0-9]/g, ' ').trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+---
+{src
+  ? <img class={`logo-img ${size}`} src={src} alt={`Logo ${name}`} loading="lazy" decoding="async" />
+  : <span class={`logo mono ${size}`} aria-hidden="true">{mono}</span>}
