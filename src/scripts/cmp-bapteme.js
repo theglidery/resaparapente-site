@@ -13,10 +13,12 @@ if (root) {
   const f = () => Object.fromEntries(new FormData(form).entries());
   function apply() {
     const q = f();
+    const budgetMin = num(q.budgetMin);
     const budget = num(q.budget);
     const vis = rows.filter((r) => {
       const d = r.dataset;
       if (q.region && d.region !== q.region) return false;
+      if (budgetMin != null && Number(d.total) < budgetMin) return false;
       if (budget != null && Number(d.total) > budget) return false;
       if (q.dur) {
         const m = num(d.dmax) ?? num(d.dmin);

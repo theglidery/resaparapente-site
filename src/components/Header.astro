@@ -23,14 +23,12 @@ const stageSub = isEn
   ? [
       { href: href('trainingCost', 'en'), label: 'Cost of full training' },
       { href: href('whenStart', 'en'), label: 'When can I start?' },
-      { href: href('trainingPath', 'en'), label: 'Pathway and licences' },
       { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses' },
       { href: '/en/paragliding-course-schools/', label: 'All course schools' },
     ]
   : [
       { href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' },
       { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' },
-      { href: '/cursus-brevets-parapente/', label: 'Parcours et brevets' },
       { href: '/calendrier/', label: 'Prochains stages' },
       ...STAGE_TYPES.map((t) => ({ href: `/stage/${t.slug}/`, label: t.menu })),
     ];
@@ -63,12 +61,16 @@ const whyItems = isEn
 
 const learnItems = isEn
   ? [
+      { href: href('trainingPath', 'en'), label: 'Pathway and licences' },
       { href: '/apprendre/', label: 'Learn paragliding (FR)' },
       { href: '/apprendre/premier-stage/', label: 'Prepare your first course (FR)' },
       { href: '/apprendre/brevets/', label: 'Licences & ratings (FR)' },
       { href: '/apprendre/cours/', label: 'Theory modules (FR)' },
     ]
-  : LEARN_MENU;
+  : [
+      { href: '/cursus-brevets-parapente/', label: 'Parcours et brevets' },
+      ...LEARN_MENU,
+    ];
 
 const links = isEn
   ? [
@@ -77,6 +79,7 @@ const links = isEn
       { href: '/apprendre/', label: 'Learn to fly', sub: learnItems },
       { href: href('giftChristmas', 'en'), label: 'Gift voucher' },
       { href: 'https://locawing.fr/', label: 'Christmas Offer' },
+      { href: WHY_ROOT, label: 'Why fly?', sub: whyItems },
     ]
   : [
       { href: '/bapteme/', label: 'Baptême', sub: baptemeSub },
@@ -84,6 +87,7 @@ const links = isEn
       { href: '/apprendre/', label: 'Apprendre le parapente', sub: learnItems },
       { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau' },
       { href: 'https://locawing.fr/', label: 'Offre Noël' },
+      { href: WHY_ROOT, label: 'Pourquoi voler', sub: whyItems },
     ];
 
 const isCurrent = (l: { href: string; sub?: { href: string }[] }) =>

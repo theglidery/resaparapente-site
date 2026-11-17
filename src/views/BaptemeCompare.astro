@@ -21,12 +21,12 @@ const C = {
     desc: `Comparez ${rows.length} baptêmes de parapente (biplace) ${country} : prix publiés, durée de vol, photo et vidéo, remontée mécanique, total à prévoir. Réservation chez l’école.`,
     h1: `Comparateur de baptêmes de parapente ${country}`,
     lead: `${rows.length} formules de ${nSchools} écoles, avec le prix publié, la durée de vol, la photo/vidéo, la remontée mécanique et le total à prévoir quand on le connaît.`,
-    method: 'Chaque prix est relevé sur le site de l’école, à la date indiquée sur la ligne. Le total additionne le prix du vol et la remontée quand l’école indique qu’elle est en supplément avec un montant. Ce qui n’est pas confirmé s’affiche dans la colonne « À confirmer » : nous n’inventons aucun supplément.',
-    region: 'Région', dur: 'Durée de vol', durAll: 'Toutes', dur1: '15 min ou moins', dur2: '16 à 30 min', dur3: 'Plus de 30 min', budget: 'Budget total max.', photo: 'Photo / vidéo', photoAll: 'Peu importe', photoYes: 'Incluse', photoAny: 'Incluse ou en supplément chiffré',
-    lift: 'Remontée mécanique', liftAll: 'Peu importe', liftYes: 'Incluse dans le prix', lang: 'Langue du pilote', profile: 'Pour qui ?', profileAll: 'Tous profils',
+    method: 'Chaque prix est relevé sur le site de l’école, à la date indiquée dans la colonne « Mis à jour le ». Le total additionne le prix du vol et la remontée quand l’école indique qu’elle est en supplément avec un montant : nous n’inventons aucun supplément.',
+    region: 'Région', dur: 'Durée', durAll: 'Toutes', dur1: '≤ 15 min', dur2: '16–30 min', dur3: '> 30 min', budgetMin: `Prix min. (${MARKET.currency})`, budget: `Prix max. (${MARKET.currency})`, photo: 'Photo / vidéo', photoAll: 'Peu importe', photoYes: 'Incluse', photoAny: 'Incluse ou en sup.',
+    lift: 'Remontée', liftAll: 'Peu importe', liftYes: 'Incluse', lang: 'Langue', profile: 'Profil', profileAll: 'Tous',
     profiles: { 'Première fois': 'Première fois', Enfant: 'Enfant', Sensations: 'Sensations', 'Longue durée': 'Vol long', 'Petit budget': 'Petit budget', 'Souvenir photo/vidéo': 'Souvenir photo/vidéo' },
-    sort: 'Trier par', sTotal: 'Total le plus bas', sPrice: 'Prix publié', sDur: 'Durée la plus longue', sPerMin: 'Prix par minute de vol',
-    cOffer: 'Formule et école', cDur: 'Durée', cPrice: 'Prix publié', cPhoto: 'Photo / vidéo', cLift: 'Remontée', cTotal: 'Total estimé', cTodo: 'À confirmer', cGo: 'Choisir',
+    sort: 'Trier par', sTotal: 'Total le plus bas', sPrice: 'Prix publié', sDur: 'Durée la plus longue', sPerMin: 'Prix par min',
+    cOffer: 'Formule et école', cDur: 'Durée', cPrice: 'Prix publié', cPhoto: 'Photo / vidéo', cLift: 'Remontée', cTotal: 'Total estimé', cUpdated: 'Mis à jour le', cGo: 'Choisir',
     extra: 'en supplément', unknown: 'non précisé', incl: 'incluse', yes: 'incluse', perMin: '≈ par min de vol', more: 'Afficher plus de formules', count: 'formules affichées', none: 'Aucune formule ne correspond. Élargissez un filtre.', complete: 'Rien d’autre à confirmer', reset: 'Réinitialiser',
     seeOffer: 'Voir l’offre', school: 'Fiche de l’école', checked: 'Relevé le',
     stats: 'Les chiffres du moment', statsText: `Total estimé médian : ${med ? money(med, 'fr') : '—'} (de ${lo ? money(lo, 'fr') : '—'} à ${hi ? money(hi, 'fr') : '—'}). ${withPhoto} formules incluent la photo ou la vidéo, ${withPhotoExtra} la proposent en supplément avec un prix publié ; pour les autres, l’information n’est pas encore confirmée.`,
@@ -43,12 +43,12 @@ const C = {
     desc: `Compare ${rows.length} tandem paragliding flights ${country}: published prices, flight time, photo and video, cable car, estimated total. You book with the school.`,
     h1: `Compare tandem paragliding flights ${country}`,
     lead: `${rows.length} flights from ${nSchools} schools, with the published price, flight time, photo/video, cable car and the estimated total when it is known.`,
-    method: 'Every price comes from the school’s own website, on the date shown on the row. The total adds the flight price and the lift when the school says it costs extra and gives an amount. Anything not confirmed appears in the “To confirm” column: we never invent a supplement.',
-    region: 'Region', dur: 'Flight time', durAll: 'Any', dur1: '15 min or less', dur2: '16 to 30 min', dur3: 'More than 30 min', budget: 'Max. total budget', photo: 'Photo / video', photoAll: 'Any', photoYes: 'Included', photoAny: 'Included or priced extra',
-    lift: 'Cable car / lift', liftAll: 'Any', liftYes: 'Included in the price', lang: 'Pilot language', profile: 'Who is it for?', profileAll: 'Any',
+    method: 'Every price comes from the school’s own website, on the date shown in the “Updated” column. The total adds the flight price and the lift when the school says it costs extra and gives an amount: we never invent a supplement.',
+    region: 'Region', dur: 'Flight time', durAll: 'Any', dur1: '≤ 15 min', dur2: '16–30 min', dur3: '> 30 min', budgetMin: `Min. (${MARKET.currency})`, budget: `Max. (${MARKET.currency})`, photo: 'Photo / video', photoAll: 'Any', photoYes: 'Included', photoAny: 'Included or extra',
+    lift: 'Lift', liftAll: 'Any', liftYes: 'Included', lang: 'Language', profile: 'Profile', profileAll: 'Any',
     profiles: { 'Première fois': 'First time', Enfant: 'Child', Sensations: 'Thrill', 'Longue durée': 'Long flight', 'Petit budget': 'Low budget', 'Souvenir photo/vidéo': 'Photo/video souvenir' },
-    sort: 'Sort by', sTotal: 'Lowest total', sPrice: 'Published price', sDur: 'Longest flight', sPerMin: 'Price per flight minute',
-    cOffer: 'Flight and school', cDur: 'Time', cPrice: 'Published price', cPhoto: 'Photo / video', cLift: 'Lift', cTotal: 'Estimated total', cTodo: 'To confirm', cGo: 'Choose',
+    sort: 'Sort by', sTotal: 'Lowest total', sPrice: 'Published price', sDur: 'Longest flight', sPerMin: 'Price per min',
+    cOffer: 'Flight and school', cDur: 'Time', cPrice: 'Published price', cPhoto: 'Photo / video', cLift: 'Lift', cTotal: 'Estimated total', cUpdated: 'Updated', cGo: 'Choose',
     extra: 'extra', unknown: 'not stated', incl: 'included', yes: 'included', perMin: '≈ per flight min', more: 'Show more flights', count: 'flights shown', none: 'No flight matches. Widen a filter.', complete: 'Nothing else to confirm', reset: 'Reset',
     seeOffer: 'See the offer', school: 'School page', checked: 'Checked on',
     stats: 'Current figures', statsText: `Median estimated total: ${med ? money(med, 'en') : '—'} (from ${lo ? money(lo, 'en') : '—'} to ${hi ? money(hi, 'en') : '—'}). ${withPhoto} flights include photo or video, ${withPhotoExtra} offer it as a priced extra; for the rest the school has not confirmed it yet.`,
@@ -65,12 +65,12 @@ const C = {
     desc: `Vergleichen Sie ${rows.length} Gleitschirm-Tandemflüge ${country}: veröffentlichte Preise, Flugdauer, Foto und Video, Bergbahn, geschätzter Gesamtpreis. Gebucht wird bei der Schule.`,
     h1: `Gleitschirm-Tandemflüge vergleichen ${country}`,
     lead: `${rows.length} Flüge von ${nSchools} Schulen, mit dem veröffentlichten Preis, der Flugdauer, Foto/Video, Bergbahn und dem geschätzten Gesamtpreis, sofern bekannt.`,
-    method: 'Jeder Preis stammt von der Website der Schule, mit dem Datum in der Zeile. Der Gesamtpreis addiert den Flugpreis und die Bahn, wenn die Schule sie als Aufpreis mit Betrag angibt. Was nicht bestätigt ist, steht in der Spalte „Zu klären“: Wir erfinden keine Zuschläge.',
-    region: 'Region', dur: 'Flugdauer', durAll: 'Beliebig', dur1: '15 Min. oder weniger', dur2: '16 bis 30 Min.', dur3: 'Über 30 Min.', budget: 'Max. Gesamtbudget', photo: 'Foto / Video', photoAll: 'Egal', photoYes: 'Inklusive', photoAny: 'Inklusive oder mit Aufpreis',
-    lift: 'Bergbahn', liftAll: 'Egal', liftYes: 'Im Preis inbegriffen', lang: 'Sprache des Piloten', profile: 'Für wen?', profileAll: 'Alle',
+    method: 'Jeder Preis stammt von der Website der Schule, mit dem Datum in der Spalte „Aktualisiert“. Der Gesamtpreis addiert Flugpreis und Bahn, wenn die Schule sie als Aufpreis angibt: Wir erfinden keine Zuschläge.',
+    region: 'Region', dur: 'Flugdauer', durAll: 'Beliebig', dur1: '≤ 15 Min.', dur2: '16–30 Min.', dur3: '> 30 Min.', budgetMin: `Min. (${MARKET.currency})`, budget: `Max. (${MARKET.currency})`, photo: 'Foto / Video', photoAll: 'Egal', photoYes: 'Inklusive', photoAny: 'Inkl. oder Aufpreis',
+    lift: 'Bergbahn', liftAll: 'Egal', liftYes: 'Inklusive', lang: 'Sprache', profile: 'Profil', profileAll: 'Alle',
     profiles: { 'Première fois': 'Erstflug', Enfant: 'Kind', Sensations: 'Nervenkitzel', 'Longue durée': 'Langer Flug', 'Petit budget': 'Kleines Budget', 'Souvenir photo/vidéo': 'Foto-/Videoerinnerung' },
-    sort: 'Sortieren nach', sTotal: 'Niedrigster Gesamtpreis', sPrice: 'Veröffentlichter Preis', sDur: 'Längster Flug', sPerMin: 'Preis pro Flugminute',
-    cOffer: 'Flug und Schule', cDur: 'Dauer', cPrice: 'Veröff. Preis', cPhoto: 'Foto / Video', cLift: 'Bahn', cTotal: 'Geschätzter Gesamtpreis', cTodo: 'Zu klären', cGo: 'Wählen',
+    sort: 'Sortieren', sTotal: 'Niedrigster Preis', sPrice: 'Veröff. Preis', sDur: 'Längster Flug', sPerMin: 'Preis pro Min.',
+    cOffer: 'Flug und Schule', cDur: 'Dauer', cPrice: 'Veröff. Preis', cPhoto: 'Foto / Video', cLift: 'Bahn', cTotal: 'Geschätzter Gesamtpreis', cUpdated: 'Aktualisiert', cGo: 'Wählen',
     extra: 'Aufpreis', unknown: 'nicht angegeben', incl: 'inklusive', yes: 'inklusive', perMin: '≈ pro Flugminute', more: 'Mehr Flüge anzeigen', count: 'Flüge angezeigt', none: 'Kein Flug passt. Lockern Sie einen Filter.', complete: 'Nichts weiter zu klären', reset: 'Zurücksetzen',
     seeOffer: 'Angebot ansehen', school: 'Seite der Schule', checked: 'Geprüft am',
     stats: 'Aktuelle Zahlen', statsText: `Mittlerer geschätzter Gesamtpreis: ${med ? money(med, 'de') : '—'} (von ${lo ? money(lo, 'de') : '—'} bis ${hi ? money(hi, 'de') : '—'}). ${withPhoto} Flüge enthalten Foto oder Video, ${withPhotoExtra} bieten es gegen Aufpreis an; bei den übrigen hat die Schule es noch nicht bestätigt.`,
@@ -95,7 +95,8 @@ const maxVisible = 40;
     <form class="filters cmp-filters" onsubmit="return false" aria-label="Filtres">
       <label>{C.region}<select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
       <label>{C.dur}<select name="dur"><option value="">{C.durAll}</option><option value="1">{C.dur1}</option><option value="2">{C.dur2}</option><option value="3">{C.dur3}</option></select></label>
-      <label>{C.budget} ({MARKET.currency})<input type="number" name="budget" min="0" step="10" inputmode="numeric" /></label>
+      <label class="num-field">{C.budgetMin}<input type="number" name="budgetMin" min="0" step="10" inputmode="numeric" /></label>
+      <label class="num-field">{C.budget}<input type="number" name="budget" min="0" step="10" inputmode="numeric" /></label>
       <label>{C.photo}<select name="photo"><option value="">{C.photoAll}</option><option value="yes">{C.photoYes}</option><option value="any">{C.photoAny}</option></select></label>
       <label>{C.lift}<select name="lift"><option value="">{C.liftAll}</option><option value="yes">{C.liftYes}</option></select></label>
       {hasLang && <label>{C.lang}<select name="lang"><option value="">—</option>{langs.map((l) => <option value={l}>{l}</option>)}</select></label>}
@@ -105,7 +106,7 @@ const maxVisible = 40;
     </form>
     <p class="cmp-count" role="status" aria-live="polite"><strong id="cmp-n">{rows.length}</strong> {C.count}</p>
     <div class="table-wrap"><table class="data-table cmp-table">
-      <thead><tr><th>{C.cOffer}</th><th>{C.cDur}</th><th>{C.cPrice}</th><th>{C.cPhoto}</th><th>{C.cLift}</th><th>{C.cTotal}</th><th>{C.cTodo}</th><th></th></tr></thead>
+      <thead><tr><th>{C.cOffer}</th><th>{C.cDur}</th><th>{C.cPrice}</th><th>{C.cPhoto}</th><th>{C.cLift}</th><th class="total-col">{C.cTotal}</th><th>{C.cUpdated}</th><th></th><th></th></tr></thead>
       <tbody id="cmp-body">
         {rows.map((r, i) => (
           <tr class="cmp-row" hidden={i >= maxVisible} data-total={r.total} data-price={r.price} data-dmin={r.durMin ?? ''} data-dmax={r.durMax ?? r.durMin ?? ''} data-permin={r.perMin ?? ''}
@@ -115,12 +116,13 @@ const maxVisible = 40;
             <td data-label={C.cPrice}>{money(r.price as number, locale)}</td>
             <td data-label={C.cPhoto}>{tri(r.photo, r.photoPrice)}</td>
             <td data-label={C.cLift}>{tri(r.lift, r.liftPrice)}</td>
-            <td data-label={C.cTotal}><strong>{money(r.total as number, locale)}</strong>{r.perMin && <span class="small muted">{C.perMin} : {new Intl.NumberFormat(locale === 'fr' ? MARKET.locale : locale, { maximumFractionDigits: 1 }).format(r.perMin)}</span>}</td>
-            <td class="small" data-label={C.cTodo}>{r.todo ?? C.complete}</td>
+            <td class="total-col" data-label={C.cTotal}><strong>{money(r.total as number, locale)}</strong>{r.perMin && <span class="small muted">{C.perMin} : {new Intl.NumberFormat(locale === 'fr' ? MARKET.locale : locale, { maximumFractionDigits: 1 }).format(r.perMin)}</span>}</td>
+            <td class="small muted nowrap" data-label={C.cUpdated}>{r.checked ? dateLoc(r.checked, locale, { day: '2-digit', month: '2-digit', year: '2-digit' }) : '—'}</td>
             <td>
               <a class="btn small ext" href={r.bookUrl ?? r.url ?? schoolHref(r.slug, locale)} target="_blank" rel="noopener">{C.cGo}</a>
-              <a class="small" href={schoolHref(r.slug, locale)}>{C.school}</a>
-              {r.checked && <span class="small muted">{C.checked} {dateLoc(r.checked, locale, { day: 'numeric', month: 'short', year: 'numeric' })}{host(r.bookUrl ?? r.url) ? ` · ${host(r.bookUrl ?? r.url)}` : ''}</span>}
+            </td>
+            <td class="nowrap">
+              <a class="small nowrap" href={schoolHref(r.slug, locale)}>{C.school}</a>
             </td>
           </tr>
         ))}

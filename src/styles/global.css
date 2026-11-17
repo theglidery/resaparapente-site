@@ -822,6 +822,15 @@ body.has-sticky-cta { padding-bottom: 4.5rem; }
 .wordmark b { color: #ff5a1f; font-weight: 800; }
 .wordmark i { font-style: normal; color: var(--sky-dark); }
 .cmp-filters { grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); }
+@media (min-width: 1020px) {
+  .cmp-filters { display: flex; flex-wrap: nowrap; align-items: end; gap: 0.55rem; }
+  .cmp-filters > label { flex: 1 1 0; min-width: 0; font-size: 0.78rem; }
+  .cmp-filters > label.num-field { flex: 0 0 5.4rem; }
+  .cmp-filters > .btn-row { flex: 0 0 auto; margin: 0; }
+}
+.nowrap { white-space: nowrap; }
+.cmp-table .total-col { min-width: 9.5rem; }
+.cmp-table .total-col .small { white-space: nowrap; }
 @media (max-width: 720px) {
   .cmp-table, .cmp-table tbody, .cmp-table tr, .cmp-table th, .cmp-table td { display: block; width: 100%; }
   .cmp-table thead { position: absolute; left: -9999px; }
