@@ -47,7 +47,9 @@ if (form) {
   const offers = $$('[data-offer]');
   const chosen = $('#chosen'), n = $('#b-n'), hint = $('#weight-hint');
   const d1 = $('#b-d1'), d2 = $('#b-d2'), d3 = $('#b-d3'), alts = $('#alts'), chips = $('#sess-chips'), msg = $('#booking-msg');
+  const giftFields = $('#gift-fields'), gName = $('#b-gift-name'), gEmail = $('#b-gift-email'), gNote = $('#b-gift-note');
   let sel = null;
+  let mode = 'book'; // 'book' | 'gift'
 
   // A stage has participants (height and weight asked); a baptême has passengers (weight asked). Neutral wording until a formula is chosen.
   const only = form.dataset.onlyKind || '';
@@ -62,22 +64,37 @@ if (form) {
     box.innerHTML = '';
     const p = document.createElement('p'); p.style.margin = '0';
     p.innerHTML = '<strong></strong><br><span class="muted small"></span>';
-    $('strong', p).textContent = li.dataset.name; $('span', p).textContent = `${li.dataset.priceLabel} · formule choisie`;
+    $('strong', p).textContent = li.dataset.name;
+    $('span', p).textContent = `${li.dataset.priceLabel} · ${mode === 'gift' ? 'cadeau à offrir' : 'formule choisie'}`;
     const more = document.createElement('a'); more.className = 'small'; more.href = `#info-${li.dataset.kind}`; more.textContent = 'Voir les infos de cette formule ↓';
     p.appendChild(document.createElement('br')); p.appendChild(more);
     box.appendChild(p);
   };
 
-  function choose(li, open = true) {
+  function choose(li, open = true, nextMode = 'book') {
     sel = li;
+    mode = nextMode === 'gift' ? 'gift' : 'book';
+    if (giftFields) giftFields.hidden = mode !== 'gift';
     offers.forEach((o) => {
       const on = o === li;
       o.classList.toggle('selected', on);
-      const b = $('.choose', o);
-      if (b instanceof HTMLButtonElement) { b.setAttribute('aria-pressed', String(on)); b.textContent = on ? 'Formule sélectionnée' : 'Demander un créneau'; }
+      const bBook = $('.choose', o);
+      if (bBook instanceof HTMLButtonElement) {
+        const active = on && mode === 'book';
+        bBook.setAttribute('aria-pressed', String(active));
+        bBook.textContent = active ? 'Formule sélectionnée' : 'Je Réserve';
+      }
+      const bGift = $('.choose-gift', o);
+      if (bGift instanceof HTMLButtonElement) {
+        const active = on && mode === 'gift';
+        bGift.setAttribute('aria-pressed', String(active));
+        bGift.textContent = active ? 'Cadeau sélectionné' : 'J’offre';
+      }
     });
     showInfo(li); setContactKind(li.dataset.kind);
-    if (open) window.rpTrack?.('select_offer', { school_id: form.dataset.schoolId, offer_id: li.dataset.id, offer_name: li.dataset.name, kind: li.dataset.kind });
+    const l = $('#contact-legend');
+    if (l && mode === 'gift') l.textContent = 'Vos coordonnées (personne qui offre)';
+    if (open) window.rpTrack?.('select_offer', { school_id: form.dataset.schoolId, offer_id: li.dataset.id, offer_name: li.dataset.name, kind: li.dataset.kind, mode });
     openBooking(li);
     if (open) showPanel();
   }
@@ -143,7 +160,8 @@ if (form) {
     msg.textContent = '';
   }
   offers.forEach((li) => {
-    $('button.choose', li)?.addEventListener('click', () => choose(li));
+    $('button.choose', li)?.addEventListener('click', () => choose(li, true, 'book'));
+    $('button.choose-gift', li)?.addEventListener('click', () => choose(li, true, 'gift'));
   });
 
   // One block per participant: first name (optional), weight (needed by the school) and, for a course, height.
@@ -199,7 +217,9 @@ if (form) {
   const v = (id) => $(id).value.trim();
   const step1Errors = () => {
     const errs = [];
-    if (!sel) errs.push('Choisissez une formule dans la liste (bouton « Réserver »).');
+    if (!sel) errs.push('Choisissez une formule dans la liste (bouton « Je Réserve » ou « J’offre »).');
+    if (mode === 'gift' && !v('#b-gift-name')) errs.push('Indiquez le nom et prénom du bénéficiaire du cadeau.');
+    if (mode === 'gift' && v('#b-gift-email') && !okEmail(v('#b-gift-email'))) errs.push('Indiquez un email valide pour le bénéficiaire.');
     if (!v('#b-name')) errs.push('Indiquez votre nom et prénom.');
     if (!okEmail(v('#b-email'))) errs.push('Indiquez un email valide.');
     if (v('#b-phone') && v('#b-phone').replace(/\D/g, '').length < 8) errs.push('Indiquez un numéro de téléphone.');
@@ -250,6 +270,8 @@ if (form) {
     }
     const payload = {
       schoolId: form.dataset.schoolId, offerId: sel.dataset.id,
+      bookingMode: mode,
+      giftRecipient: mode === 'gift' ? { name: v('#b-gift-name'), email: v('#b-gift-email'), note: v('#b-gift-note') } : null,
       contact: { name: v('#b-name'), email: v('#b-email'), phone: v('#b-phone'), type: v('#b-ctype') },
       dates: [d1.value, d2.value, d3.value].filter(Boolean), participantCount: Number(n.value), participants: participants(),
       message: v('#b-msg'), consent: true, marketingOptIn: Boolean($('#b-optin')?.checked), website: v('#b-website'),

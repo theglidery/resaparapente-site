@@ -2,17 +2,17 @@
 // The one filter form used on the baptême list, the stage list and the stage calendar.
 import { cities, schools, reviewStats } from '../lib/data';
 import { REVIEWS } from '../config';
-interface Props { regions: [string, number?][]; levels?: { key: string; name: string; n?: number }[]; months?: { value: string; label: string; n?: number }[]; allLabel?: string; allCount?: number; sort?: { value: string; label: string }[]; flags?: { key: string; label: string }[] }
+interface Props { regions: [string, number?][]; levels?: { key: string; name: string; n?: number }[]; months?: { value: string; label: string; n?: number }[]; allLabel?: string; allCount?: number; sort?: { value: string; label: string }[]; flags?: { key: string; label: string }[]; action?: string; selectedRegion?: string }
 const anyRated = schools.some((x) => (reviewStats(x.id)?.count ?? 0) >= REVIEWS.minOnCard);
 const defaultSort = [{ value: 'distance', label: 'Distance' }, { value: 'prix', label: 'Prix le plus bas' }, ...(anyRated ? [{ value: 'note', label: 'Mieux notées' }] : []), { value: 'nom', label: 'Nom de l’école' }];
-const { regions, levels = [], months = [], allLabel = 'Tous les stages', allCount, sort = defaultSort, flags = [] } = Astro.props;
+const { regions, levels = [], months = [], allLabel = 'Tous les stages', allCount, sort = defaultSort, flags = [], action = '.', selectedRegion = '' } = Astro.props;
 ---
-<form id="filters" class="filters" action="." method="get" role="search" aria-label="Filtrer">
+<form id="filters" class="filters" action={action} method="get" role="search" aria-label="Filtrer">
   <div class="field">
     <label for="region">Région</label>
     <select id="region" name="region">
       <option value="">Toutes les régions</option>
-      {regions.map(([r, n]) => <option value={r}>{r}{n !== undefined ? ` (${n})` : ''}</option>)}
+      {regions.map(([r, n]) => <option value={r} selected={r === selectedRegion}>{r}{n !== undefined ? ` (${n})` : ''}</option>)}
     </select>
   </div>
   <div class="field">

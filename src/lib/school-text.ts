@@ -4,21 +4,16 @@ import { placesFor, pathOf, distanceKm, statsOf, type Kind } from './places';
 
 const list = (t: string[]) => (t.length <= 1 ? t.join('') : `${t.slice(0, -1).join(', ')} et ${t[t.length - 1]}`);
 
-/** Facts only (place, number of formulas, price range, flight length, stage levels). Never invented. */
+/** Facts only (place, activity, flying sites, labels, languages). Never lists formulas/prices already shown below. */
 export function schoolIntro(s: School): string {
   const parts: string[] = [];
-  parts.push(`${s.name} est une école de parapente${s.city ? ` située à ${s.city}` : ''}${s.dept ? ` (${s.dept})` : ''}.`);
-  const b = statsOf([s], 'bapteme'), st = statsOf([s], 'stage');
-  if (s.baptemes.length) {
-    const price = b.min != null ? (b.max && b.max !== b.min ? `, de ${eur(b.min)} à ${eur(b.max)} par personne` : `, à ${eur(b.min)} par personne`) : '';
-    const dur = b.durMin ? ` Les vols durent ${b.durMin === b.durMax ? `${b.durMin} minutes` : `de ${b.durMin} à ${b.durMax} minutes`}.` : '';
-    parts.push(`Elle propose ${s.baptemes.length > 1 ? `${s.baptemes.length} formules` : 'une formule'} de baptême en biplace${price}.${dur}`);
-  }
-  if (s.stages.length) {
-    const levels = LEVELS.filter((l) => l.key !== 'autre' && s.stages.some((o) => o.levelKey === l.key)).map((l) => l.name.split(',')[0].toLowerCase());
-    parts.push(`Côté stages, ${s.stages.length > 1 ? `${s.stages.length} formules` : 'une formule'}${levels.length ? ` (${list(levels.slice(0, 4))})` : ''}${st.min != null ? `, dès ${eur(st.min)}` : ''}.`);
-  }
-  if (s.fiche?.labels) parts.push(`Labels et agréments indiqués : ${s.fiche.labels}.`);
+  const loc = [s.city, s.dept && s.dept !== 'À vérifier' ? s.dept : null, s.region && s.region !== 'À vérifier' ? s.region : null].filter(Boolean).join(', ');
+  const acts = [s.baptemes.length ? 'des baptêmes en biplace' : null, s.stages.length ? 'des stages de parapente' : null].filter(Boolean);
+  parts.push(`${s.name} est une école de parapente${loc ? ` située à ${loc}` : ''}${acts.length ? ` qui propose ${list(acts as string[])}` : ''}.`);
+  if (s.sites?.length) parts.push(`Sites de vol : ${list(s.sites.slice(0, 5).map((x) => x.name))}.`);
+  if (s.fiche?.labels) parts.push(`Labels et agréments : ${s.fiche.labels}.`);
+  if (s.fiche?.langues) parts.push(`Langues parlées : ${s.fiche.langues}.`);
+  if (acts.length) parts.push('Choisissez une formule ci-dessous et envoyez votre demande gratuite : l’école vous répond directement pour fixer le créneau selon la météo.');
   return parts.join(' ');
 }
 

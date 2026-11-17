@@ -4,7 +4,8 @@ import Base from '../layouts/Base.astro';
 import Mountains from './Mountains.astro';
 import SchoolCard from './SchoolCard.astro';
 import SchoolCta from './SchoolCta.astro';
-import { dateFr, eur, fromPrice, sessionHref, reviewStats, giftsOf } from '../lib/data';
+import SearchFilters from './SearchFilters.astro';
+import { dateFr, eur, fromPrice, sessionHref, reviewStats, giftsOf, regionCounts, levelCounts } from '../lib/data';
 import { REVIEWS } from '../config';
 import { localPage } from '../lib/local-content';
 import { placesFor, pathOf, distanceKm, kidsOf, winterOf, type Kind, type Place } from '../lib/places';
@@ -71,6 +72,17 @@ const jsonLd = {
     <ul class="trust-strip" aria-label="Nos engagements"><li>Contact direct avec l’école</li><li>Paiement auprès de l’école</li><li>Prix datés, relevés chez les écoles</li><li>Écoles indépendantes comparées</li></ul>
     <ul class="brief">{c.brief.map((b) => <li><b>{b.k}</b>{b.v}</li>)}</ul>
     {c.intro.slice(1).map((t) => <p style="max-width:68ch">{t}</p>)}
+
+    <section aria-label="Recherche complète" style="margin:1.2rem 0 1.6rem">
+      <SearchFilters
+        action={searchHref}
+        selectedRegion={place.type === 'region' ? place.name : (place.region ?? '')}
+        regions={regionCounts(kind) as [string, number][]}
+        levels={kind === 'stage' ? levelCounts() : []}
+        allLabel="Toutes les écoles"
+        flags={kind === 'bapteme' ? [{ key: 'kids', label: 'Accepte les enfants' }, { key: 'winter', label: 'Vol en hiver' }, { key: 'gift', label: 'Bon cadeau de l’école' }] : [{ key: 'gift', label: 'Bon cadeau de l’école' }]}
+      />
+    </section>
 
     <section id="ecoles" aria-labelledby="h-ecoles">
       <div class="board-head"><h2 id="h-ecoles" style="margin:0">{c.list.length} écoles {place.type === 'city' ? '' : ''}{place.inName}</h2>

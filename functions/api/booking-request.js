@@ -39,12 +39,17 @@ export async function onRequestPost({ request, env }) {
   const email = text(data.contact?.email, 254);
   const phone = text(data.contact?.phone, 35);
   const note = text(data.message, 800);
+  const isGift = data.bookingMode === 'gift';
+  const giftName = isGift ? text(data.giftRecipient?.name, 120) : '';
+  const giftEmail = isGift ? text(data.giftRecipient?.email, 254) : '';
+  const giftNote = isGift ? text(data.giftRecipient?.note, 200) : '';
   const count = data.participantCount;
   const today = new Date().toISOString().slice(0, 10);
   const dates = data.dates;
 
   if (
     !offer || !name || !emailPattern.test(email) || (phone && phone.replace(/\D/g, '').length < 8) ||
+    (isGift && (!giftName || (giftEmail && !emailPattern.test(giftEmail)))) ||
     (data.message && !note) || data.consent !== true || data.website ||
     !Array.isArray(dates) || dates.length > 3 || new Set(dates).size !== dates.length ||
     dates.some((v) => !isoDate(v) || v < today) || !Number.isInteger(count) || count < 1 || count > 8 ||
@@ -52,6 +57,9 @@ export async function onRequestPost({ request, env }) {
   ) {
     return respond(400, { error: 'Vérifiez les informations de votre demande.' });
   }
+  const storedNote = isGift
+    ? [`[CADEAU POUR : ${giftName}${giftEmail ? ' · ' + giftEmail : ''}${giftNote ? ' · ' + giftNote : ''}]`, note].filter(Boolean).join('\n')
+    : note;
   if (text(data.contact?.phone, 35) !== String(data.contact?.phone ?? '').trim()) {
     return respond(400, { error: 'Téléphone invalide.' });
   }
@@ -111,7 +119,7 @@ export async function onRequestPost({ request, env }) {
             phone || null,
             dates.join(','),
             count,
-            note || null,
+            storedNote || null,
             CONSENT_TEXT.replace('{école}', school.name),
             optin,
             text(request.headers.get('referer'), 300) || null,
@@ -154,13 +162,14 @@ export async function onRequestPost({ request, env }) {
     (p, i) => `  ${i + 1}. ${text(p.name, 80) || 'prénom non indiqué'} · ${p.weight} kg${isStage ? ` · ${p.height} cm` : ''}`
   );
   const lines = [
-    `Demande de ${isStage ? 'stage' : 'baptême'} pour ${school.name}`,
+    `Demande de ${isStage ? 'stage' : isGift ? 'baptême à offrir (cadeau)' : 'baptême'} pour ${school.name}`,
     `Référence : ${data.requestId}`,
     `Formule : ${offerName}`,
+    ...(isGift ? [`Bénéficiaire du cadeau : ${giftName}${giftEmail ? ' · ' + giftEmail : ''}${giftNote ? ' · Message : ' + giftNote : ''}`] : []),
     `Dates souhaitées : ${dates.join(', ') || 'flexibles, à définir avec l’école'}`,
     `Participants : ${count}`,
     ...paxLines,
-    `Contact : ${name} · ${email}${phone ? ' · ' + phone : ''}`,
+    `Contact${isGift ? ' (offreur)' : ''} : ${name} · ${email}${phone ? ' · ' + phone : ''}`,
     note && `Message : ${note}`,
     '',
     'Répondez directement au demandeur pour confirmer les conditions et les disponibilités.',
@@ -177,8 +186,9 @@ export async function onRequestPost({ request, env }) {
 
   const htmlBody = `
     <div style="font-family:system-ui,-apple-system,sans-serif;max-width:600px;color:#1b2430;line-height:1.5">
-      <h2 style="margin:0 0 12px">Demande de ${isStage ? 'stage' : 'baptême'} · ${escHtml(school.name)}</h2>
+      <h2 style="margin:0 0 12px">Demande de ${isStage ? 'stage' : isGift ? 'baptême à offrir (cadeau)' : 'baptême'} · ${escHtml(school.name)}</h2>
       <p style="margin:0 0 8px"><strong>Formule :</strong> ${escHtml(offerName)}</p>
+      ${isGift ? `<p style="margin:0 0 8px"><strong>Bénéficiaire du cadeau :</strong> ${escHtml(giftName)}${giftEmail ? ` · <a href="mailto:${escHtml(giftEmail)}">${escHtml(giftEmail)}</a>` : ''}${giftNote ? ` · <em>${escHtml(giftNote)}</em>` : ''}</p>` : ''}
       <p style="margin:0 0 8px"><strong>Dates souhaitées :</strong> ${escHtml(dates.join(', ') || 'flexibles, à définir avec l’école')}</p>
       <p style="margin:0 0 8px"><strong>Participants (${count}) :</strong></p>
       <ul style="margin:0 0 12px;padding-left:20px">

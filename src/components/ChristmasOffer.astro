@@ -16,14 +16,16 @@ const codeLabel = locale === 'en' ? 'Promo code:' : locale === 'de' ? 'Gutschein
 {CHRISTMAS_OFFER.enabled && (
   <div class="xmas-hero-offer">
     <p class="xmas-copy">{copy}</p>
-    <p class="xmas-links">
+    <div class="xmas-bottom">
       <span class="xmas-code">{codeLabel} <strong>{CHRISTMAS_OFFER.promoCode}</strong></span>
-      {CHRISTMAS_OFFER.products.map((p) => (
-        <a href={p.url} target="_blank" rel="noopener noreferrer">
-          {locale === 'en' ? p.nameEn : locale === 'de' ? p.nameDe : p.nameFr} (Locawing) ↗
-        </a>
-      ))}
-    </p>
+      <div class="xmas-links">
+        {CHRISTMAS_OFFER.products.map((p) => (
+          <a href={p.url} target="_blank" rel="noopener noreferrer">
+            {locale === 'en' ? p.nameEn : locale === 'de' ? p.nameDe : p.nameFr} (Locawing) ↗
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 )}
 <style>
@@ -31,22 +33,29 @@ const codeLabel = locale === 'en' ? 'Promo code:' : locale === 'de' ? 'Gutschein
     margin-top: 0.9rem;
     padding: 0.75rem 1rem;
     border-radius: 10px;
-    background: rgba(13, 36, 56, 0.84);
+    background: rgba(13, 36, 56, 0.86);
     border: 1px solid rgba(255, 255, 255, 0.22);
     color: #fff;
-    max-width: 68ch;
+    max-width: 34rem;
+    width: fit-content;
   }
   .xmas-copy {
-    margin: 0 0 0.45rem;
-    font-size: 0.96rem;
+    margin: 0 0 0.5rem;
+    font-size: 0.92rem;
     line-height: 1.4;
+  }
+  .xmas-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
   }
   .xmas-links {
     margin: 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem 1rem;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
     font-size: 0.9rem;
   }
   .xmas-code {
@@ -54,6 +63,7 @@ const codeLabel = locale === 'en' ? 'Promo code:' : locale === 'de' ? 'Gutschein
     color: #fff;
     padding: 0.15rem 0.55rem;
     border-radius: 6px;
+    font-size: 0.88rem;
   }
   .xmas-links a {
     color: #fde68a;

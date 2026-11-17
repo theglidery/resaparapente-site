@@ -70,7 +70,7 @@ const today = new Date(Date.now() + BOOKING.minDaysAhead * 864e5).toISOString().
 
 const pageUrl = `${SITE.url}/ecoles/${s.slug}/`;
 const orgId = `${pageUrl}#ecole`;
-const introText = s.desc ?? schoolIntro(s);
+const introText = s.fiche?.presentation || schoolIntro(s);
 const nearby = nearbySchools(s, hasB ? 'bapteme' : 'stage', 6);
 const localLinks = placeLinksFor(s);
 const mainKind = hasB ? 'bapteme' : 'stage';
@@ -226,9 +226,12 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
                               </div>
                             : <div class="amount">{priceMain(o)}{priceNote(o) && <small>{priceNote(o)}</small>}</div>}
                           {canSend
-                            ? <button class="btn choose" type="button" aria-pressed="false">Demander un créneau</button>
+                            ? <>
+                                <button class="btn choose" type="button" data-mode="book" aria-pressed="false">Je Réserve</button>
+                                {x.kind === 'bapteme' && <button class="btn ghost choose-gift" type="button" data-mode="gift" aria-pressed="false">J’offre</button>}
+                              </>
                             : <a class="btn choose" data-track="click_school_site" data-school={s.id} data-kind={x.kind} data-offer={o.id} href={book(o) || `mailto:${SITE.contactEmail}`} rel="noopener" target="_blank">Voir chez l’école</a>}
-                          {giftFor(x.kind) && <a class="btn ghost small gift-link" data-track="click_voucher" data-school={s.id} data-kind={x.kind} href={giftFor(x.kind)!.url} target="_blank" rel="noopener" title={`Bon cadeau vendu et géré par ${s.name}, achat sur son site`}>Offrir</a>}
+                          {giftFor(x.kind) && <a class="small muted gift-link" data-track="click_voucher" data-school={s.id} data-kind={x.kind} href={giftFor(x.kind)!.url} target="_blank" rel="noopener" title={`Bon cadeau vendu et géré par ${s.name}, achat sur son site`}>Bon cadeau de l’école ↗</a>}
                         </div>
                       </li>
                     ))}
@@ -265,6 +268,12 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
             <div hidden={!canSend}>
             <ol class="form-steps" aria-label="Étapes de la demande"><li id="fs-1" aria-current="step"><span>1</span> Vos coordonnées</li><li id="fs-2"><span>2</span> Participants et envoi</li></ol>
             <div id="step-1">
+            <fieldset id="gift-fields" hidden>
+              <legend>Personne qui reçoit le cadeau</legend>
+              <div class="field"><label for="b-gift-name">Nom et prénom du bénéficiaire</label><input id="b-gift-name" name="giftName" type="text" autocomplete="off" /></div>
+              <div class="field"><label for="b-gift-email">Email du bénéficiaire (facultatif)</label><input id="b-gift-email" name="giftEmail" type="email" autocomplete="off" /></div>
+              <div class="field"><label for="b-gift-note">Message cadeau / occasion (facultatif)</label><input id="b-gift-note" name="giftNote" type="text" maxlength="200" autocomplete="off" /></div>
+            </fieldset>
             <fieldset>
               <legend id="contact-legend">{contactTitle ? `${contactTitle} : vos coordonnées` : 'Vos coordonnées'}</legend>
               <input type="hidden" name="contactType" id="b-ctype" value={onlyKind ? CONTACT_TYPES[onlyKind].code : ''} />
@@ -305,18 +314,18 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
             <input type="text" id="b-website" name="website" hidden tabindex="-1" autocomplete="off" />
             <p class="small muted" style="margin:0.5rem 0 0">{canSend ? 'TheGlidery transmet votre demande à l’école.' : 'Contact et paiement directement auprès de l’école.'} Détails : <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
 
-            <button class="btn" type="submit" style="width:100%;margin-top:1rem">{canSend ? 'Envoyer ma demande à l’école' : 'Préparer ma demande'}</button>
+            <button class="btn" type="submit" style="width:100%;margin-top:1rem">{canSend ? 'J’envoie ma réservation' : 'Préparer ma demande'}</button>
             <div id="booking-msg" role="status" class="small" tabindex="-1"></div>
             </div>
             </div>
             <noscript><p>Contactez directement l’école via le lien ci-dessous.</p></noscript>
-            <p class="small" style="margin-top:0.8rem"><a class={canSend ? undefined : "btn"} id="school-link" data-track="click_school_site" data-school={s.id} href={s.website || `mailto:${SITE.contactEmail}`} target="_blank" rel="noopener">Contacter l’école</a></p>
+            <p class="small" style="margin-top:0.8rem"><a class={canSend ? undefined : "btn"} id="school-link" data-track="click_school_site" data-school={s.id} href={s.website || `mailto:${SITE.contactEmail}`} target="_blank" rel="noopener">{canSend ? 'Site officiel de l’école ↗' : 'J’envoie ma réservation'}</a></p>
           </form>
         </aside>
       </div>
       <div class="sticky-cta" id="sticky-cta" hidden>
         <div><strong id="sticky-label">{fromLabel}</strong></div>
-        <button type="button" class="btn" id="sticky-btn">Demander un créneau</button>
+        <button type="button" class="btn" id="sticky-btn">Je Réserve</button>
       </div>
     )}
 

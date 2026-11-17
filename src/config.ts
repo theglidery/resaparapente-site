@@ -35,8 +35,8 @@ export const CONTACT_TYPES = {
   stage: { code: 'student', title: 'Élève stagiaire' },
 } as const;
 
-// Enable the booking form once the Pages Function and its sender are configured.
-export const BOOKING = { endpoint: '/api/booking-request', maxPassengers: 8, minDaysAhead: 0, enabled: import.meta.env.PUBLIC_BOOKING_ENABLED === '1' };
+// Booking form is enabled by default now that the Pages Function and Resend sender are configured.
+export const BOOKING = { endpoint: '/api/booking-request', maxPassengers: 8, minDaysAhead: 0, enabled: import.meta.env.PUBLIC_BOOKING_ENABLED !== '0' };
 
 // Where the form of the page "Pour les écoles" is sent (dates de stage, baptêmes, bon cadeau, promotion). Not built yet: the draft only shows a summary.
 export const SCHOOL_SUBMISSION = { endpoint: '/api/school-submission' };
