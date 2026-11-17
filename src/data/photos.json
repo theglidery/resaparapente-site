@@ -1,1 +1,152 @@
-[]
+[
+  {
+    "id": "PH-01",
+    "file": "parapente-01.jpg",
+    "type": "Baptême",
+    "place": "Annecy / Col de la Forclaz",
+    "alt": "Parapentiste survolant un lac alpin et des montagnes verdoyantes",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-02",
+    "file": "parapente-02.jpg",
+    "type": "Baptême",
+    "place": "Montagne",
+    "alt": "Vol en parapente biplace au-dessus d’une vallée montagneuse verdoyante",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-03",
+    "file": "parapente-03.jpg",
+    "type": "Baptême",
+    "place": "Montagne",
+    "alt": "Baptême en parapente biplace sous une voile jaune et grise dans un ciel nuageux",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-04",
+    "file": "parapente-04.jpg",
+    "type": "Baptême",
+    "place": "Ciel dégagé",
+    "alt": "Pilote et passager en vol biplace en parapente dans le ciel",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-05",
+    "file": "parapente-05.jpg",
+    "type": "Stage",
+    "place": "Massif alpin",
+    "alt": "Parapentiste en vol solo au-dessus de crêtes rocheuses alpines",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-06",
+    "file": "parapente-06.jpg",
+    "type": "Stage",
+    "place": "Chaîne de montagnes",
+    "alt": "Parapentiste longeant une chaîne de montagnes en altitude",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-07",
+    "file": "parapente-07.jpg",
+    "type": "Stage",
+    "place": "Vallée et reliefs",
+    "alt": "Plusieurs parapentes en vol thermique au-dessus des reliefs et prairies",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-08",
+    "file": "parapente-08.jpg",
+    "type": "Baptême",
+    "place": "Lac de montagne",
+    "alt": "Voile de parapente au-dessus d’un lac turquoise entouré de montagnes",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-09",
+    "file": "parapente-09.jpg",
+    "type": "Baptême",
+    "place": "Ciel du soir",
+    "alt": "Vol en parapente face à un ciel orangé et nuageux",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-10",
+    "file": "parapente-10.jpg",
+    "type": "Stage",
+    "place": "Ciel d’altitude",
+    "alt": "Parapente évoluant sous les cumulus dans un ciel bleu",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-11",
+    "file": "parapente-11.jpg",
+    "type": "Stage",
+    "place": "Vallée verte",
+    "alt": "Parapentiste survolant des pentes herbeuses et une vallée nuageuse",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-12",
+    "file": "parapente-12.jpg",
+    "type": "Baptême",
+    "place": "Vallée",
+    "alt": "Parapentiste planant au-dessus d’une large vallée",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-13",
+    "file": "parapente-13.jpg",
+    "type": "Stage",
+    "place": "Montagne",
+    "alt": "Parapentiste survolant un massif montagneux",
+    "credit": "Unsplash (via images.unsplash.com)",
+    "licence": "Unsplash License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-14",
+    "file": "parapente-14.jpg",
+    "type": "Stage",
+    "place": "Dolomites / Alpes",
+    "alt": "Vol en parapente au-dessus des sommets enneigés",
+    "credit": "Pexels (photo 32207841)",
+    "licence": "Pexels License (utilisation commerciale libre)",
+    "defaultFor": null
+  },
+  {
+    "id": "PH-15",
+    "file": "parapente-15.jpg",
+    "type": "Baptême",
+    "place": "En vol",
+    "alt": "Vue en vol en parapente au-dessus du relief",
+    "credit": "Pexels (photo 9547409)",
+    "licence": "Pexels License (utilisation commerciale libre)",
+    "defaultFor": null
+  }
+]
