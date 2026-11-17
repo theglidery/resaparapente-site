@@ -57,8 +57,8 @@ const fullTitle = title.includes(brandName) ? title : `${title} | ${brandName}`;
   <body>
     <a class="skip" href="#main">{ui(locale).skip}</a>
     {SITE.draft && <div class="draft-bar">Maquette de travail : textes et données à valider avant ouverture.</div>}
-    {(isRegional || locale !== 'fr') ? <RegionalChrome part="header" locale={locale} pageKey={pageKey as never} alternates={altProp} /> : <Header current={Astro.url.pathname} enHref={marketLocales.includes('en') ? (alternates.find((a) => a.locale === 'en')?.href ?? '/en/') : undefined} />}
+    {(isRegional || locale === 'de') ? <RegionalChrome part="header" locale={locale} pageKey={pageKey as never} alternates={altProp} /> : <Header current={Astro.url.pathname} locale={locale} pageKey={pageKey as never} alternates={altProp} enHref={marketLocales.includes('en') ? (alternates.find((a) => a.locale === 'en')?.href ?? '/en/') : undefined} />}
     <main id="main"><slot /></main>
-    {(isRegional || locale !== 'fr') ? <><RegionalChrome part="footer" locale={locale} pageKey={pageKey as never} />{!isRegional && <Consent />}</> : <><Footer /><Consent /></>}
+    {(isRegional || locale === 'de') ? <><RegionalChrome part="footer" locale={locale} pageKey={pageKey as never} />{!isRegional && <Consent />}</> : <><Footer /><Consent /></>}
   </body>
 </html>

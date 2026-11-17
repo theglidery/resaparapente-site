@@ -1,37 +1,232 @@
 ---
-// English and German home page of the Swiss and Belgian builds (the French home page is a regular page of each build).
+// Localized home page: English matches the French home page layout (hero, search, regions, steps, vouchers, comparators, FAQ);
+// German (CH/BE) keeps the compact comparison hub.
 import Base from '../layouts/Base.astro';
+import ContourArt from '../components/ContourArt.astro';
 import Mountains from '../components/Mountains.astro';
-import { MARKET } from '../config';
+import { MARKET, HERO_ALT, BOOKING } from '../config';
 import { href } from '../i18n/ui';
-import { schools } from '../lib/data';
+import { schools, withOffers, regionCounts, cities, fromPrice, eur } from '../lib/data';
+import { placesFor, pathOf } from '../lib/places';
+import { heroImage } from '../lib/images';
 import { bapRows, money, type Loc } from '../lib/compare';
+import ChristmasOffer from '../components/ChristmasOffer.astro';
+
 const { locale = 'en' } = Astro.props as { locale?: Loc };
 const rows = bapRows(locale);
 const nSchools = schools.filter((s) => s.baptemes.length || s.stages.length).length;
 const low = rows.length ? rows[0].total : null;
-const where = { en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' }, fr: { FR: '', CH: '', BE: '' } }[locale][MARKET.code as 'FR'];
-const C = {
-  en: {
-    title: `Paragliding ${where}: compare tandem flights, courses and gift vouchers`, desc: `Compare tandem paragliding flights, training costs up to the licence and gift vouchers ${where}. ${nSchools} schools, prices published by the schools themselves.`,
-    h1: `Paragliding ${where}`, lead: `Compare ${rows.length} tandem flights and the cost of full training from ${nSchools} schools. You book with the school; ResaParapente only compares.`,
-    note: 'School listings, packages and prices are in English; a few long descriptions that are not translated yet stay in French.',
-    cards: [['baptemeCompare', 'Compare tandem flights', `Price, flight time, photo/video, cable car and estimated total${low != null ? `, from ${money(low, 'en')}` : ''}.`], ['baptemeGuide', 'Which flight to choose?', 'First flight, child, thrill, budget: five profiles and what each changes in the price.'], ['trainingCost', 'Cost of full training', 'Full packages and step-by-step totals up to the licence.'], ['whenStart', 'When can I start?', 'Next introductory course dates and introductory prices.'], ['trainingPath', 'Pathway and licences', 'The steps, exams and deadlines to become a pilot.'], ['giftChristmas', 'Gift voucher', 'Give a flight or a course: the voucher is sold by the school.']],
-    directory: 'School directory', dir: [['/en/tandem-paragliding-schools/', 'Tandem flights by school'], ['/en/paragliding-course-schools/', 'Courses by school'], ['/en/paragliding-course-calendar/', 'Course calendar']],
-  },
-  de: {
-    title: `Gleitschirmfliegen ${where}: Tandemflüge, Kurse und Gutscheine vergleichen`, desc: `Vergleichen Sie Gleitschirm-Tandemflüge, Ausbildungskosten bis zum Brevet und Gutscheine ${where}. ${nSchools} Schulen, Preise von den Schulen selbst veröffentlicht.`,
-    h1: `Gleitschirmfliegen ${where}`, lead: `Vergleichen Sie ${rows.length} Tandemflüge und die Kosten der kompletten Ausbildung bei ${nSchools} Schulen. Gebucht wird bei der Schule; ResaParapente vergleicht nur.`,
-    note: 'Beschreibungen und Angebote der Schulen bleiben in der Sprache, in der die Schule sie veröffentlicht hat (meist Französisch).',
-    cards: [['baptemeCompare', 'Tandemflüge vergleichen', `Preis, Flugdauer, Foto/Video, Bergbahn und geschätzter Gesamtpreis${low != null ? `, ab ${money(low, 'de')}` : ''}.`], ['baptemeGuide', 'Welcher Flug passt?', 'Erstflug, Kind, Nervenkitzel, Budget: fünf Profile und was jedes am Preis ändert.'], ['trainingCost', 'Kosten der Ausbildung', 'Komplettpakete und Summen Schritt für Schritt bis zum Brevet.'], ['whenStart', 'Wann kann ich anfangen?', 'Nächste Einsteigerkurse und Einsteigerpreise.'], ['trainingPath', 'Ausbildungsweg und Lizenzen', 'Schritte, Prüfungen und Fristen bis zum Piloten.'], ['giftChristmas', 'Geschenkgutschein', 'Einen Flug oder Kurs verschenken: Die Schule verkauft den Gutschein.']],
-    directory: 'Schulverzeichnis (auf Französisch)', dir: [['/bapteme/', 'Tandemflüge nach Schule'], ['/stage/', 'Kurse nach Schule'], ['/calendrier/', 'Kurskalender']],
-  },
-}[locale as 'en' | 'de'];
+const where = {
+  en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' },
+  de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' },
+  fr: { FR: '', CH: '', BE: '' },
+}[locale][MARKET.code as 'FR'];
+
+const nB = withOffers('bapteme').length;
+const nS = withOffers('stage').length;
+const nTotal = schools.length;
+const nAll = new Set([...withOffers('bapteme'), ...withOffers('stage')].map((x) => x.id)).size;
+const regions = regionCounts('bapteme').slice(0, 12);
+const bPlaces = placesFor('bapteme');
+const regionHref = (r: string) => {
+  const p = bPlaces.find((x) => x.type === 'region' && x.name === r);
+  return p ? pathOf('bapteme', p) : `/bapteme/?region=${encodeURIComponent(r)}&r=`;
+};
+const popular = bPlaces.filter((p) => p.type !== 'region').sort((a, b) => b.schools.bapteme.length - a.schools.bapteme.length).slice(0, 12);
+const bPrices = withOffers('bapteme').map((s) => fromPrice(s, 'bapteme')).filter((v): v is number => v !== null).sort((a, b) => a - b);
+const lowest = bPrices[0];
+const heroImg = heroImage('home');
+
+const faqEn = [
+  ['How do I book a tandem flight or a course?', 'Pick a school, choose a package, and click "Request a slot" when available. You can also contact the school directly. The school confirms the date, price and payment details with you.'],
+  ['Does sending a request commit me to anything?', 'No. Requests are free and non-binding. A booking is only confirmed once you and the school agree on the same package, date and price in writing.'],
+  ['Can I buy a gift voucher for a flight or course?', 'Yes. Schools that sell their own gift vouchers are listed with a direct link to their checkout page. Payment and voucher issuing happen directly with the school. ResaParapente does not sell vouchers or take payment.'],
+  ['What happens if the weather is unsuitable for flying?', 'The school decides whether flying conditions are safe. It will contact you to confirm take-off, offer another date, or apply its cancellation terms.'],
+  ['Who handles payment?', 'The school. It replies to your request, confirms the time slot and total price, and arranges payment directly with you. Nothing is paid on ResaParapente.'],
+  ['What age, weight or fitness level is required?', 'Requirements vary by school and package. Check the "Practical info" tab on each package; the school confirms eligibility before booking.'],
+];
+
+const jsonLdEn = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Resa Parapente', url: `${MARKET.origin}/en/` },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqEn.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
+
+const deData = {
+  title: `Gleitschirmfliegen ${where}: Tandemflüge, Kurse und Gutscheine vergleichen`,
+  desc: `Vergleichen Sie Gleitschirm-Tandemflüge, Ausbildungskosten bis zum Brevet und Gutscheine ${where}. ${nSchools} Schulen, Preise von den Schulen selbst veröffentlicht.`,
+  h1: `Gleitschirmfliegen ${where}`,
+  lead: `Vergleichen Sie ${rows.length} Tandemflüge und die Kosten der kompletten Ausbildung bei ${nSchools} Schulen. Gebucht wird bei der Schule; ResaParapente vergleicht nur.`,
+  note: 'Beschreibungen und Angebote der Schulen bleiben in der Sprache, in der die Schule sie veröffentlicht hat (meist Französisch).',
+  cards: [
+    ['baptemeCompare', 'Tandemflüge vergleichen', `Preis, Flugdauer, Foto/Video, Bergbahn und geschätzter Gesamtpreis${low != null ? `, ab ${money(low, 'de')}` : ''}.`],
+    ['baptemeGuide', 'Welcher Flug passt?', 'Erstflug, Kind, Nervenkitzel, Budget: fünf Profile und was jedes am Preis ändert.'],
+    ['trainingCost', 'Kosten der Ausbildung', 'Komplettpakete und Summen Schritt für Schritt bis zum Brevet.'],
+    ['whenStart', 'Wann kann ich anfangen?', 'Nächste Einsteigerkurse und Einsteigerpreise.'],
+    ['trainingPath', 'Ausbildungsweg und Lizenzen', 'Schritte, Prüfungen und Fristen bis zum Piloten.'],
+    ['giftChristmas', 'Geschenkgutschein', 'Einen Flug oder Kurs verschenken: Die Schule verkauft den Gutschein.'],
+  ],
+  directory: 'Schulverzeichnis (auf Französisch)',
+  dir: [['/bapteme/', 'Tandemflüge nach Schule'], ['/stage/', 'Kurse nach Schule'], ['/calendrier/', 'Kurskalender']],
+};
 ---
-<Base title={C.title} description={C.desc} locale={locale} pageKey="home">
-  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
-  <div class="wrap section">
-    <ul class="type-grid">{C.cards.map(([k, h, t]) => <li><a href={href(k as 'baptemeCompare', locale)}><strong>{h}</strong><span>{t}</span></a></li>)}</ul>
-    <section><h2>{C.directory}</h2><ul class="chips-links">{C.dir.map(([u, l]) => <li><a href={u}>{l}</a></li>)}</ul><p class="small muted">{C.note}</p></section>
-  </div>
-</Base>
+{locale === 'en' ? (
+  <Base
+    title={`Tandem flights & paragliding courses ${where}: find a school | Resa Parapente`}
+    description={`Compare paragliding schools ${where} and send a free booking request for a tandem flight or training course. Gift vouchers sold directly by schools.`}
+    locale="en"
+    pageKey="home"
+    jsonLd={jsonLdEn}
+  >
+    <section class="hero">
+      <div class="hero-bar">
+        <div class="wrap">
+          <p><strong>{nTotal} paragliding schools</strong> · {nAll} with at least one published offer</p>
+        </div>
+      </div>
+      <div class="wrap hero-main">
+        <h1>Find your tandem flight or paragliding course</h1>
+        <ChristmasOffer locale="en" />
+      </div>
+      {heroImg
+        ? <picture class="hero-photo">
+            {heroImg.mobile && <source media="(max-width: 700px)" srcset={heroImg.mobile} />}
+            <img src={heroImg.desktop} alt={HERO_ALT.home} width="1280" height="420" fetchpriority="high" />
+          </picture>
+        : <ContourArt />}
+      <Mountains class="hero-mtn" />
+    </section>
+
+    <section class="finder wrap" aria-label="Find a school">
+      <form action="/bapteme/" method="get">
+        <div class="row">
+          <div class="field">
+            <label for="home-q">Which city would you like to fly near?</label>
+            <input id="home-q" name="q" type="search" list="home-towns" autocomplete="off" placeholder="Annecy, Lyon, Chamonix…" />
+            <datalist id="home-towns">{cities.map((t) => <option value={t.name} />)}</datalist>
+            <input type="hidden" id="home-geo" name="geo" value="1" disabled />
+            <button type="button" class="geo-toggle" id="home-geo-btn" aria-pressed="false" hidden>Near me (without entering a city)</button>
+          </div>
+          <button class="btn" type="submit" formaction="/bapteme/">Compare tandem flights</button>
+          <button class="btn ghost" type="submit" formaction="/stage/">Compare courses</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="wrap" aria-label="Plan your flight or course">
+      <div class="journeys">
+        <div class="journey">
+          <h2>Your first tandem flight</h2>
+          <p>Compare flight duration, prices and child-friendly tandem packages.</p>
+          <a href="/en/tandem-paragliding-schools/">Browse tandem schools</a>
+          <a href={href('baptemeCompare', 'en')}>Compare tandem flights</a>
+          <a href={href('giftChristmas', 'en')}>See school gift vouchers</a>
+        </div>
+        <div class="journey">
+          <h2>Learn or progress</h2>
+          <p>Find an introductory course, autonomy training or SIV clinic for your level.</p>
+          <a href="/en/paragliding-course-calendar/">View course dates</a>
+          <a href="/en/paragliding-course-schools/">Browse course schools</a>
+          <a href={href('trainingCost', 'en')}>Cost of full training</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="board-head">
+        <h2 style="margin:0">Schools by region</h2>
+        <span class="muted small">{nTotal} listed schools: {nB} offer tandem flights, {nS} offer courses{lowest ? `, tandem flights from ${eur(lowest)}` : ''}</span>
+      </div>
+      <ul class="region-grid">
+        {regions.map(([r, n]) => (
+          <li>
+            <a class="region-tile" href={regionHref(r)}>
+              <span class="rname">{r}</span>
+              <span class="rcount">{n} tandem school{n > 1 ? 's' : ''}</span>
+              <svg class="rmtn" viewBox="0 0 120 70" fill="currentColor" aria-hidden="true"><path d="M0 70 L38 14 L56 40 L78 6 L120 70Z"/></svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {popular.length > 0 && (
+      <section class="section wrap">
+        <div class="board-head">
+          <h2 style="margin:0">Popular destinations</h2>
+          <span class="muted small"><a href="/bapteme-parapente/">All tandem destinations</a> · <a href="/stage-parapente/">All course destinations</a></span>
+        </div>
+        <ul class="chips-links">{popular.map((p) => <li><a href={pathOf('bapteme', p)}>Paragliding {p.inName}</a></li>)}</ul>
+      </section>
+    )}
+
+    <section class="section wrap">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><h3>Choose a school</h3><p>Compare packages, flight durations and published prices. Filter by distance or region.</p></li>
+        <li><h3>Contact the school</h3><p>{BOOKING.enabled ? 'Send a free booking request online, or contact the school directly.' : 'Follow the link on the school page to request a slot.'} The school confirms the date, price and payment.</p></li>
+        <li><h3>Or give a school voucher</h3><p>Schools that sell their own gift vouchers are listed with a direct link to their sales page.</p></li>
+      </ol>
+    </section>
+
+    <section class="ink-band section" style="margin-top:2rem">
+      <Mountains />
+      <div class="wrap" style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));align-items:center">
+        <div>
+          <h2>Gift a flight: school gift vouchers</h2>
+          <p style="max-width:50ch">Some schools sell their own gift vouchers. We link directly to their sales page: you buy directly from the school, which manages the voucher.</p>
+          <div class="btn-row">
+            <a class="btn on-dark" href={href('giftChristmas', 'en')}>See gift vouchers</a>
+          </div>
+        </div>
+        <p class="muted" style="color:#9fb6cb">Run a paragliding school? <a href="/pour-les-ecoles/?type=bon">List your gift voucher</a> for free.</p>
+      </div>
+    </section>
+
+    <section class="section wrap" aria-labelledby="h-compare-en" style="padding-top:3rem">
+      <h2 id="h-compare-en">Compare before booking</h2>
+      <ul class="type-grid">
+        <li><a href={href('baptemeCompare', 'en')}><strong>Compare tandem flights</strong><span>Price, flight time, photo/video, cable car and total cost</span></a></li>
+        <li><a href={href('baptemeGuide', 'en')}><strong>Which flight to choose?</strong><span>First flight, child, thrill, budget</span></a></li>
+        <li><a href={href('trainingCost', 'en')}><strong>Cost of full training</strong><span>Total cost up to the licence, school by school</span></a></li>
+        <li><a href={href('whenStart', 'en')}><strong>When can I start?</strong><span>Upcoming introductory course dates</span></a></li>
+        <li><a href={href('trainingPath', 'en')}><strong>Pathway and licences</strong><span>Steps, exams and deadlines to become a pilot</span></a></li>
+        <li><a href={href('jump', 'en')}><strong>Tandem paragliding jump</strong><span>Prices, flight time and tandem packages</span></a></li>
+      </ul>
+    </section>
+
+    <section class="section wrap trust" aria-labelledby="h-trust-en" style="padding-top:2rem">
+      <h2 id="h-trust-en">Why use ResaParapente</h2>
+      <ul class="trust-grid">
+        <li><h3>Free, no payment on site</h3><p>You send a free request to the school. Nothing is paid here: the school replies and arranges payment with you.</p></li>
+        <li><h3>Dated prices</h3><p>Each package shows when its price was checked on the school’s website.</p></li>
+        <li><h3>Direct school listings</h3><p>{schools.length} schools listed with links to their official websites. Gift vouchers are sold by the schools themselves.</p></li>
+        <li><h3>Spot an error?</h3><p>Every school page includes a link to report outdated or incorrect details.</p></li>
+      </ul>
+    </section>
+
+    <section class="section wrap" aria-labelledby="h-faq-en" style="padding-top:2rem">
+      <h2 id="h-faq-en">Frequently asked questions</h2>
+      <div class="faq">
+        {faqEn.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+      </div>
+    </section>
+  </Base>
+) : (
+  <Base title={deData.title} description={deData.desc} locale={locale} pageKey="home">
+    <div class="page-head"><div class="wrap"><h1>{deData.h1}</h1><p class="lead">{deData.lead}</p></div><Mountains /></div>
+    <div class="wrap section">
+      <ul class="type-grid">{deData.cards.map(([k, h, t]) => <li><a href={href(k as 'baptemeCompare', locale)}><strong>{h}</strong><span>{t}</span></a></li>)}</ul>
+      <section><h2>{deData.directory}</h2><ul class="chips-links">{deData.dir.map(([u, l]) => <li><a href={u}>{l}</a></li>)}</ul><p class="small muted">{deData.note}</p></section>
+    </div>
+  </Base>
+)}
+<script>
+  const btn = document.getElementById('home-geo-btn'), flag = document.getElementById('home-geo'), q = document.getElementById('home-q');
+  if (btn && flag && q && 'geolocation' in navigator) {
+    btn.hidden = false;
+    btn.addEventListener('click', () => {
+      const on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on)); flag.disabled = !on; q.disabled = on; if (on) q.value = '';
+    });
+  }
+</script>

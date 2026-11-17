@@ -11,8 +11,11 @@ if (form) {
   if (location.hash === '#donner-mon-avis') box.open = true;
   const okEmail = (x) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x);
   const v = (id) => $(id).value.trim();
-  form.addEventListener('submit', (e) => {
+  let pending = false;
+  const button = form.querySelector('button[type=submit]');
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (pending) return;
     const errs = [];
     const rating = Number((form.querySelector('input[name=rating]:checked') || {}).value || 0);
     const min = Number(form.dataset.min) || 40;
@@ -32,11 +35,30 @@ if (form) {
     const payload = {
       schoolId: form.dataset.schoolId, token: token || null, rating, kind: v('#r-kind'), experienceMonth: v('#r-month'),
       title: v('#r-title') || null, text: v('#r-text'), author: { first: v('#r-name'), last: v('#r-last'), email: v('#r-email') },
+      honest: true, consent: true, website: form.elements.website.value,
     };
-    // TODO(developer): POST payload as JSON to form.dataset.endpoint; on success show the confirmation below.
-    window.rpTrack?.('submit_review', { school_id: payload.schoolId, rating, verified: !!token });
-    msg.classList.add('ok');
-    msg.innerHTML = `<strong>Avis prêt (maquette : rien n’est encore envoyé).</strong><br>Note ${rating}/5 pour ${form.dataset.school}. Quand le serveur sera raccordé, vous recevrez un email de confirmation ; l’avis sera relu par une personne avant publication, sous 7 jours.`;
-    msg.focus();
+    pending = true;
+    if (button) button.disabled = true;
+    msg.textContent = 'Envoi en cours…';
+    try {
+      const res = await fetch(form.dataset.endpoint, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload), signal: AbortSignal.timeout(12000),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || 'Envoi indisponible. Réessayez dans un instant.');
+      window.rpTrack?.('submit_review', { school_id: payload.schoolId, rating, verified: out.verification === 'Demande vérifiée' });
+      msg.classList.add('ok');
+      msg.innerHTML = `<strong>Avis envoyé (${rating}/5 pour ${form.dataset.school}).</strong><br>Vous allez recevoir un email de confirmation ; votre avis sera relu par une personne avant publication, sous 7 jours.`;
+      form.reset();
+    } catch (err) {
+      msg.classList.add('error');
+      msg.textContent = err.name === 'TimeoutError' || err instanceof TypeError
+        ? 'Envoi non confirmé. Réessayez dans un instant.' : err.message;
+    } finally {
+      pending = false;
+      if (button) button.disabled = false;
+      msg.focus();
+    }
   });
 }

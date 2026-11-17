@@ -6,4 +6,6 @@ BOOKING_FROM="Resa Parapente <demandes@resaparapente.fr>"
 BOOKING_TEST_TO=your-test-email@example.com
 BOOKING_TEAM_TO=contact@resaparapente.fr
 EXPORT_TOKEN=replace-with-at-least-32-random-characters
+ACTION_SECRET=replace-with-random-hmac-secret
+TURNSTILE_SECRET_KEY=
 GOOGLE_PLACES_API_KEY=

@@ -1,42 +1,112 @@
 ---
 import CountryNav from './CountryNav.astro';
+import BrandLogo from './BrandLogo.astro';
 import { SITE } from '../config';
 import { STAGE_TYPES } from '../data/stage-types';
 import { WHY_MENU, WHY_ROOT } from '../data/why-fly';
 import { LEARN_MENU } from '../data/learn';
-const { current, enHref } = Astro.props as { current: string; enHref?: string };
-const stageSub = [{ href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' }, { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' }, { href: '/cursus-brevets-parapente/', label: 'Parcours et brevets' }, { href: '/calendrier/', label: 'Prochains stages' }, ...STAGE_TYPES.map((t) => ({ href: `/stage/${t.slug}/`, label: t.menu }))];
+import { href, alternatesOf, type Locale } from '../i18n/ui';
+import { PAGES } from '../i18n/routes.mjs';
+
+const { current, enHref, locale = 'fr', pageKey, alternates: altProp } = Astro.props as {
+  current: string;
+  enHref?: string;
+  locale?: Locale;
+  pageKey?: keyof typeof PAGES;
+  alternates?: { locale: Locale; href: string }[];
+};
+
+const isEn = locale === 'en';
+const homeHref = isEn ? '/en/' : '/';
+
+const stageSub = isEn
+  ? [
+      { href: href('trainingCost', 'en'), label: 'Cost of full training' },
+      { href: href('whenStart', 'en'), label: 'When can I start?' },
+      { href: href('trainingPath', 'en'), label: 'Pathway and licences' },
+      { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses' },
+      { href: '/en/paragliding-course-schools/', label: 'All course schools' },
+    ]
+  : [
+      { href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' },
+      { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' },
+      { href: '/cursus-brevets-parapente/', label: 'Parcours et brevets' },
+      { href: '/calendrier/', label: 'Prochains stages' },
+      ...STAGE_TYPES.map((t) => ({ href: `/stage/${t.slug}/`, label: t.menu })),
+    ];
+
 const GUIDE = '/bapteme/biplace-saut-en-parapente/';
-const baptemeSub = [
-  { href: '/bapteme/', label: 'Trouver un baptême' },
-  { href: '/comparateur-baptemes-parapente/', label: 'Comparateur de baptêmes' },
-  { href: '/quel-bapteme-parapente-choisir/', label: 'Quel baptême choisir ?' },
-  { href: '/saut-en-parapente/', label: 'Saut en parapente' },
-  { href: GUIDE, label: 'Biplace : le guide' },
-  { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau pour Noël' },
-];
-const links = [
-  { href: '/bapteme/', label: 'Baptême', sub: baptemeSub },
-  { href: '/stage/', label: 'Stage', sub: stageSub },
-  { href: '/apprendre/', label: 'Apprendre le parapente', sub: LEARN_MENU },
-  { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau' },
-];
-const isCurrent = (l: { href: string; sub?: { href: string }[] }) => current.startsWith(l.href) || (l.sub?.some((x) => x.href !== '/' && current.startsWith(x.href)) ?? false);
+const baptemeSub = isEn
+  ? [
+      { href: '/en/tandem-paragliding-schools/', label: 'Find a tandem flight' },
+      { href: href('baptemeCompare', 'en'), label: 'Tandem flight comparison' },
+      { href: href('baptemeGuide', 'en'), label: 'Which flight to choose?' },
+      { href: href('jump', 'en'), label: 'Tandem paragliding jump' },
+      { href: href('giftChristmas', 'en'), label: 'Gift voucher' },
+    ]
+  : [
+      { href: '/bapteme/', label: 'Trouver un baptême' },
+      { href: '/comparateur-baptemes-parapente/', label: 'Comparateur de baptêmes' },
+      { href: '/quel-bapteme-parapente-choisir/', label: 'Quel baptême choisir ?' },
+      { href: '/saut-en-parapente/', label: 'Saut en parapente' },
+      { href: GUIDE, label: 'Biplace : le guide' },
+      { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau pour Noël' },
+    ];
+
+const whyItems = isEn
+  ? [
+      { href: '/pourquoi-voler/', label: 'Why fly? (FR)' },
+      { href: '/pourquoi-voler/les-plaisirs-du-parapente/', label: 'The joys of paragliding (FR)' },
+      { href: '/pourquoi-voler/histoire-du-parapente/', label: 'History of paragliding (FR)' },
+    ]
+  : WHY_MENU;
+
+const learnItems = isEn
+  ? [
+      { href: '/apprendre/', label: 'Learn paragliding (FR)' },
+      { href: '/apprendre/premier-stage/', label: 'Prepare your first course (FR)' },
+      { href: '/apprendre/brevets/', label: 'Licences & ratings (FR)' },
+      { href: '/apprendre/cours/', label: 'Theory modules (FR)' },
+    ]
+  : LEARN_MENU;
+
+const links = isEn
+  ? [
+      { href: '/en/tandem-paragliding-schools/', label: 'Tandem flights', sub: baptemeSub },
+      { href: '/en/paragliding-course-schools/', label: 'Courses', sub: stageSub },
+      { href: '/apprendre/', label: 'Learn to fly', sub: learnItems },
+      { href: href('giftChristmas', 'en'), label: 'Gift voucher' },
+      { href: 'https://locawing.fr/', label: 'Christmas Offer' },
+    ]
+  : [
+      { href: '/bapteme/', label: 'Baptême', sub: baptemeSub },
+      { href: '/stage/', label: 'Stage', sub: stageSub },
+      { href: '/apprendre/', label: 'Apprendre le parapente', sub: learnItems },
+      { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau' },
+      { href: 'https://locawing.fr/', label: 'Offre Noël' },
+    ];
+
+const isCurrent = (l: { href: string; sub?: { href: string }[] }) =>
+  current.startsWith(l.href) || (l.sub?.some((x) => x.href !== '/' && current.startsWith(x.href)) ?? false);
+
+const alternates = altProp ?? (pageKey ? alternatesOf(pageKey) : []);
+const frHref = alternates.find((a) => a.locale === 'fr')?.href ?? '/';
+const targetEnHref = enHref ?? alternates.find((a) => a.locale === 'en')?.href ?? '/en/';
 ---
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/" aria-label={`${SITE.name} : accueil`}>
-      <img src="/images/brand/logo.png" srcset="/images/brand/logo.png 1x, /images/brand/logo@2x.png 2x" alt={SITE.name} width="200" height="42" />
+    <a class="brand" href={homeHref} aria-label={`${SITE.name} : ${isEn ? 'home' : 'accueil'}`}>
+      {isEn ? <BrandLogo /> : <img src="/images/brand/logo.png" srcset="/images/brand/logo.png 1x, /images/brand/logo@2x.png 2x" alt={SITE.name} width="200" height="42" />}
     </a>
-    <nav class="nav" aria-label="Navigation principale">
+    <nav class="nav" aria-label={isEn ? 'Main navigation' : 'Navigation principale'}>
       <ul>
         <li class="has-sub why-nav">
           <details id="why-navigation">
             <summary class:list={{ active: current.startsWith(WHY_ROOT) }}>
-              Pourquoi voler <span class="caret" aria-hidden="true"></span>
+              {isEn ? 'Why fly' : 'Pourquoi voler'} <span class="caret" aria-hidden="true"></span>
             </summary>
             <ul class="sub">
-              {WHY_MENU.map((item) => <li><a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>)}
+              {whyItems.map((item) => <li><a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>)}
             </ul>
           </details>
         </li>
@@ -52,7 +122,12 @@ const isCurrent = (l: { href: string; sub?: { href: string }[] }) => current.sta
         ))}
       </ul>
     </nav>
-    {enHref && <nav class="lang-switch" aria-label="Langue"><a href="/" hreflang="fr" lang="fr" aria-current="true">FR</a><a href={enHref} hreflang="en" lang="en">EN</a></nav>}
+    {(targetEnHref || isEn) && (
+      <nav class="lang-switch" aria-label={isEn ? 'Language' : 'Langue'}>
+        <a href={frHref} hreflang="fr" lang="fr" aria-current={!isEn ? 'true' : undefined}>FR</a>
+        <a href={targetEnHref} hreflang="en" lang="en" aria-current={isEn ? 'true' : undefined}>EN</a>
+      </nav>
+    )}
     <CountryNav />
   </div>
 </header>

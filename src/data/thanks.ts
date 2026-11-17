@@ -21,3 +21,14 @@ export const THANKS = {
     { name: 'Bandana MonParapente', status: 'soon' as 'soon' | 'online', url: 'https://monparapente.fr/' },
   ],
 };
+
+// Christmas / New Year special offer (Locawing). Replace `promoCode` and the 2 `url`s once live on locawing.fr.
+export const CHRISTMAS_OFFER = {
+  enabled: true,
+  promoCode: 'NOEL10',
+  discount: { FR: '10 €', BE: '10 €', CH: '10 CHF' } as const,
+  products: [
+    { nameFr: 'T-shirt de parapente', nameEn: 'Paragliding T-shirt', nameDe: 'Gleitschirm-T-Shirt', url: 'https://locawing.fr/' },
+    { nameFr: 'Tour de cou « Je vole »', nameEn: '“Je vole” Neck Warmer', nameDe: 'Schlauchschal « Je vole »', url: 'https://locawing.fr/' },
+  ],
+};

@@ -31,9 +31,13 @@ if (form) {
   if (wanted) { const c = $(`input[name=topic][value=${wanted}]`, form); if (c) c.checked = true; }
   sync();
 
-  form.addEventListener('submit', (e) => {
+  let pending = false;
+  const button = $('button[type=submit]', form);
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (pending) return;
     const v = (n) => (form.elements[n]?.value || '').trim();
+    if (v('website')) return;
     const topics = $$('input[name=topic]:checked', form).map((c) => c.value);
     const errs = [];
     if (!v('school')) errs.push('Indiquez le nom de l’école.');
@@ -52,12 +56,31 @@ if (form) {
       sessions: topics.includes('stage') ? rows : [], bapteme: topics.includes('bapteme') ? { text: v('bapteme'), url: v('bapteme-url') } : null,
       gift: topics.includes('bon') ? { name: v('gift-name'), url: v('gift-url'), price: v('gift-price'), validity: v('gift-validity') } : null,
       promo: topics.includes('promo') ? { title: v('promo-title'), price: v('promo-price'), regular: v('promo-regular'), start: v('promo-start'), end: v('promo-end'), conditions: v('promo-conditions'), url: v('promo-url') } : null,
-      message: v('msg'),
+      message: v('msg'), consent: true, website: v('website'),
     };
-    window.rpTrack?.('school_submission', { topics: topics.join(',') });
-    // TODO(developer): POST payload as JSON to form.dataset.endpoint; the team reviews it, then adds it to the workbook (docs/COLLECTE-DES-STAGES.md).
-    msg.classList.add('ok');
-    msg.innerHTML = `<strong>Envoi prêt (maquette : rien n’est encore envoyé).</strong><br>${payload.school} : ${topics.length} type${topics.length > 1 ? 's' : ''} d’information, dont ${payload.sessions.length} date${payload.sessions.length > 1 ? 's' : ''} de stage. Quand le serveur sera raccordé, l’équipe recevra ce message, relira les informations et les publiera.`;
-    msg.focus();
+    pending = true;
+    if (button) button.disabled = true;
+    msg.textContent = 'Envoi en cours…';
+    try {
+      const res = await fetch(form.dataset.endpoint, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload), signal: AbortSignal.timeout(12000),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || 'Envoi indisponible. Réessayez ou écrivez à contact@resaparapente.fr.');
+      window.rpTrack?.('school_submission', { topics: topics.join(',') });
+      msg.classList.add('ok');
+      msg.innerHTML = `<strong>Informations transmises.</strong><br>${payload.school} : ${topics.length} type${topics.length > 1 ? 's' : ''} d’information, dont ${payload.sessions.length} date${payload.sessions.length > 1 ? 's' : ''} de stage. Notre équipe va relire ces éléments avant publication.`;
+      form.reset();
+      sync();
+    } catch (err) {
+      msg.classList.add('error');
+      msg.textContent = err.name === 'TimeoutError' || err instanceof TypeError
+        ? 'Envoi non confirmé. Réessayez dans un instant.' : err.message;
+    } finally {
+      pending = false;
+      if (button) button.disabled = false;
+      msg.focus();
+    }
   });
 }

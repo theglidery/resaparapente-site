@@ -7,6 +7,7 @@ import Mountains from '../components/Mountains.astro';
 import { posts, dateLong } from '../data/blog';
 import { heroImage } from '../lib/images';
 import { HERO_ALT, BOOKING } from '../config';
+import ChristmasOffer from '../components/ChristmasOffer.astro';
 
 const nB = withOffers('bapteme').length;
 const nS = withOffers('stage').length;
@@ -49,6 +50,7 @@ const jsonLd = [
     </div>
     <div class="wrap hero-main">
       <h1>Trouvez votre baptême ou stage de parapente</h1>
+      <ChristmasOffer locale="fr" />
     </div>
     {heroImg
       ? <picture class="hero-photo">

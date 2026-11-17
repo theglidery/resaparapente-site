@@ -1,0 +1,63 @@
+---
+import { MARKET } from '../config';
+import { CHRISTMAS_OFFER } from '../data/thanks';
+import type { Locale } from '../i18n/ui';
+
+const { locale = 'fr' } = Astro.props as { locale?: Locale };
+const amount = CHRISTMAS_OFFER.discount[MARKET.code as 'FR' | 'CH' | 'BE'] ?? '10 €';
+const copy =
+  locale === 'en'
+    ? `This Christmas, gift a flight and a keepsake to wear: with every tandem flight or gift voucher booked, enjoy ${amount} off a paragliding T-shirt or “Je vole” neck warmer.`
+    : locale === 'de'
+      ? `Zu Weihnachten einen Flug verschenken und eine Erinnerung tragen: Bei jeder Tandemflug-Buchung oder jedem Gutscheinkauf erhalten Sie ${amount} Rabatt auf ein Gleitschirm-T-Shirt oder einen Schlauchschal « Je vole ».`
+      : `À Noël, un vol à offrir. Un souvenir à porter : Pour tout baptême réservé ou bon cadeau acheté, profitez de ${amount} de réduction sur un t-shirt de parapente ou un tour de cou « Je vole ».`;
+const codeLabel = locale === 'en' ? 'Promo code:' : locale === 'de' ? 'Gutscheincode:' : 'Code promo :';
+---
+{CHRISTMAS_OFFER.enabled && (
+  <div class="xmas-hero-offer">
+    <p class="xmas-copy">{copy}</p>
+    <p class="xmas-links">
+      <span class="xmas-code">{codeLabel} <strong>{CHRISTMAS_OFFER.promoCode}</strong></span>
+      {CHRISTMAS_OFFER.products.map((p) => (
+        <a href={p.url} target="_blank" rel="noopener noreferrer">
+          {locale === 'en' ? p.nameEn : locale === 'de' ? p.nameDe : p.nameFr} (Locawing) ↗
+        </a>
+      ))}
+    </p>
+  </div>
+)}
+<style>
+  .xmas-hero-offer {
+    margin-top: 0.9rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: rgba(13, 36, 56, 0.84);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #fff;
+    max-width: 68ch;
+  }
+  .xmas-copy {
+    margin: 0 0 0.45rem;
+    font-size: 0.96rem;
+    line-height: 1.4;
+  }
+  .xmas-links {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+  .xmas-code {
+    background: #ea580c;
+    color: #fff;
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+  }
+  .xmas-links a {
+    color: #fde68a;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+</style>

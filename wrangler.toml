@@ -3,6 +3,6 @@ pages_build_output_dir = "dist"
 compatibility_date = "2026-01-01"
 
 [[d1_databases]]
-binding = "CONTACTS_DB"
+binding = "resaparapente_contacts"
 database_name = "resaparapente-contacts"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "f6f8243b-8c23-4350-b5c1-4d04db59a279"

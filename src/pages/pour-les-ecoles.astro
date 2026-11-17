@@ -95,6 +95,7 @@ const levels = LEVELS.filter((l) => l.key !== 'autre');
         </fieldset>
 
         <div class="field"><label for="f-msg">Message (facultatif)</label><textarea id="f-msg" name="msg" rows="3"></textarea></div>
+        <div class="hp" aria-hidden="true"><label>Ne pas remplir <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
         <label class="check"><input type="checkbox" id="f-consent" /> <span>Je confirme avoir le droit de publier ces informations au nom de l’école et j’accepte qu’elles soient traitées par TheGlidery, éditeur de ResaParapente, comme décrit dans la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</span></label>
         <button class="btn" type="submit" style="margin-top:1rem">Envoyer à l’équipe ResaParapente</button>
         <div id="school-msg" role="status" class="small" tabindex="-1" style="margin-top:0.8rem"></div>

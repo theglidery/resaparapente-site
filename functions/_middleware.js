@@ -36,7 +36,8 @@ export async function onRequest(context) {
   }
   if (market === 'FR') return next();
   if (!market) {
-    const response = new Response(await next());
+    const upstream = await next();
+    const response = new Response(upstream.body, upstream);
     response.headers.set('X-Robots-Tag', 'noindex');
     return response;
   }
