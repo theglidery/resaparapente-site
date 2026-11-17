@@ -1,4 +1,4 @@
-import directory from '../../server/booking-directory.json' with { type: 'json' };
+import directory from '../../server/booking-directory.json';
 import { escHtml, sendEmail, verifyActionToken, text } from '../_lib/common.js';
 
 const ACTIONS = {

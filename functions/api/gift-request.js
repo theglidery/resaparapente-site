@@ -1,7 +1,7 @@
 // Gift voucher request (option B): relays the buyer's request to the school's professional address. ResaParapente sells nothing.
 // Needs RESEND_API_KEY and BOOKING_FROM (same as the booking function). GIFT_TEST_TO redirects every message to a test mailbox.
 // A school whose relay is "Non" in the workbook (sheet Écoles) is never relayed to: the directory is exported by scripts/export-data.py.
-import directory from '../../server/gift-directory.json' with { type: 'json' };
+import directory from '../../server/gift-directory.json';
 
 const respond = (status, body) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
 const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;

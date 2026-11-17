@@ -1,5 +1,5 @@
-import schools from '../src/data/schools.json' with { type: 'json' };
-import directory from './booking-directory.json' with { type: 'json' };
+import schools from '../src/data/schools.json';
+import directory from './booking-directory.json';
 import { sendEmail, signActionToken } from '../functions/_lib/common.js';
 
 // Standalone Cloudflare Worker for daily scheduled tasks (cron: "0 3 * * *" UTC):

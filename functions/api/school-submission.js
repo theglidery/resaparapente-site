@@ -1,4 +1,4 @@
-import directory from '../../server/booking-directory.json' with { type: 'json' };
+import directory from '../../server/booking-directory.json';
 import {
   respond,
   emailPattern,
