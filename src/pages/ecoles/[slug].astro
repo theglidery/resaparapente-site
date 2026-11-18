@@ -70,7 +70,7 @@ const today = new Date(Date.now() + BOOKING.minDaysAhead * 864e5).toISOString().
 
 const pageUrl = `${SITE.url}/ecoles/${s.slug}/`;
 const orgId = `${pageUrl}#ecole`;
-const introText = s.fiche?.presentation || schoolIntro(s);
+const introText = s.desc ?? schoolIntro(s);
 const nearby = nearbySchools(s, hasB ? 'bapteme' : 'stage', 6);
 const localLinks = placeLinksFor(s);
 const mainKind = hasB ? 'bapteme' : 'stage';
