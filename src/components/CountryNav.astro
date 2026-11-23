@@ -3,8 +3,37 @@ import { MARKET, marketLinks } from '../config';
 ---
 <nav class="country-nav" aria-label="Choisir un pays">
   {marketLinks.map((country) => (
-    <a href={country.href} aria-current={MARKET.code === country.code ? 'true' : undefined} lang={country.locale}>
-      {country.label}
-    </a>
+    <div class="country-item">
+      <a href={`/bapteme/?pays=${country.code}`} aria-current={MARKET.code === country.code ? 'true' : undefined} lang={country.locale}>
+        {country.label}
+      </a>
+      <ul class="country-sub">
+        <li><a href={`/bapteme/?pays=${country.code}`}>Baptêmes</a></li>
+        <li><a href={`/stage/?pays=${country.code}`}>Stages</a></li>
+      </ul>
+    </div>
   ))}
 </nav>
+<style>
+  .country-nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; }
+  .country-item { position: relative; }
+  .country-sub {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0.35rem 0;
+    min-width: 8.5rem;
+    background: var(--white, #fff);
+    border: 1px solid var(--line, #dbe2ea);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(13, 36, 56, 0.12);
+    z-index: 40;
+  }
+  .country-item:hover .country-sub,
+  .country-item:focus-within .country-sub { display: block; }
+  .country-sub a { display: block; padding: 0.35rem 0.75rem; font-size: 0.9rem; text-decoration: none; }
+  .country-sub a:hover { background: var(--sky-tint, #eff6ff); }
+</style>

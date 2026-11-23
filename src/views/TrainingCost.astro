@@ -96,8 +96,36 @@ const C = {
 const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: C.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
 ---
 <Base title={C.title} description={C.desc} locale={locale} pageKey="trainingCost" jsonLd={faq}>
-  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
-  <div class="wrap section cmp" data-cmp="path">
+  <div class="page-head" style="padding-bottom:0.8rem"><div class="wrap"><h1>{C.h1}</h1><p class="lead" style="margin-bottom:0">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section cmp" data-cmp="path" style="padding-top:0.8rem">
+    <section style="margin-top:0">
+      <h2 style="margin-top:0">{C.estTitle}</h2>
+      <p>{C.estLead}</p>
+      <p class="btn-row path-presets">{C.presets.map((l, i) => <button type="button" class="chip" data-preset={[[1, 0, 0], [1, 2, 0], [def.initiation, def.progression, def.perfectionnement]][i].join(',')}>{l}</button>)}</p>
+      <form class="filters cmp-filters path-filters" id="path-form" onsubmit="return false" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));gap:0.75rem;align-items:end">
+        {STEPS.map((k) => <label style="display:grid;gap:0.25rem;font-size:0.88rem"><span>{sName(k)} ({C.stages})</span><input type="number" name={k} min="0" max={asm(k).maxStages} step="1" value={def[k]} data-price-key={k} /></label>)}
+        <label style="display:grid;gap:0.25rem;font-size:0.88rem"><span>{C.region}</span><select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
+        <label style="display:grid;gap:0.25rem;font-size:0.88rem"><span>{C.gear}</span><input type="number" name="gear" min="0" step="50" inputmode="numeric" /></label>
+        {examTotal > 0 && <label class="check" style="grid-column:1/-1"><input type="checkbox" name="exams" checked data-exams={examTotal} /> {C.exams}</label>}
+        <p class="small muted" style="grid-column:1/-1;margin:0">{C.gearHelp} {C.hypo} : {asm('initiation').status === 'Validé' ? '' : C.toValidate}.</p>
+      </form>
+      <p class="small muted">{C.covered(rows.length)}</p>
+      <p class="cmp-count" role="status" aria-live="polite"><strong id="path-n">{rows.length}</strong> {C.shown}</p>
+      <div class="table-wrap"><table class="data-table cmp-table">
+        <thead><tr><th>{C.cSchool}</th><th>{C.cSteps}</th><th>{C.cTotal}</th><th></th></tr></thead>
+        <tbody id="path-body">
+          {rows.map(({ r, est }) => <tr class="path-row" data-region={r.region ?? ''} data-currency={cur} {...Object.fromEntries(STEPS.map((k) => ['data-p-' + k, r.steps[k]?.price ?? '']))}>
+            <th scope="row"><strong>{r.school}</strong><span class="small muted">{r.city ?? ''}{r.region ? ` · ${r.region}` : ''}</span></th>
+            <td class="small" data-label={C.cSteps}>{STEPS.map((k) => r.steps[k] ? <span class="step-line" data-step={k}><strong>{sName(k)}</strong> : {r.steps[k]!.offer}, {money(r.steps[k]!.price, locale)} · <a href={r.steps[k]!.url ?? schoolHref(r.slug, locale)} target="_blank" rel="noopener">{host(r.steps[k]!.url) || C.go}</a></span> : null)}</td>
+            <td data-label={C.cTotal}><strong class="path-total">{money(est as number, locale)}</strong></td>
+            <td><a class="btn small ghost" href={schoolHref(r.slug, locale)}>{C.go}</a></td>
+          </tr>)}
+        </tbody>
+      </table></div>
+      <p class="empty" id="path-empty" hidden>{C.none}</p>
+      <p class="small muted">{C.skipped}</p>
+    </section>
+
     <section class="notice"><strong>{C.how}</strong><ul>{C.howText.map((t) => <li>{t}</li>)}</ul></section>
 
     <section>
@@ -114,34 +142,6 @@ const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: 
           <td class="small" data-label={C.pkgCols[6]}>{p.remains}<span class="muted"><a href={p.url} target="_blank" rel="noopener">{host(p.url)}</a> · {dateLoc(p.checked, locale, { day: 'numeric', month: 'short', year: 'numeric' })}</span></td>
         </tr>)}</tbody>
       </table></div> : <p class="empty">{C.pkgNone}</p>}
-    </section>
-
-    <section>
-      <h2>{C.estTitle}</h2>
-      <p>{C.estLead}</p>
-      <form class="filters cmp-filters" id="path-form" onsubmit="return false">
-        {STEPS.map((k) => <label>{sName(k)} ({C.stages})<input type="number" name={k} min="0" max={asm(k).maxStages} step="1" value={def[k]} data-price-key={k} /></label>)}
-        <label>{C.region}<select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
-        <label>{C.gear}<input type="number" name="gear" min="0" step="50" inputmode="numeric" /></label>
-        {examTotal > 0 && <label class="check"><input type="checkbox" name="exams" checked data-exams={examTotal} /> {C.exams}</label>}
-        <p class="small muted" style="grid-column:1/-1;margin:0">{C.gearHelp} {C.hypo} : {asm('initiation').status === 'Validé' ? '' : C.toValidate}.</p>
-      </form>
-      <p class="btn-row path-presets">{C.presets.map((l, i) => <button type="button" class="chip" data-preset={[[1, 0, 0], [1, 2, 0], [def.initiation, def.progression, def.perfectionnement]][i].join(',')}>{l}</button>)}</p>
-      <p class="small muted">{C.covered(rows.length)}</p>
-      <p class="cmp-count" role="status" aria-live="polite"><strong id="path-n">{rows.length}</strong> {C.shown}</p>
-      <div class="table-wrap"><table class="data-table cmp-table">
-        <thead><tr><th>{C.cSchool}</th><th>{C.cSteps}</th><th>{C.cTotal}</th><th></th></tr></thead>
-        <tbody id="path-body">
-          {rows.map(({ r, est }) => <tr class="path-row" data-region={r.region ?? ''} data-currency={cur} {...Object.fromEntries(STEPS.map((k) => ['data-p-' + k, r.steps[k]?.price ?? '']))}>
-            <th scope="row"><strong>{r.school}</strong><span class="small muted">{r.city ?? ''}{r.region ? ` · ${r.region}` : ''}</span></th>
-            <td class="small" data-label={C.cSteps}>{STEPS.map((k) => r.steps[k] ? <span class="step-line"><strong>{sName(k)}</strong> : {r.steps[k]!.offer}, {money(r.steps[k]!.price, locale)} · <a href={r.steps[k]!.url ?? schoolHref(r.slug, locale)} target="_blank" rel="noopener">{host(r.steps[k]!.url) || C.go}</a></span> : null)}</td>
-            <td data-label={C.cTotal}><strong class="path-total">{money(est as number, locale)}</strong></td>
-            <td><a class="btn small ghost" href={schoolHref(r.slug, locale)}>{C.go}</a></td>
-          </tr>)}
-        </tbody>
-      </table></div>
-      <p class="empty" id="path-empty" hidden>{C.none}</p>
-      <p class="small muted">{C.skipped}</p>
     </section>
 
     <section>

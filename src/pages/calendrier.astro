@@ -17,11 +17,15 @@ const norm = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCa
 const schoolBy = new Map(schools.map((x) => [x.id, x]));
 const levelOf = (offerId: string, schoolId: string) => schoolBy.get(schoolId)?.stages.find((o) => o.id === offerId)?.levelKey ?? 'autre';
 // data-* attributes understood by the shared filters (src/scripts/filters-lib.js)
-const attrs = (x: typeof upcoming[number]) => ({
-  'data-name': norm(x.school), 'data-city': norm(x.city ?? ''), 'data-dept': norm(x.dept ?? ''), 'data-region': x.region ?? '',
-  'data-near': (schoolBy.get(x.schoolId)?.nearCities ?? []).map(norm).join('|'), 'data-lat': x.lat ?? '', 'data-lng': x.lng ?? '',
-  'data-levels': levelOf(x.offerId, x.schoolId), 'data-start': x.start,
-});
+const attrs = (x: typeof upcoming[number]) => {
+  const sc = schoolBy.get(x.schoolId);
+  return {
+    'data-name': norm(x.school), 'data-city': norm(x.city ?? ''), 'data-dept': norm(x.dept ?? ''), 'data-region': x.region ?? '',
+    'data-country': sc?.country || 'FR', 'data-lang': norm(sc?.fiche?.langues || ''),
+    'data-near': (sc?.nearCities ?? []).map(norm).join('|'), 'data-lat': x.lat ?? '', 'data-lng': x.lng ?? '',
+    'data-levels': levelOf(x.offerId, x.schoolId), 'data-start': x.start,
+  };
+};
 const levelCount = (k: string) => upcoming.filter((x) => levelOf(x.offerId, x.schoolId) === k).length;
 const levels = LEVELS.filter((l) => l.key !== 'autre').map((l) => ({ key: l.key, name: l.name, n: levelCount(l.key) }));
 const monthKeys = [...new Set(upcoming.map((x) => x.start.slice(0, 7)))].sort();
@@ -97,7 +101,7 @@ const gridData = upcoming.map((s) => ({ id: s.id, school: s.school, name: s.name
       <h2>Écoles sans dates publiées</h2>
       <p>Ces écoles proposent des stages mais n’affichent pas de dates en ligne. Contactez-les pour connaître les prochaines sessions.</p>
       <details class="more" open={upcoming.length < CALENDAR.minSessions}><summary>Voir les <span id="nodates-count">{noDates.length}</span> écoles</summary>
-        <ul class="sites" style="margin-top:0.8rem" id="nodates">{noDates.map((s) => <li data-nodate data-name={norm(s.name)} data-city={norm(s.city ?? '')} data-dept={norm(s.dept ?? '')} data-region={s.region ?? ''} data-near={s.nearCities.map(norm).join('|')} data-lat={s.lat ?? ''} data-lng={s.lng ?? ''} data-levels={[...new Set(s.stages.map((o) => o.levelKey))].join(' ')}><a href={`/ecoles/${s.slug}/?parcours=stage`}>{s.name}</a></li>)}</ul>
+        <ul class="sites" style="margin-top:0.8rem" id="nodates">{noDates.map((s) => <li data-nodate data-name={norm(s.name)} data-city={norm(s.city ?? '')} data-dept={norm(s.dept ?? '')} data-region={s.region ?? ''} data-country={s.country || 'FR'} data-lang={norm(s.fiche?.langues || '')} data-near={s.nearCities.map(norm).join('|')} data-lat={s.lat ?? ''} data-lng={s.lng ?? ''} data-levels={[...new Set(s.stages.map((o) => o.levelKey))].join(' ')}><a href={`/ecoles/${s.slug}/?parcours=stage`}>{s.name}</a></li>)}</ul>
       </details>
     </section>
   </div>
@@ -120,7 +124,7 @@ const gridData = upcoming.map((s) => ({ id: s.id, school: s.school, name: s.name
     const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const fmtMonth = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' });
     const iso = (d) => [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
-    const toItem = (a) => ({ name: a['data-name'], city: a['data-city'], dept: a['data-dept'], region: a['data-region'], near: (a['data-near'] || '').split('|').filter(Boolean),
+    const toItem = (a) => ({ name: a['data-name'], city: a['data-city'], dept: a['data-dept'], region: a['data-region'], country: a['data-country'] || 'FR', lang: a['data-lang'] || '', near: (a['data-near'] || '').split('|').filter(Boolean),
       lat: parseFloat(a['data-lat']), lng: parseFloat(a['data-lng']), levels: (a['data-levels'] || '').split(' ').filter(Boolean), start: a['data-start'] || '' });
     const okSession = (s) => !F || !st || F.match(toItem(s.a), st).ok;
 

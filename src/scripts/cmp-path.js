@@ -24,7 +24,15 @@ if (form) {
       }
       if (q.region && r.dataset.region !== q.region) ok = false;
       r.hidden = !ok;
-      if (ok) { total += gear + exams; r.querySelector('.path-total').textContent = money(total); scored.push([r, total]); }
+      if (ok) {
+        total += gear + exams;
+        r.querySelector('.path-total').textContent = money(total);
+        for (const k of keys) {
+          const line = r.querySelector(`.step-line[data-step="${k}"]`);
+          if (line) line.hidden = n[k] === 0;
+        }
+        scored.push([r, total]);
+      }
     }
     scored.sort((a, b) => a[1] - b[1]).forEach(([r]) => body.append(r));
     count.textContent = String(scored.length);

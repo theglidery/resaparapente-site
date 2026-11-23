@@ -89,10 +89,9 @@ const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: 
 const maxVisible = 40;
 ---
 <Base title={C.title} description={C.desc} locale={locale} pageKey="baptemeCompare" jsonLd={faq}>
-  <div class="page-head"><div class="wrap"><h1>{C.h1}</h1><p class="lead">{C.lead}</p></div><Mountains /></div>
-  <div class="wrap section cmp" data-cmp="bapteme" data-max={maxVisible}>
-    <p class="notice">{C.method}</p>
-    <form class="filters cmp-filters" onsubmit="return false" aria-label="Filtres">
+  <div class="page-head" style="padding-bottom:0.8rem"><div class="wrap"><h1>{C.h1}</h1><p class="lead" style="margin-bottom:0">{C.lead}</p></div><Mountains /></div>
+  <div class="wrap section cmp" data-cmp="bapteme" data-max={maxVisible} style="padding-top:0.6rem">
+    <form class="filters cmp-filters" onsubmit="return false" aria-label="Filtres" style="margin-top:0">
       <label>{C.region}<select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
       <label>{locale === 'en' ? 'Currency' : locale === 'de' ? 'Währung' : 'Devise'}<select name="currency"><option value="EUR" selected={MARKET.currency === 'EUR'}>EUR (€)</option><option value="CHF" selected={MARKET.currency === 'CHF'}>CHF</option></select></label>
       <label>{C.dur}<select name="dur"><option value="">{C.durAll}</option><option value="1">{C.dur1}</option><option value="2">{C.dur2}</option><option value="3">{C.dur3}</option></select></label>
@@ -132,6 +131,7 @@ const maxVisible = 40;
     <p class="empty" id="cmp-empty" hidden>{C.none}</p>
     <p><button class="btn ghost" id="cmp-more" type="button">{C.more}</button></p>
 
+    <p class="notice">{C.method}</p>
     <section><h2>{C.stats}</h2><p>{C.statsText}</p></section>
     <section class="faq"><h2>{C.faqTitle}</h2>{C.faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</section>
     <section><h2>{C.next}</h2><ul class="chips-links">{C.links.map(([k, l]) => <li><a href={href(k as 'baptemeGuide', locale)}>{l}</a></li>)}</ul></section>
