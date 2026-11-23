@@ -100,24 +100,6 @@ const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: 
       </div>
     </section>
 
-    <section id="demande"><h2>{C.formTitle}</h2><p>{C.formLead}</p>
-      <form class="gift-form" id="gift-form" novalidate data-endpoint="/api/gift-request" data-contact={SITE.contactEmail}
-        data-ok={C.ok} data-fail={C.fail} data-sending={C.sending} data-mail={C.mail} data-market={MARKET.code}>
-        <label class="wide">{C.fSchool}<select name="schoolId" required><option value="">—</option>{relaySchools.map((s) => <option value={s.id}>{s.name}{s.city ? ` · ${s.city}` : ''}</option>)}</select></label>
-        <label>{C.fKind}<select name="kind">{C.fKinds.map(([v, l]) => <option value={v}>{l}</option>)}</select></label>
-        <label>{C.fFormula}<input name="formula" maxlength="160" /></label>
-        <label>{C.fRecipient}<input name="recipient" maxlength="60" autocomplete="off" /></label>
-        <label>{C.fName}<input name="name" required maxlength="120" autocomplete="name" /></label>
-        <label>{C.fEmail}<input name="email" type="email" required maxlength="254" autocomplete="email" /></label>
-        <label>{C.fPhone}<input name="phone" type="tel" maxlength="35" autocomplete="tel" /></label>
-        <label class="wide">{C.fMsg}<textarea name="message" rows="3" maxlength="800"></textarea></label>
-        <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <label class="check"><input type="checkbox" name="consent" required /> <span>{C.consent}</span></label>
-        <div class="btn-row"><button class="btn" type="submit">{C.send}</button></div>
-        <p class="wide small" id="gift-status" role="status" aria-live="polite"></p>
-      </form>
-    </section>
-
     <section><h2>{C.promoTitle}</h2><p>{C.promoText}</p>
       {promos.length ? <ul class="cards">{promos.map((p) => <li class="school-li"><div class="card" style="padding:1rem 1.2rem"><span class="name">{p.title}</span><span class="meta"><strong>{money(p.price, locale)}</strong>{p.regular ? ` (${money(p.regular, locale)})` : ''} · {dateLoc(p.end, locale)}</span></div></li>)}</ul> : <p class="muted">{C.promoNone}</p>}
     </section>
@@ -126,4 +108,3 @@ const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: 
     <section><h2>{C.next}</h2><ul class="chips-links">{C.links.map(([k, l]) => <li><a href={href(k as 'baptemeGuide', locale)}>{l}</a></li>)}</ul></section>
   </div>
 </Base>
-<script>import '../scripts/gift-form.js';</script>
