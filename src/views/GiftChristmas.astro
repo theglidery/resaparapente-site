@@ -93,18 +93,11 @@ const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: 
       <ul class="cards">{C.cards.map(([h, t, u, b]) => <li class="school-li"><div class="card" style="padding:1.1rem 1.2rem;gap:0.4rem"><span class="name">{h}</span><span class="meta">{t}</span><a class="btn small ghost" href={u}>{b}</a></div></li>)}</ul>
     </section>
 
-    <section><h2>{C.schoolTitle}</h2>
-      {rowsG.length ? <>
-        <form class="filters" id="gift-region" onsubmit="return false"><label>{C.region}<select name="region"><option value="">{C.all}</option>{regions.map((r) => <option value={r}>{tr(r, locale)}</option>)}</select></label></form>
-        <ul class="cards" id="gift-board">{rowsG.map(({ g, s }) => <li class="school-li" data-region={s.region ?? ''}><div class="card" style="padding:1.1rem 1.2rem;gap:0.4rem">
-          <span class="name"><a href={schoolHref(s.slug, locale)} style="text-decoration:none;color:inherit">{s.name}</a></span>
-          <span class="where">{[s.city, s.dept].filter(Boolean).join(', ')}{s.region && s.region !== 'À vérifier' ? ` · ${tr(s.region, locale)}` : ''}</span>
-          <span class="meta"><strong>{tr(g.name, locale)}</strong></span>
-          {(g.price || g.validity) && <span class="meta">{g.price ? `${money(g.price, locale)} ${C.price}` : ''}{g.price && g.validity ? ' · ' : ''}{g.validity ? `${C.valid} ${g.validity} ${C.months}` : ''}</span>}
-          <a class="btn ext" style="margin-top:0.5rem" href={g.url} target="_blank" rel="noopener">{C.go}</a>
-          <span class="small muted">{C.soldBy} {s.name} ({host(g.url)}).{g.checked && <> {C.checked} {dateLoc(g.checked, locale)}.</>}</span>
-        </div></li>)}</ul>
-      </> : <p class="empty">{C.schoolNone}</p>}
+    <section style="margin-top:1.5rem">
+      <div class="btn-row">
+        <a class="btn" href="/bapteme/">{locale === 'en' ? 'Choose a tandem flight to give' : locale === 'de' ? 'Tandemflug zum Verschenken wählen' : 'Choisir un baptême à offrir'}</a>
+        <a class="btn ghost" href="/stage/">{locale === 'en' ? 'Choose a course to give' : locale === 'de' ? 'Kurs zum Verschenken wählen' : 'Choisir un stage à offrir'}</a>
+      </div>
     </section>
 
     <section id="demande"><h2>{C.formTitle}</h2><p>{C.formLead}</p>

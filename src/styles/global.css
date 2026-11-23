@@ -253,8 +253,8 @@ input[type='tel'], input[type='date'], input[type='number'] { width: 100%; min-h
 .cards > li[hidden] { display: none; }
 .card { display: flex; flex-direction: column; height: 100%; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; color: inherit; text-decoration: none; transition: box-shadow 0.15s, transform 0.15s; }
 .card:hover { box-shadow: 0 10px 28px rgba(13, 36, 56, 0.14); transform: translateY(-2px); color: inherit; }
-.card-media { position: relative; display: block; aspect-ratio: 3 / 2; background: linear-gradient(180deg, var(--sky-tint), var(--paper-2)); }
-.card-media > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-media { position: relative; display: block; aspect-ratio: 3 / 2; flex-shrink: 0; background: linear-gradient(180deg, var(--sky-tint), var(--paper-2)); }
+.card-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .card-logo { position: absolute; left: 0.8rem; bottom: -1.5rem; z-index: 1; filter: drop-shadow(0 2px 6px rgba(13, 36, 56, 0.2)); }
 .card-logo .logo.sm { width: 3.2rem; height: 3.2rem; border-width: 2px; border-color: var(--white); }
 .card-body { display: flex; flex-direction: column; gap: 0.25rem; padding: 2.1rem 1rem 0.6rem; flex: 1; }

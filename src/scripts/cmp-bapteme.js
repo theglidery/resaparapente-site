@@ -17,6 +17,7 @@ if (root) {
     const budget = num(q.budget);
     const vis = rows.filter((r) => {
       const d = r.dataset;
+      if (q.pays && q.pays !== 'all' && d.country !== q.pays) return false;
       if (q.currency && d.currency !== q.currency) return false;
       if (q.region && d.region !== q.region) return false;
       if (budgetMin != null && Number(d.total) < budgetMin) return false;
@@ -42,6 +43,13 @@ if (root) {
     count.textContent = String(vis.length);
     empty.hidden = vis.length > 0;
     more.hidden = vis.length <= limit;
+  }
+  if (form.elements.pays && form.elements.currency) {
+    form.elements.pays.addEventListener('change', () => {
+      const p = form.elements.pays.value;
+      if (p === 'CH') form.elements.currency.value = 'CHF';
+      else if (p === 'FR' || p === 'BE') form.elements.currency.value = 'EUR';
+    });
   }
   form.addEventListener('input', () => { limit = step; apply(); });
   form.addEventListener('reset', () => setTimeout(() => { limit = step; apply(); }));

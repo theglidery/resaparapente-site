@@ -17,9 +17,9 @@ const nSchools = new Set(rows.map((r) => r.slug)).size;
 const country = { fr: { FR: 'en France', CH: 'en Suisse romande', BE: 'en Belgique francophone' }, en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' } }[locale][MARKET.code as 'FR'];
 const C = {
   fr: {
-    title: `Comparateur de baptêmes de parapente ${country} : prix, durée, photos, remontées`,
-    desc: `Comparez ${rows.length} baptêmes de parapente (biplace) ${country} : prix publiés, durée de vol, photo et vidéo, remontée mécanique, total à prévoir. Réservation chez l’école.`,
-    h1: `Comparateur de baptêmes de parapente ${country}`,
+    title: 'Comparateur de baptêmes de parapente : prix, durée, photos, remontées',
+    desc: `Comparez ${rows.length} baptêmes de parapente (biplace) : prix publiés, durée de vol, photo et vidéo, remontée mécanique, total à prévoir. Réservation chez l’école.`,
+    h1: 'Comparateur de baptêmes de parapente',
     lead: `${rows.length} formules de ${nSchools} écoles, avec le prix publié, la durée de vol, la photo/vidéo, la remontée mécanique et le total à prévoir quand on le connaît.`,
     method: 'Chaque prix est relevé sur le site de l’école, à la date indiquée dans la colonne « Mis à jour le ». Le total additionne le prix du vol et la remontée quand l’école indique qu’elle est en supplément avec un montant : nous n’inventons aucun supplément.',
     region: 'Région', dur: 'Durée', durAll: 'Toutes', dur1: '≤ 15 min', dur2: '16–30 min', dur3: '> 30 min', budgetMin: `Prix min. (${MARKET.currency})`, budget: `Prix max. (${MARKET.currency})`, photo: 'Photo / vidéo', photoAll: 'Peu importe', photoYes: 'Incluse', photoAny: 'Incluse ou en sup.',
@@ -39,9 +39,9 @@ const C = {
     next: 'Pour aller plus loin', links: [['baptemeGuide', 'Quel baptême choisir pour cette personne ?'], ['giftChristmas', 'Offrir un baptême : bon cadeau'], ['jump', 'Saut en parapente : ce qu’il faut savoir']],
   },
   en: {
-    title: `Tandem paragliding price comparison ${country}: price, duration, photos, lifts`,
-    desc: `Compare ${rows.length} tandem paragliding flights ${country}: published prices, flight time, photo and video, cable car, estimated total. You book with the school.`,
-    h1: `Compare tandem paragliding flights ${country}`,
+    title: 'Tandem paragliding price comparison: price, duration, photos, lifts',
+    desc: `Compare ${rows.length} tandem paragliding flights: published prices, flight time, photo and video, cable car, estimated total. You book with the school.`,
+    h1: 'Compare tandem paragliding flights',
     lead: `${rows.length} flights from ${nSchools} schools, with the published price, flight time, photo/video, cable car and the estimated total when it is known.`,
     method: 'Every price comes from the school’s own website, on the date shown in the “Updated” column. The total adds the flight price and the lift when the school says it costs extra and gives an amount: we never invent a supplement.',
     region: 'Region', dur: 'Flight time', durAll: 'Any', dur1: '≤ 15 min', dur2: '16–30 min', dur3: '> 30 min', budgetMin: `Min. (${MARKET.currency})`, budget: `Max. (${MARKET.currency})`, photo: 'Photo / video', photoAll: 'Any', photoYes: 'Included', photoAny: 'Included or extra',
@@ -92,6 +92,7 @@ const maxVisible = 40;
   <div class="page-head" style="padding-bottom:0.8rem"><div class="wrap"><h1>{C.h1}</h1><p class="lead" style="margin-bottom:0">{C.lead}</p></div><Mountains /></div>
   <div class="wrap section cmp" data-cmp="bapteme" data-max={maxVisible} style="padding-top:0.6rem">
     <form class="filters cmp-filters" onsubmit="return false" aria-label="Filtres" style="margin-top:0">
+      <label>{locale === 'en' ? 'Country' : locale === 'de' ? 'Land' : 'Pays'}<select name="pays"><option value="FR" selected={MARKET.code === 'FR'}>France</option><option value="CH" selected={MARKET.code === 'CH'}>Suisse</option><option value="BE" selected={MARKET.code === 'BE'}>Belgique</option><option value="all">{locale === 'en' ? 'All countries' : locale === 'de' ? 'Alle Länder' : 'Tous les pays'}</option></select></label>
       <label>{C.region}<select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
       <label>{locale === 'en' ? 'Currency' : locale === 'de' ? 'Währung' : 'Devise'}<select name="currency"><option value="EUR" selected={MARKET.currency === 'EUR'}>EUR (€)</option><option value="CHF" selected={MARKET.currency === 'CHF'}>CHF</option></select></label>
       <label>{C.dur}<select name="dur"><option value="">{C.durAll}</option><option value="1">{C.dur1}</option><option value="2">{C.dur2}</option><option value="3">{C.dur3}</option></select></label>

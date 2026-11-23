@@ -5,20 +5,20 @@ import SchoolCard from './SchoolCard.astro';
 import SearchFilters from './SearchFilters.astro';
 import SchoolCta from './SchoolCta.astro';
 import { withOffers, regionCounts, levelCounts } from '../lib/data';
-interface Props { kind: 'bapteme' | 'stage' }
-const { kind } = Astro.props;
+interface Props { kind: 'bapteme' | 'stage'; customTitle?: string; customH1?: string }
+const { kind, customTitle, customH1 } = Astro.props;
 const isB = kind === 'bapteme';
 const list = withOffers(kind).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 const regions = regionCounts(kind) as [string, number][];
 const levels = isB ? [] : levelCounts();
-const title = isB ? 'Baptême de parapente : choisissez une école' : 'Stage de parapente : choisissez une école';
+const title = customTitle ?? (isB ? 'Baptême de parapente : choisissez une école' : 'Stage de parapente : choisissez une école');
 const description = isB
   ? `Comparez ${list.length} écoles qui proposent un baptême de parapente en France, avec le prix publié et la date de relevé. Réservez auprès de l'école.`
   : `Comparez ${list.length} écoles qui proposent des stages de parapente en France (initiation, progression, perfectionnement), avec le prix publié et la date de relevé.`;
 ---
 <Base title={title} description={description}>
   <PageHero name={kind}
-    title={isB ? 'Baptême de parapente' : 'Stage de parapente'}
+    title={customH1 ?? (isB ? 'Baptême de parapente' : 'Stage de parapente')}
     lead={isB
       ? 'Découvrez les joies du vol libre et choisissez où et avec quelle école agréée voler'
       : 'Trouvez le stage qui vous correspond le mieux, dans votre budget'} />

@@ -9,8 +9,8 @@ import { href, ui, type Locale } from '../i18n/ui';
 import { schoolPath, pathOf } from '../i18n/routes.mjs';
 import { tr } from '../i18n/tr';
 
-const { code, preview = false, locale = 'fr' } = Astro.props as { code: 'CH' | 'BE'; preview?: boolean; locale?: Locale };
-const country = markets[code];
+const { code = 'FR', preview = false, locale = 'fr' } = Astro.props as { code: 'FR' | 'CH' | 'BE'; preview?: boolean; locale?: Locale };
+const country = markets[code] || markets.FR;
 const view = Astro.props.view as 'bapteme' | 'stage' | 'calendrier' | undefined;
 const t = ui(locale);
 const local = preview ? [] : schools.filter((s) => view === 'bapteme' ? s.baptemes.length :
@@ -20,13 +20,13 @@ const localPrices = (s: typeof local[number]) => [view !== 'stage' && view !== '
 const dates = preview ? [] : sessions.filter((s) => s.start >= today).sort((a, b) => a.start.localeCompare(b.start));
 const L = {
   fr: {
-    location: code === 'CH' ? 'en Suisse romande' : 'en Belgique francophone',
+    location: code === 'CH' ? 'en Suisse' : code === 'BE' ? 'en Belgique' : 'en France',
     names: { bapteme: 'Baptêmes de parapente', stage: 'Stages de parapente', calendrier: 'Calendrier des stages', home: 'Parapente' },
     preparing: ' · catalogue en préparation',
     desc: `Baptêmes, écoles et stages de parapente pour ${country.label}. Contactez les écoles pour connaître les dates et les conditions.`,
     lead: 'Comparez les formules publiées et contactez directement les écoles.', leadNone: 'Les formules et dates des écoles locales seront ajoutées après vérification.',
-    region: code === 'CH' ? 'la Suisse romande' : 'la Wallonie et les zones francophones de Belgique',
-    action: code === 'CH' ? 'Signaler une école en Suisse romande' : 'Signaler une école en Belgique francophone',
+    region: code === 'CH' ? 'la Suisse' : code === 'BE' ? 'la Belgique' : 'la France',
+    action: code === 'CH' ? 'Signaler une école en Suisse' : code === 'BE' ? 'Signaler une école en Belgique' : 'Signaler une école en France',
     catalog: 'Catalogue', all: 'Toutes les activités', prep: 'Le catalogue est en préparation',
     prepText: (r: string) => `Le périmètre couvre ${r}. Vous connaissez une école ou proposez des baptêmes ou des stages en français ? Envoyez-nous le lien de son catalogue ou de son calendrier.`,
     schoolsH: 'Écoles et formules', tandemN: (n: number) => `${n} formule(s) de baptême`, courseN: (n: number) => `${n} formule(s) de stage`, from: 'dès',
@@ -37,13 +37,13 @@ const L = {
     why: 'Choisir sa première expérience', first: 'Préparer son premier stage', frenchTag: '',
   },
   en: {
-    location: code === 'CH' ? 'in Switzerland' : 'in Belgium',
+    location: code === 'CH' ? 'in Switzerland' : code === 'BE' ? 'in Belgium' : 'in France',
     names: { bapteme: 'Tandem paragliding flights', stage: 'Paragliding courses', calendrier: 'Paragliding course calendar', home: 'Paragliding' },
     preparing: ' · catalogue in preparation',
-    desc: `Tandem flights, paragliding schools and courses in ${code === 'CH' ? 'Switzerland' : 'Belgium'}. Contact the schools for dates and conditions.`,
+    desc: `Tandem flights, paragliding schools and courses in ${code === 'CH' ? 'Switzerland' : code === 'BE' ? 'Belgium' : 'France'}. Contact the schools for dates and conditions.`,
     lead: 'Compare the published packages and contact the schools directly.', leadNone: 'Packages and dates of local schools will be added after checking.',
-    region: code === 'CH' ? 'Switzerland' : 'Wallonia and the French-speaking areas of Belgium',
-    action: code === 'CH' ? 'Report a school in Switzerland' : 'Report a school in Belgium',
+    region: code === 'CH' ? 'Switzerland' : code === 'BE' ? 'Belgium' : 'France',
+    action: code === 'CH' ? 'Report a school in Switzerland' : code === 'BE' ? 'Report a school in Belgium' : 'Report a school in France',
     catalog: 'Catalogue', all: 'All activities', prep: 'The catalogue is in preparation',
     prepText: (r: string) => `The scope covers ${r}. Do you know a school, or do you offer tandem flights or courses? Send us the link to its catalogue or calendar.`,
     schoolsH: 'Schools and packages', tandemN: (n: number) => `${n} tandem package${n === 1 ? '' : 's'}`, courseN: (n: number) => `${n} course package${n === 1 ? '' : 's'}`, from: 'from',

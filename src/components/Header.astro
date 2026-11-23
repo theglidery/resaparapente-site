@@ -22,7 +22,7 @@ const homeHref = isEn ? '/en/' : '/';
 const stageSub = isEn
   ? [
       { href: '/en/paragliding-course-schools/', label: 'Find / Book My Course' },
-      { href: '/en/paragliding-course-schools/', label: 'Course Comparator' },
+      { href: href('trainingCost', 'en'), label: 'Course Comparator' },
       { href: href('trainingCost', 'en'), label: 'Cost of full training' },
       { href: href('whenStart', 'en'), label: 'When can I start?' },
       { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses' },
@@ -30,7 +30,7 @@ const stageSub = isEn
     ]
   : [
       { href: '/stage/', label: 'Trouver / Réserver mon stage' },
-      { href: '/stage/', label: 'Comparateur de stages' },
+      { href: '/comparateur-prix-formation-parapente/', label: 'Comparateur de stages' },
       { href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' },
       { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' },
       { href: '/calendrier/', label: 'Prochains stages' },
@@ -76,11 +76,21 @@ const learnItems = isEn
       ...LEARN_MENU,
     ];
 
+const giftSub = isEn
+  ? [
+      { href: href('giftChristmas', 'en'), label: 'Tandem flight' },
+      { href: '/offrir-un-stage/', label: 'Courses' },
+    ]
+  : [
+      { href: '/bon-cadeau-parapente-noel/', label: 'Baptême' },
+      { href: '/offrir-un-stage/', label: 'Stages' },
+    ];
+
 const links = isEn
   ? [
       { href: '/en/tandem-paragliding-schools/', label: 'Book a Tandem Flight', sub: baptemeSub },
       { href: '/en/paragliding-course-schools/', label: 'Book a Course', sub: stageSub },
-      { href: '/bons-cadeaux/', label: 'Gift Voucher' },
+      { href: href('giftChristmas', 'en'), label: 'Gift Voucher', sub: giftSub },
       { href: '/en/christmas-offer/', label: 'Christmas Offer' },
       { href: '/apprendre/', label: 'Learn Paragliding', sub: learnItems },
       { href: WHY_ROOT, label: 'Why Fly', sub: whyItems },
@@ -88,7 +98,7 @@ const links = isEn
   : [
       { href: '/bapteme/', label: 'Réserver un Baptême', sub: baptemeSub },
       { href: '/stage/', label: 'Réserver son Stage', sub: stageSub },
-      { href: '/bons-cadeaux/', label: 'Bon cadeau' },
+      { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau', sub: giftSub },
       { href: '/offre-noel/', label: 'Offre Noël' },
       { href: '/apprendre/', label: 'Apprendre le parapente', sub: learnItems },
       { href: WHY_ROOT, label: 'Pourquoi voler', sub: whyItems },

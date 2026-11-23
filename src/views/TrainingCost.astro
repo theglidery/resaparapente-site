@@ -4,156 +4,281 @@ import { schoolHref } from '../i18n/routes.mjs';
 import Mountains from '../components/Mountains.astro';
 import { MARKET } from '../config';
 import { href } from '../i18n/ui';
-import { pathRows, packagesL, examFeesL, examTotal, estimate, defaults, asm, STEPS, money, dateLoc, host, type Loc, type Step } from '../lib/compare';
+import { schools, cities, offerPrice, currencyOf, LEVELS } from '../lib/data';
+import { packagesL, examFeesL, examTotal, money, dateLoc, host, type Loc } from '../lib/compare';
+
 const { locale = 'fr' } = Astro.props as { locale?: Loc };
-const all = pathRows(locale);
-const def = defaults();
-const rows = all.map((r) => ({ r, est: estimate(r, def) })).filter((x) => x.est != null).sort((a, b) => (a.est as number) - (b.est as number));
-const incomplete = all.length - rows.length;
-const regions = [...new Set(rows.map((x) => x.r.region).filter(Boolean) as string[])].sort((a, b) => a.localeCompare(b, 'fr'));
-const packages = packagesL(locale), examFees = examFeesL(locale);
-const pk = packages.map((p) => ({ p, s: all.find((x) => x.schoolId === p.schoolId) })).filter((x) => x.s).sort((a, b) => (a.p.total ?? 1e9) - (b.p.total ?? 1e9));
-const where = { fr: { FR: 'en France', CH: 'en Suisse romande', BE: 'en Belgique francophone' }, en: { FR: 'in France', CH: 'in French-speaking Switzerland', BE: 'in French-speaking Belgium' }, de: { FR: 'in Frankreich', CH: 'in der Westschweiz', BE: 'im französischsprachigen Belgien' } }[locale][MARKET.code as 'FR'];
-const sName = (k: Step) => ({ fr: { initiation: 'Initiation', progression: 'Progression et autonomie', perfectionnement: 'Perfectionnement' }, en: { initiation: 'Introductory course', progression: 'Progression and independence', perfectionnement: 'Advanced course' }, de: { initiation: 'Schnupperkurs / Grundkurs', progression: 'Aufbau und Selbstständigkeit', perfectionnement: 'Perfektionierung' } }[locale])[k];
-const cur = MARKET.currency;
-const C = {
-  fr: {
-    title: `Combien coûte une formation parapente complète ${where} ? Comparateur jusqu’au brevet`,
-    desc: `Comparez le prix total d’une formation de parapente jusqu’au brevet ${where} : forfaits publiés par les écoles, cumul des stages étape par étape, frais d’examens. Classement par coût total.`,
-    h1: `Prix d’une formation parapente jusqu’au brevet ${where}`,
-    lead: 'Le prix d’un stage ne dit pas ce que coûte le brevet. Ici, on additionne les étapes ou on affiche le forfait complet quand l’école le publie, pour classer les écoles par coût total.',
-    how: 'Comment lire les chiffres',
-    howText: ['Un forfait complet est le budget que l’école publie pour aller jusqu’au brevet. Quand il existe, il est affiché tel quel, avec ce qu’il couvre et ce qu’il laisse à votre charge.', 'Sans forfait, nous additionnons le stage le moins cher publié par l’école pour chaque étape (3 à 7 jours). Le nombre de stages par étape est une hypothèse que vous pouvez modifier : chaque élève progresse à son rythme.', 'Nous n’estimons jamais le prix du matériel : c’est vous qui saisissez un budget si vous le souhaitez.'],
-    pkgTitle: 'Forfaits complets publiés par les écoles', pkgNone: 'Aucune école n’a encore un forfait complet vérifié dans ce pays. L’estimation par étapes ci-dessous la remplace.',
-    pkgCols: ['École et forfait', 'Vols visés', 'Prix école', 'Matériel personnel compris ?', 'Examens et frais connus', 'Total connu', 'Reste à prévoir'],
-    withSchoolGear: 'matériel acheté à l’école', elsewhere: 'matériel acheté ailleurs', gearIncl: 'Matériel personnel inclus dans le prix ?',
-    estTitle: 'Estimation par étapes : classement par coût total', estLead: 'Réglez le nombre de stages à suivre à chaque étape. Le classement se met à jour.',
-    presets: ['Initiation seule', 'Initiation + progression', 'Parcours complet'], covered: (n: number) => `Écoles avec un prix publié pour les trois étapes : ${n}. Les autres apparaissent quand vous ne demandez que les étapes qu’elles publient.`,
-    stages: 'stages', region: 'Région', gear: `Budget matériel personnel (${cur}, facultatif)`, gearHelp: 'Votre propre hypothèse : voile, sellette, casque, secours, radio. Laissez vide pour ne pas l’inclure.',
-    exams: `Inclure les examens fédéraux (${examTotal} ${cur})`, sort: 'Classement', cSchool: 'École', cSteps: 'Stage retenu par étape', cTotal: 'Total estimé', go: 'Voir l’école',
-    hypo: 'Hypothèse', toValidate: 'à valider avec un moniteur', shown: 'écoles classées', none: 'Aucune école ne publie encore un prix pour chaque étape demandée.',
-    skipped: `${incomplete} écoles n’affichent pas de prix publié pour toutes les étapes : elles sont absentes de ce classement plutôt que comptées à zéro.`,
-    feesTitle: 'Frais de fédération et de brevet connus', feesNone: 'Les frais de licence et de validation de ce pays ne sont pas encore vérifiés : ils ne sont pas inclus dans les totaux. Vérifiez-les auprès de la fédération.',
-    feesCols: ['Poste', 'Montant', 'Organisme'], period: 'Relevé le',
-    faqTitle: 'Questions fréquentes', faq: [
-      ['Combien de stages faut-il pour passer le brevet ?', 'Cela dépend de l’élève, de la météo et du nombre de vols réalisés. Les écoles décrivent un parcours en plusieurs stages d’une semaine ; le comparateur part d’une hypothèse que vous pouvez modifier.'],
-      ['Le matériel est-il compris ?', 'Souvent non, ou seulement au début. Les forfaits indiquent ce que l’école prête et ce qu’il faut acheter. Regardez la colonne « Matériel personnel compris ? » avant de comparer.'],
-      ['Les examens sont-ils inclus ?', 'Pas dans le prix des stages. Les frais d’examens et de brevet se paient à la fédération ou au centre d’examen.'],
-    ],
-    next: 'Pour aller plus loin', links: [['trainingPath', 'Parcours de formation et brevets'], ['whenStart', 'Quand puis-je commencer ?'], ['giftChristmas', 'Offrir une initiation : bon cadeau']],
-  },
-  en: {
-    title: `How much does full paragliding training cost ${where}? Licence cost comparison`,
-    desc: `Compare the total price of paragliding training up to the licence ${where}: full packages published by schools, step-by-step course totals, exam fees. Ranked by total cost.`,
-    h1: `Cost of paragliding training up to the licence ${where}`,
-    lead: 'The price of one course does not tell you what the licence costs. Here we add up the steps, or show the full package when the school publishes one, to rank schools by total cost.',
-    how: 'How to read the figures',
-    howText: ['A full package is the budget a school publishes to reach the licence. When it exists it is shown as is, with what it covers and what you still pay for.', 'Without a package, we add the cheapest published course of each step (3 to 7 days) for the school. The number of courses per step is an assumption you can change: every pupil progresses at their own pace.', 'We never estimate the price of equipment: you enter a budget yourself if you want one.'],
-    pkgTitle: 'Full packages published by schools', pkgNone: 'No school has a verified full package in this country yet. The step-by-step estimate below replaces it.',
-    pkgCols: ['School and package', 'Flights', 'School price', 'Personal equipment included?', 'Exams and known fees', 'Known total', 'Still to budget'],
-    withSchoolGear: 'equipment bought from the school', elsewhere: 'equipment bought elsewhere', gearIncl: 'Personal equipment included in the price?',
-    estTitle: 'Step-by-step estimate: ranking by total cost', estLead: 'Set how many courses you expect at each step. The ranking updates.',
-    presets: ['Introductory course only', 'Introductory + progression', 'Full pathway'], covered: (n: number) => `Schools with a published price for all three steps: ${n}. The others appear when you only ask for the steps they publish.`,
-    stages: 'courses', region: 'Region', gear: `Personal equipment budget (${cur}, optional)`, gearHelp: 'Your own assumption: wing, harness, helmet, reserve, radio. Leave empty to leave it out.',
-    exams: `Include federation exams (${examTotal} ${cur})`, sort: 'Ranking', cSchool: 'School', cSteps: 'Course used for each step', cTotal: 'Estimated total', go: 'See the school',
-    hypo: 'Assumption', toValidate: 'to be validated with an instructor', shown: 'schools ranked', none: 'No school publishes a price for every requested step yet.',
-    skipped: `${incomplete} schools do not show a published price for every step: they are left out of this ranking rather than counted as zero.`,
-    feesTitle: 'Known federation and licence fees', feesNone: 'Licence and validation fees for this country are not verified yet: they are not included in the totals. Check them with the federation.',
-    feesCols: ['Item', 'Amount', 'Body'], period: 'Checked on',
-    faqTitle: 'Frequently asked questions', faq: [
-      ['How many courses do I need to get the licence?', 'It depends on the pupil, the weather and the number of flights. Schools describe a path of several week-long courses; the comparator starts from an assumption you can change.'],
-      ['Is the equipment included?', 'Often not, or only at the start. Packages say what the school lends and what you must buy. Look at the “Personal equipment included?” column before comparing.'],
-      ['Are exams included?', 'Not in the course price. Exam and licence fees are paid to the federation or the exam centre.'],
-    ],
-    next: 'Keep going', links: [['trainingPath', 'Training pathway and licences'], ['whenStart', 'When can I start?'], ['giftChristmas', 'Give an introductory course: gift vouchers']],
-  },
-  de: {
-    title: `Was kostet eine komplette Gleitschirmausbildung ${where}? Kostenvergleich bis zur Lizenz`,
-    desc: `Vergleichen Sie den Gesamtpreis der Gleitschirmausbildung bis zur Lizenz ${where}: von Schulen veröffentlichte Komplettpakete, Kurssummen Schritt für Schritt, Prüfungsgebühren. Sortiert nach Gesamtkosten.`,
-    h1: `Kosten der Gleitschirmausbildung bis zur Lizenz ${where}`,
-    lead: 'Der Preis eines Kurses sagt nicht, was die Lizenz kostet. Hier addieren wir die Schritte oder zeigen das Komplettpaket, wenn die Schule eines veröffentlicht, und sortieren die Schulen nach Gesamtkosten.',
-    how: 'So lesen Sie die Zahlen',
-    howText: ['Ein Komplettpaket ist das Budget, das eine Schule bis zur Lizenz veröffentlicht. Wo es existiert, zeigen wir es unverändert, mit dem, was es abdeckt und was Sie selbst tragen.', 'Ohne Paket addieren wir den günstigsten veröffentlichten Kurs der Schule für jeden Schritt (3 bis 7 Tage). Die Zahl der Kurse je Schritt ist eine Annahme, die Sie ändern können: Jeder lernt in seinem Tempo.', 'Den Preis der Ausrüstung schätzen wir nie: Ein Budget tragen Sie selbst ein, wenn Sie möchten.'],
-    pkgTitle: 'Von Schulen veröffentlichte Komplettpakete', pkgNone: 'In diesem Land hat noch keine Schule ein geprüftes Komplettpaket. Die Schätzung nach Schritten unten ersetzt es.',
-    pkgCols: ['Schule und Paket', 'Ziel-Flüge', 'Preis der Schule', 'Persönliche Ausrüstung inbegriffen?', 'Prüfungen und bekannte Gebühren', 'Bekannte Summe', 'Noch einzuplanen'],
-    withSchoolGear: 'Ausrüstung bei der Schule gekauft', elsewhere: 'Ausrüstung anderswo gekauft', gearIncl: 'Persönliche Ausrüstung im Preis enthalten?',
-    estTitle: 'Schätzung nach Schritten: Rangliste nach Gesamtkosten', estLead: 'Stellen Sie ein, wie viele Kurse Sie je Schritt erwarten. Die Rangliste aktualisiert sich.',
-    presets: ['Nur Einsteigerkurs', 'Einsteiger + Aufbau', 'Kompletter Weg'], covered: (n: number) => `Schulen mit veröffentlichtem Preis für alle drei Schritte: ${n}. Die übrigen erscheinen, wenn Sie nur die Schritte verlangen, die sie veröffentlichen.`,
-    stages: 'Kurse', region: 'Region', gear: `Budget persönliche Ausrüstung (${cur}, optional)`, gearHelp: 'Ihre eigene Annahme: Schirm, Gurtzeug, Helm, Rettung, Funk. Leer lassen, um sie wegzulassen.',
-    exams: `Verbandsprüfungen einrechnen (${examTotal} ${cur})`, sort: 'Rangliste', cSchool: 'Schule', cSteps: 'Gewählter Kurs je Schritt', cTotal: 'Geschätzte Summe', go: 'Zur Schule',
-    hypo: 'Annahme', toValidate: 'mit einem Fluglehrer zu bestätigen', shown: 'Schulen in der Rangliste', none: 'Noch keine Schule veröffentlicht für jeden gewünschten Schritt einen Preis.',
-    skipped: `${incomplete} Schulen zeigen nicht für jeden Schritt einen veröffentlichten Preis: Sie fehlen in dieser Rangliste, statt mit null gezählt zu werden.`,
-    feesTitle: 'Bekannte Verbands- und Lizenzgebühren', feesNone: 'Lizenz- und Validierungsgebühren dieses Landes sind noch nicht geprüft: Sie sind in den Summen nicht enthalten. Fragen Sie beim Verband nach.',
-    feesCols: ['Posten', 'Betrag', 'Stelle'], period: 'Geprüft am',
-    faqTitle: 'Häufige Fragen', faq: [
-      ['Wie viele Kurse brauche ich bis zur Lizenz?', 'Das hängt von der Person, dem Wetter und der Zahl der Flüge ab. Schulen beschreiben einen Weg über mehrere Wochenkurse; der Vergleich geht von einer Annahme aus, die Sie ändern können.'],
-      ['Ist die Ausrüstung inbegriffen?', 'Oft nicht oder nur am Anfang. Die Pakete geben an, was die Schule stellt und was Sie kaufen müssen. Achten Sie auf die Spalte „Persönliche Ausrüstung inbegriffen?“.'],
-      ['Sind die Prüfungen inbegriffen?', 'Nicht im Kurspreis. Prüfungs- und Lizenzgebühren zahlen Sie an den Verband oder die Prüfstelle.'],
-    ],
-    next: 'Weiterlesen', links: [['trainingPath', 'Ausbildungsweg und Lizenzen'], ['whenStart', 'Wann kann ich anfangen?'], ['giftChristmas', 'Einen Einsteigerkurs verschenken: Gutscheine']],
-  },
-}[locale];
-const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: C.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
+const isEn = locale === 'en';
+const isDe = locale === 'de';
+
+const stageRows = schools
+  .flatMap((s) => {
+    const cur = currencyOf(s);
+    const country = s.country || 'FR';
+    return s.stages
+      .map((o) => {
+        const price = offerPrice(o) ?? o.price ?? null;
+        if (price == null || price <= 0) return null;
+        const dur = o.durText ?? (o.durMin ? `${o.durMin}${o.durMax && o.durMax !== o.durMin ? `–${o.durMax}` : ''} ${o.durUnit ?? 'jours'}` : '—');
+        return {
+          id: o.id,
+          school: s.name,
+          slug: s.slug,
+          country,
+          currency: cur,
+          city: s.city || '',
+          region: s.region && s.region !== 'À vérifier' ? s.region : '',
+          lat: s.lat,
+          lng: s.lng,
+          near: s.nearCities,
+          levelKey: o.levelKey || 'autre',
+          levelName: o.levelName || 'Autres stages',
+          offer: o.name,
+          dur,
+          price,
+          checked: o.checked,
+        };
+      })
+      .filter((x): x is NonNullable<typeof x> => Boolean(x));
+  })
+  .sort((a, b) => a.price - b.price || a.school.localeCompare(b.school, 'fr'));
+
+const regions = [...new Set(stageRows.map((r) => r.region).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr'));
+const regionCountryMap = Object.fromEntries(stageRows.filter((r) => r.region).map((r) => [r.region, r.country]));
+const packages = packagesL(locale);
+const examFees = examFeesL(locale);
+
+const L = isEn
+  ? {
+      title: 'Paragliding course comparator: compare trainings by type, region and price',
+      desc: `Compare ${stageRows.length} paragliding courses by training type, country, region, nearby city and price.`,
+      h1: 'Paragliding course comparator',
+      lead: `${stageRows.length} published courses ranked by price. Pick the training type and area to compare.`,
+      type: 'Training type',
+      allTypes: 'All training types',
+      country: 'Country',
+      allCountries: 'All countries',
+      region: 'Region',
+      allRegions: 'All regions',
+      city: 'Near city',
+      cityPh: 'Annecy, Grenoble, Chamonix…',
+      dist: 'Max distance',
+      noLimit: 'No limit',
+      currency: 'Currency',
+      sort: 'Sort by',
+      sPrice: 'Lowest price',
+      sDist: 'Distance',
+      sSchool: 'School name',
+      reset: 'Reset',
+      count: 'courses found',
+      none: 'No course matches these criteria. Try widening a filter.',
+      cOffer: 'Course and school',
+      cType: 'Type',
+      cDur: 'Duration',
+      cPrice: 'Price',
+      go: 'See school',
+      feesTitle: 'Known federation and licence fees',
+      next: 'Keep going',
+    }
+  : isDe
+  ? {
+      title: 'Gleitschirmkurs-Vergleich: Kurse nach Typ, Region und Preis',
+      desc: `Vergleichen Sie ${stageRows.length} Gleitschirmkurse nach Kurstyp, Land, Region, Stadt und Preis.`,
+      h1: 'Gleitschirmkurs-Vergleich',
+      lead: `${stageRows.length} veröffentlichte Kurse nach Preis sortiert. Wählen Sie Kurstyp und Region.`,
+      type: 'Kurstyp',
+      allTypes: 'Alle Kurstypen',
+      country: 'Land',
+      allCountries: 'Alle Länder',
+      region: 'Region',
+      allRegions: 'Alle Regionen',
+      city: 'In der Nähe von',
+      cityPh: 'Davos, Interlaken, Annecy…',
+      dist: 'Max. Entfernung',
+      noLimit: 'Kein Limit',
+      currency: 'Währung',
+      sort: 'Sortieren nach',
+      sPrice: 'Günstigster Preis',
+      sDist: 'Entfernung',
+      sSchool: 'Schulname',
+      reset: 'Zurücksetzen',
+      count: 'Kurse gefunden',
+      none: 'Kein Kurs entspricht diesen Kriterien.',
+      cOffer: 'Kurs und Schule',
+      cType: 'Typ',
+      cDur: 'Dauer',
+      cPrice: 'Preis',
+      go: 'Zur Schule',
+      feesTitle: 'Bekannte Verbands- und Lizenzgebühren',
+      next: 'Weiterlesen',
+    }
+  : {
+      title: 'Comparateur de stages de parapente : prix, type de stage, région et ville',
+      desc: `Comparez ${stageRows.length} stages de parapente par type de stage, pays, région, ville proche et prix.`,
+      h1: 'Comparateur de stages de parapente',
+      lead: `${stageRows.length} stages publiés classés par prix croissant. Choisissez le type de stage et la zone recherchée.`,
+      type: 'Type de stage',
+      allTypes: 'Tous les types de stage',
+      country: 'Pays',
+      allCountries: 'Tous les pays',
+      region: 'Région',
+      allRegions: 'Toutes les régions',
+      city: 'Près de quelle ville ?',
+      cityPh: 'Annecy, Grenoble, Chamonix…',
+      dist: 'Distance max',
+      noLimit: 'Pas de limite',
+      currency: 'Devise',
+      sort: 'Trier par',
+      sPrice: 'Prix croissant',
+      sDist: 'Distance',
+      sSchool: 'Nom de l’école',
+      reset: 'Réinitialiser',
+      count: 'stages affichés',
+      none: 'Aucun stage ne correspond à ces critères. Élargissez un filtre.',
+      cOffer: 'Stage et école',
+      cType: 'Type',
+      cDur: 'Durée',
+      cPrice: 'Prix publié',
+      go: 'Voir l’école',
+      feesTitle: 'Frais de fédération et de brevet connus',
+      next: 'Pour aller plus loin',
+    };
 ---
-<Base title={C.title} description={C.desc} locale={locale} pageKey="trainingCost" jsonLd={faq}>
-  <div class="page-head" style="padding-bottom:0.8rem"><div class="wrap"><h1>{C.h1}</h1><p class="lead" style="margin-bottom:0">{C.lead}</p></div><Mountains /></div>
-  <div class="wrap section cmp" data-cmp="path" style="padding-top:0.8rem">
-    <section style="margin-top:0">
-      <h2 style="margin-top:0">{C.estTitle}</h2>
-      <p>{C.estLead}</p>
-      <p class="btn-row path-presets">{C.presets.map((l, i) => <button type="button" class="chip" data-preset={[[1, 0, 0], [1, 2, 0], [def.initiation, def.progression, def.perfectionnement]][i].join(',')}>{l}</button>)}</p>
-      <form class="filters cmp-filters path-filters" id="path-form" onsubmit="return false" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));gap:0.75rem;align-items:end">
-        {STEPS.map((k) => <label style="display:grid;gap:0.25rem;font-size:0.88rem"><span>{sName(k)} ({C.stages})</span><input type="number" name={k} min="0" max={asm(k).maxStages} step="1" value={def[k]} data-price-key={k} /></label>)}
-        <label style="display:grid;gap:0.25rem;font-size:0.88rem"><span>{C.region}</span><select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
-        <label style="display:grid;gap:0.25rem;font-size:0.88rem"><span>{C.gear}</span><input type="number" name="gear" min="0" step="50" inputmode="numeric" /></label>
-        {examTotal > 0 && <label class="check" style="grid-column:1/-1"><input type="checkbox" name="exams" checked data-exams={examTotal} /> {C.exams}</label>}
-        <p class="small muted" style="grid-column:1/-1;margin:0">{C.gearHelp} {C.hypo} : {asm('initiation').status === 'Validé' ? '' : C.toValidate}.</p>
-      </form>
-      <p class="small muted">{C.covered(rows.length)}</p>
-      <p class="cmp-count" role="status" aria-live="polite"><strong id="path-n">{rows.length}</strong> {C.shown}</p>
-      <div class="table-wrap"><table class="data-table cmp-table">
-        <thead><tr><th>{C.cSchool}</th><th>{C.cSteps}</th><th>{C.cTotal}</th><th></th></tr></thead>
-        <tbody id="path-body">
-          {rows.map(({ r, est }) => <tr class="path-row" data-region={r.region ?? ''} data-currency={cur} {...Object.fromEntries(STEPS.map((k) => ['data-p-' + k, r.steps[k]?.price ?? '']))}>
-            <th scope="row"><strong>{r.school}</strong><span class="small muted">{r.city ?? ''}{r.region ? ` · ${r.region}` : ''}</span></th>
-            <td class="small" data-label={C.cSteps}>{STEPS.map((k) => r.steps[k] ? <span class="step-line" data-step={k}><strong>{sName(k)}</strong> : {r.steps[k]!.offer}, {money(r.steps[k]!.price, locale)} · <a href={r.steps[k]!.url ?? schoolHref(r.slug, locale)} target="_blank" rel="noopener">{host(r.steps[k]!.url) || C.go}</a></span> : null)}</td>
-            <td data-label={C.cTotal}><strong class="path-total">{money(est as number, locale)}</strong></td>
-            <td><a class="btn small ghost" href={schoolHref(r.slug, locale)}>{C.go}</a></td>
-          </tr>)}
-        </tbody>
-      </table></div>
-      <p class="empty" id="path-empty" hidden>{C.none}</p>
-      <p class="small muted">{C.skipped}</p>
-    </section>
-
-    <section class="notice"><strong>{C.how}</strong><ul>{C.howText.map((t) => <li>{t}</li>)}</ul></section>
-
-    <section>
-      <h2>{C.pkgTitle}</h2>
-      {pk.length ? <div class="table-wrap"><table class="data-table cmp-table">
-        <thead><tr>{C.pkgCols.map((c) => <th>{c}</th>)}</tr></thead>
-        <tbody>{pk.map(({ p, s }) => <tr>
-          <th scope="row"><strong>{p.name}</strong><span class="small muted"><a href={schoolHref(s!.slug, locale)}>{s!.school}</a>{s!.region ? ` · ${s!.region}` : ''}</span><span class="small muted">{p.covers}</span></th>
-          <td data-label={C.pkgCols[1]}>{p.flights ?? '—'}</td>
-          <td data-label={C.pkgCols[2]}>{p.price != null ? money(p.price, locale) : '—'}</td>
-          <td class="small" data-label={C.pkgCols[3]}>{p.material}{p.suppElsewhere ? <><br /><strong>{money((p.price ?? 0) + p.suppElsewhere, locale)}</strong> {C.elsewhere}</> : null}</td>
-          <td data-label={C.pkgCols[4]}>{(p.exams ?? 0) + (p.fees ?? 0) > 0 ? money((p.exams ?? 0) + (p.fees ?? 0), locale) : '—'}<span class="small muted">{p.feesNature}</span></td>
-          <td data-label={C.pkgCols[5]}><strong>{p.total != null ? money(p.total, locale) : '—'}</strong>{p.totalElsewhere != null && <span class="small muted">{money(p.totalElsewhere, locale)} {C.elsewhere}</span>}</td>
-          <td class="small" data-label={C.pkgCols[6]}>{p.remains}<span class="muted"><a href={p.url} target="_blank" rel="noopener">{host(p.url)}</a> · {dateLoc(p.checked, locale, { day: 'numeric', month: 'short', year: 'numeric' })}</span></td>
-        </tr>)}</tbody>
-      </table></div> : <p class="empty">{C.pkgNone}</p>}
-    </section>
-
-    <section>
-      <h2>{C.feesTitle}</h2>
-      {examFees.length || packages.length ? <div class="table-wrap"><table class="data-table"><thead><tr>{C.feesCols.map((c) => <th>{c}</th>)}</tr></thead>
-        <tbody>{examFees.map((f) => <tr><th scope="row">{f.item}</th><td>{money(f.amount, locale)}</td><td class="small">{f.body}{f.source && <> · <a href={f.source} target="_blank" rel="noopener">{host(f.source)}</a></>}{f.checked && ` · ${C.period} ${dateLoc(f.checked, locale, { day: 'numeric', month: 'short', year: 'numeric' })}`}</td></tr>)}</tbody></table></div> : null}
-      {examTotal === 0 && <p>{C.feesNone}</p>}
-    </section>
-
-    <section class="faq"><h2>{C.faqTitle}</h2>{C.faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</section>
-    <section><h2>{C.next}</h2><ul class="chips-links">{C.links.map(([k, l]) => <li><a href={href(k as 'trainingPath', locale)}>{l}</a></li>)}</ul></section>
+<Base title={L.title} description={L.desc} locale={locale} pageKey="trainingCost">
+  <div class="page-head" style="padding-bottom:0.8rem">
+    <div class="wrap">
+      <h1>{L.h1}</h1>
+      <p class="lead" style="margin-bottom:0">{L.lead}</p>
+    </div>
+    <Mountains />
   </div>
+
+  <div class="wrap section cmp" data-cmp="stage" style="padding-top:0.6rem">
+    <form class="filters cmp-filters" id="stage-cmp-form" onsubmit="return false" style="margin-top:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));gap:0.75rem;align-items:end">
+      <label style="display:grid;gap:0.25rem">
+        <span>{L.type}</span>
+        <select name="level">
+          <option value="">{L.allTypes}</option>
+          {LEVELS.filter((lv) => lv.key !== 'autre').map((lv) => (
+            <option value={lv.key} selected={lv.key === 'initiation'}>{lv.name}</option>
+          ))}
+        </select>
+      </label>
+      <label style="display:grid;gap:0.25rem">
+        <span>{L.country}</span>
+        <select name="pays">
+          <option value="FR" selected={MARKET.code === 'FR'}>France</option>
+          <option value="CH" selected={MARKET.code === 'CH'}>Suisse</option>
+          <option value="BE" selected={MARKET.code === 'BE'}>Belgique</option>
+          <option value="all">{L.allCountries}</option>
+        </select>
+      </label>
+      <label style="display:grid;gap:0.25rem">
+        <span>{L.region}</span>
+        <select name="region">
+          <option value="">{L.allRegions}</option>
+          {regions.map((r) => <option value={r} data-country={regionCountryMap[r] || 'FR'}>{r}</option>)}
+        </select>
+      </label>
+      <label style="display:grid;gap:0.25rem">
+        <span>{L.city}</span>
+        <input type="search" name="q" list="stage-cmp-cities" autocomplete="off" placeholder={L.cityPh} />
+        <datalist id="stage-cmp-cities">{cities.map((c) => <option value={c.name} />)}</datalist>
+      </label>
+      <label style="display:grid;gap:0.25rem">
+        <span>{L.dist}</span>
+        <select name="r">
+          <option value="">{L.noLimit}</option>
+          <option value="25">25 km</option>
+          <option value="50" selected>50 km</option>
+          <option value="100">100 km</option>
+          <option value="200">200 km</option>
+        </select>
+      </label>
+      <label style="display:grid;gap:0.25rem">
+        <span>{L.currency}</span>
+        <select name="currency">
+          <option value="EUR" selected={MARKET.currency === 'EUR'}>EUR (€)</option>
+          <option value="CHF" selected={MARKET.currency === 'CHF'}>CHF</option>
+        </select>
+      </label>
+      <label style="display:grid;gap:0.25rem">
+        <span>{L.sort}</span>
+        <select name="sort">
+          <option value="price">{L.sPrice}</option>
+          <option value="distance">{L.sDist}</option>
+          <option value="school">{L.sSchool}</option>
+        </select>
+      </label>
+      <div class="btn-row"><button class="btn ghost small" type="reset">{L.reset}</button></div>
+    </form>
+
+    <p class="cmp-count" role="status" aria-live="polite"><strong id="stage-cmp-n">{stageRows.length}</strong> {L.count}</p>
+    <div class="table-wrap">
+      <table class="data-table cmp-table">
+        <thead>
+          <tr>
+            <th>{L.cOffer}</th>
+            <th>{L.cType}</th>
+            <th>{L.cDur}</th>
+            <th>{L.cPrice}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="stage-cmp-body">
+          {stageRows.map((r) => (
+            <tr
+              class="stage-cmp-row"
+              data-level={r.levelKey}
+              data-country={r.country}
+              data-currency={r.currency}
+              data-region={r.region}
+              data-city={r.city.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()}
+              data-near={r.near.map((x) => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()).join('|')}
+              data-lat={r.lat ?? ''}
+              data-lng={r.lng ?? ''}
+              data-price={r.price}
+              data-school={r.school.toLowerCase()}
+            >
+              <th scope="row">
+                <strong>{r.offer}</strong>
+                <span class="small muted">
+                  {r.school}{r.city ? ` · ${r.city}` : ''}{r.region ? ` · ${r.region}` : ''}<span class="stage-dist"></span>
+                </span>
+              </th>
+              <td class="small" data-label={L.cType}>{r.levelName}</td>
+              <td class="small nowrap" data-label={L.cDur}>{r.dur}</td>
+              <td class="nowrap" data-label={L.cPrice}><strong>{money(r.price, locale, r.currency)}</strong></td>
+              <td class="nowrap">
+                <a class="btn small ghost" href={`${schoolHref(r.slug, locale)}?parcours=stage`}>{L.go}</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="empty" id="stage-cmp-empty" hidden>{L.none}</p>
+
+    {examFees.length > 0 && (
+      <section style="margin-top:2.5rem">
+        <h2>{L.feesTitle}</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Poste</th><th>Montant</th><th>Organisme</th></tr></thead>
+            <tbody>
+              {examFees.map((f) => (
+                <tr>
+                  <th scope="row">{f.item}</th>
+                  <td>{money(f.amount, locale)}</td>
+                  <td class="small">{f.body}{f.source && <> · <a href={f.source} target="_blank" rel="noopener">{host(f.source)}</a></>}{f.checked && ` · ${dateLoc(f.checked, locale, { day: 'numeric', month: 'short', year: 'numeric' })}`}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+  </div>
+  <script type="application/json" id="stage-cmp-towns" set:html={JSON.stringify(cities.map(({ name, lat, lng, region, ...rest }: any) => ({ name, lat, lng, region, country: rest.country || 'FR' })))} />
 </Base>
 <script>import '../scripts/cmp-path.js';</script>
-<script type="application/json" id="path-fmt" set:html={JSON.stringify({ locale: locale === 'fr' ? MARKET.locale : locale === 'en' ? 'en-GB' : (MARKET.code === 'CH' ? 'de-CH' : 'de-DE'), currency: cur })} />
