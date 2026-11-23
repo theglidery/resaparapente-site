@@ -34,7 +34,13 @@ export async function onRequest(context) {
     url.hostname = url.hostname.slice(4);
     return Response.redirect(url, 308);
   }
-  if (market === 'FR') return next();
+  if (path === '/suisse-romande' || path === '/suisse-romande/') {
+    return Response.redirect(new URL('/ecoles/?pays=CH', url.origin), 301);
+  }
+  if (path === '/belgique-francophone' || path === '/belgique-francophone/') {
+    return Response.redirect(new URL('/ecoles/?pays=BE', url.origin), 301);
+  }
+  if (market) return next();
   if (!market) {
     const upstream = await next();
     const response = new Response(upstream.body, upstream);

@@ -10,14 +10,10 @@ export const BRAND = brands[MARKET.brand as keyof typeof brands];
 export const marketReady = !isRegional || schoolsRaw.some((s) =>
   (('country' in s ? s.country : null) || 'FR') === MARKET.code && (s.baptemes.length || s.stages.length));
 export const marketLinks = [
-  { ...markets.FR, code: 'FR', href: isRegional ? markets.FR.origin + '/' : '/' },
-  ...(['CH', 'BE'] as const).map((code) => ({
-    ...markets[code], code,
-    href: MARKET.code === code ? '/' : (
-      (code === 'CH' ? import.meta.env.PUBLIC_CH_LIVE : import.meta.env.PUBLIC_BE_LIVE) === '1'
-        ? markets[code].origin + '/' : (isRegional ? markets.FR.origin : '') + markets[code].preview
-    ),
-  })),
+  { ...markets.FR, code: 'FR', href: '/ecoles/?pays=FR' },
+  { ...markets.CH, code: 'CH', href: '/ecoles/?pays=CH' },
+  { ...markets.BE, code: 'BE', href: '/ecoles/?pays=BE' },
+  { code: 'all', label: 'Tous les pays', locale: 'fr', href: '/ecoles/?pays=all' },
 ];
 
 export const SITE = {

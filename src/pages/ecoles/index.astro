@@ -1,0 +1,214 @@
+---
+import Base from '../../layouts/Base.astro';
+import Mountains from '../../components/Mountains.astro';
+import { schools, fromPrice, eur, currencyOf, OUTRE_MER_CODES } from '../../lib/data';
+import { slugify } from '../../lib/places';
+import { MARKET } from '../../config';
+
+const sortedSchools = [...schools].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+const regions = [...new Set(schools.map((s) => s.region).filter(Boolean) as string[])].sort((a, b) => a.localeCompare(b, 'fr'));
+const regionCountryMap = Object.fromEntries(schools.filter((s) => s.region).map((s) => [s.region as string, s.country || 'FR']));
+const citiesByRegion: Record<string, string[]> = {};
+for (const s of sortedSchools) {
+  if (!s.region || !s.city) continue;
+  citiesByRegion[s.region] ??= [];
+  if (!citiesByRegion[s.region].includes(s.city)) citiesByRegion[s.region].push(s.city);
+}
+for (const k of Object.keys(citiesByRegion)) citiesByRegion[k].sort((a, b) => a.localeCompare(b, 'fr'));
+
+const metroRegions = [...new Set(schools.filter((s) => s.country === 'FR' && s.region && s.region !== 'Outre-mer').map((s) => s.region as string))].sort((a, b) => a.localeCompare(b, 'fr'));
+const outreMer = OUTRE_MER_CODES.map((code) => {
+  const pool = schools.filter((s) => s.deptCode === code);
+  return pool.length ? { code, name: pool[0].dept || code, slug: slugify(pool[0].dept || code), count: pool.length } : null;
+}).filter((x): x is NonNullable<typeof x> => Boolean(x));
+const omTotal = schools.filter((s) => s.region === 'Outre-mer').length;
+const COUNTRY_LABELS: Record<string, string> = { FR: 'France', CH: 'Suisse', BE: 'Belgique' };
+---
+<Base title="Toutes les écoles de parapente" description={`Annuaire complet des ${schools.length} écoles de parapente en France, Suisse et Belgique.`}>
+  <div class="page-head"><div class="wrap">
+    <h1>Écoles de parapente</h1>
+    <p class="lead">{schools.length} écoles référencées en France, en Suisse et en Belgique.</p>
+  </div><Mountains /></div>
+
+  <div class="wrap section" style="padding-top:1.2rem">
+    <div class="school-layout">
+      <aside class="filters-col" aria-label="Filtrer les écoles">
+        <form id="ec-filters" class="card" style="padding:1rem 1.1rem;display:grid;gap:0.85rem">
+          <h2 style="font-size:1.05rem;margin:0">Filtrer</h2>
+          <div class="field">
+            <label for="ec-country">Pays</label>
+            <select id="ec-country" name="pays">
+              <option value="FR" selected={MARKET.code === 'FR'}>France</option>
+              <option value="CH" selected={MARKET.code === 'CH'}>Suisse</option>
+              <option value="BE" selected={MARKET.code === 'BE'}>Belgique</option>
+              <option value="all">Tous les pays</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ec-lang">Langue de l’école</label>
+            <select id="ec-lang" name="lang">
+              <option value="">Toutes les langues</option>
+              <option value="Français">Français</option>
+              <option value="Anglais">Anglais</option>
+              <option value="Allemand">Allemand</option>
+              <option value="Italien">Italien</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ec-region">Région</label>
+            <select id="ec-region" name="region">
+              <option value="">Toutes les régions</option>
+              {regions.map((r) => <option value={r} data-country={regionCountryMap[r] || 'FR'}>{r}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="ec-city">Ville</label>
+            <select id="ec-city" name="ville" disabled>
+              <option value="">Toutes les villes de la région</option>
+            </select>
+          </div>
+        </form>
+      </aside>
+
+      <div class="offers-col">
+        <p class="small muted" id="ec-count" style="margin:0 0 0.8rem">{sortedSchools.length} écoles</p>
+        <ul class="school-list" id="ec-list" style="list-style:none;padding:0;display:grid;gap:0.75rem">
+          {sortedSchools.map((s) => {
+            const cur = currencyOf(s);
+            const minPrice = fromPrice(s, 'bapteme') ?? fromPrice(s, 'stage');
+            const hasOffers = s.baptemes.length > 0 || s.stages.length > 0;
+            return (
+              <li
+                class="card"
+                style="padding:0.95rem 1.1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap"
+                data-country={s.country || 'FR'}
+                data-region={s.region || ''}
+                data-city={s.city || ''}
+                data-lang={(s.fiche?.langues || '').toLowerCase()}
+              >
+                <div>
+                  <a href={`/ecoles/${s.slug}/`} style="font-weight:700;font-size:1.05rem;text-decoration:none">{s.name}</a>
+                  <div class="muted small">
+                    {[s.city, s.region, COUNTRY_LABELS[s.country || 'FR']].filter(Boolean).join(' · ')}
+                    {s.fiche?.langues && ` · ${s.fiche.langues}`}
+                  </div>
+                </div>
+                <div>
+                  {minPrice !== null ? (
+                    <strong>dès {eur(minPrice, cur)}</strong>
+                  ) : hasOffers ? (
+                    <span class="muted small">Prix sur demande</span>
+                  ) : (
+                    <a class="chip" href={`/ecoles/${s.slug}/`}>Contactez l’école</a>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+
+    <section aria-labelledby="h-metro" style="margin-top:2.5rem;margin-bottom:2rem">
+      <h2 id="h-metro">Régions de France métropolitaine</h2>
+      <ul class="type-grid">
+        {metroRegions.map((r) => {
+          const count = schools.filter((s) => s.region === r).length;
+          return (
+            <li>
+              <a href={`/ecoles/${slugify(r)}/`}>
+                <strong>{r}</strong>
+                <span>{count} école{count > 1 ? 's' : ''}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    {omTotal > 0 && (
+      <section aria-labelledby="h-om">
+        <h2 id="h-om">Outre-mer ({omTotal} écoles)</h2>
+        <p class="small muted"><a href="/ecoles/outre-mer/">Voir toutes les écoles d’Outre-mer</a></p>
+        <ul class="type-grid">
+          {outreMer.map((t) => (
+            <li>
+              <a href={`/ecoles/${t.slug}/`}>
+                <strong>{t.name} · {t.code}</strong>
+                <span>{t.count} école{t.count > 1 ? 's' : ''}{t.count === 1 ? ' · page propre' : ''}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+  <script type="application/json" id="ec-cities-map" set:html={JSON.stringify(citiesByRegion)} />
+</Base>
+<script>
+  const $ = (s: string) => document.querySelector(s) as any;
+  const fCountry = $('#ec-country') as HTMLSelectElement;
+  const fLang = $('#ec-lang') as HTMLSelectElement;
+  const fRegion = $('#ec-region') as HTMLSelectElement;
+  const fCity = $('#ec-city') as HTMLSelectElement;
+  const list = $('#ec-list') as HTMLElement;
+  const countEl = $('#ec-count') as HTMLElement;
+  const items = [...list.querySelectorAll('li[data-country]')] as HTMLElement[];
+  const citiesMap: Record<string, string[]> = JSON.parse($('#ec-cities-map').textContent || '{}');
+
+  const hostCountry = location.hostname.endsWith('.ch') ? 'CH' : location.hostname.endsWith('.be') ? 'BE' : 'FR';
+  const params = new URLSearchParams(location.search);
+  fCountry.value = params.get('pays') || hostCountry;
+  if (params.get('lang')) fLang.value = params.get('lang')!;
+  if (params.get('region')) fRegion.value = params.get('region')!;
+
+  function syncRegions() {
+    const c = fCountry.value;
+    [...fRegion.querySelectorAll('option[data-country]')].forEach((opt: any) => {
+      opt.hidden = c !== 'all' && opt.dataset.country !== c;
+    });
+  }
+  function syncCities() {
+    const reg = fRegion.value;
+    fCity.innerHTML = '<option value="">Toutes les villes de la région</option>';
+    if (!reg || !citiesMap[reg]) { fCity.disabled = true; return; }
+    fCity.disabled = false;
+    for (const c of citiesMap[reg]) {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      fCity.appendChild(opt);
+    }
+  }
+  function apply() {
+    const c = fCountry.value;
+    const lang = fLang.value.toLowerCase();
+    const reg = fRegion.value;
+    const city = fCity.value;
+    let shown = 0;
+    const sorted = [...items].sort((a, b) => {
+      const pa = a.dataset.country === hostCountry ? 0 : 1;
+      const pb = b.dataset.country === hostCountry ? 0 : 1;
+      return pa - pb;
+    });
+    for (const li of sorted) {
+      const ok =
+        (c === 'all' || li.dataset.country === c) &&
+        (!lang || (li.dataset.lang || '').includes(lang)) &&
+        (!reg || li.dataset.region === reg) &&
+        (!city || li.dataset.city === city);
+      li.hidden = !ok;
+      list.appendChild(li);
+      if (ok) shown += 1;
+    }
+    countEl.textContent = shown === 1 ? '1 école' : `${shown} écoles`;
+  }
+
+  fCountry.addEventListener('change', () => { fRegion.value = ''; syncRegions(); syncCities(); apply(); });
+  fLang.addEventListener('change', apply);
+  fRegion.addEventListener('change', () => { syncCities(); apply(); });
+  fCity.addEventListener('change', apply);
+  syncRegions();
+  syncCities();
+  if (params.get('ville')) fCity.value = params.get('ville')!;
+  apply();
+</script>

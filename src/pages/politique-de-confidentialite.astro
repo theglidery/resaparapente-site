@@ -1,71 +1,18 @@
 ---
 import DocPage from '../components/DocPage.astro';
-import { SITE, ANALYTICS } from '../config';
+import rawPrivacy from '../../legal/pages/confidentialite-fr.html?raw';
+
+const html = rawPrivacy
+  .replace(/\{\{cgvUrl\}\}/g, '/conditions-generales-de-vente/')
+  .replace(/\{\{privacyUrl\}\}/g, '/politique-de-confidentialite/');
 ---
-<DocPage title="Politique de confidentialité" description="Quelles données Resa Parapente collecte, pourquoi, avec qui elles sont partagées, combien de temps elles sont conservées et comment exercer vos droits.">
-  <p class="notice">Résumé : nous utilisons vos coordonnées pour transmettre votre demande à l’école que vous avez choisie et pour vous répondre. Le destinataire de votre demande est toujours nommé sur le formulaire. Nous ne vendons pas vos données.</p>
-  <h2>1. Qui est responsable</h2>
-  <p>TheGlidery SAS (RCS Grenoble 943 359 984), éditeur de resaparapente.fr, est responsable du traitement des données collectées sur ce site. Contact : <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>. Chaque école qui reçoit votre demande traite ensuite vos données pour répondre à votre demande, selon sa propre politique.</p>
-  <h2>2. Données collectées</h2>
-  <ul>
-    <li><strong>Demande de réservation</strong> : nom, e-mail, école, formule, nombre de participants, poids de chaque participant (et taille pour un stage), et, si vous les renseignez, prénoms, téléphone, dates souhaitées et message. Ces informations sont enregistrées dans notre base de contacts (hébergée par Cloudflare) en plus d’être transmises à l’école.</li>
-    <li><strong>Offres MonParapente.fr (facultatif)</strong> : si vous cochez la case dédiée, nous vous envoyons par e-mail des conseils et offres de MonParapente.fr. Case non cochée par défaut ; désinscription à tout moment.</li>
-    <li><strong>Formulaire « Pour les écoles »</strong> : nom et fonction du contact, email, téléphone, informations publiées (dates, prix, liens).</li>
-    <li><strong>Bons cadeaux</strong> : nous ne collectons aucune donnée pour un bon. L’achat se fait sur le site de l’école, qui fournit ses propres informations de confidentialité.</li>
-    <li><strong>Avis</strong> : note, texte, mois de l’expérience, prénom, nom et email de l’auteur. Sont publiés le prénom, l’initiale du nom, la note, le texte et les dates ; l’email et le nom complet ne le sont pas. L’école concernée reçoit l’avis. Règles : <a href="/avis-clients/">avis des participants</a>.</li>
-    <li><strong>Note Google Maps</strong> : sur la fiche d’une école, notre serveur interroge Google pour lire la note de l’école au moment où la page s’affiche. Aucune donnée vous concernant n’est envoyée à Google par cette lecture et le navigateur ne contacte pas Google.</li>
-    <li><strong>Message au service client</strong> : ce que vous nous écrivez.</li>
-    <li><strong>Données techniques</strong> : adresse IP, type de navigateur et heures de connexion, conservées dans les journaux de l’hébergeur pour la sécurité.</li>
-    <li>Si vous utilisez « Autour de moi », votre position est utilisée dans votre navigateur pour classer les écoles. Elle n’est pas envoyée à nos serveurs.</li>
-  </ul>
-  <p>Nous ne collectons pas de données sensibles. Le poids (et la taille pour un stage) est demandé uniquement pour que l’école puisse choisir le matériel et confirmer la faisabilité.  L’école peut vous demander d’autres informations (dont votre adresse) au moment de confirmer.</p>
-  <h2>3. Pourquoi et sur quelle base</h2>
-  <table>
-    <thead><tr><th>Finalité</th><th>Base légale</th></tr></thead>
-    <tbody>
-      <tr><td>Transmettre votre demande à l’école et vous accuser réception</td><td>Mesures précontractuelles à votre demande</td></tr>
-      <tr><td>Publier les informations d’une école et la contacter</td><td>Mesures précontractuelles, exécution de la convention de référencement</td></tr>
-      <tr><td>Répondre à vos messages, suivre les réclamations</td><td>Intérêt légitime (service client)</td></tr>
-      <tr><td>Sécurité du site, lutte contre la fraude</td><td>Intérêt légitime</td></tr>
-      <tr><td>Conserver vos demandes (3 ans après le dernier contact, puis suppression)</td><td>Intérêt légitime (suivi et preuve du consentement)</td></tr>
-      <tr><td>Informations commerciales MonParapente.fr (si vous cochez la case)</td><td>Consentement, retirable à tout moment</td></tr>
-    </tbody>
-  </table>
-  <p>Nous ne prenons aucune décision automatisée et ne faisons pas de profilage.</p>
-  <h2>4. Qui reçoit vos données</h2>
-  <ul>
-    <li>L’école que vous contactez : elle reçoit vos coordonnées pour répondre à votre demande.</li>
-    <li>Nos prestataires techniques : hébergement (Cloudflare), envoi d’emails <mark class="todo">[prestataire]</mark>.</li>
-    <li>Les autorités, sur demande légale.</li>
-  </ul>
-  <p>Certains prestataires peuvent traiter des données hors de l’Union européenne, avec les garanties prévues par le RGPD (décision d’adéquation ou clauses contractuelles types).</p>
-  <h2>5. Combien de temps</h2>
-  <table>
-    <thead><tr><th>Donnée</th><th>Durée</th></tr></thead>
-    <tbody>
-      <tr><td>Demande de réservation sans suite</td><td>3 ans après le dernier contact <mark class="todo">[à valider]</mark></td></tr>
-      <tr><td>Messages au service client</td><td>3 ans <mark class="todo">[à valider]</mark></td></tr>
-      <tr><td>Journaux techniques</td><td>12 mois maximum</td></tr>
-    </tbody>
-  </table>
-  <h2 id="cookies">6. Cookies et traceurs</h2>
-  {ANALYTICS.enabled
-    ? <>
-        <p>Le site utilise des éléments techniques nécessaires à son fonctionnement (par exemple pour se souvenir de votre choix sur les cookies). Avec votre accord seulement, nous utilisons aussi :</p>
-        <ul>
-          <li><strong>Google Analytics</strong> : mesure d’audience (pages vues, parcours, demandes envoyées), pour améliorer le site.</li>
-          <li><strong>Google Ads</strong> : mesure de l’efficacité de nos annonces (une demande envoyée après un clic sur une annonce).</li>
-        </ul>
-        <p>Sans votre accord, aucun de ces traceurs n’est déposé et aucune donnée n’est envoyée à Google. Vous pouvez accepter, refuser ou changer d’avis à tout moment avec le lien « Gérer mes cookies » en bas de page. Votre choix est conservé sur votre appareil. Google peut traiter des données hors de l’Union européenne, avec les garanties prévues par le RGPD.</p>
-      </>
-    : <p>Le site n’utilise que des éléments techniques nécessaires à son fonctionnement. Aucun traceur publicitaire. Si une mesure d’audience est ajoutée, elle sera soumise à votre consentement et cette page sera mise à jour.</p>}
-  <h2>7. Sécurité</h2>
-  <p>Le site est servi en HTTPS, l’accès aux données est limité aux personnes qui en ont besoin, et aucun paiement n’a lieu sur le site. En cas de violation de données, la CNIL et les personnes concernées sont informées selon la loi.</p>
-  <h2>8. Vos droits</h2>
-  <p>Vous pouvez demander l’accès à vos données, leur rectification, leur effacement, la limitation ou l’opposition à leur traitement, leur portabilité, et retirer un consentement. Vous pouvez aussi définir des directives sur le sort de vos données après votre décès. Écrivez à <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> en indiquant votre nom et, si possible, l’école concernée : nous répondons sous un mois. Pour une demande qui concerne une école, adressez-vous aussi à elle. Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la CNIL (cnil.fr).</p>
-  <h2>9. Données professionnelles des écoles</h2>
-  <p>Les informations sur les écoles (nom, coordonnées professionnelles, offres, noms des encadrants lorsqu’ils sont publiés par l’école) proviennent des sites officiels des écoles ou de l’école elle-même. Une école ou une personne citée peut demander la correction ou le retrait de ces informations à tout moment.</p>
-  <h2>10. Mises à jour</h2>
-  <p>Nous mettons cette page à jour lorsque nos traitements changent. La date de dernière mise à jour figure ci-dessous.</p>
-  <p class="muted small">Dernière mise à jour : <mark class="todo">[date]</mark></p>
+<DocPage
+  title="Politique de confidentialité"
+  description="Quelles données ResaParapente collecte, pourquoi, avec qui elles sont partagées, combien de temps elles sont conservées et comment exercer vos droits."
+>
+  <p class="muted">Version du 22 novembre 2026</p>
+  <div set:html={html} />
 </DocPage>
+<style>
+  :global(mark.todo) { background: #fef08a; color: #713f12; padding: 0.05em 0.3em; border-radius: 4px; font-weight: 600; }
+</style>

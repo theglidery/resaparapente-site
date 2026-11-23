@@ -1,0 +1,19 @@
+---
+import DocPage from '../../components/DocPage.astro';
+import rawCgv from '../../../legal/pages/cgv-clients-en.html?raw';
+
+const html = rawCgv
+  .replace(/\{\{cgvUrl\}\}/g, '/en/terms-and-conditions/')
+  .replace(/\{\{privacyUrl\}\}/g, '/en/privacy-policy/');
+---
+<DocPage
+  title="Terms and conditions"
+  h1="ResaParapente Terms and Conditions"
+  description="Terms applicable to ResaParapente users: free booking and gift requests, safety, listing, personal data and applicable law."
+>
+  <p class="muted">Version of 22 November 2026</p>
+  <div set:html={html} />
+</DocPage>
+<style>
+  :global(mark.todo) { background: #fef08a; color: #713f12; padding: 0.05em 0.3em; border-radius: 4px; font-weight: 600; }
+</style>

@@ -1,4 +1,11 @@
 ---
-import RegionalHome from '../components/RegionalHome.astro';
+import Base from '../layouts/Base.astro';
 ---
-<RegionalHome code="BE" preview />
+<Base title="Écoles de parapente en Belgique" description="Toutes les écoles de parapente en Belgique." noindex>
+  <meta http-equiv="refresh" content="0;url=/ecoles/?pays=BE" slot="head" />
+  <div class="wrap section">
+    <h1>Écoles de parapente en Belgique</h1>
+    <p>Redirection vers <a href="/ecoles/?pays=BE">la liste des écoles en Belgique</a>…</p>
+  </div>
+</Base>
+<script>location.replace('/ecoles/?pays=BE');</script>

@@ -1,0 +1,216 @@
+---
+import Base from '../layouts/Base.astro';
+
+interface Props { locale?: 'fr' | 'en' }
+const { locale = 'fr' } = Astro.props;
+const isEn = locale === 'en';
+
+// Fill these two URLs when Philippe supplies the Locawing product pages.
+export const SHOP_LINKS = {
+  tshirt: '',
+  gaiter: '',
+};
+export const COUPON_CODE = 'NOEL10';
+
+const T = isEn
+  ? {
+      title: 'Locawing Christmas Offer — €10 off with NOEL10',
+      desc: 'This Christmas, the Locawing shop takes €10 off your purchase: the navy blue T-shirt or the “Je vole” neck gaiter.',
+      h1: 'A Christmas gift for anyone who dreams of flying.',
+      lead: 'This Christmas, the Locawing shop takes €10 off your purchase: the navy blue T-shirt or the “Je vole” neck gaiter.',
+      tk: 'Christmas offer coupon',
+      what: 'off your purchase in the Locawing shop',
+      copy: 'Copy the code',
+      copied: 'Copied',
+      h2: 'Two items to celebrate Christmas',
+      sub: 'The same mountains, the same paraglider, printed on a navy blue T-shirt and on a neck gaiter.',
+      front: 'Front',
+      back: 'Back',
+      p1: 'Navy blue T-shirt',
+      p1d: 'A small paraglider over mountains on the pocket side, and the large flight scene on the back.',
+      p1a: 'Front: discreet print, pocket side',
+      p1b: 'Back: large sunset print',
+      p2: '“Je vole” neck gaiter',
+      p2d: 'An orange paraglider above the ridges on a midnight blue background, with the words “Je vole”.',
+      shop: 'See it in the Locawing shop',
+      soon: 'Shop link coming soon',
+      how: 'How to use it',
+      howSub: 'Three steps, no sign-up.',
+      s1: 'Pick your item',
+      s1d: 'Open the T-shirt or neck gaiter page in the shop.',
+      s2: 'Add it to your cart',
+      s2d: 'Choose your T-shirt size, then go to your cart.',
+      s3: 'Enter the code',
+      s3d: `Type ${COUPON_CODE} at checkout: €10 is taken off your order.`,
+      fine: 'Offer terms: see the Locawing shop.',
+    }
+  : {
+      title: 'Offre Noël Locawing — −10 € avec le code NOEL10',
+      desc: 'Pour Noël, la boutique Locawing vous offre 10 € sur votre achat : le T-shirt bleu marine ou le tour de cou « Je vole ».',
+      h1: 'Un cadeau de Noël pour ceux qui rêvent de voler.',
+      lead: 'Pour Noël, la boutique Locawing vous offre 10 € sur votre achat : le T-shirt bleu marine ou le tour de cou « Je vole ».',
+      tk: 'Coupon Offre Noël',
+      what: 'sur votre achat dans la boutique Locawing',
+      copy: 'Copier le code',
+      copied: 'Copié',
+      h2: 'Deux articles pour fêter Noël',
+      sub: 'Les mêmes montagnes, le même parapente, imprimés sur un T-shirt bleu marine et sur un tour de cou.',
+      front: 'Devant',
+      back: 'Dos',
+      p1: 'T-shirt bleu marine',
+      p1d: 'Un petit parapente au-dessus des montagnes côté poche, et la grande scène de vol dans le dos.',
+      p1a: 'Devant : motif discret, côté poche',
+      p1b: 'Dos : grand motif coucher de soleil',
+      p2: 'Tour de cou « Je vole »',
+      p2d: 'Un parapente orange au-dessus des crêtes, sur fond bleu nuit, avec la mention « Je vole ».',
+      shop: 'Voir dans la boutique Locawing',
+      soon: 'Lien boutique bientôt disponible',
+      how: 'Comment en profiter',
+      howSub: 'Trois étapes, sans inscription.',
+      s1: 'Choisissez votre article',
+      s1d: 'Ouvrez la fiche du T-shirt ou du tour de cou dans la boutique.',
+      s2: 'Ajoutez-le au panier',
+      s2d: 'Choisissez votre taille pour le T-shirt, puis passez au panier.',
+      s3: 'Saisissez le code',
+      s3d: `Entrez ${COUPON_CODE} au moment de payer : 10 € sont déduits de votre commande.`,
+      fine: 'Conditions de l’offre : voir la boutique Locawing.',
+    };
+
+const alternates = [
+  { locale: 'fr' as const, href: '/offre-noel/' },
+  { locale: 'en' as const, href: '/en/christmas-offer/' },
+];
+---
+<Base title={T.title} description={T.desc} locale={locale} alternates={alternates}>
+  <section class="noel-hero">
+    <div class="wrap noel-hero-grid">
+      <div>
+        <h1>{T.h1}</h1>
+        <p class="noel-lead">{T.lead}</p>
+      </div>
+      <div class="noel-ticket" aria-label="Coupon">
+        <small>{T.tk}</small>
+        <div class="noel-amount">−10&nbsp;€</div>
+        <p class="noel-what">{T.what}</p>
+        <div class="noel-code">
+          <b id="noel-code">{COUPON_CODE}</b>
+          <button type="button" class="btn small" id="noel-copy" data-copied={T.copied}>{T.copy}</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap section">
+    <section aria-labelledby="noel-art">
+      <h2 id="noel-art">{T.h2}</h2>
+      <p class="muted" style="max-width:44em;margin-bottom:1.5rem">{T.sub}</p>
+      <div class="noel-products">
+        <article class="card noel-card">
+          <div class="noel-pics">
+            <figure>
+              <img src="/images/offre-noel/tshirt-navy-front-mockup.png" alt="T-shirt bleu marine, vue de face avec le petit motif côté poche" width="760" height="798" loading="lazy" />
+              <figcaption>{T.front}</figcaption>
+            </figure>
+            <figure>
+              <img src="/images/offre-noel/tshirt-navy-back-mockup.png" alt="T-shirt bleu marine, vue de dos avec le grand motif" width="760" height="798" loading="lazy" />
+              <figcaption>{T.back}</figcaption>
+            </figure>
+          </div>
+          <div class="noel-body">
+            <h3>{T.p1}</h3>
+            <p class="muted">{T.p1d}</p>
+            <ul class="facts">
+              <li>{T.p1a}</li>
+              <li>{T.p1b}</li>
+            </ul>
+            {SHOP_LINKS.tshirt ? (
+              <a class="btn noel-shop" href={SHOP_LINKS.tshirt} target="_blank" rel="noopener" data-item="tshirt">{T.shop}</a>
+            ) : (
+              <span class="btn ghost noel-shop-disabled" aria-disabled="true">{T.soon}</span>
+            )}
+          </div>
+        </article>
+
+        <article class="card noel-card">
+          <div class="noel-gpic">
+            <img src="/images/offre-noel/neck-gaiter-artwork.jpg" alt="Tour de cou bleu nuit avec un parapente orange au-dessus de montagnes et la mention Je vole" width="700" height="1384" loading="lazy" />
+          </div>
+          <div class="noel-body">
+            <h3>{T.p2}</h3>
+            <p class="muted">{T.p2d}</p>
+            {SHOP_LINKS.gaiter ? (
+              <a class="btn noel-shop" href={SHOP_LINKS.gaiter} target="_blank" rel="noopener" data-item="gaiter">{T.shop}</a>
+            ) : (
+              <span class="btn ghost noel-shop-disabled" aria-disabled="true">{T.soon}</span>
+            )}
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="noel-how" style="margin-top:2.5rem">
+      <h2 id="noel-how">{T.how}</h2>
+      <p class="muted" style="margin-bottom:1.2rem">{T.howSub}</p>
+      <ol class="steps">
+        <li><strong>{T.s1}</strong>{T.s1d}</li>
+        <li><strong>{T.s2}</strong>{T.s2d}</li>
+        <li><strong>{T.s3}</strong>{T.s3d}</li>
+      </ol>
+    </section>
+
+    <p class="small muted" style="border-top:1px solid var(--line);padding-top:1rem;margin-top:2rem">{T.fine}</p>
+  </div>
+</Base>
+<style>
+  .noel-hero { background: #0e1b33; color: #f6e7c8; padding: 2.8rem 0; }
+  .noel-hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2rem; align-items: center; }
+  .noel-hero h1 { color: #f6e7c8; margin: 0 0 0.7rem; }
+  .noel-lead { color: #a9b9d3; font-size: 1.1rem; margin: 0; max-width: 36ch; }
+  .noel-ticket { background: #f6e7c8; color: #0e1b33; border-radius: 14px; padding: 1.5rem 1.7rem; display: grid; gap: 0.35rem; }
+  .noel-ticket small { letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.75rem; font-weight: 700; color: #5a6785; }
+  .noel-amount { font-weight: 800; font-size: 3.4rem; line-height: 1; color: #e2563a; }
+  .noel-what { margin: 0 0 0.6rem; }
+  .noel-code { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; border-top: 2px dashed #b9a98a; padding-top: 0.8rem; }
+  .noel-code b { font-size: 1.35rem; letter-spacing: 0.16em; }
+  .noel-products { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1.5rem; align-items: start; }
+  .noel-card { overflow: hidden; padding: 0; display: flex; flex-direction: column; }
+  .noel-pics { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--line); }
+  .noel-pics figure { margin: 0; position: relative; background: #e9edf2; }
+  .noel-pics img { display: block; width: 100%; height: auto; }
+  .noel-pics figcaption { position: absolute; left: 10px; bottom: 10px; background: rgba(14,27,51,.86); color: #f6e7c8; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+  .noel-gpic { background: #0e1b33; display: flex; justify-content: center; padding: 1.4rem 0; }
+  .noel-gpic img { width: min(60%, 220px); height: auto; border-radius: 6px; }
+  .noel-body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.65rem; flex: 1; }
+  .noel-body h3 { margin: 0; }
+  .noel-shop-disabled { opacity: 0.65; cursor: not-allowed; pointer-events: none; align-self: flex-start; }
+  .noel-shop { align-self: flex-start; }
+  @media (max-width: 760px) {
+    .noel-hero-grid, .noel-products { grid-template-columns: 1fr; }
+  }
+</style>
+<script>
+  const copyBtn = document.getElementById('noel-copy') as HTMLButtonElement | null;
+  const codeEl = document.getElementById('noel-code');
+  copyBtn?.addEventListener('click', () => {
+    const code = codeEl?.textContent?.trim() || 'NOEL10';
+    const done = () => {
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = copyBtn.dataset.copied || 'Copié';
+      setTimeout(() => { copyBtn.textContent = orig; }, 1500);
+    };
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(code).then(done);
+    } else if (codeEl) {
+      const r = document.createRange();
+      r.selectNodeContents(codeEl);
+      getSelection()?.removeAllRanges();
+      getSelection()?.addRange(r);
+      done();
+    }
+  });
+  document.querySelectorAll('.noel-shop').forEach((a) => {
+    a.addEventListener('click', () => {
+      (window as any).rpTrack?.('click_christmas_shop', { item: (a as HTMLElement).dataset.item });
+    });
+  });
+</script>

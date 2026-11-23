@@ -11,26 +11,53 @@ const words = (text) => norm(text).split(/[\s'’\-]+/).filter(Boolean);
 /** Reads data-* attributes of an element: name, city, dept, region, near (a|b|c), lat, lng, levels (space separated). */
 export const readItem = (el) => ({
   name: el.dataset.name || '', city: el.dataset.city || '', dept: el.dataset.dept || '', region: el.dataset.region || '',
+  country: el.dataset.country || 'FR', currency: el.dataset.currency || 'EUR', lang: el.dataset.lang || '',
   near: (el.dataset.near || '').split('|').filter(Boolean), lat: parseFloat(el.dataset.lat), lng: parseFloat(el.dataset.lng),
   levels: (el.dataset.levels || '').split(' ').filter(Boolean), start: el.dataset.start || '', flags: (el.dataset.flags || '').split(' ').filter(Boolean),
 });
 
+export function defaultCountryFromHost() {
+  const h = location.hostname;
+  if (h.endsWith('.ch')) return 'CH';
+  if (h.endsWith('.be')) return 'BE';
+  return 'FR';
+}
+
 export function makeFilters(form) {
   const towns = JSON.parse(document.getElementById('towns-data').textContent);
-  const els = { q: form.elements.q, r: form.elements.r, region: form.elements.region, sort: form.elements.sort, level: form.elements.level, school: form.elements.school, month: form.elements.month };
+  const els = { pays: form.elements.pays, lang: form.elements.lang, q: form.elements.q, r: form.elements.r, region: form.elements.region, sort: form.elements.sort, level: form.elements.level, school: form.elements.school, month: form.elements.month };
   const chips = [...document.querySelectorAll('#type-chips [data-level]')];
   const flagEls = [...form.querySelectorAll('input[data-flag]')]; // checkboxes: kids, winter, gift
   const syncChips = () => chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.level === (els.level ? els.level.value : ''))));
   const geo = document.getElementById('geo');
+  const datalist = document.getElementById('cities');
   let origin = null; // { lat, lng } from "Autour de moi"
   const params = new URLSearchParams(location.search);
+  if (els.pays && !params.get('pays')) els.pays.value = defaultCountryFromHost();
   for (const [k, el] of Object.entries(els)) if (el && params.get(k)) el.value = params.get(k);
   for (const f of flagEls) if (params.get(f.dataset.flag) === '1') f.checked = true;
   const findTown = (text) => { const t = norm(text); return t ? towns.find((x) => norm(x.name) === t) || null : null; };
 
+  const syncCascading = () => {
+    const p = els.pays ? els.pays.value : 'FR';
+    if (els.region) {
+      [...els.region.querySelectorAll('option[data-country]')].forEach((opt) => {
+        opt.hidden = p !== 'all' && opt.dataset.country !== p;
+      });
+    }
+    if (datalist) {
+      const reg = els.region ? els.region.value : '';
+      const pool = towns.filter((t) => (p === 'all' || t.country === p) && (!reg || t.region === reg));
+      datalist.innerHTML = pool.map((t) => `<option value="${t.name.replace(/"/g, '&quot;')}"></option>`).join('');
+    }
+  };
+  syncCascading();
+
   const state = () => {
     const town = origin ? null : findTown(els.q.value);
     return {
+      pays: els.pays ? els.pays.value : 'FR',
+      lang: els.lang ? els.lang.value : '',
       qText: norm(els.q.value), town, from: origin || (town ? { lat: town.lat, lng: town.lng } : null),
       radius: Number(els.r.value) || 0, nameWords: words(els.school.value),
       flags: flagEls.filter((f) => f.checked).map((f) => f.dataset.flag), level: els.level ? els.level.value : '', month: els.month ? els.month.value : '', region: els.region.value, sort: els.sort ? els.sort.value : '',
@@ -40,7 +67,9 @@ export function makeFilters(form) {
   const match = (it, st) => {
     const d = st.from && !isNaN(it.lat) ? km(st.from, { lat: it.lat, lng: it.lng }) : null;
     let ok = true;
-    if (st.region && it.region !== st.region) ok = false;
+    if (st.pays && st.pays !== 'all' && it.country !== st.pays) ok = false;
+    if (ok && st.lang && !it.lang.includes(norm(st.lang))) ok = false;
+    if (ok && st.region && it.region !== st.region) ok = false;
     if (ok && st.level && !it.levels.includes(st.level)) ok = false;
     if (ok && st.flags.length && !st.flags.every((f) => it.flags.includes(f))) ok = false;
     if (ok && st.month) ok = !!it.start && it.start.slice(0, 7) === st.month;   // dated sessions only: a school without dates has nothing in that month
@@ -51,12 +80,14 @@ export function makeFilters(form) {
   };
   /** Calls apply() now and whenever a field changes. onGeoError(message) is called if the position is refused. */
   const bind = (applyNow, onGeoError) => {
-    const apply = () => { syncChips(); applyNow(); };
+    const apply = () => { syncChips(); syncCascading(); applyNow(); };
     form.addEventListener('submit', (e) => { e.preventDefault(); origin = null; apply(); });
-    for (const el of [els.r, els.region, els.sort, els.level, els.month, ...flagEls]) el && el.addEventListener('change', apply);
+    if (els.pays) els.pays.addEventListener('change', () => { if (els.region) els.region.value = ''; els.q.value = ''; origin = null; apply(); });
+    if (els.region) els.region.addEventListener('change', () => { els.q.value = ''; origin = null; apply(); });
+    for (const el of [els.lang, els.r, els.sort, els.level, els.month, ...flagEls]) el && el.addEventListener('change', apply);
     for (const el of [els.q, els.school]) el.addEventListener('input', () => { if (el === els.q) origin = null; apply(); });
     chips.forEach((c) => c.addEventListener('click', () => { if (els.level) els.level.value = c.dataset.level; apply(); }));
-    form.addEventListener('reset', () => setTimeout(() => { origin = null; if (els.level) els.level.value = ''; apply(); }, 0));
+    form.addEventListener('reset', () => setTimeout(() => { origin = null; if (els.level) els.level.value = ''; if (els.pays) els.pays.value = defaultCountryFromHost(); apply(); }, 0));
     if (geo && 'geolocation' in navigator) {
       geo.hidden = false;
       geo.addEventListener('click', () => {

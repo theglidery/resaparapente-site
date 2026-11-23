@@ -24,7 +24,7 @@ export const slugify = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '')
 const REGION_IN: Record<string, string> = {
   'Auvergne-Rhône-Alpes': 'en Auvergne-Rhône-Alpes', 'Occitanie': 'en Occitanie', "Provence-Alpes-Côte d'Azur": 'en Provence-Alpes-Côte d’Azur',
   'Outre-mer': 'en Outre-mer', 'Nouvelle-Aquitaine': 'en Nouvelle-Aquitaine', 'Grand Est': 'dans le Grand Est', 'Bretagne': 'en Bretagne',
-  'Normandie': 'en Normandie', 'Bourgogne-Franche-Comté': 'en Bourgogne-Franche-Comté',
+  'Normandie': 'en Normandie', 'Bourgogne-Franche-Comté': 'en Bourgogne-Franche-Comté', 'Corse': 'en Corse',
 };
 const DEPT_IN: Record<string, string> = {
   'Haute-Savoie': 'en Haute-Savoie', 'Isère': 'en Isère', 'Savoie': 'en Savoie', 'La Réunion': 'à La Réunion', 'Hautes-Alpes': 'dans les Hautes-Alpes',
@@ -35,6 +35,8 @@ const DEPT_IN: Record<string, string> = {
   'Gard': 'dans le Gard', 'Cantal': 'dans le Cantal', 'Haut-Rhin': 'dans le Haut-Rhin', 'Bouches-du-Rhône': 'dans les Bouches-du-Rhône', 'Lot': 'dans le Lot',
   'Jura': 'dans le Jura', 'Marne': 'dans la Marne', 'Ain': 'dans l’Ain', 'Corrèze': 'en Corrèze', 'Creuse': 'dans la Creuse', 'Haute-Loire': 'en Haute-Loire',
   'Var': 'dans le Var', 'Vosges': 'dans les Vosges',
+  'Corse-du-Sud': 'en Corse-du-Sud', 'Haute-Corse': 'en Haute-Corse', 'Martinique': 'en Martinique', 'Guyane': 'en Guyane',
+  'Polynésie française': 'en Polynésie française', 'Nouvelle-Calédonie': 'en Nouvelle-Calédonie',
 };
 const cityIn = (n: string) => (/^[AEIOUÉÈÊÎÔ]/.test(n) ? `près d’${n}` : `près de ${n}`);
 
@@ -90,7 +92,7 @@ function build(): Place[] {
 }
 
 const ALL = build();
-const minFor = (p: Place) => (p.type === 'city' ? MIN_CITY_SCHOOLS : MIN_SCHOOLS);
+const minFor = (p: Place) => (p.type === 'city' ? MIN_CITY_SCHOOLS : p.region === 'Corse' || p.region === 'Outre-mer' ? 1 : MIN_SCHOOLS);
 /** Places that have a page for this kind. */
 export const placesFor = (kind: Kind) => ALL.filter((p) => p.schools[kind].length >= minFor(p));
 export const placeBy = (kind: Kind, slug: string) => placesFor(kind).find((p) => p.slug === slug);

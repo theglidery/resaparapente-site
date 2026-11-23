@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Merci : demande de bon cadeau enregistrée" description="Votre demande de bon cadeau a bien été prise en compte." noindex>
+  <div class="page-head"><div class="wrap">
+    <p style="font-size:2rem;margin:0 0 0.4rem" aria-hidden="true">🎁</p>
+    <h1>Merci, votre demande est bien prise en compte</h1>
+    <p class="lead" id="gift-thanks-lead">
+      L’école vous écrit pour vous envoyer le bon cadeau et organiser le paiement. Resaparapente ne vend rien et ne prend aucun paiement.
+    </p>
+  </div></div>
+  <div class="wrap section" style="padding-top:1.2rem">
+    <p class="small muted" id="gift-thanks-ref" hidden>Référence de votre demande : <code></code></p>
+    <p class="btn-row">
+      <a class="btn" id="gift-back-school" href="/bons-cadeaux/">Retour aux bons cadeaux</a>
+      <a class="btn ghost" href="/">Retour à l’accueil</a>
+    </p>
+  </div>
+</Base>
+<script>
+  const q = new URLSearchParams(location.search);
+  const school = q.get('ecole') || '';
+  const slug = q.get('slug') || '';
+  const offer = q.get('offer') || '';
+  const price = q.get('price') || '';
+  const route = q.get('route') || 'school';
+  const ref = q.get('ref') || '';
+  const lead = document.getElementById('gift-thanks-lead');
+  if (lead) {
+    const formula = [offer, price].filter(Boolean).join(', ');
+    if (route === 'team') {
+      lead.textContent = `Notre équipe vous répond pour vous envoyer le bon cadeau${formula ? ` (${formula})` : ''}${school ? ` auprès de ${school}` : ''} et organiser le paiement. Resaparapente ne vend rien et ne prend aucun paiement.`;
+    } else if (school) {
+      lead.textContent = `${school} vous écrit pour vous envoyer le bon cadeau${formula ? ` (${formula})` : ''} et organiser le paiement. Resaparapente ne vend rien et ne prend aucun paiement.`;
+    }
+  }
+  const back = document.getElementById('gift-back-school') as HTMLAnchorElement | null;
+  if (back && slug) {
+    back.href = `/ecoles/${slug}/`;
+    back.textContent = 'Retour à l’école';
+  }
+  if (ref && /^[a-f0-9-]{36}$/i.test(ref)) {
+    const box = document.getElementById('gift-thanks-ref');
+    if (box) {
+      box.hidden = false;
+      const code = box.querySelector('code');
+      if (code) code.textContent = ref.slice(0, 8).toUpperCase();
+    }
+    let seen = false;
+    try { seen = sessionStorage.getItem('gift-lead-' + ref) === '1'; } catch {}
+    if (!seen && q.get('test') !== '1') {
+      (window as any).rpTrack?.('gift_request_sent', {
+        offer_id: q.get('offer_id') || undefined,
+        school_id: q.get('school_id') || undefined,
+        route,
+        transaction_id: ref,
+      });
+      try { sessionStorage.setItem('gift-lead-' + ref, '1'); } catch {}
+    }
+  }
+</script>

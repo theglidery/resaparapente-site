@@ -21,12 +21,16 @@ const homeHref = isEn ? '/en/' : '/';
 
 const stageSub = isEn
   ? [
+      { href: '/en/paragliding-course-schools/', label: 'Find / Book My Course' },
+      { href: '/en/paragliding-course-schools/', label: 'Course Comparator' },
       { href: href('trainingCost', 'en'), label: 'Cost of full training' },
       { href: href('whenStart', 'en'), label: 'When can I start?' },
       { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses' },
       { href: '/en/paragliding-course-schools/', label: 'All course schools' },
     ]
   : [
+      { href: '/stage/', label: 'Trouver / Réserver mon stage' },
+      { href: '/stage/', label: 'Comparateur de stages' },
       { href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' },
       { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' },
       { href: '/calendrier/', label: 'Prochains stages' },
@@ -74,19 +78,19 @@ const learnItems = isEn
 
 const links = isEn
   ? [
-      { href: '/en/tandem-paragliding-schools/', label: 'Tandem flights', sub: baptemeSub },
-      { href: '/en/paragliding-course-schools/', label: 'Courses', sub: stageSub },
-      { href: '/apprendre/', label: 'Learn to fly', sub: learnItems },
-      { href: href('giftChristmas', 'en'), label: 'Gift voucher' },
-      { href: 'https://locawing.fr/', label: 'Christmas Offer' },
-      { href: WHY_ROOT, label: 'Why fly?', sub: whyItems },
+      { href: '/en/tandem-paragliding-schools/', label: 'Book a Tandem Flight', sub: baptemeSub },
+      { href: '/en/paragliding-course-schools/', label: 'Book a Course', sub: stageSub },
+      { href: '/bons-cadeaux/', label: 'Gift Voucher' },
+      { href: '/en/christmas-offer/', label: 'Christmas Offer' },
+      { href: '/apprendre/', label: 'Learn Paragliding', sub: learnItems },
+      { href: WHY_ROOT, label: 'Why Fly', sub: whyItems },
     ]
   : [
-      { href: '/bapteme/', label: 'Baptême', sub: baptemeSub },
-      { href: '/stage/', label: 'Stage', sub: stageSub },
+      { href: '/bapteme/', label: 'Réserver un Baptême', sub: baptemeSub },
+      { href: '/stage/', label: 'Réserver son Stage', sub: stageSub },
+      { href: '/bons-cadeaux/', label: 'Bon cadeau' },
+      { href: '/offre-noel/', label: 'Offre Noël' },
       { href: '/apprendre/', label: 'Apprendre le parapente', sub: learnItems },
-      { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau' },
-      { href: 'https://locawing.fr/', label: 'Offre Noël' },
       { href: WHY_ROOT, label: 'Pourquoi voler', sub: whyItems },
     ];
 
@@ -104,16 +108,6 @@ const targetEnHref = enHref ?? alternates.find((a) => a.locale === 'en')?.href ?
     </a>
     <nav class="nav" aria-label={isEn ? 'Main navigation' : 'Navigation principale'}>
       <ul>
-        <li class="has-sub why-nav">
-          <details id="why-navigation">
-            <summary class:list={{ active: current.startsWith(WHY_ROOT) }}>
-              {isEn ? 'Why fly' : 'Pourquoi voler'} <span class="caret" aria-hidden="true"></span>
-            </summary>
-            <ul class="sub">
-              {whyItems.map((item) => <li><a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>)}
-            </ul>
-          </details>
-        </li>
         {links.map((l) => (
           <li class={l.sub ? 'has-sub' : undefined}>
             <a href={l.href} aria-current={isCurrent(l) ? 'page' : undefined} aria-haspopup={l.sub ? 'true' : undefined}>{l.label}{l.sub && <span class="caret" aria-hidden="true"></span>}</a>

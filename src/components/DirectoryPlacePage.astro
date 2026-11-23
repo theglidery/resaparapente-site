@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import Mountains from './Mountains.astro';
+import { schools, fromPrice, eur, OUTRE_MER_CODES, type School } from '../lib/data';
+import { slugify } from '../lib/places';
+
+export type DirectoryPlace = {
+  slug: string;
+  name: string;
+  kind: 'region' | 'dept' | 'outremer';
+  region: string;
+  deptCode?: string;
+  schools: School[];
+};
+
+export function getDirectoryPlaces(): DirectoryPlace[] {
+  const out: DirectoryPlace[] = [];
+  const used = new Set<string>();
+  const regions = [...new Set(schools.map((s) => s.region).filter(Boolean) as string[])].sort((a, b) => a.localeCompare(b, 'fr'));
+  for (const r of regions) {
+    const slug = slugify(r);
+    if (used.has(slug)) continue;
+    used.add(slug);
+    out.push({
+      slug,
+      name: r,
+      kind: r === 'Outre-mer' ? 'outremer' : 'region',
+      region: r,
+      schools: schools.filter((s) => s.region === r),
+    });
+  }
+  for (const code of ['2A', '2B', ...OUTRE_MER_CODES]) {
+    const pool = schools.filter((s) => s.deptCode === code);
+    if (!pool.length) continue;
+    const deptName = pool[0].dept || code;
+    const slug = slugify(deptName);
+    if (used.has(slug)) continue;
+    used.add(slug);
+    out.push({
+      slug,
+      name: deptName,
+      kind: 'dept',
+      region: pool[0].region || '',
+      deptCode: code,
+      schools: pool,
+    });
+  }
+  return out;
+}
+
+interface Props { place: DirectoryPlace }
+const { place } = Astro.props;
+const sorted = [...place.schools].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+const cities = [...new Set(sorted.map((s) => s.city).filter(Boolean) as string[])].sort((a, b) => a.localeCompare(b, 'fr'));
+const isCorse = place.slug === 'corse';
+const isOm = place.slug === 'outre-mer';
+const omTerritories = isOm
+  ? OUTRE_MER_CODES.map((code) => {
+      const pool = sorted.filter((s) => s.deptCode === code);
+      return pool.length ? { code, name: pool[0].dept || code, slug: slugify(pool[0].dept || code), count: pool.length } : null;
+    }).filter((x): x is NonNullable<typeof x> => Boolean(x))
+  : [];
+const title = isOm ? 'Écoles de parapente en Outre-mer' : `Parapente en ${place.name}`;
+const description = `${sorted.length} école${sorted.length > 1 ? 's' : ''} de parapente ${place.deptCode ? `(${place.deptCode}) ` : ''}en ${place.name}.`;
+---
+<Base title={title} description={description}>
+  <div class="page-head"><div class="wrap">
+    <nav class="crumbs" aria-label="Fil d’Ariane">
+      <a href="/ecoles/">Écoles</a> / {place.kind === 'dept' && place.region ? <><a href={`/ecoles/${slugify(place.region)}/`}>{place.region}</a> / </> : null}{place.name}
+    </nav>
+    <h1>{isOm ? 'Outre-mer' : `Parapente en ${place.name}`}</h1>
+    <p class="lead">
+      {sorted.length} école{sorted.length > 1 ? 's' : ''}
+      {isCorse && ' · Corse-du-Sud (2A) et Haute-Corse (2B)'}
+      {isOm && ' · Séparé de la Corse'}
+      {place.deptCode && ` · ${place.deptCode}`}
+    </p>
+  </div><Mountains /></div>
+
+  <div class="wrap section" style="padding-top:1.2rem">
+    {isCorse && (
+      <div class="chips" style="margin-bottom:1rem">
+        <a class="chip" href="/ecoles/corse-du-sud/">Corse-du-Sud (2A · 3)</a>
+        <a class="chip" href="/ecoles/haute-corse/">Haute-Corse (2B · 2)</a>
+      </div>
+    )}
+
+    {isOm && (
+      <section style="margin-bottom:2rem" aria-labelledby="h-om">
+        <h2 id="h-om">Territoires d’Outre-mer</h2>
+        <ul class="type-grid">
+          {omTerritories.map((t) => (
+            <li>
+              <a href={`/ecoles/${t.slug}/`}>
+                <strong>{t.name} · {t.code}</strong>
+                <span>{t.count} école{t.count > 1 ? 's' : ''}{t.count === 1 ? ' · page propre' : ''}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {cities.length > 0 && !isOm && (
+      <div class="chips" id="dir-cities" role="group" aria-label="Filtrer par ville" style="margin-bottom:1.2rem">
+        <button type="button" class="chip" data-city="" aria-pressed="true">Toutes ({sorted.length})</button>
+        {cities.map((c) => (
+          <button type="button" class="chip" data-city={c} aria-pressed="false">{c}</button>
+        ))}
+      </div>
+    )}
+
+    <ul class="school-list" id="dir-list" style="list-style:none;padding:0;display:grid;gap:0.9rem">
+      {sorted.map((s) => {
+        const bPrice = fromPrice(s, 'bapteme');
+        const stPrice = fromPrice(s, 'stage');
+        const minPrice = bPrice ?? stPrice;
+        const hasOffers = s.baptemes.length > 0 || s.stages.length > 0;
+        return (
+          <li class="card" data-city={s.city || ''} style="padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+            <div>
+              <a href={`/ecoles/${s.slug}/`} style="font-weight:700;font-size:1.05rem;text-decoration:none">{s.name}</a>
+              <div class="muted small">
+                {[s.city, s.deptCode].filter(Boolean).join(' · ')}
+                {s.baptemes.length > 0 && ` · ${s.baptemes.length} baptême${s.baptemes.length > 1 ? 's' : ''}`}
+                {s.stages.length > 0 && ` · ${s.stages.length} stage${s.stages.length > 1 ? 's' : ''}`}
+              </div>
+            </div>
+            <div>
+              {minPrice !== null ? (
+                <strong>dès {eur(minPrice)}</strong>
+              ) : hasOffers ? (
+                <span class="muted small">Prix sur demande</span>
+              ) : (
+                <a class="chip" href={`/ecoles/${s.slug}/`}>Contactez l’école</a>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+
+  <script>
+    const bar = document.getElementById('dir-cities');
+    const list = document.getElementById('dir-list');
+    if (bar && list) {
+      bar.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('button[data-city]') as HTMLButtonElement | null;
+        if (!btn) return;
+        const city = btn.dataset.city || '';
+        bar.querySelectorAll('button[data-city]').forEach((b) => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+        list.querySelectorAll('li[data-city]').forEach((li) => {
+          (li as HTMLElement).hidden = Boolean(city && (li as HTMLElement).dataset.city !== city);
+        });
+      });
+    }
+  </script>
+</Base>

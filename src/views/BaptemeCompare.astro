@@ -10,7 +10,7 @@ const rows = bapRows(locale);
 const regions = [...new Set(rows.map((r) => r.region).filter(Boolean) as string[])].sort((a, b) => a.localeCompare(b, 'fr'));
 const hasLang = rows.filter((r) => r.langs.length).length >= 10;
 const langs = hasLang ? [...new Set(rows.flatMap((r) => r.langs))].sort() : [];
-const totals = rows.map((r) => r.total as number);
+const totals = rows.filter((r) => r.currency === MARKET.currency).map((r) => r.total as number);
 const med = median(totals), lo = totals.length ? Math.min(...totals) : null, hi = totals.length ? Math.max(...totals) : null;
 const withPhoto = rows.filter((r) => r.photo === 'yes').length, withPhotoExtra = rows.filter((r) => r.photo === 'extra').length;
 const nSchools = new Set(rows.map((r) => r.slug)).size;
@@ -94,6 +94,7 @@ const maxVisible = 40;
     <p class="notice">{C.method}</p>
     <form class="filters cmp-filters" onsubmit="return false" aria-label="Filtres">
       <label>{C.region}<select name="region"><option value="">—</option>{regions.map((r) => <option value={r}>{r}</option>)}</select></label>
+      <label>{locale === 'en' ? 'Currency' : locale === 'de' ? 'Währung' : 'Devise'}<select name="currency"><option value="EUR" selected={MARKET.currency === 'EUR'}>EUR (€)</option><option value="CHF" selected={MARKET.currency === 'CHF'}>CHF</option></select></label>
       <label>{C.dur}<select name="dur"><option value="">{C.durAll}</option><option value="1">{C.dur1}</option><option value="2">{C.dur2}</option><option value="3">{C.dur3}</option></select></label>
       <label class="num-field">{C.budgetMin}<input type="number" name="budgetMin" min="0" step="10" inputmode="numeric" /></label>
       <label class="num-field">{C.budget}<input type="number" name="budget" min="0" step="10" inputmode="numeric" /></label>
@@ -110,13 +111,13 @@ const maxVisible = 40;
       <tbody id="cmp-body">
         {rows.map((r, i) => (
           <tr class="cmp-row" hidden={i >= maxVisible} data-total={r.total} data-price={r.price} data-dmin={r.durMin ?? ''} data-dmax={r.durMax ?? r.durMin ?? ''} data-permin={r.perMin ?? ''}
-            data-region={r.region ?? ''} data-photo={r.photo} data-lift={r.lift} data-profiles={r.profiles.join('|')} data-langs={r.langs.join('|')}>
+            data-region={r.region ?? ''} data-country={r.country} data-currency={r.currency} data-photo={r.photo} data-lift={r.lift} data-profiles={r.profiles.join('|')} data-langs={r.langs.join('|')}>
             <th scope="row"><strong>{r.offer}</strong><span class="small muted">{r.school}{r.city ? ` · ${r.city}` : ''}{r.region ? ` · ${r.region}` : ''}</span></th>
             <td data-label={C.cDur}>{dur(r)}</td>
-            <td data-label={C.cPrice}>{money(r.price as number, locale)}</td>
+            <td data-label={C.cPrice}>{money(r.price as number, locale, r.currency)}</td>
             <td data-label={C.cPhoto}>{tri(r.photo, r.photoPrice)}</td>
             <td data-label={C.cLift}>{tri(r.lift, r.liftPrice)}</td>
-            <td class="total-col" data-label={C.cTotal}><strong>{money(r.total as number, locale)}</strong>{r.perMin && <span class="small muted">{C.perMin} : {new Intl.NumberFormat(locale === 'fr' ? MARKET.locale : locale, { maximumFractionDigits: 1 }).format(r.perMin)}</span>}</td>
+            <td class="total-col" data-label={C.cTotal}><strong>{money(r.total as number, locale, r.currency)}</strong>{r.perMin && <span class="small muted">{C.perMin} : {new Intl.NumberFormat(locale === 'fr' ? MARKET.locale : locale, { maximumFractionDigits: 1 }).format(r.perMin)}</span>}</td>
             <td class="small muted nowrap" data-label={C.cUpdated}>{r.checked ? dateLoc(r.checked, locale, { day: '2-digit', month: '2-digit', year: '2-digit' }) : '—'}</td>
             <td>
               <a class="btn small ext" href={r.bookUrl ?? r.url ?? schoolHref(r.slug, locale)} target="_blank" rel="noopener">{C.cGo}</a>

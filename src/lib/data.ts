@@ -52,14 +52,31 @@ export type Review = {
 };
 export type City = { name: string; dept: string; region: string; lat: number; lng: number; radius: number };
 
-export const schools = (schoolsRaw as unknown as School[]).filter((s) => (s.country || 'FR') === MARKET.code);
-export const cities = (citiesRaw as unknown as (City & { country?: string })[]).filter((c) => (c.country || 'FR') === MARKET.code).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+const REGION_MISSING_ALLOWLIST = new Set(['S131', 'S225']);
+const allRawSchools = schoolsRaw as unknown as School[];
+const missingRegion = allRawSchools.filter((s) => !s.region || s.region === 'À vérifier');
+const unexpectedMissing = missingRegion.filter((s) => !REGION_MISSING_ALLOWLIST.has(s.id) || s.zip || s.baptemes.length || s.stages.length);
+if (unexpectedMissing.length) {
+  throw new Error(`[region-guard] Build failed — schools missing region: ${unexpectedMissing.map((s) => `${s.id} ${s.name}`).join(', ')}`);
+}
+if (missingRegion.length) {
+  console.warn(`[region-guard] Excluded ${missingRegion.length} school(s) without region (no postal code / no offers): ${missingRegion.map((s) => `${s.id} ${s.name}`).join(', ')}`);
+}
+const guardedSchools = allRawSchools.filter((s) => s.region && s.region !== 'À vérifier');
+
+export const OUTRE_MER_CODES = ['974', '971', '972', '973', '987', '988'] as const;
+
+export const currencyOf = (s?: Pick<School, 'currency' | 'country'> | null): 'EUR' | 'CHF' =>
+  s?.currency === 'CHF' || s?.country === 'CH' ? 'CHF' : 'EUR';
+
+export const schools = guardedSchools;
+export const cities = (citiesRaw as unknown as (City & { country?: string })[]).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
 const marketSchoolIds = new Set(schools.map((s) => s.id));
 export const sessions = (sessionsRaw as unknown as Session[]).filter((s) => marketSchoolIds.has(s.schoolId) && s.visible && ['Actif', 'Complet'].includes(s.status));
 
-export const eur = (n: number) =>
-  new Intl.NumberFormat(MARKET.locale, { style: 'currency', currency: MARKET.currency, maximumFractionDigits: 0 }).format(n);
+export const eur = (n: number, currency: 'EUR' | 'CHF' = MARKET.currency as 'EUR' | 'CHF') =>
+  new Intl.NumberFormat(currency === 'CHF' ? 'fr-CH' : 'fr-FR', { style: 'currency', currency, maximumFractionDigits: 0 }).format(n);
 
 export const dateFr = (iso: string, opts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }) =>
   new Intl.DateTimeFormat('fr-FR', opts).format(new Date(iso + 'T12:00:00'));

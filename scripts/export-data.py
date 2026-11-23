@@ -52,6 +52,18 @@ def orig_desc(v):
     return dict(text=text or None, url=url) if (text or url) else None
 
 COUNTRY_CURRENCIES = {'FR': 'EUR', 'CH': 'CHF', 'BE': 'EUR'}
+TEAM_EMAIL = 'contact@locawing.fr'   # requests for schools that cannot receive them directly go here, to be forwarded by hand
+
+def spoken_languages(country, value):
+    """Rule (Nov 2026): every school in France lists French and English, whatever the workbook says. Other countries: unchanged."""
+    if country != 'FR': return value
+    items = [x.strip().capitalize() for x in re.split(r'[;,]', str(value or '')) if x.strip()]
+    ordered = ['Français', 'Anglais'] + [x for x in items if x not in ('Français', 'Anglais')]
+    seen, out = set(), []
+    for x in ordered:
+        if x not in seen: seen.add(x); out.append(x)
+    return ', '.join(out)
+
 
 def country_code(row):
     code = str(row.get('Pays (ISO)') or 'FR').upper()
@@ -89,7 +101,7 @@ for r in rows('Écoles'):
         fiche=dict(presentation=r.get('Présentation : votre école (histoire, label, ancienneté)'),
                    commandes=r.get('Présentation : aux commandes (équipe, pilotes)'),
                    appareil=r.get('Présentation : l’appareil (matériel, entretien)'),
-                   labels=r.get('Labels et agréments'), langues=r.get('Langues parlées'),
+                   labels=r.get('Labels et agréments'), langues=spoken_languages(country, r.get('Langues parlées')),
                    assurance=(r.get('Assurance RC pro vérifiée') == 'Oui')),
         giftRelay=(r.get('Relais des demandes de bon cadeau (Oui / Non / À confirmer)') or 'Oui'),
         baptemes=[], stages=[], sites=[], sessions=[],
@@ -314,24 +326,33 @@ recipients = {}
 for r in rows('Écoles'):
     school = schools.get(r.get('ID école'))
     email = r.get('Email professionnel') or ''
-    if not school or school['country'] != 'FR' or not isinstance(email, str) or not re.fullmatch(r'[^@\s]+@[^@\s]+\.[^@\s]+', email):
-        continue
+    if not school: continue
     entries = {o['id']: [kind, o['name']] for kind, offers in
                [('bapteme', school['baptemes']), ('stage', school['stages'])] for o in offers}
-    if entries:
-        recipients[school['id']] = dict(name=school['name'], email=email, offers=entries)
+    if not entries: continue
+    ok = isinstance(email, str) and re.fullmatch(r'[^@\s]+@[^@\s]+\.[^@\s]+', email)
+    recipients[school['id']] = dict(name=school['name'], email=email if ok else TEAM_EMAIL, offers=entries,
+                                    country=school['country'], route='school' if ok else 'team')
 gift_dir = {}
+valid_email = lambda e: isinstance(e, str) and re.fullmatch(r'[^@\s]+@[^@\s]+\.[^@\s]+', e)
 for r in rows('Écoles'):
     school = schools.get(r.get('ID école'))
+    if not school: continue
     email = r.get('Email des demandes de bon cadeau (vide = email professionnel)') or r.get('Email professionnel') or ''
-    if school and school['giftRelay'] != 'Non' and isinstance(email, str) and re.fullmatch(r'[^@\s]+@[^@\s]+\.[^@\s]+', email):
-        gift_dir[school['id']] = dict(name=school['name'], email=email, relay=school['giftRelay'], country=school['country'])
-# a school without a usable professional email cannot receive a relayed request: it is not offered in the gift form
+    if school['giftRelay'] != 'Non' and valid_email(email):
+        gift_dir[school['id']] = dict(name=school['name'], email=email, relay=school['giftRelay'], country=school['country'], route='school')
+# A school that cannot receive a relayed request (no usable email, relay to confirm, or relay refused) is still offered in the gift form:
+# the request goes to the team mailbox with every detail, and the team forwards it by hand.
 for sc in schools.values():
-    if sc['giftRelay'] != 'Non' and sc['id'] not in gift_dir: sc['giftRelay'] = 'Sans email'
+    if sc['id'] in gift_dir:
+        sc['giftRoute'] = 'school'
+    else:
+        gift_dir[sc['id']] = dict(name=sc['name'], email=TEAM_EMAIL, relay=sc['giftRelay'], country=sc['country'], route='team')
+        sc['giftRoute'] = 'team'
+        if sc['giftRelay'] != 'Non': sc['giftRelay'] = 'Sans email'
 json.dump(list(schools.values()), open('src/data/schools.json', 'w'), ensure_ascii=False, indent=1)
 Path('server').mkdir(exist_ok=True)
 Path('server/gift-directory.json').write_text(json.dumps(gift_dir, ensure_ascii=False, indent=1), encoding='utf-8')
 Path('server/booking-directory.json').write_text(json.dumps(recipients, ensure_ascii=False, indent=1), encoding='utf-8')
 Path('src/data/booking-schools.json').write_text(json.dumps(sorted(recipients)), encoding='utf-8')
-print('schools', len(out), 'publishable offers', stats, 'sessions', len(sessions), 'cities', len(cities), 'library photos', len(photos), 'school vouchers', len(gifts), 'promotions', len(promos), 'parcours', len(parcours), 'fees', len(fees), 'assumptions', len(assumptions), 'goodies', len(goodies), 'gift relay', len(gift_dir))
+print('schools', len(out), 'publishable offers', stats, 'sessions', len(sessions), 'cities', len(cities), 'library photos', len(photos), 'school vouchers', len(gifts), 'promotions', len(promos), 'parcours', len(parcours), 'fees', len(fees), 'assumptions', len(assumptions), 'goodies', len(goodies), 'gift relay', len(gift_dir), 'team-routed gifts', sum(1 for v in gift_dir.values() if v['route']=='team'), 'team-routed bookings', sum(1 for v in recipients.values() if v['route']=='team'))

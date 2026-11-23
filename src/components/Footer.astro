@@ -4,6 +4,8 @@ import { SITE } from '../config';
 import Mountains from './Mountains.astro';
 import { STAGE_TYPES } from '../data/stage-types';
 import { ANALYTICS } from '../config';
+const { locale = 'fr' } = Astro.props as { locale?: string };
+const isEn = locale === 'en';
 const schoolMail = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent('École : rendre visibles nos stages ou baptêmes')}&body=${encodeURIComponent('Bonjour,\n\nNous sommes une école de parapente et souhaitons rendre visibles nos stages et/ou nos baptêmes sur ResaParapente.\n\nNom de l’école :\nSite officiel :\nVotre nom et fonction :\nTéléphone :\nCe que nous souhaitons publier (dates de stage, baptêmes, bon cadeau, offre promotionnelle) :\n\nCordialement')}`;
 ---
 <footer class="site-footer">
@@ -60,10 +62,22 @@ const schoolMail = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent('É
     </div>
     <CountryNav />
     <ul class="legal">
-      <li><a href="/conditions-generales-de-vente/">Conditions du site (CGV)</a></li>
-      <li><a href="/mentions-legales/">Mentions légales</a></li>
-      <li><a href="/politique-de-confidentialite/">Politique de confidentialité</a></li>
-      {ANALYTICS.enabled && <li><button type="button" class="linklike" data-consent-open>Gérer mes cookies</button></li>}
+      {isEn ? (
+        <>
+          <li><a href="/en/terms-and-conditions/">Terms and conditions</a></li>
+          <li><a href="/en/terms-for-schools/">Terms for schools</a></li>
+          <li><a href="/mentions-legales/">Legal notice</a></li>
+          <li><a href="/en/privacy-policy/">Privacy policy</a></li>
+        </>
+      ) : (
+        <>
+          <li><a href="/conditions-generales-de-vente/">Conditions du site (CGV)</a></li>
+          <li><a href="/conditions-ecoles/">Conditions pour les écoles</a></li>
+          <li><a href="/mentions-legales/">Mentions légales</a></li>
+          <li><a href="/politique-de-confidentialite/">Politique de confidentialité</a></li>
+        </>
+      )}
+      {ANALYTICS.enabled && <li><button type="button" class="linklike" data-consent-open>{isEn ? 'Manage cookies' : 'Gérer mes cookies'}</button></li>}
     </ul>
     <p class="small fine">Resa Parapente est édité par TheGlidery SAS, Saint-Martin-d’Uriage. Les écoles sont seules responsables de leurs vols et de leur encadrement.</p>
   </div>

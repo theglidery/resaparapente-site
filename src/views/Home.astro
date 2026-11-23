@@ -106,8 +106,12 @@ const deData = {
             <input type="hidden" id="home-geo" name="geo" value="1" disabled />
             <button type="button" class="geo-toggle" id="home-geo-btn" aria-pressed="false" hidden>Near me (without entering a city)</button>
           </div>
-          <button class="btn" type="submit" formaction="/bapteme/">Compare tandem flights</button>
-          <button class="btn ghost" type="submit" formaction="/stage/">Compare courses</button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+            <button class="btn" type="submit" formaction="/bapteme/">Book a tandem flight</button>
+            <button class="btn" type="submit" formaction="/stage/">Book a course</button>
+            <button class="btn ghost" type="submit" formaction="/bapteme/">Compare tandem flights</button>
+            <button class="btn ghost" type="submit" formaction="/stage/">Compare courses</button>
+          </div>
         </div>
       </form>
     </section>

@@ -1,4 +1,11 @@
 ---
-import RegionalHome from '../components/RegionalHome.astro';
+import Base from '../layouts/Base.astro';
 ---
-<RegionalHome code="CH" preview />
+<Base title="Écoles de parapente en Suisse" description="Toutes les écoles de parapente en Suisse." noindex>
+  <meta http-equiv="refresh" content="0;url=/ecoles/?pays=CH" slot="head" />
+  <div class="wrap section">
+    <h1>Écoles de parapente en Suisse</h1>
+    <p>Redirection vers <a href="/ecoles/?pays=CH">la liste des écoles en Suisse</a>…</p>
+  </div>
+</Base>
+<script>location.replace('/ecoles/?pays=CH');</script>

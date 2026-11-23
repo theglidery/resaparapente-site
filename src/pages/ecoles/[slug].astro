@@ -3,18 +3,25 @@ import bookingSchools from '../../data/booking-schools.json';
 import Base from '../../layouts/Base.astro';
 import Logo from '../../components/Logo.astro';
 import ContourArt from '../../components/ContourArt.astro';
-import { schools, sessions, reviewsOf, reviewStats, eur, dateFr, sortBaptemes, sortStages, giftsOf, promosOf, type Offer, type School } from '../../lib/data';
+import { schools, sessions, reviewsOf, reviewStats, eur, currencyOf, dateFr, sortBaptemes, sortStages, giftsOf, promosOf, type Offer, type School } from '../../lib/data';
 import { schoolImages, schoolVideo } from '../../lib/images';
 import Reviews from '../../components/Reviews.astro';
+import ConsentBoxes from '../../components/ConsentBoxes.astro';
+import DirectoryPlacePage, { getDirectoryPlaces, type DirectoryPlace } from '../../components/DirectoryPlacePage.astro';
 import { SITE, BOOKING, CONTACT_TYPES } from '../../config';
 import { offerTabs } from '../../lib/content';
 import { schoolIntro, nearbySchools, placeLinksFor } from '../../lib/school-text';
 import { placesFor, pathOf } from '../../lib/places';
 
 export function getStaticPaths() {
-  return schools.map((s) => ({ params: { slug: s.slug }, props: { school: s } }));
+  return [
+    ...schools.map((s) => ({ params: { slug: s.slug }, props: { school: s } })),
+    ...getDirectoryPlaces().map((p) => ({ params: { slug: p.slug }, props: { directoryPlace: p } })),
+  ];
 }
-const { school: s } = Astro.props as { school: School };
+const { directoryPlace } = Astro.props as { school?: School; directoryPlace?: DirectoryPlace };
+const s = (Astro.props.school ?? schools[0]) as School;
+const cur = currencyOf(s);
 const hasB = s.baptemes.length > 0, hasS = s.stages.length > 0;
 const thin = !hasB && !hasS;
 const canSend = BOOKING.enabled && bookingSchools.includes(s.id);
@@ -52,10 +59,10 @@ const sections = [
   { kind: 'stage', label: 'Stages', groups: stageGroups },
 ].filter((x) => x.groups.length);
 
-const priceMain = (o: Offer) => o.priceLabel ?? (o.price ? eur(o.price) : 'Prix à confirmer');
+const priceMain = (o: Offer) => o.priceLabel ?? (o.price ? eur(o.price, cur) : 'Prix sur demande');
 const priceNote = (o: Offer) => {
-  if (o.perPerson && o.unitCode !== 'PERSONNE' && o.unitCode !== 'JOUR') return `soit ${eur(o.perPerson)} par personne`;
-  if (o.unitCode === 'PERSONNE' && o.priceMax && o.priceMax !== o.price) return `jusqu’à ${eur(o.priceMax)} selon variante`;
+  if (o.perPerson && o.unitCode !== 'PERSONNE' && o.unitCode !== 'JOUR') return `soit ${eur(o.perPerson, cur)} par personne`;
+  if (o.unitCode === 'PERSONNE' && o.priceMax && o.priceMax !== o.price) return `jusqu’à ${eur(o.priceMax, cur)} selon variante`;
   return '';
 };
 const book = (o: Offer) => o.bookUrl ?? o.url ?? s.website ?? '';
@@ -65,7 +72,7 @@ const contactTitle = onlyKind ? CONTACT_TYPES[onlyKind].title : null;
 const sessOf = (o: Offer) => sessions.filter((x) => x.offerId === o.id && x.start >= today && x.status === 'Actif' && x.places !== 0).map((x) => ({ start: x.start, end: x.end }));
 const allOffers = s.baptemes.concat(s.stages);
 const lowest = allOffers.map((o) => o.perPerson ?? o.price).filter((v): v is number => typeof v === 'number' && v > 0);
-const fromLabel = lowest.length ? `Dès ${eur(Math.min(...lowest))} par personne` : s.name;
+const fromLabel = lowest.length ? `Dès ${eur(Math.min(...lowest), cur)} par personne` : s.name;
 const today = new Date(Date.now() + BOOKING.minDaysAhead * 864e5).toISOString().slice(0, 10);
 
 const pageUrl = `${SITE.url}/ecoles/${s.slug}/`;
@@ -77,7 +84,7 @@ const mainKind = hasB ? 'bapteme' : 'stage';
 const deptPlace = placesFor(mainKind).find((p) => p.type === 'dept' && p.name === s.dept);
 const crumb2 = deptPlace ? { name: `${mainKind === 'bapteme' ? 'Baptême' : 'Stage'} ${deptPlace.inName}`, href: pathOf(mainKind, deptPlace) } : { name: 'Écoles', href: '/bapteme/' };
 const offerNode = (o: Offer, service: string) => (o.price && o.unitCode === 'PERSONNE' && ['Prix publié', 'Variante exacte'].includes(o.priceNature ?? '') ? {
-  '@type': 'Offer', name: o.name, price: o.price, priceCurrency: 'EUR', url: pageUrl, priceValidUntil: undefined,
+  '@type': 'Offer', name: o.name, price: o.price, priceCurrency: cur, url: pageUrl, priceValidUntil: undefined,
   itemOffered: { '@type': 'Service', name: o.name, serviceType: service, provider: { '@id': orgId } },
 } : null);
 const jsonLd = {
@@ -86,7 +93,7 @@ const jsonLd = {
     { '@type': 'BreadcrumbList', itemListElement: [{ name: 'Accueil', href: '/' }, crumb2, { name: s.name, href: `/ecoles/${s.slug}/` }].map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.name, item: SITE.url + x.href })) },
     {
       '@type': 'SportsActivityLocation', '@id': orgId, name: s.name, url: s.website ?? pageUrl, description: introText,
-      address: { '@type': 'PostalAddress', streetAddress: s.address ?? undefined, postalCode: s.zip ?? undefined, addressLocality: s.city ?? undefined, addressRegion: s.region ?? undefined, addressCountry: 'FR' },
+      address: { '@type': 'PostalAddress', streetAddress: s.address ?? undefined, postalCode: s.zip ?? undefined, addressLocality: s.city ?? undefined, addressRegion: s.region ?? undefined, addressCountry: s.country || 'FR' },
       logo: img.logo ? `${SITE.url}${img.logo}` : undefined,
       image: img.main ? `${SITE.url}${img.main.src}` : undefined,
       geo: s.lat && s.lng ? { '@type': 'GeoCoordinates', latitude: s.lat, longitude: s.lng } : undefined,
@@ -99,9 +106,12 @@ const jsonLd = {
 };
 import { schoolPath } from '../../i18n/routes.mjs';
 import { marketLocales } from '../../i18n/ui';
+import { markets } from '../../../markets.mjs';
+const canonicalOrigin = markets[(s.country || 'FR') as 'FR' | 'CH' | 'BE']?.origin || SITE.url;
 const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr' as const, href: schoolPath(s.slug, 'fr') }, { locale: 'en' as const, href: schoolPath(s.slug, 'en') }] : [];
 ---
-<Base title={title} description={description} noindex={thin} jsonLd={jsonLd} alternates={schoolAlternates}>
+{directoryPlace ? <DirectoryPlacePage place={directoryPlace} /> : (
+<Base title={title} description={description} noindex={thin} jsonLd={jsonLd} canonicalOrigin={canonicalOrigin} alternates={schoolAlternates}>
   <div class="wrap">
     <nav class="crumbs" aria-label="Fil d’Ariane"><a href="/">Accueil</a> / <a href={crumb2.href}>{crumb2.name}</a> / {s.name}</nav>
     <header class="school-head">
@@ -109,6 +119,7 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
       <div>
         <h1 style="margin:0 0 0.2em">{s.name}</h1>
         <p class="muted" style="margin:0">{where}{near ? ` · ${near}` : ''}{s.region && s.region !== 'À vérifier' ? ` · ${s.region}` : ''}</p>
+        {s.fiche?.langues && <p class="small muted" style="margin:0.2rem 0 0">Langues d’enseignement : {s.fiche.langues}</p>}
         {ownStats && <p class="rating small"><span class="stars" aria-hidden="true">★</span> <strong>{ownStats.avg.toLocaleString('fr-FR', { minimumFractionDigits: 1 })}/5</strong> ({ownStats.count} avis de participants) · <a href="#avis">Lire les avis</a></p>}
         {s.googlePlaceId && <p class="rating small google-rating" data-place={s.googlePlaceId} data-school={s.id} hidden><span class="stars g-stars" aria-hidden="true"></span> <strong class="g-val"></strong><span class="g-count"></span> sur <span class="g-brand">Google Maps</span> · <a class="g-link" target="_blank" rel="noopener nofollow" hidden>Voir sur Google Maps</a> · <a href="/avis-clients/#google">Notes Google : comment elles sont affichées</a></p>}
         {rating && <p class="rating small"><span class="stars" aria-hidden="true">★</span> <strong>{rating.value.toLocaleString('fr-FR', { maximumFractionDigits: 1 })}/5</strong>{rating.count > 0 && ` (${rating.count} avis)`} · avis publiés sur {rating.url ? <a href={rating.url} target="_blank" rel="noopener nofollow">{rating.source}</a> : rating.source}</p>}
@@ -148,8 +159,8 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
       )}
     </div>
 
-    {(schoolGifts.length > 0 || generalPromos.length > 0) && (
-      <section class="school-extras" aria-label="Bons cadeaux et offres de l’école">
+    {generalPromos.length > 0 && (
+      <section class="school-extras" aria-label="Offres de l’école">
         {generalPromos.map((p) => (
           <div class="extra promo-card" data-promo data-end={p.end}>
             <span class="promo-tag">Offre promotionnelle</span>
@@ -157,19 +168,6 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
             <p class="promo-price">{p.regular && <s class="was">{eur(p.regular)}</s>} <strong>{eur(p.price)}</strong> <small>TTC · du {dateFr(p.start)} au {dateFr(p.end)}</small></p>
             {p.conditions && <p class="small">{p.conditions}</p>}
             {p.url && <a class="btn small ext" data-track="click_promo" data-school={s.id} href={p.url} target="_blank" rel="noopener">Voir l’offre sur le site de l’école</a>}
-          </div>
-        ))}
-        {schoolGifts.map((gf) => (
-          <div class="extra gift-card">
-            <h2>Bon cadeau de l’école</h2>
-            <p class="gift-name"><strong>{gf.name}</strong></p>
-            <ul class="facts">
-              {gf.price && <li>Prix : {eur(gf.price)} TTC</li>}
-              {gf.validity && <li>Validité : {gf.validity} mois</li>}
-              {gf.conditions && <li>{gf.conditions}</li>}
-            </ul>
-            <a class="btn ext" data-track="click_voucher" data-school={s.id} href={gf.url} target="_blank" rel="noopener">Voir le bon cadeau sur le site de l’école</a>
-            <p class="small muted" style="margin:0.5rem 0 0">Bon vendu et géré par {s.name}. Achat sur son site{hostOf(gf.url) ? ` (${hostOf(gf.url)})` : ''}.{gf.checked && <> Lien vérifié le {dateFr(gf.checked)}.</>}</p>
           </div>
         ))}
       </section>
@@ -197,7 +195,7 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
                       <li class="offer" id={`offre-${o.id}`} data-offer data-id={o.id} data-kind={x.kind} data-name={o.name} data-price-label={priceMain(o)}
                           data-weight={'weight' in o ? o.weight ?? '' : ''} data-book={book(o)} data-sessions={JSON.stringify(sessOf(o))}>
                         <div>
-                          <h4 class="offer-name">{o.name}</h4>
+                          <h4 class="offer-name">{o.name}{giftFor(x.kind) && <span class="badge-gift" style="margin-left:0.45rem;font-size:0.75rem;font-weight:600;padding:0.15rem 0.45rem;border-radius:999px;background:#fef3c7;color:#92400e">Bon proposé par l’école</span>}</h4>
                           <ul class="facts">
                             {durée(o) && <li>Durée : {durée(o)}</li>}
                             {o.place && <li>Lieu : {o.place}</li>}
@@ -226,12 +224,11 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
                               </div>
                             : <div class="amount">{priceMain(o)}{priceNote(o) && <small>{priceNote(o)}</small>}</div>}
                           {canSend
-                            ? <>
-                                <button class="btn choose" type="button" data-mode="book" aria-pressed="false">Je Réserve</button>
-                                {x.kind === 'bapteme' && <button class="btn ghost choose-gift" type="button" data-mode="gift" aria-pressed="false">J’offre</button>}
-                              </>
+                            ? <div class="offer-actions" style="display:flex;gap:0.45rem;flex-wrap:wrap">
+                                <button class="btn choose" type="button" data-mode="book" aria-pressed="false">Réserver</button>
+                                <button class="btn ghost choose-gift" type="button" data-mode="gift" aria-pressed="false" data-track="click_voucher" data-school={s.id} data-offer={o.id}>🎁 Offrir</button>
+                              </div>
                             : <a class="btn choose" data-track="click_school_site" data-school={s.id} data-kind={x.kind} data-offer={o.id} href={book(o) || `mailto:${SITE.contactEmail}`} rel="noopener" target="_blank">Voir chez l’école</a>}
-                          {giftFor(x.kind) && <a class="small muted gift-link" data-track="click_voucher" data-school={s.id} data-kind={x.kind} href={giftFor(x.kind)!.url} target="_blank" rel="noopener" title={`Bon cadeau vendu et géré par ${s.name}, achat sur son site`}>Bon cadeau de l’école ↗</a>}
                         </div>
                       </li>
                     ))}
@@ -262,34 +259,39 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
           <button type="button" class="btn ghost small sheet-close" id="sheet-close">Fermer</button>
           <form id="booking-form" method="post" novalidate data-contact-types={JSON.stringify(CONTACT_TYPES)} data-endpoint={BOOKING.endpoint} data-can-send={canSend ? '1' : '0'} data-max={BOOKING.maxPassengers} data-school={s.name} data-school-id={s.id} data-school-slug={s.slug} data-only-kind={onlyKind ?? ''} data-website={s.website ?? ''}>
             <h2 id="booking-title">Demande de réservation</h2>
-            <p class="small muted" style="margin:0 0 0.8rem">{canSend ? `Demande gratuite. ${s.name} vous répond et confirme le créneau.` : 'Contactez l’école pour confirmer le créneau et le tarif.'}</p>
+            <p class="small muted" style="margin:0 0 0.8rem">{canSend ? `Demande gratuite. ${s.name} vous répond et confirme le créneau. Aucun paiement sur le site.` : 'Contactez l’école pour confirmer le créneau et le tarif.'}</p>
             <div id="chosen" class="chosen" aria-live="polite"><p class="muted" style="margin:0">Choisissez une formule dans la liste pour ouvrir les détails et le contact de l’école.</p></div>
 
             <div hidden={!canSend}>
-            <ol class="form-steps" aria-label="Étapes de la demande"><li id="fs-1" aria-current="step"><span>1</span> Vos coordonnées</li><li id="fs-2"><span>2</span> Participants et envoi</li></ol>
+            <ol class="form-steps" aria-label="Étapes de la demande"><li id="fs-1" aria-current="step"><span>1</span> Vos coordonnées</li><li id="fs-2"><span>2</span> Envoi</li></ol>
             <div id="step-1">
-            <fieldset id="gift-fields" hidden>
-              <legend>Personne qui reçoit le cadeau</legend>
-              <div class="field"><label for="b-gift-name">Nom et prénom du bénéficiaire</label><input id="b-gift-name" name="giftName" type="text" autocomplete="off" /></div>
-              <div class="field"><label for="b-gift-email">Email du bénéficiaire (facultatif)</label><input id="b-gift-email" name="giftEmail" type="email" autocomplete="off" /></div>
-              <div class="field"><label for="b-gift-note">Message cadeau / occasion (facultatif)</label><input id="b-gift-note" name="giftNote" type="text" maxlength="200" autocomplete="off" /></div>
-            </fieldset>
             <fieldset>
               <legend id="contact-legend">{contactTitle ? `${contactTitle} : vos coordonnées` : 'Vos coordonnées'}</legend>
               <input type="hidden" name="contactType" id="b-ctype" value={onlyKind ? CONTACT_TYPES[onlyKind].code : ''} />
-              <div class="field"><label for="b-name">Nom et prénom</label><input id="b-name" name="name" type="text" autocomplete="name" /></div>
-              <div class="field"><label for="b-email">Email</label><input id="b-email" name="email" type="email" autocomplete="email" /></div>
-              <div class="field"><label for="b-phone">Téléphone (facultatif)</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" /></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+                <div class="field"><label for="b-first">Prénom *</label><input id="b-first" name="firstName" type="text" autocomplete="given-name" required /></div>
+                <div class="field"><label for="b-last">Nom *</label><input id="b-last" name="lastName" type="text" autocomplete="family-name" required /></div>
+              </div>
+              <div class="field"><label for="b-email">Email *</label><input id="b-email" name="email" type="email" autocomplete="email" required /></div>
+              <div class="field"><label for="b-phone">Téléphone *</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required /></div>
+            </fieldset>
+
+            <fieldset id="pax-step1-weight" hidden={onlyKind === 'stage'}>
+              <legend>Passager volant</legend>
+              <div class="field">
+                <label for="b-weight">Poids du passager volant (kg) *</label>
+                <input id="b-weight" name="weightKg" type="number" inputmode="numeric" min="15" max="200" step="1" placeholder="ex. 72" />
+                <p class="small muted" style="margin:0.25rem 0 0">Nécessaire à l’école pour choisir la voile.</p>
+              </div>
             </fieldset>
 
             <fieldset>
-              <legend id="date-legend">Date souhaitée</legend>
-              <div class="field"><label for="b-d1" id="d1-label">Date souhaitée (facultative)</label><input id="b-d1" name="d1" type="date" min={today} /></div>
+              <legend id="date-legend">Dates souhaitées</legend>
+              <div class="field"><label for="b-d1" id="d1-label">Date souhaitée</label><input id="b-d1" name="d1" type="date" min={today} /></div>
               <div id="sess-chips" class="chips" hidden></div>
-              <div id="alts" hidden>
-                <p class="small muted" style="margin:0.6rem 0 0.4rem"><strong>Dates de repli en cas de météo (facultatif).</strong> Proposez jusqu’à deux autres dates : l’école choisira celle qui lui convient.</p>
-                <div class="field"><label for="b-d2">Deuxième choix (facultatif)</label><input id="b-d2" name="d2" type="date" min={today} /></div>
-                <div class="field"><label for="b-d3">Troisième choix (facultatif)</label><input id="b-d3" name="d3" type="date" min={today} /></div>
+              <div id="alts">
+                <div class="field"><label for="b-d2">Autre date 1 (en cas de report)</label><input id="b-d2" name="d2" type="date" min={today} /></div>
+                <div class="field"><label for="b-d3">Autre date 2 (en cas de report)</label><input id="b-d3" name="d3" type="date" min={today} /></div>
               </div>
             </fieldset>
             <button class="btn" type="button" id="step-next" style="width:100%;margin-top:1rem">Continuer</button>
@@ -298,28 +300,56 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
 
             <div id="step-2" hidden>
             <button type="button" class="linklike" id="step-back">← Modifier mes coordonnées</button>
-            <fieldset>
+            <fieldset id="pax-step2-fieldset">
               <legend id="pax-legend">{onlyKind === 'bapteme' ? 'Passagers' : 'Participants'}</legend>
               <div class="field"><label for="b-n" id="n-label">{onlyKind === 'bapteme' ? 'Nombre de passagers' : 'Nombre de participants'}</label>
                 <select id="b-n" name="n">{Array.from({ length: BOOKING.maxPassengers }, (_, i) => <option value={i + 1}>{i + 1}</option>)}</select>
               </div>
               <p id="weight-hint" class="small muted" hidden></p>
               <div id="pax-rows" class="pax-rows"></div>
-
             </fieldset>
 
             <div class="field"><label for="b-msg">Message pour l’école (facultatif)</label><textarea id="b-msg" name="msg" rows="3" maxlength="800"></textarea></div>
-            {canSend && <label class="check"><input type="checkbox" id="b-optin" /> <span>Je souhaite recevoir par email les conseils et offres de MonParapente.fr (facultatif, désinscription à tout moment).</span></label>}
-            {canSend && <label class="check"><input type="checkbox" id="b-consent" /> <span>J’accepte la transmission de ma demande à <strong>{s.name}</strong> pour qu’elle me réponde.</span></label>}
+            {canSend && <ConsentBoxes schoolName={s.name} prefix="b" />}
             <input type="text" id="b-website" name="website" hidden tabindex="-1" autocomplete="off" />
-            <p class="small muted" style="margin:0.5rem 0 0">{canSend ? 'TheGlidery transmet votre demande à l’école.' : 'Contact et paiement directement auprès de l’école.'} Détails : <a href="/politique-de-confidentialite/">politique de confidentialité</a>.</p>
 
-            <button class="btn" type="submit" style="width:100%;margin-top:1rem">{canSend ? 'J’envoie ma réservation' : 'Préparer ma demande'}</button>
+            <button class="btn" type="submit" disabled={canSend} style="width:100%;margin-top:1rem">{canSend ? 'J’envoie ma réservation' : 'Préparer ma demande'}</button>
             <div id="booking-msg" role="status" class="small" tabindex="-1"></div>
             </div>
             </div>
             <noscript><p>Contactez directement l’école via le lien ci-dessous.</p></noscript>
-            <p class="small" style="margin-top:0.8rem"><a class={canSend ? undefined : "btn"} id="school-link" data-track="click_school_site" data-school={s.id} href={s.website || `mailto:${SITE.contactEmail}`} target="_blank" rel="noopener">{canSend ? 'Site officiel de l’école ↗' : 'J’envoie ma réservation'}</a></p>
+            <p class="small" style="margin-top:0.8rem"><a class={canSend ? undefined : "btn"} id="school-link" data-track="click_school_site" data-school={s.id} href={s.website || `mailto:${SITE.contactEmail}`} target="_blank" rel="noopener">{canSend ? 'Site officiel de l’école ↗' : 'Réserver'}</a></p>
+          </form>
+
+          <form id="gift-form" method="post" novalidate hidden data-endpoint="/api/gift-request" data-school={s.name} data-school-id={s.id} data-school-slug={s.slug}>
+            <h2>Offrir cette formule</h2>
+            <p class="small muted" style="margin:0 0 0.8rem">Demande gratuite. L’école vous contacte pour vous envoyer le bon et organiser le paiement. Aucun paiement sur le site.</p>
+            <div id="gift-chosen" class="chosen" aria-live="polite"></div>
+            <fieldset>
+              <legend>Vous qui offrez</legend>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+                <div class="field"><label for="g-first">Prénom *</label><input id="g-first" type="text" autocomplete="given-name" required /></div>
+                <div class="field"><label for="g-last">Nom *</label><input id="g-last" type="text" autocomplete="family-name" required /></div>
+              </div>
+              <div class="field"><label for="g-email">Email *</label><input id="g-email" type="email" autocomplete="email" required /></div>
+              <div class="field"><label for="g-phone">Téléphone *</label><input id="g-phone" type="tel" autocomplete="tel" inputmode="tel" required /></div>
+            </fieldset>
+            <fieldset>
+              <legend>Le passager</legend>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+                <div class="field"><label for="gp-first">Prénom *</label><input id="gp-first" type="text" autocomplete="off" required /></div>
+                <div class="field"><label for="gp-last">Nom *</label><input id="gp-last" type="text" autocomplete="off" required /></div>
+              </div>
+              <div class="field"><label for="gp-email">Email *</label><input id="gp-email" type="email" autocomplete="off" required /></div>
+              <div class="field"><label for="gp-phone">Téléphone *</label><input id="gp-phone" type="tel" inputmode="tel" autocomplete="off" required /></div>
+              <div class="field"><label for="gp-weight">Poids (kg) *</label><input id="gp-weight" type="number" inputmode="numeric" min="15" max="200" step="1" placeholder="ex. 72" required /></div>
+              <div class="field"><label for="gp-month">Date de vol souhaitée (approximative)</label><input id="gp-month" type="text" maxlength="60" placeholder="ex. juillet 2027" /></div>
+              <div class="field"><label for="gp-msg">Un message pour le passager (facultatif)</label><textarea id="gp-msg" rows="2" maxlength="400"></textarea></div>
+            </fieldset>
+            <ConsentBoxes schoolName={s.name} isGift={true} prefix="g" />
+            <input type="text" id="g-website" name="website" hidden tabindex="-1" autocomplete="off" />
+            <button class="btn" type="submit" disabled style="width:100%;margin-top:1rem">Envoyer ma demande de bon cadeau</button>
+            <div id="gift-msg" role="status" class="small" tabindex="-1"></div>
           </form>
         </aside>
       </div>
@@ -346,3 +376,4 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
   </div>
   <script>import '../../scripts/school.js'; import '../../scripts/reviews.js'; import '../../scripts/google-rating.js';</script>
 </Base>
+)}

@@ -1,18 +1,49 @@
 ---
 // The one filter form used on the baptême list, the stage list and the stage calendar.
 import { cities, schools, reviewStats } from '../lib/data';
-import { REVIEWS } from '../config';
-interface Props { regions: [string, number?][]; levels?: { key: string; name: string; n?: number }[]; months?: { value: string; label: string; n?: number }[]; allLabel?: string; allCount?: number; sort?: { value: string; label: string }[]; flags?: { key: string; label: string }[]; action?: string; selectedRegion?: string }
+import { REVIEWS, MARKET } from '../config';
+interface Props { regions: [string, number?][]; levels?: { key: string; name: string; n?: number }[]; months?: { value: string; label: string; n?: number }[]; allLabel?: string; allCount?: number; sort?: { value: string; label: string }[]; flags?: { key: string; label: string }[]; action?: string; selectedRegion?: string; selectedCountry?: string }
 const anyRated = schools.some((x) => (reviewStats(x.id)?.count ?? 0) >= REVIEWS.minOnCard);
 const defaultSort = [{ value: 'distance', label: 'Distance' }, { value: 'prix', label: 'Prix le plus bas' }, ...(anyRated ? [{ value: 'note', label: 'Mieux notées' }] : []), { value: 'nom', label: 'Nom de l’école' }];
-const { regions, levels = [], months = [], allLabel = 'Tous les stages', allCount, sort = defaultSort, flags = [], action = '.', selectedRegion = '' } = Astro.props;
+const { regions, levels = [], months = [], allLabel = 'Tous les stages', allCount, sort = defaultSort, flags = [], action = '.', selectedRegion = '', selectedCountry = MARKET.code } = Astro.props;
+const metroRegions = regions.filter(([r]) => r !== 'Outre-mer').sort((a, b) => a[0].localeCompare(b[0], 'fr'));
+const outreMerRegions = regions.filter(([r]) => r === 'Outre-mer');
+const regionCountryMap = Object.fromEntries(schools.filter((s) => s.region && s.region !== 'À vérifier').map((s) => [s.region as string, s.country || 'FR']));
 ---
 <form id="filters" class="filters" action={action} method="get" role="search" aria-label="Filtrer">
+  <div class="field">
+    <label for="pays">Pays</label>
+    <select id="pays" name="pays">
+      <option value="FR" selected={selectedCountry === 'FR'}>France</option>
+      <option value="CH" selected={selectedCountry === 'CH'}>Suisse</option>
+      <option value="BE" selected={selectedCountry === 'BE'}>Belgique</option>
+      <option value="all" selected={selectedCountry === 'all'}>Tous les pays</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="lang">Langue de l’école</label>
+    <select id="lang" name="lang">
+      <option value="">Toutes les langues</option>
+      <option value="Français">Français</option>
+      <option value="Anglais">Anglais</option>
+      <option value="Allemand">Allemand</option>
+      <option value="Italien">Italien</option>
+    </select>
+  </div>
   <div class="field">
     <label for="region">Région</label>
     <select id="region" name="region">
       <option value="">Toutes les régions</option>
-      {regions.map(([r, n]) => <option value={r} selected={r === selectedRegion}>{r}{n !== undefined ? ` (${n})` : ''}</option>)}
+      {outreMerRegions.length > 0 ? (
+        <>
+          <optgroup label="France métropolitaine">
+            {metroRegions.map(([r, n]) => <option value={r} data-country={regionCountryMap[r] || 'FR'} selected={r === selectedRegion}>{r}{n !== undefined ? ` (${n})` : ''}</option>)}
+          </optgroup>
+          <optgroup label="Outre-mer">
+            {outreMerRegions.map(([r, n]) => <option value={r} data-country={regionCountryMap[r] || 'FR'} selected={r === selectedRegion}>{r}{n !== undefined ? ` (${n})` : ''}</option>)}
+          </optgroup>
+        </>
+      ) : metroRegions.map(([r, n]) => <option value={r} data-country={regionCountryMap[r] || 'FR'} selected={r === selectedRegion}>{r}{n !== undefined ? ` (${n})` : ''}</option>)}
     </select>
   </div>
   <div class="field">
@@ -68,4 +99,4 @@ const { regions, levels = [], months = [], allLabel = 'Tous les stages', allCoun
     <button class="btn ghost" type="reset" id="reset">Effacer</button>
   </div>
 </form>
-<script type="application/json" id="towns-data" set:html={JSON.stringify(cities.map(({ name, lat, lng }) => ({ name, lat, lng })))} />
+<script type="application/json" id="towns-data" set:html={JSON.stringify(cities.map(({ name, lat, lng, region, ...rest }: any) => ({ name, lat, lng, region, country: rest.country || 'FR' })))} />

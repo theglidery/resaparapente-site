@@ -10,6 +10,7 @@ import {
   sendEmail,
   signActionToken,
 } from '../_lib/common.js';
+import { validateConsents } from '../_lib/consents.js';
 
 // Booking request: validates, STORES the contact (D1 table `demandes` + `participants`, see server/schema-contacts.sql),
 // generates a review_token + signed school action links, emails the school and sends a receipt to the visitor.
@@ -35,7 +36,9 @@ export async function onRequestPost({ request, env }) {
 
   const school = Object.hasOwn(directory, data.schoolId) ? directory[data.schoolId] : null;
   const offer = school && Object.hasOwn(school.offers, data.offerId) ? school.offers[data.offerId] : null;
-  const name = text(data.contact?.name, 120);
+  const firstName = text(data.contact?.firstName, 60);
+  const lastName = text(data.contact?.lastName, 60);
+  const name = text(data.contact?.name, 120) || [firstName, lastName].filter(Boolean).join(' ');
   const email = text(data.contact?.email, 254);
   const phone = text(data.contact?.phone, 35);
   const note = text(data.message, 800);
@@ -48,14 +51,18 @@ export async function onRequestPost({ request, env }) {
   const dates = data.dates;
 
   if (
-    !offer || !name || !emailPattern.test(email) || (phone && phone.replace(/\D/g, '').length < 8) ||
+    !offer || !name || !emailPattern.test(email) || phone.replace(/\D/g, '').length < 8 ||
     (isGift && (!giftName || (giftEmail && !emailPattern.test(giftEmail)))) ||
-    (data.message && !note) || data.consent !== true || data.website ||
+    (data.message && !note) || data.website ||
     !Array.isArray(dates) || dates.length > 3 || new Set(dates).size !== dates.length ||
     dates.some((v) => !isoDate(v) || v < today) || !Number.isInteger(count) || count < 1 || count > 8 ||
     !/^[a-f0-9-]{36}$/i.test(data.requestId || '')
   ) {
     return respond(400, { error: 'Vérifiez les informations de votre demande.' });
+  }
+  const consentCheck = validateConsents(data.consents, school.name, data.consent, data.marketingOptIn);
+  if (!consentCheck.ok) {
+    return respond(400, { error: consentCheck.error });
   }
   const storedNote = isGift
     ? [`[CADEAU POUR : ${giftName}${giftEmail ? ' · ' + giftEmail : ''}${giftNote ? ' · ' + giftNote : ''}]`, note].filter(Boolean).join('\n')
@@ -103,8 +110,10 @@ export async function onRequestPost({ request, env }) {
         db
           .prepare(
             `INSERT INTO demandes (request_id, created_at, type_contact, ecole_id, ecole, offre_id, offre, nom, email, telephone, dates_souhaitees,
-              nb_participants, message, consentement_ecole, texte_consentement, optin_monparapente, page_source, statut, review_token)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, 'enregistree', ?)`
+              nb_participants, message, consentement_ecole, texte_consentement, optin_monparapente,
+              cgv_accepte, consent_tiers, consent_version, consent_marche, consent_langue, consent_texte_1, consent_texte_2, consent_at,
+              page_source, statut, review_token)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, 'enregistree', ?)`
           )
           .bind(
             data.requestId,
@@ -120,8 +129,15 @@ export async function onRequestPost({ request, env }) {
             dates.join(','),
             count,
             storedNote || null,
-            CONSENT_TEXT.replace('{école}', school.name),
-            optin,
+            consentCheck.text1,
+            consentCheck.partners,
+            consentCheck.partners,
+            consentCheck.version,
+            consentCheck.market,
+            consentCheck.language,
+            consentCheck.text1,
+            consentCheck.text2,
+            now,
             text(request.headers.get('referer'), 300) || null,
             reviewToken
           ),
@@ -156,12 +172,14 @@ export async function onRequestPost({ request, env }) {
     };
   }
 
-  // 3. Email the school (with BCC to team if configured and not in test mode).
-  const recipient = env.BOOKING_TEST_TO || school.email;
+  // 3. Email the school (or team route to contact@locawing.fr with [À TRANSMETTRE]).
+  const isTeamRoute = school.route === 'team';
+  const recipient = env.BOOKING_TEST_TO || (isTeamRoute ? 'contact@locawing.fr' : school.email);
   const paxLines = people.map(
     (p, i) => `  ${i + 1}. ${text(p.name, 80) || 'prénom non indiqué'} · ${p.weight} kg${isStage ? ` · ${p.height} cm` : ''}`
   );
   const lines = [
+    ...(isTeamRoute ? [`[À TRANSMETTRE À L’ÉCOLE]`, `École : ${school.name}${school.country ? ` (${school.country})` : ''}`, ''] : []),
     `Demande de ${isStage ? 'stage' : isGift ? 'baptême à offrir (cadeau)' : 'baptême'} pour ${school.name}`,
     `Référence : ${data.requestId}`,
     `Formule : ${offerName}`,
@@ -172,8 +190,10 @@ export async function onRequestPost({ request, env }) {
     `Contact${isGift ? ' (offreur)' : ''} : ${name} · ${email}${phone ? ' · ' + phone : ''}`,
     note && `Message : ${note}`,
     '',
-    'Répondez directement au demandeur pour confirmer les conditions et les disponibilités.',
-    ...(actionLinks
+    isTeamRoute
+      ? 'L’école n’a pas été contactée directement. Merci de lui transmettre cette demande manuellement.'
+      : 'Répondez directement au demandeur pour confirmer les conditions et les disponibilités.',
+    ...(!isTeamRoute && actionLinks
       ? [
           '',
           'Ou indiquez votre réponse en un clic :',
@@ -219,15 +239,15 @@ export async function onRequestPost({ request, env }) {
     env,
     db,
     to: recipient,
-    bcc: env.BOOKING_TEAM_TO && !env.BOOKING_TEST_TO ? [env.BOOKING_TEAM_TO] : undefined,
+    bcc: !isTeamRoute && env.BOOKING_TEAM_TO && !env.BOOKING_TEST_TO ? [env.BOOKING_TEAM_TO] : undefined,
     replyTo: email,
-    subject: `Demande Resa Parapente · ${school.name}`,
+    subject: `${isTeamRoute ? '[À TRANSMETTRE] ' : ''}Demande Resa Parapente · ${school.name}`,
     textBody: lines.join('\n'),
-    htmlBody,
+    htmlBody: isTeamRoute ? undefined : htmlBody,
     idempotencyKey: `booking-${data.requestId}`,
     relatedType: 'booking',
     relatedId: data.requestId,
-    template: 'booking_school',
+    template: isTeamRoute ? 'booking_team_forward' : 'booking_school',
   });
 
   const status = schoolMail.ok ? 'envoyee' : 'echec_email';

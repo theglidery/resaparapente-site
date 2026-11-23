@@ -1,0 +1,45 @@
+---
+import consentData from '../../legal/consent-texts.json';
+import { MARKET } from '../config';
+
+interface Props {
+  schoolName: string;
+  isGift?: boolean;
+  locale?: 'fr' | 'en' | 'de';
+  prefix: string;
+}
+
+const { schoolName, isGift = false, locale = 'fr', prefix } = Astro.props;
+const marketKey = (MARKET.code || 'FR').toLowerCase() as 'fr' | 'ch' | 'be';
+const marketTexts = (consentData as any)[marketKey] || (consentData as any).fr;
+const texts = marketTexts[locale] || marketTexts.fr;
+
+const cgvUrl = locale === 'en' ? '/en/terms-and-conditions/' : '/conditions-generales-de-vente/';
+const privacyUrl = locale === 'en' ? '/en/privacy-policy/' : '/politique-de-confidentialite/';
+
+const renderHtml = (raw: string) =>
+  raw
+    .replace(/\{school\}/g, `<strong>${schoolName.replace(/</g, '&lt;')}</strong>`)
+    .replace(/\[\[cgv:([^\]]+)\]\]/g, `<a href="${cgvUrl}" target="_blank" rel="noopener">$1</a>`)
+    .replace(/\[\[privacy:([^\]]+)\]\]/g, `<a href="${privacyUrl}" target="_blank" rel="noopener">$1</a>`);
+---
+<div
+  class="consent-boxes"
+  data-consent-group={prefix}
+  data-consent-version={consentData.version}
+  data-consent-market={marketKey}
+  data-consent-lang={marketTexts[locale] ? locale : 'fr'}
+  data-consent-error={texts.error}
+>
+  <p class="small muted consent-info" style="margin:0.6rem 0 0.4rem" set:html={renderHtml(texts.info)} />
+  {isGift && <p class="small muted consent-gift-info" style="margin:0 0 0.5rem" set:html={renderHtml(texts.giftInfo)} />}
+  <label class="check">
+    <input type="checkbox" id={`${prefix}-consent`} data-consent-box="1" />
+    <span set:html={renderHtml(texts.case1)} />
+  </label>
+  <label class="check">
+    <input type="checkbox" id={`${prefix}-optin`} data-consent-box="2" />
+    <span set:html={renderHtml(texts.case2)} />
+  </label>
+  <p class="small error consent-err" hidden>{texts.error}</p>
+</div>

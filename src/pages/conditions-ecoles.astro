@@ -1,0 +1,19 @@
+---
+import DocPage from '../components/DocPage.astro';
+import rawSchools from '../../legal/pages/conditions-ecoles-fr.html?raw';
+
+const html = rawSchools
+  .replace(/\{\{cgvUrl\}\}/g, '/conditions-generales-de-vente/')
+  .replace(/\{\{privacyUrl\}\}/g, '/politique-de-confidentialite/');
+---
+<DocPage
+  title="Conditions pour les écoles (convention de référencement)"
+  h1="Conditions de référencement pour les écoles"
+  description="Conditions applicables aux écoles de parapente référencées sur ResaParapente : publication gratuite des offres, réception des demandes et droits."
+>
+  <p class="muted">Version du 22 novembre 2026</p>
+  <div set:html={html} />
+</DocPage>
+<style>
+  :global(mark.todo) { background: #fef08a; color: #713f12; padding: 0.05em 0.3em; border-radius: 4px; font-weight: 600; }
+</style>

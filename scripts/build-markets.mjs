@@ -32,3 +32,18 @@ for (const region of ['ch', 'be']) {
   mergeAssets(`${source}/_astro`, 'dist/_astro');
 }
 for (const path of temporary) rmSync(path, { recursive: true, force: true });
+
+if (process.env.PUBLIC_DRAFT === '0') {
+  const todoHits = [];
+  const scan = (dir) => {
+    for (const item of readdirSync(dir)) {
+      const p = `${dir}/${item}`;
+      if (statSync(p).isDirectory()) scan(p);
+      else if (item.endsWith('.html') && readFileSync(p, 'utf8').includes('<mark class="todo"')) todoHits.push(p);
+    }
+  };
+  scan('dist');
+  if (todoHits.length) {
+    throw new Error(`Production build blocked: mark.todo remains in ${todoHits.slice(0, 5).join(', ')} (${todoHits.length} file(s)).`);
+  }
+}

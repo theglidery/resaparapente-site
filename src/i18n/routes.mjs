@@ -10,6 +10,7 @@ export const PAGES = {
   whenStart: { fr: 'quand-commencer-parapente', en: 'when-can-i-start-paragliding', de: 'wann-gleitschirm-kurs-beginnen' },
   trainingPath: { fr: 'cursus-brevets-parapente', en: 'paragliding-licence-pathway', de: 'gleitschirm-lizenz-ausbildungsweg' },
   giftChristmas: { fr: 'bon-cadeau-parapente-noel', en: 'paragliding-gift-voucher', de: 'gleitschirm-gutschein-geschenk' },
+  christmasOffer: { fr: 'offre-noel', en: 'christmas-offer', de: '' },
   jump: { fr: 'saut-en-parapente', en: 'tandem-paragliding-jump', de: 'gleitschirm-tandemsprung' },
   // School lists. French pages are regular files (bapteme/, stage/, calendrier/); other languages are generated.
   listBapteme: { fr: 'bapteme', en: 'tandem-paragliding-schools', de: '' },
@@ -17,7 +18,7 @@ export const PAGES = {
   listCalendar: { fr: 'calendrier', en: 'paragliding-course-calendar', de: '' },
 };
 /** Pages whose French version is a regular file of the site: the generator only adds the other languages. */
-export const FILE_BACKED = new Set(['home', 'listBapteme', 'listStage', 'listCalendar']);
+export const FILE_BACKED = new Set(['home', 'listBapteme', 'listStage', 'listCalendar', 'christmasOffer']);
 /** School pages: /ecoles/<slug>/ in French, /en/schools/<slug>/ in English. Languages without school pages are not listed here. */
 export const SCHOOL_DIR = { fr: 'ecoles', en: 'schools' };
 export const schoolPath = (slug, locale) => `${locale === 'fr' ? '' : '/' + locale}/${SCHOOL_DIR[locale]}/${slug}/`;

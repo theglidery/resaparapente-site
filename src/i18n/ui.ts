@@ -2,7 +2,7 @@ import { PAGES, pathOf } from './routes.mjs';
 import { MARKET } from '../config';
 
 export type Locale = 'fr' | 'en' | 'de';
-export const marketLocales = (MARKET.locales ?? ['fr']) as Locale[];
+export const marketLocales: Locale[] = ['fr', 'en', 'de'];
 
 /** Shared interface strings (navigation, footer, units). Page texts live in each view. */
 export const UI = {

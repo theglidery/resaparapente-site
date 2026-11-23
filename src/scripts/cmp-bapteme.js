@@ -17,6 +17,7 @@ if (root) {
     const budget = num(q.budget);
     const vis = rows.filter((r) => {
       const d = r.dataset;
+      if (q.currency && d.currency !== q.currency) return false;
       if (q.region && d.region !== q.region) return false;
       if (budgetMin != null && Number(d.total) < budgetMin) return false;
       if (budget != null && Number(d.total) > budget) return false;

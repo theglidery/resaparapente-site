@@ -2,7 +2,7 @@
 // Everything comes from the workbook (v11) through data.ts; nothing is estimated that a school did not publish,
 // except the step-based training estimate, whose stage counts are explicit, editable hypotheses (sheet "Hypothèses parcours").
 import { MARKET } from '../config';
-import { schools, sessions, offerPrice, type Offer, type School, type Session } from './data';
+import { schools, sessions, offerPrice, currencyOf, type Offer, type School, type Session } from './data';
 import parcoursRaw from '../data/parcours.json';
 import feesRaw from '../data/fees.json';
 import assumptionsRaw from '../data/assumptions.json';
@@ -14,7 +14,7 @@ const T = (v: string | null | undefined, l: Loc, f?: string): string | null => (
 const Tobj = <O extends Record<string, any>>(o: O, keys: (keyof O)[], l: Loc): O => (l === 'en' ? ({ ...o, ...Object.fromEntries(keys.map((k) => [k, T(o[k], l)])) } as O) : o);
 export type Tri = 'yes' | 'extra' | 'unknown';
 export type BapRow = {
-  id: string; school: string; slug: string; city: string | null; region: string | null; offer: string; price: number | null;
+  id: string; school: string; slug: string; country: 'FR' | 'CH' | 'BE'; currency: 'EUR' | 'CHF'; city: string | null; region: string | null; offer: string; price: number | null;
   durMin: number | null; durMax: number | null; photo: Tri; photoPrice: number | null; lift: Tri; liftPrice: number | null;
   total: number | null; complete: boolean; todo: string | null; profiles: string[]; langs: string[]; url: string | null; bookUrl: string | null;
   checked: string | null; perMin: number | null; place: string | null;
@@ -37,7 +37,7 @@ export function bapRows(l: Loc = 'fr'): BapRow[] {
     const c = o.cmp ?? ({} as NonNullable<Offer['cmp']>);
     const total = c.total ?? price;
     rows.push({
-      id: o.id, school: s.name, slug: s.slug, city: s.city, region: s.region && s.region !== 'À vérifier' ? T(s.region, l) : null, offer: T(o.name, l) as string, price,
+      id: o.id, school: s.name, slug: s.slug, country: (s.country || 'FR') as 'FR' | 'CH' | 'BE', currency: currencyOf(s), city: s.city, region: s.region && s.region !== 'À vérifier' ? T(s.region, l) : null, offer: T(o.name, l) as string, price,
       durMin: o.durMin ?? null, durMax: o.durMax ?? o.durMin ?? null, photo: photoOf(o), photoPrice: c.photoPrice ?? null, lift: liftOf(o), liftPrice: c.liftPrice ?? null,
       total, complete: !c.todo, todo: T(c.todo, l), profiles: c.profiles ?? [], langs: c.langs ?? [], url: o.url, bookUrl: o.bookUrl, checked: o.checked,
       perMin: o.durMin ? Math.round((total / o.durMin) * 10) / 10 : null, place: T(o.place, l),
@@ -116,7 +116,8 @@ export function startDates(l: Loc = 'fr'): Start[] {
 
 // ---------- Display helpers ------------------------------------------------------------------------------------------------------
 const INTL: Record<Loc, string> = { fr: MARKET.locale, en: 'en-GB', de: MARKET.code === 'CH' ? 'de-CH' : 'de-DE' };
-export const money = (n: number, l: Loc = 'fr') => new Intl.NumberFormat(INTL[l], { style: 'currency', currency: MARKET.currency, maximumFractionDigits: 0 }).format(n);
+export const money = (n: number, l: Loc = 'fr', currency: 'EUR' | 'CHF' = MARKET.currency as 'EUR' | 'CHF') =>
+  new Intl.NumberFormat(currency === 'CHF' ? (l === 'de' ? 'de-CH' : 'fr-CH') : INTL[l], { style: 'currency', currency, maximumFractionDigits: 0 }).format(n);
 export const dateLoc = (iso: string, l: Loc = 'fr', opts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }) =>
   new Intl.DateTimeFormat(INTL[l], opts).format(new Date(iso + 'T12:00:00'));
 export const median = (v: number[]) => { const a = [...v].sort((x, y) => x - y); return a.length ? (a.length % 2 ? a[(a.length - 1) / 2] : (a[a.length / 2 - 1] + a[a.length / 2]) / 2) : null; };

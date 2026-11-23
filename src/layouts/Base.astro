@@ -20,14 +20,15 @@ interface Props {
   wide?: boolean;
   locale?: Locale;
   pageKey?: string;
+  canonicalOrigin?: string;
   /** Explicit hreflang alternates (school pages, which are not in the page registry). */
   alternates?: { locale: Locale; href: string }[];
 }
-const { title, description, noindex = false, jsonLd, locale = 'fr', pageKey, alternates: altProp } = Astro.props;
+const { title, description, noindex = false, jsonLd, locale = 'fr', pageKey, canonicalOrigin = SITE.url, alternates: altProp } = Astro.props;
 const alternates = altProp ?? (pageKey ? alternatesOf(pageKey as never) : []);
 const brandName = isRegional ? BRAND.name : SITE.name;
 // Canonical URL never carries query parameters (e.g. ?parcours=stage), so filters never create a second indexed page.
-const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const canonical = new URL(Astro.url.pathname, canonicalOrigin).href;
 const fullTitle = title.includes(brandName) ? title : `${title} | ${brandName}`;
 ---
 <!doctype html>
@@ -38,8 +39,8 @@ const fullTitle = title.includes(brandName) ? title : `${title} | ${brandName}`;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {alternates.length > 1 && alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={new URL(a.href, SITE.url).href} />)}
-    {alternates.length > 1 && <link rel="alternate" hreflang="x-default" href={new URL(alternates[0].href, SITE.url).href} />}
+    {alternates.length > 1 && alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={new URL(a.href, canonicalOrigin).href} />)}
+    {alternates.length > 1 && <link rel="alternate" hreflang="x-default" href={new URL(alternates[0].href, canonicalOrigin).href} />}
     {(SITE.draft || noindex) ? <meta name="robots" content={SITE.draft ? 'noindex, nofollow' : 'noindex, follow'} /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -59,6 +60,6 @@ const fullTitle = title.includes(brandName) ? title : `${title} | ${brandName}`;
     {SITE.draft && <div class="draft-bar">Maquette de travail : textes et données à valider avant ouverture.</div>}
     {(isRegional || locale === 'de') ? <RegionalChrome part="header" locale={locale} pageKey={pageKey as never} alternates={altProp} /> : <Header current={Astro.url.pathname} locale={locale} pageKey={pageKey as never} alternates={altProp} enHref={marketLocales.includes('en') ? (alternates.find((a) => a.locale === 'en')?.href ?? '/en/') : undefined} />}
     <main id="main"><slot /></main>
-    {(isRegional || locale === 'de') ? <><RegionalChrome part="footer" locale={locale} pageKey={pageKey as never} />{!isRegional && <Consent />}</> : <><Footer /><Consent /></>}
+    {(isRegional || locale === 'de') ? <><RegionalChrome part="footer" locale={locale} pageKey={pageKey as never} />{!isRegional && <Consent />}</> : <><Footer locale={locale} /><Consent /></>}
   </body>
 </html>

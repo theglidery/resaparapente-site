@@ -71,8 +71,12 @@ const jsonLd = [
           <input type="hidden" id="home-geo" name="geo" value="1" disabled />
           <button type="button" class="geo-toggle" id="home-geo-btn" aria-pressed="false" hidden>Autour de moi (sans saisir de ville)</button>
         </div>
-        <button class="btn" type="submit" formaction="/bapteme/">Comparer les baptêmes</button>
-        <button class="btn ghost" type="submit" formaction="/stage/">Comparer les stages</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+          <button class="btn" type="submit" formaction="/bapteme/">Réserver un baptême</button>
+          <button class="btn" type="submit" formaction="/stage/">Réserver un stage</button>
+          <button class="btn ghost" type="submit" formaction="/bapteme/">Comparer les baptêmes</button>
+          <button class="btn ghost" type="submit" formaction="/stage/">Comparer les stages</button>
+        </div>
       </div>
     </form>
   </section>

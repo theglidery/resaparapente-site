@@ -10,7 +10,8 @@ const regional = market.code !== 'FR';
 const local = schools.filter((s) => (s.country || 'FR') === market.code);
 const hasOffers = (s) => s.baptemes.length || s.stages.length;
 const ready = !regional || local.some(hasOffers);
-const thin = new Set(local.filter((s) => !hasOffers(s)).map((s) => `/ecoles/${s.slug}/`));
+const thin = new Set(schools.filter((s) => !hasOffers(s)).map((s) => `/ecoles/${s.slug}/`));
+const otherCountrySchools = new Set(schools.filter((s) => (s.country || 'FR') !== market.code).map((s) => `/ecoles/${s.slug}/`));
 
 export default defineConfig({
   site: market.origin,
@@ -22,7 +23,7 @@ export default defineConfig({
       const path = new URL(page).pathname;
       if (regional && path === '/bapteme/' && !local.some((s) => s.baptemes.length)) return false;
       if (regional && ['/stage/', '/calendrier/'].includes(path) && !local.some((s) => s.stages.length)) return false;
-      return !thin.has(path) && !['/404/', '/404', '/suisse-romande/', '/belgique-francophone/'].includes(path)
+      return !thin.has(path) && !otherCountrySchools.has(path) && !['/404/', '/404', '/suisse-romande/', '/belgique-francophone/'].includes(path)
         && !path.startsWith('/utiliser-mon-bon') && !path.startsWith('/merci/');
     } }),
   ] : [],

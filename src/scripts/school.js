@@ -45,9 +45,9 @@ const showInfo = (li) => {
 // ---------- 2. Selected formula and the right-hand panel ----------
 if (form) {
   const offers = $$('[data-offer]');
-  const chosen = $('#chosen'), n = $('#b-n'), hint = $('#weight-hint');
-  const d1 = $('#b-d1'), d2 = $('#b-d2'), d3 = $('#b-d3'), alts = $('#alts'), chips = $('#sess-chips'), msg = $('#booking-msg');
-  const giftFields = $('#gift-fields'), gName = $('#b-gift-name'), gEmail = $('#b-gift-email'), gNote = $('#b-gift-note');
+  const chosen = $('#chosen'), giftChosen = $('#gift-chosen'), n = $('#b-n'), hint = $('#weight-hint');
+  const d1 = $('#b-d1'), d2 = $('#b-d2'), d3 = $('#b-d3'), chips = $('#sess-chips'), msg = $('#booking-msg');
+  const giftForm = $('#gift-form'), giftMsg = $('#gift-msg'), step1Weight = $('#pax-step1-weight'), bWeight = $('#b-weight');
   let sel = null;
   let mode = 'book'; // 'book' | 'gift'
 
@@ -74,7 +74,9 @@ if (form) {
   function choose(li, open = true, nextMode = 'book') {
     sel = li;
     mode = nextMode === 'gift' ? 'gift' : 'book';
-    if (giftFields) giftFields.hidden = mode !== 'gift';
+    if (aside) aside.classList.toggle('is-gift', mode === 'gift');
+    if (giftForm) giftForm.hidden = mode !== 'gift';
+    form.hidden = mode === 'gift';
     offers.forEach((o) => {
       const on = o === li;
       o.classList.toggle('selected', on);
@@ -82,20 +84,22 @@ if (form) {
       if (bBook instanceof HTMLButtonElement) {
         const active = on && mode === 'book';
         bBook.setAttribute('aria-pressed', String(active));
-        bBook.textContent = active ? 'Formule sélectionnée' : 'Je Réserve';
+        bBook.textContent = active ? 'Formule sélectionnée' : 'Réserver';
       }
       const bGift = $('.choose-gift', o);
       if (bGift instanceof HTMLButtonElement) {
         const active = on && mode === 'gift';
         bGift.setAttribute('aria-pressed', String(active));
-        bGift.textContent = active ? 'Cadeau sélectionné' : 'J’offre';
+        bGift.textContent = active ? 'Offre sélectionnée' : '🎁 Offrir';
       }
     });
     showInfo(li); setContactKind(li.dataset.kind);
-    const l = $('#contact-legend');
-    if (l && mode === 'gift') l.textContent = 'Vos coordonnées (personne qui offre)';
-    if (open) window.rpTrack?.('select_offer', { school_id: form.dataset.schoolId, offer_id: li.dataset.id, offer_name: li.dataset.name, kind: li.dataset.kind, mode });
-    openBooking(li);
+    if (open) window.rpTrack?.(mode === 'gift' ? 'click_voucher' : 'select_offer', { school_id: form.dataset.schoolId, offer_id: li.dataset.id, offer_name: li.dataset.name, kind: li.dataset.kind, mode });
+    if (mode === 'gift' && giftChosen) {
+      giftChosen.innerHTML = `<p style="margin:0"><strong>Bon cadeau · ${li.dataset.name}</strong><br><span class="muted small">${li.dataset.priceLabel}</span></p>`;
+    } else {
+      openBooking(li);
+    }
     if (open) showPanel();
   }
 
@@ -144,7 +148,10 @@ if (form) {
 
   function openBooking(li) {
     const w = kindWords(li.dataset.kind);
-    $('#date-legend').textContent = w.dateLegend; $('#d1-label').textContent = w.d1 + ' (facultatif)';
+    const isStage = li.dataset.kind === 'stage';
+    if (step1Weight) step1Weight.hidden = isStage;
+    $('#date-legend').textContent = isStage ? 'Début souhaité' : 'Dates souhaitées';
+    $('#d1-label').textContent = w.d1;
     $('#pax-legend').textContent = w.pax; $('#n-label').textContent = w.n;
     queueMicrotask(() => typeof drawRows === 'function' && drawRows());
     summary(chosen, li);
@@ -207,22 +214,24 @@ if (form) {
     const sessions = JSON.parse(initial.dataset.sessions || '[]');
     if (sessions.some((session) => session.start === date)) {
       d1.value = date;
-      alts.hidden = false;
     }
   }
-  d1.addEventListener('input', () => { alts.hidden = !d1.value; });
 
-  // Two steps: 1 = who and when (short), 2 = address, participants, consent. Step 1 is validated before step 2 opens.
+  // Two steps: 1 = who and when (short), 2 = participants, consent. Step 1 is validated before step 2 opens.
   const step1 = $('#step-1'), step2 = $('#step-2'), s1msg = $('#step1-msg'), fs1 = $('#fs-1'), fs2 = $('#fs-2');
-  const v = (id) => $(id).value.trim();
+  const v = (id) => ($(id)?.value || '').trim();
+  const isBaptismNow = () => (sel ? sel.dataset.kind : only) !== 'stage';
   const step1Errors = () => {
     const errs = [];
-    if (!sel) errs.push('Choisissez une formule dans la liste (bouton « Je Réserve » ou « J’offre »).');
-    if (mode === 'gift' && !v('#b-gift-name')) errs.push('Indiquez le nom et prénom du bénéficiaire du cadeau.');
-    if (mode === 'gift' && v('#b-gift-email') && !okEmail(v('#b-gift-email'))) errs.push('Indiquez un email valide pour le bénéficiaire.');
-    if (!v('#b-name')) errs.push('Indiquez votre nom et prénom.');
+    if (!sel) errs.push('Choisissez une formule dans la liste (bouton « Réserver » ou « Offrir »).');
+    if (!v('#b-first')) errs.push('Indiquez votre prénom.');
+    if (!v('#b-last')) errs.push('Indiquez votre nom.');
     if (!okEmail(v('#b-email'))) errs.push('Indiquez un email valide.');
-    if (v('#b-phone') && v('#b-phone').replace(/\D/g, '').length < 8) errs.push('Indiquez un numéro de téléphone.');
+    if (v('#b-phone').replace(/\D/g, '').length < 8) errs.push('Indiquez un numéro de téléphone.');
+    if (isBaptismNow()) {
+      const w = Number(v('#b-weight'));
+      if (!Number.isInteger(w) || w < 15 || w > 200) errs.push('Indiquez le poids du passager volant (nombre entier de 15 à 200 kg).');
+    }
     if ([d1, d2, d3].some((d) => d.value && d.value < d.min)) errs.push('Choisissez une date à venir.');
     const dates = [d1.value, d2.value, d3.value].filter(Boolean);
     if (new Set(dates).size !== dates.length) errs.push('Les dates doivent être différentes.');
@@ -233,9 +242,13 @@ if (form) {
     fs1.toggleAttribute('aria-current', k === 1); fs2.toggleAttribute('aria-current', k === 2);
     if (k === 1) fs1.setAttribute('aria-current', 'step'); else fs2.setAttribute('aria-current', 'step');
     fs1.classList.toggle('done', k === 2);
+    if (k === 2 && isBaptismNow() && bWeight?.value) {
+      const firstPaxW = $('.pax [data-f=weight]', rows);
+      if (firstPaxW) firstPaxW.value = bWeight.value;
+    }
     aside?.scrollTo?.({ top: 0 });
     if (!phone()) { const r = aside.getBoundingClientRect(); if (r.top < 0) aside.scrollIntoView({ block: 'start' }); }
-    (k === 2 ? n : $('#b-name'))?.focus({ preventScroll: true });
+    (k === 2 ? n : $('#b-first'))?.focus({ preventScroll: true });
   };
   $('#step-next')?.addEventListener('click', () => {
     const errs = step1Errors(); s1msg.className = 'small';
@@ -251,6 +264,30 @@ if (form) {
   let attempt;
   const canSend = form.dataset.canSend === '1';
   const button = $('button[type=submit]', form);
+  const readConsents = (targetForm) => {
+    const grp = $('[data-consent-group]', targetForm);
+    const box1 = $('[data-consent-box="1"]', targetForm);
+    const box2 = $('[data-consent-box="2"]', targetForm);
+    return {
+      cgv: Boolean(box1?.checked),
+      partners: Boolean(box2?.checked),
+      version: grp?.dataset.consentVersion || '',
+      market: grp?.dataset.consentMarket || 'fr',
+      language: grp?.dataset.consentLang || 'fr',
+    };
+  };
+  const bindConsentToggle = (targetForm, btn) => {
+    const box1 = $('[data-consent-box="1"]', targetForm);
+    const errEl = $('.consent-err', targetForm);
+    if (!box1 || !btn) return;
+    const sync = () => {
+      btn.disabled = !box1.checked;
+      if (errEl) errEl.hidden = box1.checked;
+    };
+    box1.addEventListener('change', sync);
+    sync();
+  };
+  if (canSend) bindConsentToggle(form, button);
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (pending) return;
@@ -268,13 +305,15 @@ if (form) {
       msg.focus();
       return;
     }
+    const fullName = `${v('#b-first')} ${v('#b-last')}`.trim();
+    const consents = readConsents(form);
     const payload = {
       schoolId: form.dataset.schoolId, offerId: sel.dataset.id,
-      bookingMode: mode,
-      giftRecipient: mode === 'gift' ? { name: v('#b-gift-name'), email: v('#b-gift-email'), note: v('#b-gift-note') } : null,
-      contact: { name: v('#b-name'), email: v('#b-email'), phone: v('#b-phone'), type: v('#b-ctype') },
+      bookingMode: 'book',
+      contact: { firstName: v('#b-first'), lastName: v('#b-last'), name: fullName, email: v('#b-email'), phone: v('#b-phone'), type: v('#b-ctype') },
+      weightKg: isBaptismNow() ? Number(v('#b-weight')) : undefined,
       dates: [d1.value, d2.value, d3.value].filter(Boolean), participantCount: Number(n.value), participants: participants(),
-      message: v('#b-msg'), consent: true, marketingOptIn: Boolean($('#b-optin')?.checked), website: v('#b-website'),
+      message: v('#b-msg'), consent: true, consents, marketingOptIn: consents.partners, website: v('#b-website'),
     };
     const signature = JSON.stringify(payload);
     if (attempt?.signature !== signature) attempt = { signature, id: crypto.randomUUID(), sent: false };
@@ -309,6 +348,88 @@ if (form) {
       msg.focus();
     }
   });
+
+  if (giftForm) {
+    let giftPending = false;
+    let giftAttempt;
+    const giftBtn = $('button[type=submit]', giftForm);
+    bindConsentToggle(giftForm, giftBtn);
+    giftForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (giftPending || !sel) return;
+      const errs = [];
+      if (!v('#g-first')) errs.push('Indiquez votre prénom.');
+      if (!v('#g-last')) errs.push('Indiquez votre nom.');
+      if (!okEmail(v('#g-email'))) errs.push('Indiquez votre email.');
+      if (v('#g-phone').replace(/\D/g, '').length < 8) errs.push('Indiquez votre numéro de téléphone.');
+      if (!v('#gp-first')) errs.push('Indiquez le prénom du passager.');
+      if (!v('#gp-last')) errs.push('Indiquez le nom du passager.');
+      if (!okEmail(v('#gp-email'))) errs.push('Indiquez l’email du passager.');
+      if (v('#gp-phone').replace(/\D/g, '').length < 8) errs.push('Indiquez le téléphone du passager.');
+      const pw = Number(v('#gp-weight'));
+      if (!Number.isInteger(pw) || pw < 15 || pw > 200) errs.push('Indiquez le poids du passager (15 à 200 kg).');
+      if (!$('#g-consent')?.checked) errs.push('Autorisez la transmission de votre demande à l’école.');
+      if (errs.length) {
+        giftMsg.className = 'small error';
+        giftMsg.innerHTML = '<strong>À corriger :</strong><ul>' + errs.map((x) => `<li>${x}</li>`).join('') + '</ul>';
+        giftMsg.focus();
+        return;
+      }
+      const consents = readConsents(giftForm);
+      const payload = {
+        schoolId: giftForm.dataset.schoolId,
+        offerId: sel.dataset.id,
+        offerName: sel.dataset.name,
+        offerKind: sel.dataset.kind,
+        offerPriceLabel: sel.dataset.priceLabel,
+        giver: { firstName: v('#g-first'), lastName: v('#g-last'), email: v('#g-email'), phone: v('#g-phone') },
+        passenger: { firstName: v('#gp-first'), lastName: v('#gp-last'), email: v('#gp-email'), phone: v('#gp-phone'), weightKg: pw, approxFlightMonth: v('#gp-month') },
+        message: v('#gp-msg'),
+        consent: true,
+        consents,
+        marketingOptIn: consents.partners,
+        website: v('#g-website'),
+      };
+      const signature = JSON.stringify(payload);
+      if (giftAttempt?.signature !== signature) giftAttempt = { signature, id: crypto.randomUUID(), sent: false };
+      if (giftAttempt.sent) return;
+      giftPending = true;
+      giftBtn.disabled = true;
+      giftMsg.className = 'small';
+      giftMsg.textContent = 'Envoi en cours…';
+      try {
+        const result = await fetch(giftForm.dataset.endpoint, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...payload, requestId: giftAttempt.id }), signal: AbortSignal.timeout(12000),
+        });
+        const outcome = await result.json().catch(() => ({}));
+        if (!result.ok || !outcome.ok || outcome.reference !== giftAttempt.id) {
+          throw new Error(outcome.error || 'Envoi indisponible. Réessayez ou contactez directement l’école.');
+        }
+        giftAttempt.sent = true;
+        const next = `/merci/cadeau/?${new URLSearchParams({
+          ref: giftAttempt.id,
+          ecole: giftForm.dataset.school || '',
+          slug: giftForm.dataset.schoolSlug || '',
+          school_id: giftForm.dataset.schoolId || '',
+          offer: sel.dataset.name || '',
+          offer_id: sel.dataset.id || '',
+          price: sel.dataset.priceLabel || '',
+          route: outcome.route || 'school',
+          ...(outcome.test ? { test: '1' } : {}),
+        })}`;
+        location.assign(next);
+      } catch (err) {
+        giftMsg.className = 'small error';
+        giftMsg.textContent = err.name === 'TimeoutError' || err instanceof TypeError
+          ? 'Envoi non confirmé. Réessayez ou contactez directement l’école.' : err.message;
+      } finally {
+        giftPending = false;
+        giftBtn.disabled = false;
+        giftMsg.focus();
+      }
+    });
+  }
 }
 
 // "Plus d'information sur l'école": opens while the pointer is over it and closes as soon as the pointer leaves,
