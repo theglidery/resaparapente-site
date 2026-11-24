@@ -1,17 +1,17 @@
 {
-  "version": "2026-11-22",
+  "version": "2026-11-25",
   "fr": {
     "fr": {
       "info": "Votre demande est transmise à {school} pour qu’elle puisse vous répondre.",
       "giftInfo": "En envoyant cette demande, je confirme avoir informé le passager que ses coordonnées sont transmises à {school}.",
-      "case1": "J’accepte les [[cgv:conditions générales (CGV)]] et j’autorise le site à utiliser mes données personnelles à des fins promotionnelles ou commerciales, pour ses propres activités et pour celles qu’il peut réaliser au nom de ses partenaires officiels, sans cession de mes données à ces tiers. Je peux retirer cette autorisation à tout moment ([[privacy:politique de confidentialité]]).",
+      "case1": "J’accepte les [[cgv:conditions générales (CGV)]] et j’autorise le site à utiliser mes données personnelles à des fins promotionnelles ou commerciales, pour ses propres activités.",
       "case2": "J’autorise le site à transmettre certaines de mes données personnelles à des tiers, notamment à ses partenaires et fournisseurs officiels, à des fins commerciales. Je peux retirer cette autorisation à tout moment.",
       "error": "Veuillez accepter les conditions pour envoyer votre demande."
     },
     "en": {
       "info": "Your request is sent to {school} so that it can reply to you.",
       "giftInfo": "By sending this request, I confirm that I have told the passenger that their contact details are sent to {school}.",
-      "case1": "I accept the [[cgv:terms and conditions]] and I authorise the site to use my personal data for promotional or commercial purposes, for its own activities and for those it may carry out on behalf of its official partners, without passing my data on to those third parties. I can withdraw this authorisation at any time ([[privacy:privacy policy]]).",
+      "case1": "I accept the [[cgv:terms and conditions]] and I authorise the site to use my personal data for promotional or commercial purposes, for its own activities.",
       "case2": "I authorise the site to pass some of my personal data to third parties, including its official partners and suppliers, for commercial purposes. I can withdraw this authorisation at any time.",
       "error": "Please accept the terms to send your request."
     }
@@ -20,21 +20,21 @@
     "fr": {
       "info": "Votre demande est transmise à {school} pour qu’elle puisse vous répondre.",
       "giftInfo": "En envoyant cette demande, je confirme avoir informé le passager que ses coordonnées sont transmises à {school}.",
-      "case1": "J’accepte les [[cgv:conditions générales (CGV)]] et je consens à ce que le site utilise mes données personnelles, conformément à la [[privacy:politique de confidentialité]] et à la loi fédérale sur la protection des données (LPD), à des fins promotionnelles ou commerciales, y compris par voie électronique (e-mail, SMS), pour ses propres activités et pour celles qu’il peut réaliser au nom de ses partenaires officiels, sans communication de mes données à ces tiers. Je peux m’y opposer à tout moment.",
+      "case1": "J’accepte les [[cgv:conditions générales (CGV)]] et je consens à ce que le site utilise mes données personnelles à des fins promotionnelles ou commerciales, pour ses propres activités.",
       "case2": "Je consens à ce que le site communique certaines de mes données personnelles à des tiers, notamment à ses partenaires et fournisseurs officiels, à des fins commerciales, conformément à la LPD. Je peux retirer mon consentement à tout moment.",
       "error": "Veuillez accepter les conditions pour envoyer votre demande."
     },
     "en": {
       "info": "Your request is sent to {school} so that it can reply to you.",
       "giftInfo": "By sending this request, I confirm that I have told the passenger that their contact details are sent to {school}.",
-      "case1": "I accept the [[cgv:terms and conditions]] and I consent to the site using my personal data, in accordance with the [[privacy:privacy policy]] and the Swiss Federal Act on Data Protection (FADP), for promotional or commercial purposes, including by electronic means (email, SMS), for its own activities and for those it may carry out on behalf of its official partners, without disclosing my data to those third parties. I can object at any time.",
+      "case1": "I accept the [[cgv:terms and conditions]] and I consent to the site using my personal data for promotional or commercial purposes, for its own activities.",
       "case2": "I consent to the site disclosing some of my personal data to third parties, including its official partners and suppliers, for commercial purposes, in accordance with the FADP. I can withdraw my consent at any time.",
       "error": "Please accept the terms to send your request."
     },
     "de": {
       "info": "Ihre Anfrage wird an {school} weitergeleitet, damit sie Ihnen antworten kann.",
       "giftInfo": "Mit dem Absenden dieser Anfrage bestätige ich, dass ich den Passagier darüber informiert habe, dass seine Kontaktdaten an {school} weitergeleitet werden.",
-      "case1": "Ich akzeptiere die [[cgv:Allgemeinen Geschäftsbedingungen (AGB)]] und willige ein, dass die Website meine Personendaten gemäss der [[privacy:Datenschutzerklärung]] und dem Bundesgesetz über den Datenschutz (DSG) für Werbe- und Geschäftszwecke verwendet, auch auf elektronischem Weg (E-Mail, SMS), für ihre eigenen Tätigkeiten und für Tätigkeiten, die sie im Namen ihrer offiziellen Partner ausübt, ohne meine Daten an diese Dritten weiterzugeben. Ich kann dem jederzeit widersprechen.",
+      "case1": "Ich akzeptiere die [[cgv:Allgemeinen Geschäftsbedingungen (AGB)]] und willige ein, dass die Website meine Personendaten für Werbe- und Geschäftszwecke für ihre eigenen Tätigkeiten verwendet.",
       "case2": "Ich willige ein, dass die Website bestimmte meiner Personendaten zu Geschäftszwecken an Dritte weitergibt, insbesondere an ihre offiziellen Partner und Lieferanten, gemäss DSG. Ich kann meine Einwilligung jederzeit widerrufen.",
       "error": "Bitte akzeptieren Sie die Bedingungen, um Ihre Anfrage zu senden."
     }
@@ -43,14 +43,14 @@
     "fr": {
       "info": "Votre demande est transmise à {school} pour qu’elle puisse vous répondre.",
       "giftInfo": "En envoyant cette demande, je confirme avoir informé le passager que ses coordonnées sont transmises à {school}.",
-      "case1": "J’accepte les [[cgv:conditions générales (CGV)]] et j’autorise le site à utiliser mes données à caractère personnel, conformément à la [[privacy:politique de confidentialité]], au règlement général sur la protection des données (RGPD) et à la loi belge du 30 juillet 2018, à des fins promotionnelles ou commerciales, y compris par courrier électronique ou SMS, pour ses propres activités et pour celles qu’il peut réaliser au nom de ses partenaires officiels, sans cession de mes données à ces tiers. Je peux retirer cette autorisation à tout moment.",
+      "case1": "J’accepte les [[cgv:conditions générales (CGV)]] et j’autorise le site à utiliser mes données personnelles à des fins promotionnelles ou commerciales, pour ses propres activités.",
       "case2": "J’autorise le site à transmettre certaines de mes données à caractère personnel à des tiers, notamment à ses partenaires et fournisseurs officiels, à des fins commerciales, conformément au RGPD. Je peux retirer cette autorisation à tout moment.",
       "error": "Veuillez accepter les conditions pour envoyer votre demande."
     },
     "en": {
       "info": "Your request is sent to {school} so that it can reply to you.",
       "giftInfo": "By sending this request, I confirm that I have told the passenger that their contact details are sent to {school}.",
-      "case1": "I accept the [[cgv:terms and conditions]] and I authorise the site to use my personal data, in accordance with the [[privacy:privacy policy]], the General Data Protection Regulation (GDPR) and the Belgian Act of 30 July 2018, for promotional or commercial purposes, including by email or SMS, for its own activities and for those it may carry out on behalf of its official partners, without passing my data on to those third parties. I can withdraw this authorisation at any time.",
+      "case1": "I accept the [[cgv:terms and conditions]] and I authorise the site to use my personal data for promotional or commercial purposes, for its own activities.",
       "case2": "I authorise the site to pass some of my personal data to third parties, including its official partners and suppliers, for commercial purposes, in accordance with the GDPR. I can withdraw this authorisation at any time.",
       "error": "Please accept the terms to send your request."
     }

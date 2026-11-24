@@ -107,23 +107,20 @@ const maxVisible = 40;
     </form>
     <p class="cmp-count" role="status" aria-live="polite"><strong id="cmp-n">{rows.length}</strong> {C.count}</p>
     <div class="table-wrap"><table class="data-table cmp-table">
-      <thead><tr><th style="min-width:19rem;width:32%">{C.cOffer}</th><th>{C.cDur}</th><th>{C.cPrice}</th><th>{C.cPhoto}</th><th>{C.cLift}</th><th class="total-col">{C.cTotal}</th><th>{C.cUpdated}</th><th></th><th></th></tr></thead>
+      <thead><tr><th style="width:32%">{C.cOffer}</th><th>{C.cDur}</th><th>{C.cPrice}</th><th>{C.cPhoto}</th><th>{C.cLift}</th><th class="total-col">{C.cTotal}</th><th>{C.cUpdated}</th><th></th></tr></thead>
       <tbody id="cmp-body">
         {rows.map((r, i) => (
           <tr class="cmp-row" hidden={i >= maxVisible} data-total={r.total} data-price={r.price} data-dmin={r.durMin ?? ''} data-dmax={r.durMax ?? r.durMin ?? ''} data-permin={r.perMin ?? ''}
             data-region={r.region ?? ''} data-country={r.country} data-currency={r.currency} data-photo={r.photo} data-lift={r.lift} data-profiles={r.profiles.join('|')} data-langs={r.langs.join('|')}>
             <th scope="row"><strong>{r.offer}</strong><span class="small muted">{r.school}{r.city ? ` · ${r.city}` : ''}{r.region ? ` · ${r.region}` : ''}</span></th>
-            <td data-label={C.cDur}>{dur(r)}</td>
-            <td data-label={C.cPrice}>{money(r.price as number, locale, r.currency)}</td>
+            <td class="nowrap" data-label={C.cDur}>{dur(r)}</td>
+            <td class="nowrap" data-label={C.cPrice}>{money(r.price as number, locale, r.currency)}</td>
             <td data-label={C.cPhoto}>{tri(r.photo, r.photoPrice)}</td>
             <td data-label={C.cLift}>{tri(r.lift, r.liftPrice)}</td>
             <td class="total-col" data-label={C.cTotal}><strong>{money(r.total as number, locale, r.currency)}</strong>{r.perMin && <span class="small muted">{C.perMin} : {new Intl.NumberFormat(locale === 'fr' ? MARKET.locale : locale, { maximumFractionDigits: 1 }).format(r.perMin)}</span>}</td>
             <td class="small muted nowrap" data-label={C.cUpdated}>{r.checked ? dateLoc(r.checked, locale, { day: '2-digit', month: '2-digit', year: '2-digit' }) : '—'}</td>
-            <td>
-              <a class="btn small ext" href={r.bookUrl ?? r.url ?? schoolHref(r.slug, locale)} target="_blank" rel="noopener">{C.cGo}</a>
-            </td>
             <td class="nowrap">
-              <a class="small nowrap" href={schoolHref(r.slug, locale)}>{C.school}</a>
+              <a class="btn small" href={`${schoolHref(r.slug, locale)}?parcours=bapteme&offre=${encodeURIComponent(r.id)}#offre-${encodeURIComponent(r.id)}`}>{C.cGo}</a>
             </td>
           </tr>
         ))}

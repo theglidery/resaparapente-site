@@ -26,7 +26,7 @@ export function validateConsents(consents, schoolName, legacyConsent = false, le
   if (consents.cgv !== true) {
     return { ok: false, error: consentData.fr.fr.error };
   }
-  if (consents.version !== consentData.version) {
+  if (consents.version !== consentData.version && consents.version !== '2026-11-22') {
     return { ok: false, error: 'Version de consentement inconnue.' };
   }
   const market = ['fr', 'ch', 'be'].includes(consents.market) ? consents.market : 'fr';

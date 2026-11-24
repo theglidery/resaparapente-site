@@ -224,11 +224,11 @@ const L = isEn
       <table class="data-table cmp-table">
         <thead>
           <tr>
-            <th style="min-width:22rem;width:44%">{L.cOffer}</th>
-            <th>{L.cType}</th>
-            <th>{L.cDur}</th>
-            <th>{L.cPrice}</th>
-            <th></th>
+            <th style="width:40%">{L.cOffer}</th>
+            <th style="width:18%">{L.cType}</th>
+            <th style="width:18%">{L.cDur}</th>
+            <th style="width:12%">{L.cPrice}</th>
+            <th style="width:12%"></th>
           </tr>
         </thead>
         <tbody id="stage-cmp-body">
@@ -253,13 +253,13 @@ const L = isEn
                 </span>
               </th>
               <td class="small" data-label={L.cType}>{r.levelName}</td>
-              <td class="small nowrap" data-label={L.cDur}>{r.dur}</td>
+              <td class="small" data-label={L.cDur}>{r.dur}</td>
               <td class="nowrap" data-label={L.cPrice}>
                 <strong>{money(r.price, locale, r.currency)}</strong>
                 {r.dayPrice && r.days && <span class="small muted" style="display:block">{money(r.dayPrice, locale, r.currency)}/{isEn ? 'day' : isDe ? 'Tag' : 'j'} × {r.days}</span>}
               </td>
               <td class="nowrap">
-                <a class="btn small ghost" href={`${schoolHref(r.slug, locale)}?parcours=stage`}>{L.go}</a>
+                <a class="btn small ghost" href={`${schoolHref(r.slug, locale)}?parcours=stage&offre=${encodeURIComponent(r.id)}#offre-${encodeURIComponent(r.id)}`}>{L.go}</a>
               </td>
             </tr>
           ))}
