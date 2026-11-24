@@ -21,11 +21,13 @@ const setContactKind = (kind) => {
   const l = $('#contact-legend'); if (l) l.textContent = `${t.title} : vos coordonnées`;
   const h = $('#b-ctype'); if (h) h.value = t.code;
 };
+let onKindChange = null;
 const visibleKind = () => (sections.find((el) => !el.hidden) || sections[0])?.dataset.section;
 const showKind = (kind) => {
   sections.forEach((el) => (el.hidden = el.dataset.section !== kind));
   tabs?.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.kind === kind)));
   setContactKind(kind);
+  if (onKindChange) onKindChange(kind);
 };
 if (sections.length > 1 && tabs) {
   tabs.hidden = false;
@@ -46,8 +48,10 @@ const showInfo = (li) => {
 if (form) {
   const offers = $$('[data-offer]');
   const chosen = $('#chosen'), giftChosen = $('#gift-chosen'), n = $('#b-n'), hint = $('#weight-hint');
-  const d1 = $('#b-d1'), d2 = $('#b-d2'), d3 = $('#b-d3'), chips = $('#sess-chips'), msg = $('#booking-msg');
-  const giftForm = $('#gift-form'), giftMsg = $('#gift-msg'), step1Weight = $('#pax-step1-weight'), bWeight = $('#b-weight');
+  const d1 = $('#b-d1'), d2 = $('#b-d2'), d3 = $('#b-d3'), alts = $('#alts'), chips = $('#sess-chips'), msg = $('#booking-msg');
+  const giftForm = $('#gift-form'), giftMsg = $('#gift-msg');
+  const step1Weight = $('#pax-step1-weight'), bWeight = $('#b-weight');
+  const step1Stage = $('#pax-step1-stage'), bStageWeight = $('#b-stage-weight'), bStageHeight = $('#b-stage-height');
   let sel = null;
   let mode = 'book'; // 'book' | 'gift'
 
@@ -55,9 +59,9 @@ if (form) {
   const only = form.dataset.onlyKind || '';
   const kindWords = (kind) => {
     const k = kind || only;
-    if (k === 'bapteme') return { dateLegend: 'Date souhaitée', d1: 'Date souhaitée', pax: 'Passagers', n: 'Nombre de passagers', one: 'Passager', height: false };
-    if (k === 'stage') return { dateLegend: 'Début souhaité', d1: 'Début souhaité', pax: 'Participants', n: 'Nombre de participants', one: 'Participant', height: true };
-    return { dateLegend: 'Date souhaitée', d1: 'Date souhaitée', pax: 'Participants', n: 'Nombre de participants', one: 'Participant', height: false };
+    if (k === 'bapteme') return { dateLegend: 'Dates souhaitées', d1: 'Date souhaitée', pax: 'Passagers', n: 'Nombre de passagers', one: 'Passager', height: false };
+    if (k === 'stage') return { dateLegend: 'Date du stage', d1: 'Date de début souhaitée', pax: 'Participants', n: 'Nombre de participants', one: 'Participant', height: true };
+    return { dateLegend: 'Dates souhaitées', d1: 'Date souhaitée', pax: 'Participants', n: 'Nombre de participants', one: 'Participant', height: false };
   };
 
   const summary = (box, li) => {
@@ -146,14 +150,40 @@ if (form) {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
   window.matchMedia('(min-width: 980px)').addEventListener('change', closePanel);
 
-  function openBooking(li) {
-    const w = kindWords(li.dataset.kind);
-    const isStage = li.dataset.kind === 'stage';
+  function syncKindUI(kind) {
+    const k = kind || only || visibleKind() || 'bapteme';
+    const isStage = k === 'stage';
+    const w = kindWords(k);
+    setContactKind(k);
     if (step1Weight) step1Weight.hidden = isStage;
-    $('#date-legend').textContent = isStage ? 'Début souhaité' : 'Dates souhaitées';
-    $('#d1-label').textContent = w.d1;
-    $('#pax-legend').textContent = w.pax; $('#n-label').textContent = w.n;
+    if (step1Stage) step1Stage.hidden = !isStage;
+    if (alts) alts.hidden = isStage;
+    const dl = $('#date-legend'); if (dl) dl.textContent = w.dateLegend;
+    const d1l = $('#d1-label'); if (d1l) d1l.textContent = w.d1;
+    const pl = $('#pax-legend'); if (pl) pl.textContent = w.pax;
+    const nl = $('#n-label'); if (nl) nl.textContent = w.n;
     queueMicrotask(() => typeof drawRows === 'function' && drawRows());
+  }
+
+  onKindChange = (kind) => {
+    if (sel && sel.dataset.kind !== kind) {
+      offers.forEach((o) => {
+        o.classList.remove('selected');
+        const bBook = $('.choose', o);
+        if (bBook instanceof HTMLButtonElement) { bBook.setAttribute('aria-pressed', 'false'); bBook.textContent = 'Réserver'; }
+        const bGift = $('.choose-gift', o);
+        if (bGift instanceof HTMLButtonElement) { bGift.setAttribute('aria-pressed', 'false'); bGift.textContent = '🎁 Offrir'; }
+      });
+      sel = null;
+      if (chosen) chosen.innerHTML = '<p class="muted" style="margin:0">Choisissez une formule dans la liste pour ouvrir les détails et le contact de l’école.</p>';
+      if (chips) { chips.innerHTML = ''; chips.hidden = true; }
+      if (hint) hint.hidden = true;
+    }
+    syncKindUI(kind);
+  };
+
+  function openBooking(li) {
+    syncKindUI(li.dataset.kind);
     summary(chosen, li);
     if (li.dataset.weight) { hint.hidden = false; hint.textContent = `Poids indiqué par l’école : ${li.dataset.weight}`; } else hint.hidden = true;
     // published session dates for this formula, as one-click choices
@@ -173,7 +203,7 @@ if (form) {
 
   // One block per participant: first name (optional), weight (needed by the school) and, for a course, height.
   const rows = $('#pax-rows');
-  const kindNow = () => (sel ? sel.dataset.kind : only);
+  const kindNow = () => (sel ? sel.dataset.kind : (only || visibleKind() || 'bapteme'));
   const drawRows = () => {
     if (!rows) return;
     const w = kindWords(kindNow()), count = Number(n.value) || 1;
@@ -183,7 +213,7 @@ if (form) {
       const r = document.createElement('fieldset'); r.className = 'pax';
       r.innerHTML = `<legend></legend>
         <div class="field"><label>Prénom (facultatif)</label><input data-f="name" type="text" maxlength="80" autocomplete="off" /></div>
-        <div class="field"><label>Poids (kg)</label><input data-f="weight" type="number" inputmode="numeric" min="15" max="200" step="1" /></div>
+        <div class="field"><label>${w.height ? 'Poids approx. (kg)' : 'Poids (kg)'}</label><input data-f="weight" type="number" inputmode="numeric" min="15" max="200" step="1" /></div>
         ${w.height ? '<div class="field"><label>Taille (cm)</label><input data-f="height" type="number" inputmode="numeric" min="100" max="230" step="1" /></div>' : ''}`;
       $('legend', r).textContent = `${w.one} ${i + 1}`;
       const prev = old[i]; if (prev) { $('[data-f=name]', r).value = prev.name; $('[data-f=weight]', r).value = prev.weight; const h = $('[data-f=height]', r); if (h) h.value = prev.height; }
@@ -191,16 +221,17 @@ if (form) {
     }
   };
   n.addEventListener('change', drawRows);
+  syncKindUI(visibleKind());
   drawRows();
   const participants = () => $$('.pax', rows).map((r) => ({
-    name: $('[data-f=name]', r).value.trim(), weight: Number($('[data-f=weight]', r).value),
-    ...($('[data-f=height]', r) ? { height: Number($('[data-f=height]', r).value) } : {}),
+    name: $('[data-f=name]', r).value.trim(), weight: Math.round(Number($('[data-f=weight]', r).value)),
+    ...($('[data-f=height]', r) ? { height: Math.round(Number($('[data-f=height]', r).value)) } : {}),
   }));
   const participantErrors = () => {
     const errs = [];
     participants().forEach((p, i) => {
-      if (!(p.weight >= 15 && p.weight <= 200)) errs.push(`Indiquez le poids (15 à 200 kg) du participant ${i + 1}.`);
-      if ('height' in p && !(p.height >= 100 && p.height <= 230)) errs.push(`Indiquez la taille (100 à 230 cm) du participant ${i + 1}.`);
+      if (!(Number.isFinite(p.weight) && p.weight >= 15 && p.weight <= 200)) errs.push(`Indiquez le poids (15 à 200 kg) du participant ${i + 1}.`);
+      if ('height' in p && !(Number.isFinite(p.height) && p.height >= 100 && p.height <= 230)) errs.push(`Indiquez la taille (100 à 230 cm) du participant ${i + 1}.`);
     });
     return errs;
   };
@@ -211,8 +242,7 @@ if (form) {
     showKind(initial.dataset.kind);
     choose(initial, false);
     const date = params.get('date');
-    const sessions = JSON.parse(initial.dataset.sessions || '[]');
-    if (sessions.some((session) => session.start === date)) {
+    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date) && (!d1.min || date >= d1.min)) {
       d1.value = date;
     }
   }
@@ -220,7 +250,7 @@ if (form) {
   // Two steps: 1 = who and when (short), 2 = participants, consent. Step 1 is validated before step 2 opens.
   const step1 = $('#step-1'), step2 = $('#step-2'), s1msg = $('#step1-msg'), fs1 = $('#fs-1'), fs2 = $('#fs-2');
   const v = (id) => ($(id)?.value || '').trim();
-  const isBaptismNow = () => (sel ? sel.dataset.kind : only) !== 'stage';
+  const isStageNow = () => kindNow() === 'stage';
   const step1Errors = () => {
     const errs = [];
     if (!sel) errs.push('Choisissez une formule dans la liste (bouton « Réserver » ou « Offrir »).');
@@ -228,13 +258,19 @@ if (form) {
     if (!v('#b-last')) errs.push('Indiquez votre nom.');
     if (!okEmail(v('#b-email'))) errs.push('Indiquez un email valide.');
     if (v('#b-phone').replace(/\D/g, '').length < 8) errs.push('Indiquez un numéro de téléphone.');
-    if (isBaptismNow()) {
-      const w = Number(v('#b-weight'));
-      if (!Number.isInteger(w) || w < 15 || w > 200) errs.push('Indiquez le poids du passager volant (nombre entier de 15 à 200 kg).');
+    if (isStageNow()) {
+      const sw = Math.round(Number(v('#b-stage-weight')));
+      const sh = Math.round(Number(v('#b-stage-height')));
+      if (!v('#b-stage-weight') || !Number.isFinite(sw) || sw < 15 || sw > 200) errs.push('Indiquez votre poids approximatif (de 15 à 200 kg).');
+      if (!v('#b-stage-height') || !Number.isFinite(sh) || sh < 100 || sh > 230) errs.push('Indiquez votre taille en cm (de 100 à 230 cm, ex. 175).');
+      if (d1.value && d1.value < d1.min) errs.push('Choisissez une date à venir.');
+    } else {
+      const w = Math.round(Number(v('#b-weight')));
+      if (!v('#b-weight') || !Number.isFinite(w) || w < 15 || w > 200) errs.push('Indiquez le poids du passager volant (de 15 à 200 kg).');
+      if ([d1, d2, d3].some((d) => d.value && d.value < d.min)) errs.push('Choisissez une date à venir.');
+      const dates = [d1.value, d2.value, d3.value].filter(Boolean);
+      if (new Set(dates).size !== dates.length) errs.push('Les dates doivent être différentes.');
     }
-    if ([d1, d2, d3].some((d) => d.value && d.value < d.min)) errs.push('Choisissez une date à venir.');
-    const dates = [d1.value, d2.value, d3.value].filter(Boolean);
-    if (new Set(dates).size !== dates.length) errs.push('Les dates doivent être différentes.');
     return errs;
   };
   const gotoStep = (k) => {
@@ -242,9 +278,21 @@ if (form) {
     fs1.toggleAttribute('aria-current', k === 1); fs2.toggleAttribute('aria-current', k === 2);
     if (k === 1) fs1.setAttribute('aria-current', 'step'); else fs2.setAttribute('aria-current', 'step');
     fs1.classList.toggle('done', k === 2);
-    if (k === 2 && isBaptismNow() && bWeight?.value) {
-      const firstPaxW = $('.pax [data-f=weight]', rows);
-      if (firstPaxW) firstPaxW.value = bWeight.value;
+    if (k === 2) {
+      drawRows();
+      const firstPax = $('.pax', rows);
+      if (firstPax) {
+        const firstPaxN = $('[data-f=name]', firstPax);
+        if (firstPaxN && !firstPaxN.value && v('#b-first')) firstPaxN.value = v('#b-first');
+        const firstPaxW = $('[data-f=weight]', firstPax);
+        const firstPaxH = $('[data-f=height]', firstPax);
+        if (isStageNow()) {
+          if (firstPaxW && bStageWeight?.value) firstPaxW.value = String(Math.round(Number(bStageWeight.value)));
+          if (firstPaxH && bStageHeight?.value) firstPaxH.value = String(Math.round(Number(bStageHeight.value)));
+        } else if (firstPaxW && bWeight?.value) {
+          firstPaxW.value = String(Math.round(Number(bWeight.value)));
+        }
+      }
     }
     aside?.scrollTo?.({ top: 0 });
     if (!phone()) { const r = aside.getBoundingClientRect(); if (r.top < 0) aside.scrollIntoView({ block: 'start' }); }
@@ -311,8 +359,9 @@ if (form) {
       schoolId: form.dataset.schoolId, offerId: sel.dataset.id,
       bookingMode: 'book',
       contact: { firstName: v('#b-first'), lastName: v('#b-last'), name: fullName, email: v('#b-email'), phone: v('#b-phone'), type: v('#b-ctype') },
-      weightKg: isBaptismNow() ? Number(v('#b-weight')) : undefined,
-      dates: [d1.value, d2.value, d3.value].filter(Boolean), participantCount: Number(n.value), participants: participants(),
+      weightKg: isStageNow() ? Math.round(Number(v('#b-stage-weight'))) : Math.round(Number(v('#b-weight'))),
+      heightCm: isStageNow() ? Math.round(Number(v('#b-stage-height'))) : undefined,
+      dates: (isStageNow() ? [d1.value] : [d1.value, d2.value, d3.value]).filter(Boolean), participantCount: Number(n.value), participants: participants(),
       message: v('#b-msg'), consent: true, consents, marketingOptIn: consents.partners, website: v('#b-website'),
     };
     const signature = JSON.stringify(payload);

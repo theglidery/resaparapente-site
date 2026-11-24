@@ -285,11 +285,26 @@ const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr'
               </div>
             </fieldset>
 
+            <fieldset id="pax-step1-stage" hidden={onlyKind !== 'stage'}>
+              <legend>Élève stagiaire : gabarit</legend>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem">
+                <div class="field">
+                  <label for="b-stage-weight">Poids approx. (kg) *</label>
+                  <input id="b-stage-weight" name="stageWeightKg" type="number" inputmode="numeric" min="15" max="200" step="1" placeholder="ex. 72" />
+                </div>
+                <div class="field">
+                  <label for="b-stage-height">Taille (cm) *</label>
+                  <input id="b-stage-height" name="stageHeightCm" type="number" inputmode="numeric" min="100" max="230" step="1" placeholder="ex. 175" />
+                </div>
+              </div>
+              <p class="small muted" style="margin:0.25rem 0 0">Nécessaire à l’école pour prévoir la voile et la sellette.</p>
+            </fieldset>
+
             <fieldset>
-              <legend id="date-legend">Dates souhaitées</legend>
-              <div class="field"><label for="b-d1" id="d1-label">Date souhaitée</label><input id="b-d1" name="d1" type="date" min={today} /></div>
+              <legend id="date-legend">{onlyKind === 'stage' ? 'Date du stage' : 'Dates souhaitées'}</legend>
+              <div class="field"><label for="b-d1" id="d1-label">{onlyKind === 'stage' ? 'Date de début souhaitée' : 'Date souhaitée'}</label><input id="b-d1" name="d1" type="date" min={today} /></div>
               <div id="sess-chips" class="chips" hidden></div>
-              <div id="alts">
+              <div id="alts" hidden={onlyKind === 'stage'}>
                 <div class="field"><label for="b-d2">Autre date 1 (en cas de report)</label><input id="b-d2" name="d2" type="date" min={today} /></div>
                 <div class="field"><label for="b-d3">Autre date 2 (en cas de report)</label><input id="b-d3" name="d3" type="date" min={today} /></div>
               </div>

@@ -112,7 +112,7 @@ const mail = `mailto:${SITE.contactEmail}?subject=${encodeURIComponent((lc === '
                 {opt.text && <p><strong>{T.options}{co}</strong> <span lang={opt.done ? undefined : 'fr'}>{opt.text}</span></p>}
               </details>}
               {dates.length > 0 && <p class="small"><strong>{T.nextDates}{co}</strong> {dates.map((d) => `${dateLoc(d.start, lc)}${d.end !== d.start ? ` ${T.to} ${dateLoc(d.end, lc)}` : ''}${d.price != null ? ` · ${money(d.price, lc)}` : ''} · ${d.status === 'Complet' ? T.full : T.tbc}`).join(' ; ')}</p>}
-              {!isRegional && lc === 'en' && <p><a class="btn small" href={`/ecoles/${s.slug}/?${new URLSearchParams({ offre: o.id })}#offre-${encodeURIComponent(o.id)}`}>{T.bookFr}</a> <span class="small muted">{T.bookNote}</span></p>}
+              {!isRegional && lc === 'en' && <p><a class="btn small" href={`/ecoles/${s.slug}/?${new URLSearchParams({ parcours: g.id, offre: o.id })}#offre-${encodeURIComponent(o.id)}`}>{T.bookFr}</a> <span class="small muted">{T.bookNote}</span></p>}
               {(o.bookUrl || o.url) && <p><a class="btn small ghost ext" href={o.bookUrl || o.url || ''} rel="noopener" target="_blank">{T.seeAtSchool}</a></p>}
               {o.checked && <p class="proof small muted">{T.checked} {dateLoc(o.checked, lc)}</p>}
             </li>;

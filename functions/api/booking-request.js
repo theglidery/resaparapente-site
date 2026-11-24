@@ -184,7 +184,7 @@ export async function onRequestPost({ request, env }) {
     `Référence : ${data.requestId}`,
     `Formule : ${offerName}`,
     ...(isGift ? [`Bénéficiaire du cadeau : ${giftName}${giftEmail ? ' · ' + giftEmail : ''}${giftNote ? ' · Message : ' + giftNote : ''}`] : []),
-    `Dates souhaitées : ${dates.join(', ') || 'flexibles, à définir avec l’école'}`,
+    `${isStage ? 'Date de début souhaitée' : 'Dates souhaitées'} : ${dates.join(', ') || 'flexibles, à définir avec l’école'}`,
     `Participants : ${count}`,
     ...paxLines,
     `Contact${isGift ? ' (offreur)' : ''} : ${name} · ${email}${phone ? ' · ' + phone : ''}`,
@@ -209,7 +209,7 @@ export async function onRequestPost({ request, env }) {
       <h2 style="margin:0 0 12px">Demande de ${isStage ? 'stage' : isGift ? 'baptême à offrir (cadeau)' : 'baptême'} · ${escHtml(school.name)}</h2>
       <p style="margin:0 0 8px"><strong>Formule :</strong> ${escHtml(offerName)}</p>
       ${isGift ? `<p style="margin:0 0 8px"><strong>Bénéficiaire du cadeau :</strong> ${escHtml(giftName)}${giftEmail ? ` · <a href="mailto:${escHtml(giftEmail)}">${escHtml(giftEmail)}</a>` : ''}${giftNote ? ` · <em>${escHtml(giftNote)}</em>` : ''}</p>` : ''}
-      <p style="margin:0 0 8px"><strong>Dates souhaitées :</strong> ${escHtml(dates.join(', ') || 'flexibles, à définir avec l’école')}</p>
+      <p style="margin:0 0 8px"><strong>${isStage ? 'Date de début souhaitée' : 'Dates souhaitées'} :</strong> ${escHtml(dates.join(', ') || 'flexibles, à définir avec l’école')}</p>
       <p style="margin:0 0 8px"><strong>Participants (${count}) :</strong></p>
       <ul style="margin:0 0 12px;padding-left:20px">
         ${people
@@ -274,7 +274,7 @@ export async function onRequestPost({ request, env }) {
       `Votre demande pour « ${offerName} » a été transmise à ${school.name}.`,
       `Elle vous répondra directement et organisera le paiement.`,
       '',
-      `Dates souhaitées : ${dates.join(', ') || 'flexibles'}`,
+      `${isStage ? 'Date de début souhaitée' : 'Dates souhaitées'} : ${dates.join(', ') || 'flexibles'}`,
       `Référence : ${data.requestId}`,
       '',
       'L’équipe Resa Parapente',
