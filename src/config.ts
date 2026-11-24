@@ -47,7 +47,7 @@ export const HERO_ALT: Record<string, string> = {
 // Shape of each header band (width / height). Default 3 / 1; a picture with a tall subject can ask for a taller band.
 export const HERO_RATIO: Record<string, string> = { stage: '8 / 3' };
 // Which part of the picture stays visible when the band crops it (CSS object-position).
-export const HERO_POS: Record<string, string> = { stage: '50% 100%' };
+export const HERO_POS: Record<string, string> = { stage: '50% 55%' };
 
 // The calendar page is always on, even with no dated session yet. With fewer than minSessions dates the list of schools
 // without published dates is opened by default.
