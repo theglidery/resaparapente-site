@@ -1,7 +1,10 @@
 ---
 import ArticlePage from '../../components/ArticlePage.astro';
 import { LEARN_PAGES } from '../../data/learn';
+import { LEARN_PAGES_EN } from '../../data/learn-en';
 export function getStaticPaths() { return LEARN_PAGES.map((a) => ({ params: { slug: a.slug }, props: { article: a } })); }
 const { article } = Astro.props;
+const enPage = LEARN_PAGES_EN.find((p) => p.frSlug === article.slug);
+const enUrl = enPage ? `/en/learn-paragliding/${enPage.slug}/` : '/en/learn-paragliding/';
 ---
-<ArticlePage article={article} />
+<ArticlePage article={article} enHref={enUrl} alternates={[{ locale: 'fr', href: `/apprendre/${article.slug}/` }, { locale: 'en', href: enUrl }]} />

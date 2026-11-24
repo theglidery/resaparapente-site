@@ -328,11 +328,12 @@ if (form) {
     const box1 = $('[data-consent-box="1"]', targetForm);
     const errEl = $('.consent-err', targetForm);
     if (!box1 || !btn) return;
+    let touched = false;
     const sync = () => {
       btn.disabled = !box1.checked;
-      if (errEl) errEl.hidden = box1.checked;
+      if (errEl) errEl.hidden = !touched || box1.checked;
     };
-    box1.addEventListener('change', sync);
+    box1.addEventListener('change', () => { touched = true; sync(); });
     sync();
   };
   if (canSend) bindConsentToggle(form, button);

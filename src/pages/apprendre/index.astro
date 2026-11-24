@@ -2,4 +2,4 @@
 import ArticlePage from '../../components/ArticlePage.astro';
 import { LEARN_HUB } from '../../data/learn';
 ---
-<ArticlePage article={LEARN_HUB} />
+<ArticlePage article={LEARN_HUB} enHref="/en/learn-paragliding/" alternates={[{ locale: 'fr', href: '/apprendre/' }, { locale: 'en', href: '/en/learn-paragliding/' }]} />

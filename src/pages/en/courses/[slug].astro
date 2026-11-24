@@ -1,0 +1,108 @@
+---
+import ArticlePage from '../../../components/ArticlePage.astro';
+import { STAGE_TYPES_EN, enStageTypeByKey, type EnStageType } from '../../../data/stage-types-en';
+import type { Article } from '../../../data/article-types';
+import { schools, sessions, offerPrice, withOffers } from '../../../lib/data';
+import { money, dateLoc } from '../../../lib/compare';
+
+export function getStaticPaths() {
+  return STAGE_TYPES_EN.map((t) => ({ params: { slug: t.slug }, props: { type: t } }));
+}
+const { type: t } = Astro.props as { type: EnStageType };
+const today = new Date().toISOString().slice(0, 10);
+
+const offersOf = (s: typeof schools[number]) => s.stages.filter((o) => o.levelKey === t.key);
+const list = withOffers('stage').filter((s) => offersOf(s).length).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+const prices = list.flatMap((s) => offersOf(s).map(offerPrice)).filter((v): v is number => typeof v === 'number' && v > 0).sort((a, b) => a - b);
+const med = prices.length ? prices[Math.floor(prices.length / 2)] : null;
+const fromOf = (s: typeof schools[number]) => {
+  const p = offersOf(s).map(offerPrice).filter((v): v is number => typeof v === 'number');
+  return p.length ? Math.min(...p) : null;
+};
+const levelOfOffer = new Map(schools.flatMap((s) => s.stages.map((o) => [o.id, o.levelKey] as const)));
+const upcoming = sessions.filter((x) => x.end >= today && levelOfOffer.get(x.offerId) === t.key).sort((a, b) => a.start.localeCompare(b.start));
+const next = enStageTypeByKey(t.suite?.key ?? '');
+const fmt = (n: number) => money(n, 'en', 'EUR');
+
+const article: Article = {
+  slug: t.slug,
+  title: `${t.h1}: programme, prices and schools`,
+  h1: t.h1,
+  lead: t.lead,
+  description: t.description,
+  parent: { href: '/en/paragliding-course-schools/', label: 'Courses' },
+  brief: [
+    { k: 'Duration', v: t.brief.duree },
+    { k: 'Who it is for', v: t.brief.public },
+    { k: 'Goal', v: t.brief.objectif },
+    { k: 'Licence', v: t.brief.brevet },
+  ],
+  sections: [
+    { id: 'who', h: 'Who is this course for?', ul: t.pour },
+    { id: 'goals', h: 'Course objectives', ul: t.objectif },
+    { id: 'prerequisites', h: 'Prerequisites', ul: t.prerequis },
+    { id: 'programme', h: 'Typical programme', steps: t.programme.map((x) => ({ t: x.titre, d: x.texte })) },
+    { id: 'equipment', h: 'Equipment & best season', table: [['Provided by the school', t.fourni], ['What to bring', t.apporter], ['Recommended season', t.periode]] },
+    { id: 'choose-school', h: 'How to choose your school', ul: t.choisir },
+    ...(t.suite && next ? [{ id: 'next-step', h: 'Next step in your progression', p: [t.suite.texte] }] : []),
+  ],
+  faq: t.faq,
+  next: [
+    ...(t.key === 'initiation' ? [{ href: '/en/learn-paragliding/first-course/', label: 'Prepare your first course', text: 'Compare sessions, equipment and weather policies before booking.' }] : []),
+    { href: `/en/paragliding-course-calendar/?level=${t.key}`, label: 'Upcoming dates for this course', text: 'Published session dates by region and month.' },
+    ...(next ? [{ href: `/en/courses/${next.slug}/`, label: next.menu, text: 'The next step on the training pathway.' }] : []),
+    { href: '/en/learn-paragliding/', label: 'Learn paragliding', text: 'Pathway, licences and theory modules.' },
+  ],
+};
+
+const alternates = [
+  { locale: 'fr' as const, href: `/stage/${t.frSlug}/` },
+  { locale: 'en' as const, href: `/en/courses/${t.slug}/` },
+];
+---
+<ArticlePage article={article} cta="stage" locale="en" alternates={alternates}>
+  <Fragment slot="after-brief">
+    <section class="board-now" aria-label="Prices and next dates" style="margin-bottom:2rem">
+      <h2>Prices and upcoming dates</h2>
+      {prices.length ? (
+        <p>Prices collected from the websites of {list.length} {list.length === 1 ? 'school' : 'schools'}: from {fmt(prices[0])} to {fmt(prices[prices.length - 1])}{med ? `, median ${fmt(med)}` : ''}. Indicative prices: duration and inclusions vary by school.</p>
+      ) : (
+        <p>Prices are shown on each school’s page and vary with duration, region and inclusions.</p>
+      )}
+      {upcoming.length > 0 ? (
+        <ul class="sess-list">
+          {upcoming.slice(0, 6).map((x) => (
+            <li>
+              <span><a href={`/en/schools/${x.slug}/#offre-${encodeURIComponent(x.offerId)}`}><strong>{x.school}</strong></a> · {x.city}</span>
+              <span>{dateLoc(x.start, 'en', { day: 'numeric', month: 'short' })} to {dateLoc(x.end, 'en', { day: 'numeric', month: 'short', year: 'numeric' })} · {x.price ? fmt(x.price) : x.priceLabel ?? ''}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="muted">No dated session published right now: the schools below share their next dates on request.</p>
+      )}
+      <p class="btn-row" style="margin-top:1rem">
+        <a class="btn" href={`/en/paragliding-course-schools/?level=${t.key}`}>See all {list.length} schools</a>
+        <a class="btn ghost" href={`/en/paragliding-course-calendar/?level=${t.key}`}>Course calendar</a>
+      </p>
+    </section>
+  </Fragment>
+  <Fragment slot="after-sections">
+    {list.length > 0 && (
+      <section id="schools" aria-labelledby="h-schools">
+        <h2 id="h-schools">Schools offering this course</h2>
+        <ul class="type-grid">
+          {list.slice(0, 12).map((s) => (
+            <li>
+              <a href={`/en/schools/${s.slug}/`}>
+                <strong>{s.name}</strong>
+                <span>{[s.city, s.dept].filter(Boolean).join(', ')}{fromOf(s) ? ` · from ${fmt(fromOf(s)!)}` : ''}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        {list.length > 12 && <p><a href={`/en/paragliding-course-schools/?level=${t.key}`}>See all {list.length} schools offering this course type</a></p>}
+      </section>
+    )}
+  </Fragment>
+</ArticlePage>

@@ -3162,5 +3162,12 @@
   "relay": "Non",
   "country": "FR",
   "route": "team"
+ },
+ "S999": {
+  "name": "Test",
+  "email": "contact@locawing.fr",
+  "relay": "Oui",
+  "country": "FR",
+  "route": "school"
  }
 }

@@ -41,6 +41,6 @@ export function validateConsents(consents, schoolName, legacyConsent = false, le
     market,
     language: lang,
     text1: cleanText(t.case1, schoolName),
-    text2: cleanText(t.case2, schoolName),
+    text2: consents.partners === true ? cleanText(t.case2, schoolName) : '',
   };
 }

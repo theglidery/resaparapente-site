@@ -2,4 +2,4 @@
 import ArticlePage from '../../components/ArticlePage.astro';
 import { WHY_HUB } from '../../data/why-fly';
 ---
-<ArticlePage article={WHY_HUB} />
+<ArticlePage article={WHY_HUB} enHref="/en/why-fly/" alternates={[{ locale: 'fr', href: '/pourquoi-voler/' }, { locale: 'en', href: '/en/why-fly/' }]} />

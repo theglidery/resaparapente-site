@@ -1,17 +1,25 @@
 ---
 // "Vous êtes une école de parapente ?" band: sends schools to the submission page with the right topic preselected.
-interface Props { type?: 'stage' | 'bapteme' | 'bon' | 'promo' }
-const { type = 'stage' } = Astro.props;
-const T = {
-  stage: { text: 'Publiez vos dates de stage ici et recevez les demandes de réservation.', btn: 'Publier mes stages' },
-  bapteme: { text: 'Présentez vos baptêmes ici et recevez les demandes de réservation.', btn: 'Publier mes baptêmes' },
-  bon: { text: 'Faites connaître le bon cadeau que vous vendez : un lien vers votre site, sans frais.', btn: 'Proposer mon bon cadeau' },
-  promo: { text: 'Affichez vos offres promotionnelles sur votre fiche, sans frais.', btn: 'Publier mes offres' },
-}[type];
+interface Props { type?: 'stage' | 'bapteme' | 'bon' | 'promo'; locale?: 'fr' | 'en' }
+const { type = 'stage', locale = 'fr' } = Astro.props;
+const isEn = locale === 'en';
+const T = isEn
+  ? {
+      stage: { text: 'Publish your course dates here and receive booking enquiries.', btn: 'Publish my courses' },
+      bapteme: { text: 'List your tandem flights here and receive booking enquiries.', btn: 'Publish my tandem flights' },
+      bon: { text: 'Share the gift voucher you sell: a direct link to your website, free of charge.', btn: 'List my gift voucher' },
+      promo: { text: 'Display your promotional offers on your school page, free of charge.', btn: 'Publish my offers' },
+    }[type]
+  : {
+      stage: { text: 'Publiez vos dates de stage ici et recevez les demandes de réservation.', btn: 'Publier mes stages' },
+      bapteme: { text: 'Présentez vos baptêmes ici et recevez les demandes de réservation.', btn: 'Publier mes baptêmes' },
+      bon: { text: 'Faites connaître le bon cadeau que vous vendez : un lien vers votre site, sans frais.', btn: 'Proposer mon bon cadeau' },
+      promo: { text: 'Affichez vos offres promotionnelles sur votre fiche, sans frais.', btn: 'Publier mes offres' },
+    }[type];
 ---
-<aside class="school-cta" aria-label="Pour les écoles de parapente">
+<aside class="school-cta" aria-label={isEn ? 'For paragliding schools' : 'Pour les écoles de parapente'}>
   <div>
-    <h2>Vous êtes une école de parapente ?</h2>
+    <h2>{isEn ? 'Do you run a paragliding school?' : 'Vous êtes une école de parapente ?'}</h2>
     <p>{T.text}</p>
   </div>
   <a class="btn light" data-track="click_school_cta" data-kind={type} href={`/pour-les-ecoles/?type=${type}`}>{T.btn}</a>

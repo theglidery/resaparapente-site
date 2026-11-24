@@ -11146,5 +11146,21 @@
   },
   "country": "FR",
   "route": "team"
+ },
+ "S999": {
+  "name": "Test",
+  "email": "contact@locawing.fr",
+  "offers": {
+   "OFF-TEST-BAPTEME": [
+    "bapteme",
+    "Baptême découverte (Test)"
+   ],
+   "OFF-TEST-STAGE": [
+    "stage",
+    "Stage initiation 5 jours (Test)"
+   ]
+  },
+  "country": "FR",
+  "route": "school"
  }
 }

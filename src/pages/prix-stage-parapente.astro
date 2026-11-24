@@ -30,7 +30,7 @@ const article: Article = {
   next: [{ href: '/stage-parapente/', label: 'Stage par destination', text: 'Régions, départements et grandes villes.' }, { href: '/calendrier/', label: 'Calendrier des stages', text: 'Les prochaines dates publiées par les écoles.' }, { href: '/apprendre/', label: 'Apprendre le parapente', text: 'Parcours, brevets, cours.' }],
 };
 ---
-<ArticlePage article={article} cta="stage">
+<ArticlePage article={article} cta="stage" enHref="/en/paragliding-course-prices/" alternates={[{ locale: 'fr', href: '/prix-stage-parapente/' }, { locale: 'en', href: '/en/paragliding-course-prices/' }]}>
   <Fragment slot="after-brief">
     <section id="niveaux" aria-labelledby="h-niv">
       <h2 id="h-niv">Prix par type de stage</h2>

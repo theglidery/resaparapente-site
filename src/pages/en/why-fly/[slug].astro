@@ -1,0 +1,14 @@
+---
+import ArticlePage from '../../../components/ArticlePage.astro';
+import { WHY_PAGES_EN } from '../../../data/why-fly-en';
+
+export function getStaticPaths() {
+  return WHY_PAGES_EN.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+const { article } = Astro.props;
+const alternates = [
+  { locale: 'fr' as const, href: `/pourquoi-voler/${article.frSlug}/` },
+  { locale: 'en' as const, href: `/en/why-fly/${article.slug}/` },
+];
+---
+<ArticlePage article={article} locale="en" alternates={alternates} />

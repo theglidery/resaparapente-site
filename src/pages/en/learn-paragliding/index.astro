@@ -1,0 +1,10 @@
+---
+import ArticlePage from '../../../components/ArticlePage.astro';
+import { LEARN_HUB_EN } from '../../../data/learn-en';
+
+const alternates = [
+  { locale: 'fr' as const, href: '/apprendre/' },
+  { locale: 'en' as const, href: '/en/learn-paragliding/' },
+];
+---
+<ArticlePage article={LEARN_HUB_EN} cta="stage" locale="en" alternates={alternates} />

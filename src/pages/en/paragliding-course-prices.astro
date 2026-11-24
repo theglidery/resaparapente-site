@@ -1,0 +1,136 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro';
+import { withOffers, currencyOf } from '../../lib/data';
+import { statsOf, placesFor } from '../../lib/places';
+import { STAGE_TYPES_EN } from '../../data/stage-types-en';
+import { money, dateLoc } from '../../lib/compare';
+import type { Article } from '../../data/article-types';
+
+const list = withOffers('stage');
+const all = statsOf(list, 'stage');
+const types = STAGE_TYPES_EN.map((t) => ({
+  t,
+  st: statsOf(list.filter((s) => s.stages.some((o) => o.levelKey === t.key)), 'stage', (o) => o.levelKey === t.key),
+})).filter((x) => x.st.offers >= 3);
+const regions = placesFor('stage')
+  .filter((p) => p.type === 'region')
+  .map((p) => ({ p, st: statsOf(p.schools.stage, 'stage') }))
+  .filter((x) => x.st.n >= 3 && x.st.offers >= 3)
+  .sort((a, b) => b.st.n - a.st.n);
+
+const d = all.checked ? dateLoc(all.checked, 'en', { day: 'numeric', month: 'short', year: 'numeric' }) : null;
+const days = (a: number | null, b: number | null) => (a == null ? 'varies' : a === b ? `${a} days` : `${a} to ${b} days`);
+const fmt = (n: number | null | undefined) => (n ? money(Math.round(n), 'en', 'EUR') : '—');
+const init = types.find((x) => x.t.key === 'initiation');
+
+const article: Article = {
+  slug: 'paragliding-course-prices',
+  title: 'Cost of paragliding training: course prices by level and region',
+  h1: 'Cost of paragliding training & courses',
+  parent: { href: '/en/paragliding-course-schools/', label: 'Paragliding courses' },
+  description: `How much does paragliding training cost? Prices collected from ${all.n} schools: introductory, progression, advanced and SIV courses, typical duration and price ranges by region.`,
+  lead: `The cost of paragliding training depends mainly on the course level and number of days.${init && init.st.med ? ` An introductory course costs around ${fmt(init.st.med)} (median of published packages) for ${days(init.st.daysMin, init.st.daysMax)}.` : ''} Below are the prices published by schools.`,
+  brief: [
+    { k: 'Schools surveyed', v: String(all.n) },
+    { k: 'Published courses', v: String(all.offers) },
+    { k: 'Last checked', v: d ?? '—' },
+  ],
+  sections: [
+    {
+      id: 'method',
+      h: 'Where these prices come from',
+      p: [
+        `These figures come directly from official school websites checked by our team${d ? ` (last update ${d})` : ''}. Course prices reflect the full course package rather than a single day. Always confirm exact inclusions and current availability with the school when booking.`,
+      ],
+    },
+    {
+      id: 'factors',
+      h: 'What makes full training costs vary',
+      ul: [
+        'Course level and pathway: reaching full solo autonomy typically combines an introductory course (5 days) with one or two progression/advanced courses.',
+        'Number of days and guaranteed flights or sessions.',
+        'Equipment: complete loan kit provided by the school (standard for beginners) vs. bringing your own wing later on.',
+        'Group size and instructor ratio (small-group or private coaching).',
+        'Federation licence, third-party aerial insurance, site shuttles and optional accommodation.',
+      ],
+    },
+    {
+      id: 'checklist',
+      h: 'What to check before comparing two quotes',
+      ul: [
+        'Whether wing, harness, reserve parachute, helmet and radio are included.',
+        'Federation licence & aerial liability insurance: compulsory to fly in a school; usually added at registration if you do not hold an annual licence yet.',
+        'Maximum number of students per instructor.',
+        'Weather policy if wind or rain prevents flying (postponement, credit note or pro-rata billing per day flown).',
+      ],
+    },
+  ],
+  faq: [
+    {
+      q: 'How much does an introductory paragliding course cost?',
+      a: init && init.st.med
+        ? `Across published packages, the median price of an introductory course is around ${fmt(init.st.med)}, ranging from ${fmt(init.st.min)} to ${fmt(init.st.max)} for ${days(init.st.daysMin, init.st.daysMax)}.`
+        : 'Prices depend on course length and region—compare published packages on each school page.',
+    },
+    {
+      q: 'How much should I budget for full training up to autonomous pilot?',
+      a: 'Most students complete one 5-day introductory course followed by one or two 5-day progression/advanced courses (roughly €1,800 to €2,500 in total tuition with loan gear), plus annual federation insurance (around €80–€150/year) before eventually buying personal equipment.',
+    },
+    {
+      q: 'Should I buy equipment before my first course?',
+      a: 'No—schools provide full certified beginner equipment during introductory courses. Wait for your instructor’s advice before purchasing a wing.',
+    },
+  ],
+  next: [
+    { href: '/en/paragliding-course-cost-comparison/', label: 'Course comparator', text: 'Filter and sort all published courses by type, country, region and price.' },
+    { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses - Calendar', text: 'Next course dates published by schools.' },
+    { href: '/en/learn-paragliding/', label: 'Learn paragliding', text: 'Step-by-step pathway, licences and theory modules.' },
+  ],
+};
+
+const alternates = [
+  { locale: 'fr' as const, href: '/prix-stage-parapente/' },
+  { locale: 'en' as const, href: '/en/paragliding-course-prices/' },
+];
+---
+<ArticlePage article={article} cta="stage" locale="en" alternates={alternates}>
+  <Fragment slot="after-brief">
+    <section id="levels" aria-labelledby="h-niv">
+      <h2 id="h-niv">Prices by course type</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Course type</th><th>Schools</th><th>Typical duration</th><th>Median price</th><th>Range</th></tr></thead>
+          <tbody>
+            {types.map(({ t, st }) => (
+              <tr>
+                <td><a href={`/en/courses/${t.slug}/`}>{t.menu}</a></td>
+                <td>{st.n}</td>
+                <td>{days(st.daysMin, st.daysMax)}</td>
+                <td>{fmt(st.med)}</td>
+                <td>{fmt(st.min)} to {fmt(st.max)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="regions" aria-labelledby="h-reg">
+      <h2 id="h-reg">Courses by region</h2>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Region</th><th>Schools</th><th>Median price</th><th>Range</th></tr></thead>
+          <tbody>
+            {regions.map(({ p, st }) => (
+              <tr>
+                <td><a href={`/en/paragliding-course-schools/?region=${encodeURIComponent(p.name)}`}>{p.name}</a></td>
+                <td>{st.n}</td>
+                <td>{fmt(st.med)}</td>
+                <td>{fmt(st.min)} to {fmt(st.max)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </Fragment>
+</ArticlePage>

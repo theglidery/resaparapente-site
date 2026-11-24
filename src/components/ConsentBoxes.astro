@@ -37,9 +37,5 @@ const renderHtml = (raw: string) =>
     <input type="checkbox" id={`${prefix}-consent`} data-consent-box="1" />
     <span set:html={renderHtml(texts.case1)} />
   </label>
-  <label class="check">
-    <input type="checkbox" id={`${prefix}-optin`} data-consent-box="2" />
-    <span set:html={renderHtml(texts.case2)} />
-  </label>
   <p class="small error consent-err" hidden>{texts.error}</p>
 </div>

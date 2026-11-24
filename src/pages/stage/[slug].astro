@@ -2,6 +2,7 @@
 import { FIRST_STAGE_LINK } from '../../data/first-stage';
 import ArticlePage from '../../components/ArticlePage.astro';
 import { STAGE_TYPES, stageTypeByKey, type StageType } from '../../data/stage-types';
+import { enStageTypeByKey } from '../../data/stage-types-en';
 import type { Article } from '../../data/article-types';
 import { schools, sessions, offerPrice, eur, dateFr, withOffers, sessionHref } from '../../lib/data';
 
@@ -43,8 +44,10 @@ const article: Article = {
     { href: '/apprendre/', label: 'Apprendre le parapente', text: 'Parcours, brevets et cours de théorie.' },
   ],
 };
+const enType = enStageTypeByKey(t.key);
+const enUrl = enType ? `/en/courses/${enType.slug}/` : '/en/paragliding-course-schools/';
 ---
-<ArticlePage article={article} cta="stage">
+<ArticlePage article={article} cta="stage" enHref={enUrl} alternates={[{ locale: 'fr', href: `/stage/${t.slug}/` }, { locale: 'en', href: enUrl }]}>
   <Fragment slot="after-brief">
     <section class="board-now" aria-label="Prix et prochaines dates" style="margin-bottom:2rem">
       <h2>Prix et prochaines dates</h2>

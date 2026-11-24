@@ -6,11 +6,19 @@ import Mountains from './Mountains.astro';
 import Sections from './Sections.astro';
 import SchoolCta from './SchoolCta.astro';
 import type { Article } from '../data/article-types';
-interface Props { article: Article; cta?: 'stage' | 'bapteme' | null }
-const { article: a, cta = null } = Astro.props;
+import type { Locale } from '../i18n/ui';
+interface Props {
+  article: Article;
+  cta?: 'stage' | 'bapteme' | null;
+  locale?: 'fr' | 'en';
+  enHref?: string;
+  alternates?: { locale: Locale; href: string }[];
+}
+const { article: a, cta = null, locale = 'fr', enHref, alternates } = Astro.props;
+const isEn = locale === 'en';
 const pageUrl = new URL(Astro.url.pathname, SITE.url).href;
 const crumbs = [
-  { href: '/', label: 'Accueil' },
+  { href: isEn ? '/en/' : '/', label: isEn ? 'Home' : 'Accueil' },
   ...(a.parent ? [a.parent] : []),
   { href: Astro.url.pathname, label: a.h1 ?? a.title },
 ];
@@ -20,7 +28,7 @@ const jsonLd = {
     {
       '@type': 'Article', headline: a.h1 ?? a.title, description: a.description,
       image: a.photo && new URL(a.photo.src, SITE.url).href,
-      inLanguage: 'fr-FR', mainEntityOfPage: pageUrl,
+      inLanguage: isEn ? 'en' : 'fr-FR', mainEntityOfPage: pageUrl,
       publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
       citation: a.sources?.map((s) => s.href),
     },
@@ -37,9 +45,9 @@ const jsonLd = {
   ],
 };
 ---
-<Base title={a.title} description={a.description} jsonLd={jsonLd}>
+<Base title={a.title} description={a.description} locale={locale} enHref={enHref} alternates={alternates} jsonLd={jsonLd}>
   <div class="page-head"><div class="wrap">
-    <nav class="crumbs" aria-label="Fil d’Ariane">
+    <nav class="crumbs" aria-label={isEn ? 'Breadcrumb' : 'Fil d’Ariane'}>
       {crumbs.map((item, i) => i === crumbs.length - 1
         ? <span aria-current="page">{item.label}</span>
         : <><a href={item.href}>{item.label}</a> / </>)}
@@ -51,12 +59,12 @@ const jsonLd = {
     {a.photo && <div class="article-image"><img src={a.photo.src} alt={a.photo.alt} width="1280" height="420" /></div>}
     {a.brief && <ul class="brief">{a.brief.map((b) => <li><b>{b.k}</b>{b.v}</li>)}</ul>}
     <slot name="after-brief" />
-    {a.sections.length > 3 && <ul class="toc" aria-label="Sommaire">{a.sections.map((s) => <li><a href={`#${s.id}`}>{s.h}</a></li>)}{a.faq && <li><a href="#faq">Questions fréquentes</a></li>}</ul>}
+    {a.sections.length > 3 && <ul class="toc" aria-label={isEn ? 'Contents' : 'Sommaire'}>{a.sections.map((s) => <li><a href={`#${s.id}`}>{s.h}</a></li>)}{a.faq && <li><a href="#faq">{isEn ? 'Frequently asked questions' : 'Questions fréquentes'}</a></li>}</ul>}
     <Sections sections={a.sections} />
     <slot name="after-sections" />
     {a.faq && (
       <section id="faq" class="faq" aria-labelledby="h-faq">
-        <h2 id="h-faq">Questions fréquentes</h2>
+        <h2 id="h-faq">{isEn ? 'Frequently asked questions' : 'Questions fréquentes'}</h2>
         {a.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
       </section>
     )}
@@ -68,10 +76,10 @@ const jsonLd = {
     )}
     {a.next && (
       <section id="suite" aria-labelledby="h-suite">
-        <h2 id="h-suite">Pour aller plus loin</h2>
+        <h2 id="h-suite">{isEn ? 'Keep exploring' : 'Pour aller plus loin'}</h2>
         <ul class="type-grid">{a.next.map((n) => <li><a href={n.href}><strong>{n.label}</strong><span>{n.text}</span></a></li>)}</ul>
       </section>
     )}
-    {cta && <SchoolCta type={cta} />}
+    {cta && <SchoolCta type={cta} locale={locale} />}
   </div>
 </Base>

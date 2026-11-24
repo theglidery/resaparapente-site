@@ -3,8 +3,11 @@ import CountryNav from './CountryNav.astro';
 import BrandLogo from './BrandLogo.astro';
 import { SITE } from '../config';
 import { STAGE_TYPES } from '../data/stage-types';
+import { STAGE_TYPES_EN } from '../data/stage-types-en';
 import { WHY_MENU, WHY_ROOT } from '../data/why-fly';
+import { WHY_MENU_EN, WHY_ROOT_EN } from '../data/why-fly-en';
 import { LEARN_MENU } from '../data/learn';
+import { LEARN_MENU_EN, LEARN_ROOT_EN } from '../data/learn-en';
 import { href, alternatesOf, type Locale } from '../i18n/ui';
 import { PAGES } from '../i18n/routes.mjs';
 
@@ -21,17 +24,6 @@ const homeHref = isEn ? '/en/' : '/';
 
 type SubItem = { href: string; label: string; children?: { href: string; label: string }[] };
 
-const EN_STAGE_TYPES = [
-  { key: 'decouverte', label: 'Discovery & mini-course' },
-  { key: 'initiation', label: 'Introductory course' },
-  { key: 'progression', label: 'Progression & autonomy' },
-  { key: 'perfectionnement', label: 'Advanced, thermal & cross' },
-  { key: 'siv', label: 'SIV & piloting' },
-  { key: 'encadre', label: 'Guided flights & sessions' },
-  { key: 'marche-vol', label: 'Hike & fly' },
-  { key: 'voyage', label: 'Trips & tours' },
-];
-
 const stageSub: SubItem[] = isEn
   ? [
       { href: '/en/paragliding-course-schools/', label: 'Find / Book My Course' },
@@ -41,9 +33,9 @@ const stageSub: SubItem[] = isEn
       {
         href: '/en/paragliding-course-schools/',
         label: 'Which best course for me?',
-        children: EN_STAGE_TYPES.map((t) => ({ href: `/en/paragliding-course-schools/?level=${t.key}`, label: t.label })),
+        children: STAGE_TYPES_EN.map((t) => ({ href: `/en/courses/${t.slug}/`, label: t.menu })),
       },
-      { href: href('trainingCost', 'en'), label: 'Cost of full training' },
+      { href: '/en/paragliding-course-prices/', label: 'Cost of full training' },
     ]
   : [
       { href: '/stage/', label: 'Trouver / Réserver mon stage' },
@@ -76,22 +68,10 @@ const baptemeSub = isEn
       { href: '/bon-cadeau-parapente-noel/', label: 'Bon cadeau pour Noël' },
     ];
 
-const whyItems = isEn
-  ? [
-      { href: '/pourquoi-voler/', label: 'Why fly? (FR)' },
-      { href: '/pourquoi-voler/les-plaisirs-du-parapente/', label: 'The joys of paragliding (FR)' },
-      { href: '/pourquoi-voler/histoire-du-parapente/', label: 'History of paragliding (FR)' },
-    ]
-  : WHY_MENU;
+const whyItems = isEn ? WHY_MENU_EN : WHY_MENU;
 
 const learnItems = isEn
-  ? [
-      { href: href('trainingPath', 'en'), label: 'Pathway and licences' },
-      { href: '/apprendre/', label: 'Learn paragliding (FR)' },
-      { href: '/apprendre/premier-stage/', label: 'Prepare your first course (FR)' },
-      { href: '/apprendre/brevets/', label: 'Licences & ratings (FR)' },
-      { href: '/apprendre/cours/', label: 'Theory modules (FR)' },
-    ]
+  ? LEARN_MENU_EN
   : [
       { href: '/cursus-brevets-parapente/', label: 'Parcours et brevets' },
       ...LEARN_MENU,
@@ -113,8 +93,8 @@ const links = isEn
       { href: '/en/paragliding-course-schools/', label: 'Book a Course', sub: stageSub },
       { href: href('giftChristmas', 'en'), label: 'Gift Voucher', sub: giftSub },
       { href: '/en/christmas-offer/', label: 'Christmas Offer' },
-      { href: '/apprendre/', label: 'Learn Paragliding', sub: learnItems },
-      { href: WHY_ROOT, label: 'Why Fly', sub: whyItems },
+      { href: LEARN_ROOT_EN, label: 'Learn Paragliding', sub: learnItems },
+      { href: WHY_ROOT_EN, label: 'Why Fly', sub: whyItems },
     ]
   : [
       { href: '/bapteme/', label: 'Réserver un Baptême', sub: baptemeSub },

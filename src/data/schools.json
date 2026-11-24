@@ -155947,5 +155947,175 @@
   ],
   "sessions": [],
   "giftRoute": "team"
+ },
+ {
+  "id": "S999",
+  "name": "Test",
+  "slug": "test",
+  "country": "FR",
+  "currency": "EUR",
+  "desc": "École de test pour vérifier le parcours d’envoi d’e-mails (réservation baptême, réservation stage et demande de bon cadeau).",
+  "orig": null,
+  "address": null,
+  "zip": "74000",
+  "city": "Annecy",
+  "dept": "Haute-Savoie",
+  "deptCode": "74",
+  "region": "Auvergne-Rhône-Alpes",
+  "lat": 45.8992,
+  "lng": 6.1294,
+  "website": "https://resaparapente.fr",
+  "mode": "Formulaire",
+  "acceptsVouchers": "Oui",
+  "featured": false,
+  "mainCity": "Annecy",
+  "nearCities": [
+   "Annecy",
+   "Chambéry"
+  ],
+  "logoShow": false,
+  "photoMainId": null,
+  "photoExtraIds": [],
+  "photoCredit": null,
+  "googlePlaceId": null,
+  "video": null,
+  "rating": null,
+  "fiche": {
+   "presentation": null,
+   "commandes": null,
+   "appareil": null,
+   "labels": "École de test",
+   "langues": "Français, Anglais",
+   "assurance": true
+  },
+  "giftRelay": "Oui",
+  "giftRoute": "school",
+  "baptemes": [
+   {
+    "id": "OFF-TEST-BAPTEME",
+    "name": "Baptême découverte (Test)",
+    "price": 90,
+    "priceMax": null,
+    "priceNature": "Prix publié",
+    "unitCode": "PERSONNE",
+    "perPerson": 90,
+    "sortPrice": 90,
+    "manualOrder": 1,
+    "priceLabel": "90 €",
+    "url": null,
+    "bookUrl": null,
+    "checked": "2026-11-24",
+    "place": "Annecy",
+    "age": "Dès 6 ans",
+    "program": "Formule de test pour l’envoi de demande de baptême.",
+    "included": "Vol biplace de test",
+    "notIncluded": null,
+    "level": null,
+    "voucherStatus": "Oui",
+    "voucherPrice": 90,
+    "extra": {
+     "options": null,
+     "equipment": null,
+     "cancel": null,
+     "common": null,
+     "timeTotal": null
+    },
+    "fiche": {
+     "saison": null,
+     "participation": null,
+     "temps": null,
+     "tenue": null,
+     "langues": null,
+     "savoir": null,
+     "photos": null,
+     "vol": null
+    },
+    "group": "Baptême découverte (Test)",
+    "durMin": 15,
+    "durMax": 20,
+    "durUnit": "min",
+    "durText": "15 à 20 min",
+    "period": "Toute l’année",
+    "weight": "20 à 110 kg",
+    "cmp": {
+     "photo": "En supplément",
+     "photoPrice": 25,
+     "lift": "Incluse",
+     "liftPrice": null,
+     "mandatory": null,
+     "mandatoryNature": null,
+     "total": 90,
+     "todo": null,
+     "profiles": [
+      "Première fois"
+     ],
+     "profilesChecked": true,
+     "langs": [
+      "Français",
+      "Anglais"
+     ],
+     "access": null,
+     "totalTime": null,
+     "rule": null
+    }
+   }
+  ],
+  "stages": [
+   {
+    "id": "OFF-TEST-STAGE",
+    "name": "Stage initiation 5 jours (Test)",
+    "price": 650,
+    "priceMax": null,
+    "priceNature": "Prix publié",
+    "unitCode": "PERSONNE",
+    "perPerson": 650,
+    "sortPrice": 650,
+    "manualOrder": 1,
+    "priceLabel": "650 €",
+    "url": null,
+    "bookUrl": null,
+    "checked": "2026-11-24",
+    "place": "Annecy",
+    "age": "Dès 14 ans",
+    "program": "Formule de test pour l’envoi de demande de stage.",
+    "included": "Matériel complet prêté",
+    "notIncluded": "Licence FFVL",
+    "level": "Initiation",
+    "levelName": "Initiation",
+    "levelKey": "initiation",
+    "levelOrder": 2,
+    "durMin": 5,
+    "durMax": 5,
+    "durUnit": "jours",
+    "durText": "5 jours",
+    "period": "Avril à octobre",
+    "weight": "40 à 105 kg",
+    "group": "Max. 6 élèves",
+    "extra": {
+     "options": null,
+     "equipment": null,
+     "cancel": null,
+     "common": null,
+     "timeTotal": null
+    },
+    "fiche": {
+     "saison": null,
+     "participation": null,
+     "temps": null,
+     "tenue": null,
+     "langues": null,
+     "savoir": null,
+     "photos": null,
+     "vol": null
+    }
+   }
+  ],
+  "sites": [
+   {
+    "name": "Col de la Forclaz (Test)",
+    "status": "Vérifié"
+   }
+  ],
+  "sessions": []
  }
 ]

@@ -111,7 +111,7 @@ const canonicalOrigin = markets[(s.country || 'FR') as 'FR' | 'CH' | 'BE']?.orig
 const schoolAlternates = marketLocales.includes('en') && !thin ? [{ locale: 'fr' as const, href: schoolPath(s.slug, 'fr') }, { locale: 'en' as const, href: schoolPath(s.slug, 'en') }] : [];
 ---
 {directoryPlace ? <DirectoryPlacePage place={directoryPlace} /> : (
-<Base title={title} description={description} noindex={thin} jsonLd={jsonLd} canonicalOrigin={canonicalOrigin} alternates={schoolAlternates}>
+<Base title={title} description={description} noindex={thin || s.id === 'S999'} jsonLd={jsonLd} canonicalOrigin={canonicalOrigin} alternates={schoolAlternates}>
   <div class="wrap">
     <nav class="crumbs" aria-label="Fil d’Ariane"><a href="/">Accueil</a> / <a href={crumb2.href}>{crumb2.name}</a> / {s.name}</nav>
     <header class="school-head">
