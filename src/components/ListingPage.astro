@@ -5,29 +5,60 @@ import SchoolCard from './SchoolCard.astro';
 import SearchFilters from './SearchFilters.astro';
 import SchoolCta from './SchoolCta.astro';
 import { withOffers, regionCounts, levelCounts } from '../lib/data';
-interface Props { kind: 'bapteme' | 'stage'; customTitle?: string; customH1?: string }
-const { kind, customTitle, customH1 } = Astro.props;
+interface Props { kind: 'bapteme' | 'stage'; customTitle?: string; customH1?: string; locale?: 'fr' | 'en' | 'de' }
+const { kind, customTitle, customH1, locale = 'fr' } = Astro.props;
 const isB = kind === 'bapteme';
+const isEn = locale === 'en';
 const list = withOffers(kind).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 const regions = regionCounts(kind) as [string, number][];
-const levels = isB ? [] : levelCounts();
-const title = customTitle ?? (isB ? 'Baptême de parapente : choisissez une école' : 'Stage de parapente : choisissez une école');
-const description = isB
-  ? `Comparez ${list.length} écoles qui proposent un baptême de parapente en France, avec le prix publié et la date de relevé. Réservez auprès de l'école.`
-  : `Comparez ${list.length} écoles qui proposent des stages de parapente en France (initiation, progression, perfectionnement), avec le prix publié et la date de relevé.`;
+const EN_LEVELS: Record<string, string> = {
+  decouverte: 'Discovery & mini-course',
+  initiation: 'Introductory course',
+  progression: 'Progression & autonomy',
+  perfectionnement: 'Advanced, thermal & cross',
+  siv: 'SIV & piloting',
+  encadre: 'Guided flights & sessions',
+  'marche-vol': 'Hike & fly',
+  voyage: 'Trips & tours',
+  autre: 'Other courses',
+};
+const levels = isB ? [] : levelCounts().map((l) => (isEn ? { ...l, name: EN_LEVELS[l.key] || l.name } : l));
+const title = customTitle ?? (isEn
+  ? (isB ? 'Tandem paragliding flights: choose a school' : 'Paragliding courses: choose a school')
+  : (isB ? 'Baptême de parapente : choisissez une école' : 'Stage de parapente : choisissez une école'));
+const description = isEn
+  ? (isB
+    ? `Compare ${list.length} paragliding schools offering tandem flights, with published prices and check dates.`
+    : `Compare ${list.length} paragliding schools offering courses (introductory, progression, advanced), with published prices.`)
+  : (isB
+    ? `Comparez ${list.length} écoles qui proposent un baptême de parapente, avec le prix publié et la date de relevé. Réservez auprès de l'école.`
+    : `Comparez ${list.length} écoles qui proposent des stages de parapente (initiation, progression, perfectionnement), avec le prix publié et la date de relevé.`);
 ---
-<Base title={title} description={description}>
+<Base title={title} description={description} locale={locale}>
   <PageHero name={kind}
-    title={customH1 ?? (isB ? 'Baptême de parapente' : 'Stage de parapente')}
-    lead={isB
-      ? 'Découvrez les joies du vol libre et choisissez où et avec quelle école agréée voler'
-      : 'Trouvez le stage qui vous correspond le mieux, dans votre budget'} />
+    title={customH1 ?? (isEn ? (isB ? 'Tandem paragliding flights' : 'Paragliding courses') : (isB ? 'Baptême de parapente' : 'Stage de parapente'))}
+    lead={isEn
+      ? (isB ? 'Discover free flight and choose where and with which certified school to fly' : 'Find the paragliding course that fits your level and budget')
+      : (isB ? 'Découvrez les joies du vol libre et choisissez où et avec quelle école agréée voler' : 'Trouvez le stage qui vous correspond le mieux, dans votre budget')} />
 
-  <div class="wrap" style="padding-top:1rem"><p class="notice">{isB
-    ? <>Comparez les prix, durées, photos et remontées : <a href="/comparateur-baptemes-parapente/">comparateur de baptêmes</a> · <a href="/quel-bapteme-parapente-choisir/">quel baptême choisir ?</a> · <a href="/bon-cadeau-parapente-noel/">offrir un baptême</a></>
-    : <>Combien coûte la formation jusqu’au brevet ? <a href="/comparateur-prix-formation-parapente/">Comparateur de prix de formation</a> · <a href="/quand-commencer-parapente/">quand commencer ?</a> · <a href="/cursus-brevets-parapente/">parcours et brevets</a></>}</p></div>
+  <div class="wrap" style="padding-top:1rem"><p class="notice">{isEn
+    ? (isB
+      ? <>Compare prices, flight time, photos and lifts: <a href="/en/compare-tandem-paragliding-flights/">tandem comparator</a> · <a href="/en/which-tandem-paragliding-flight/">which flight to choose?</a> · <a href="/en/paragliding-gift-voucher/">give a flight</a></>
+      : <>Compare courses by type and price: <a href="/en/paragliding-course-cost-comparison/">course comparator</a> · <a href="/en/when-can-i-start-paragliding/">when can I start?</a> · <a href="/en/paragliding-licence-pathway/">pathway & licences</a></>)
+    : (isB
+      ? <>Comparez les prix, durées, photos et remontées : <a href="/comparateur-baptemes-parapente/">comparateur de baptêmes</a> · <a href="/quel-bapteme-parapente-choisir/">quel baptême choisir ?</a> · <a href="/bon-cadeau-parapente-noel/">offrir un baptême</a></>
+      : <>Comparez les stages par type et prix : <a href="/comparateur-prix-formation-parapente/">Comparateur de stages</a> · <a href="/quand-commencer-parapente/">quand commencer ?</a> · <a href="/cursus-brevets-parapente/">parcours et brevets</a></>)}</p></div>
   <div class="wrap section" style="padding-top:1rem">
-    <SearchFilters regions={regions} levels={levels} allLabel="Toutes les écoles" allCount={list.length} flags={isB ? [{ key: 'kids', label: 'Accepte les enfants' }, { key: 'winter', label: 'Vol en hiver' }, { key: 'gift', label: 'Bon cadeau de l’école' }] : [{ key: 'gift', label: 'Bon cadeau de l’école' }]} />
+    <SearchFilters
+      locale={locale}
+      regions={regions}
+      levels={levels}
+      allLabel={isEn ? 'All schools' : 'Toutes les écoles'}
+      allCount={list.length}
+      flags={isEn
+        ? (isB ? [{ key: 'kids', label: 'Child-friendly' }, { key: 'winter', label: 'Winter flights' }, { key: 'gift', label: 'School gift voucher' }] : [{ key: 'gift', label: 'School gift voucher' }])
+        : (isB ? [{ key: 'kids', label: 'Accepte les enfants' }, { key: 'winter', label: 'Vol en hiver' }, { key: 'gift', label: 'Bon cadeau de l’école' }] : [{ key: 'gift', label: 'Bon cadeau de l’école' }])}
+    />
   </div>
 
   <div class="wrap">

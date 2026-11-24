@@ -17,9 +17,13 @@ const stageRows = schools
     const country = s.country || 'FR';
     return s.stages
       .map((o) => {
-        const price = offerPrice(o) ?? o.price ?? null;
-        if (price == null || price <= 0) return null;
+        const rawPrice = offerPrice(o) ?? o.price ?? null;
+        if (rawPrice == null || rawPrice <= 0) return null;
         const dur = o.durText ?? (o.durMin ? `${o.durMin}${o.durMax && o.durMax !== o.durMin ? `–${o.durMax}` : ''} ${o.durUnit ?? 'jours'}` : '—');
+        const isPerDay = o.unitCode === 'JOUR';
+        const daysMatch = typeof dur === 'string' ? dur.match(/(\d+)\s*jour/i) : null;
+        const days = isPerDay ? (o.durMin && o.durMin > 1 ? o.durMin : daysMatch ? Number(daysMatch[1]) : 1) : 1;
+        const price = isPerDay && days > 1 ? rawPrice * days : rawPrice;
         return {
           id: o.id,
           school: s.name,
@@ -36,6 +40,8 @@ const stageRows = schools
           offer: o.name,
           dur,
           price,
+          dayPrice: isPerDay && days > 1 ? rawPrice : null,
+          days: isPerDay && days > 1 ? days : null,
           checked: o.checked,
         };
       })
@@ -218,7 +224,7 @@ const L = isEn
       <table class="data-table cmp-table">
         <thead>
           <tr>
-            <th>{L.cOffer}</th>
+            <th style="min-width:22rem;width:44%">{L.cOffer}</th>
             <th>{L.cType}</th>
             <th>{L.cDur}</th>
             <th>{L.cPrice}</th>
@@ -248,7 +254,10 @@ const L = isEn
               </th>
               <td class="small" data-label={L.cType}>{r.levelName}</td>
               <td class="small nowrap" data-label={L.cDur}>{r.dur}</td>
-              <td class="nowrap" data-label={L.cPrice}><strong>{money(r.price, locale, r.currency)}</strong></td>
+              <td class="nowrap" data-label={L.cPrice}>
+                <strong>{money(r.price, locale, r.currency)}</strong>
+                {r.dayPrice && r.days && <span class="small muted" style="display:block">{money(r.dayPrice, locale, r.currency)}/{isEn ? 'day' : isDe ? 'Tag' : 'j'} × {r.days}</span>}
+              </td>
               <td class="nowrap">
                 <a class="btn small ghost" href={`${schoolHref(r.slug, locale)}?parcours=stage`}>{L.go}</a>
               </td>

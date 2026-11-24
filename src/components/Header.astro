@@ -19,22 +19,27 @@ const { current, enHref, locale = 'fr', pageKey, alternates: altProp } = Astro.p
 const isEn = locale === 'en';
 const homeHref = isEn ? '/en/' : '/';
 
-const stageSub = isEn
+type SubItem = { href: string; label: string; children?: { href: string; label: string }[] };
+
+const stageSub: SubItem[] = isEn
   ? [
       { href: '/en/paragliding-course-schools/', label: 'Find / Book My Course' },
       { href: href('trainingCost', 'en'), label: 'Course Comparator' },
+      { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses - Calendar' },
       { href: href('trainingCost', 'en'), label: 'Cost of full training' },
       { href: href('whenStart', 'en'), label: 'When can I start?' },
-      { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses' },
-      { href: '/en/paragliding-course-schools/', label: 'All course schools' },
     ]
   : [
       { href: '/stage/', label: 'Trouver / Réserver mon stage' },
       { href: '/comparateur-prix-formation-parapente/', label: 'Comparateur de stages' },
       { href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' },
+      { href: '/calendrier/', label: 'Prochains stages - Calendrier' },
       { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' },
-      { href: '/calendrier/', label: 'Prochains stages' },
-      ...STAGE_TYPES.map((t) => ({ href: `/stage/${t.slug}/`, label: t.menu })),
+      {
+        href: '/stage/',
+        label: 'Choisir le bon stage',
+        children: STAGE_TYPES.map((t) => ({ href: `/stage/${t.slug}/`, label: t.menu })),
+      },
     ];
 
 const GUIDE = '/bapteme/biplace-saut-en-parapente/';
@@ -76,10 +81,10 @@ const learnItems = isEn
       ...LEARN_MENU,
     ];
 
-const giftSub = isEn
+const giftSub: SubItem[] = isEn
   ? [
       { href: href('giftChristmas', 'en'), label: 'Tandem flight' },
-      { href: '/offrir-un-stage/', label: 'Courses' },
+      { href: '/en/give-a-course/', label: 'Courses' },
     ]
   : [
       { href: '/bon-cadeau-parapente-noel/', label: 'Baptême' },
@@ -123,7 +128,16 @@ const targetEnHref = enHref ?? alternates.find((a) => a.locale === 'en')?.href ?
             <a href={l.href} aria-current={isCurrent(l) ? 'page' : undefined} aria-haspopup={l.sub ? 'true' : undefined}>{l.label}{l.sub && <span class="caret" aria-hidden="true"></span>}</a>
             {l.sub && (
               <ul class="sub">
-                {l.sub.map((x) => <li><a href={x.href} aria-current={current === x.href ? 'page' : undefined}>{x.label}</a></li>)}
+                {l.sub.map((x: SubItem) => (
+                  <li class={x.children ? 'has-sub2' : undefined}>
+                    <a href={x.href} aria-current={current === x.href ? 'page' : undefined}>{x.label}{x.children && ' ›'}</a>
+                    {x.children && (
+                      <ul class="sub2">
+                        {x.children.map((ch) => <li><a href={ch.href} aria-current={current === ch.href ? 'page' : undefined}>{ch.label}</a></li>)}
+                      </ul>
+                    )}
+                  </li>
+                ))}
               </ul>
             )}
           </li>
@@ -139,6 +153,28 @@ const targetEnHref = enHref ?? alternates.find((a) => a.locale === 'en')?.href ?
     <CountryNav />
   </div>
 </header>
+<style>
+  .nav .has-sub2 { position: relative; }
+  .nav .sub2 {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0.35rem 0;
+    min-width: 15rem;
+    background: var(--white, #fff);
+    border: 1px solid var(--line, #dbe2ea);
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(13, 36, 56, 0.14);
+  }
+  @media (min-width: 980px) {
+    .nav .sub2 { position: absolute; left: 100%; top: -0.35rem; z-index: 60; }
+    .nav .has-sub2:hover > .sub2,
+    .nav .has-sub2:focus-within > .sub2 { display: block; }
+  }
+  @media (max-width: 979px) {
+    .nav .sub2 { display: block; position: static; box-shadow: none; border: 0; padding-left: 0.9rem; }
+  }
+</style>
 
 <script>
   const why = document.querySelector<HTMLDetailsElement>('#why-navigation');

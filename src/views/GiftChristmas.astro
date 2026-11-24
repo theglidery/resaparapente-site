@@ -95,8 +95,8 @@ const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: 
 
     <section style="margin-top:1.5rem">
       <div class="btn-row">
-        <a class="btn" href="/bapteme/">{locale === 'en' ? 'Choose a tandem flight to give' : locale === 'de' ? 'Tandemflug zum Verschenken wählen' : 'Choisir un baptême à offrir'}</a>
-        <a class="btn ghost" href="/stage/">{locale === 'en' ? 'Choose a course to give' : locale === 'de' ? 'Kurs zum Verschenken wählen' : 'Choisir un stage à offrir'}</a>
+        <a class="btn" href={locale === 'en' ? '/en/tandem-paragliding-schools/' : '/bapteme/'}>{locale === 'en' ? 'Choose a tandem flight to give' : locale === 'de' ? 'Tandemflug zum Verschenken wählen' : 'Choisir un baptême à offrir'}</a>
+        <a class="btn ghost" href={locale === 'en' ? '/en/paragliding-course-schools/' : '/stage/'}>{locale === 'en' ? 'Choose a course to give' : locale === 'de' ? 'Kurs zum Verschenken wählen' : 'Choisir un stage à offrir'}</a>
       </div>
     </section>
 
