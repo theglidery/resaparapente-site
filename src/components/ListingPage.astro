@@ -63,14 +63,16 @@ const description = isEn
 
   <div class="wrap">
     <div class="board-head">
-      <h2 style="margin:0"><span id="count" aria-live="polite">{list.length} écoles</span></h2>
-      <span class="muted small" id="price-note">Prix par personne, relevés sur les sites des écoles</span>
+      <h2 style="margin:0"><span id="count" aria-live="polite">{list.length} {isEn ? 'schools' : 'écoles'}</span></h2>
+      <span class="muted small" id="price-note">{isEn ? 'Prices per person, collected from school websites' : 'Prix par personne, relevés sur les sites des écoles'}</span>
     </div>
     <ul class="cards" id="board">
       {list.map((s) => <SchoolCard school={s} kind={kind} />)}
     </ul>
     <div class="empty" id="none" hidden>
-      Aucune école dans ce périmètre. Augmentez la distance, changez de niveau ou de région, ou effacez la ville.
+      {isEn
+        ? 'No school in this area. Increase the distance, change level or region, or clear the city.'
+        : 'Aucune école dans ce périmètre. Augmentez la distance, changez de niveau ou de région, ou effacez la ville.'}
     </div>
   </div>
 

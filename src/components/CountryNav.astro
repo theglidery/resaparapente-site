@@ -1,15 +1,28 @@
 ---
 import { MARKET, marketLinks } from '../config';
+
+interface Props { locale?: string }
+const { locale = 'fr' } = Astro.props;
+const isEn = locale === 'en';
+
+const EN_LABELS: Record<string, string> = {
+  FR: 'France',
+  CH: 'Switzerland',
+  BE: 'Belgium',
+  all: 'All countries',
+};
+const bapBase = isEn ? '/en/tandem-paragliding-schools/' : '/bapteme/';
+const stageBase = isEn ? '/en/paragliding-course-schools/' : '/stage/';
 ---
-<nav class="country-nav" aria-label="Choisir un pays">
+<nav class="country-nav" aria-label={isEn ? 'Choose a country' : 'Choisir un pays'}>
   {marketLinks.map((country) => (
     <div class="country-item">
-      <a href={`/bapteme/?pays=${country.code}`} aria-current={MARKET.code === country.code ? 'true' : undefined} lang={country.locale}>
-        {country.label}
+      <a href={`${bapBase}?pays=${country.code}`} aria-current={MARKET.code === country.code ? 'true' : undefined} lang={isEn ? 'en' : country.locale}>
+        {isEn ? (EN_LABELS[country.code] || country.label) : country.label}
       </a>
       <ul class="country-sub">
-        <li><a href={`/bapteme/?pays=${country.code}`}>Baptêmes</a></li>
-        <li><a href={`/stage/?pays=${country.code}`}>Stages</a></li>
+        <li><a href={`${bapBase}?pays=${country.code}`}>{isEn ? 'Tandem flights' : 'Baptêmes'}</a></li>
+        <li><a href={`${stageBase}?pays=${country.code}`}>{isEn ? 'Courses' : 'Stages'}</a></li>
       </ul>
     </div>
   ))}

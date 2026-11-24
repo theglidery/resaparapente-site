@@ -21,18 +21,33 @@ const homeHref = isEn ? '/en/' : '/';
 
 type SubItem = { href: string; label: string; children?: { href: string; label: string }[] };
 
+const EN_STAGE_TYPES = [
+  { key: 'decouverte', label: 'Discovery & mini-course' },
+  { key: 'initiation', label: 'Introductory course' },
+  { key: 'progression', label: 'Progression & autonomy' },
+  { key: 'perfectionnement', label: 'Advanced, thermal & cross' },
+  { key: 'siv', label: 'SIV & piloting' },
+  { key: 'encadre', label: 'Guided flights & sessions' },
+  { key: 'marche-vol', label: 'Hike & fly' },
+  { key: 'voyage', label: 'Trips & tours' },
+];
+
 const stageSub: SubItem[] = isEn
   ? [
       { href: '/en/paragliding-course-schools/', label: 'Find / Book My Course' },
       { href: href('trainingCost', 'en'), label: 'Course Comparator' },
       { href: '/en/paragliding-course-calendar/', label: 'Upcoming courses - Calendar' },
-      { href: href('trainingCost', 'en'), label: 'Cost of full training' },
       { href: href('whenStart', 'en'), label: 'When can I start?' },
+      {
+        href: '/en/paragliding-course-schools/',
+        label: 'Which best course for me?',
+        children: EN_STAGE_TYPES.map((t) => ({ href: `/en/paragliding-course-schools/?level=${t.key}`, label: t.label })),
+      },
+      { href: href('trainingCost', 'en'), label: 'Cost of full training' },
     ]
   : [
       { href: '/stage/', label: 'Trouver / Réserver mon stage' },
       { href: '/comparateur-prix-formation-parapente/', label: 'Comparateur de stages' },
-      { href: '/comparateur-prix-formation-parapente/', label: 'Coût d’une formation complète' },
       { href: '/calendrier/', label: 'Prochains stages - Calendrier' },
       { href: '/quand-commencer-parapente/', label: 'Quand commencer ?' },
       {
@@ -40,6 +55,7 @@ const stageSub: SubItem[] = isEn
         label: 'Choisir le bon stage',
         children: STAGE_TYPES.map((t) => ({ href: `/stage/${t.slug}/`, label: t.menu })),
       },
+      { href: '/prix-stage-parapente/', label: 'Coût d’une formation complète' },
     ];
 
 const GUIDE = '/bapteme/biplace-saut-en-parapente/';
@@ -150,7 +166,7 @@ const targetEnHref = enHref ?? alternates.find((a) => a.locale === 'en')?.href ?
         <a href={targetEnHref} hreflang="en" lang="en" aria-current={isEn ? 'true' : undefined}>EN</a>
       </nav>
     )}
-    <CountryNav />
+    <CountryNav locale={locale} />
   </div>
 </header>
 <style>

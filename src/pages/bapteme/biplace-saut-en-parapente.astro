@@ -24,7 +24,7 @@ const regions = regionCounts('bapteme').slice(0, 8);
     <section id="trouver" aria-labelledby="h-trouver">
       <h2 id="h-trouver">Trouver un baptême</h2>
       <p>Choisissez une région ou une ville, comparez les formules et envoyez votre demande gratuite à l’école.</p>
-      <p class="btn-row"><a class="btn" href="/bapteme/">Trouver une école de baptême</a><a class="btn ghost" href="/bons-cadeaux/">Bons cadeaux des écoles</a></p>
+      <p class="btn-row"><a class="btn" href="/bapteme/">Trouver une école de baptême</a><a class="btn ghost" href="/bapteme/">Bons cadeaux des écoles</a></p>
       <ul class="chips" style="list-style:none;padding:0">{regions.map(([r, n]) => <li><a class="chip" style="text-decoration:none;display:inline-block" href={`/bapteme/?region=${encodeURIComponent(r)}`}>{r} ({n})</a></li>)}</ul>
     </section>
   </Fragment>

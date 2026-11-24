@@ -1,10 +1,9 @@
 ---
-import RegionalHome from '../components/RegionalHome.astro';
+import CalendarPage from '../components/CalendarPage.astro';
 import ListingPage from '../components/ListingPage.astro';
-import { MARKET } from '../config';
 const { locale = 'en', page } = Astro.props as { locale?: 'fr' | 'en' | 'de'; page: string };
 const view = page === 'listBapteme' ? 'bapteme' : page === 'listStage' ? 'stage' : 'calendrier';
 ---
 {view === 'calendrier'
-  ? <RegionalHome code={MARKET.code as 'FR' | 'CH' | 'BE'} view="calendrier" locale={locale} />
+  ? <CalendarPage locale={locale} />
   : <ListingPage kind={view} locale={locale} />}

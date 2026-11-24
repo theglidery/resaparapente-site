@@ -41,12 +41,15 @@ if (form) {
       } else { pm.textContent = orig[0]; ps.textContent = orig[1]; cn.textContent = orig[2]; }
       if (row.ok) shown++;
     }
-    count.textContent = shown === 1 ? '1 école' : `${shown} écoles`;
-    note.textContent = st.level ? 'Prix par personne pour le niveau choisi' : baseNote;
+    const isEn = document.documentElement.lang === 'en';
+    count.textContent = isEn ? (shown === 1 ? '1 school' : `${shown} schools`) : (shown === 1 ? '1 école' : `${shown} écoles`);
+    note.textContent = st.level ? (isEn ? 'Prices per person for the selected level' : 'Prix par personne pour le niveau choisi') : baseNote;
     none.hidden = shown !== 0;
     if (shown === 0 && st.region && (st.qText || st.from)) {
-      const cityLabel = F.els.q.value.trim() || 'cette ville';
-      none.innerHTML = `Aucun résultat à la fois en <strong>${st.region}</strong> et près de <strong>${cityLabel}</strong>. <button type="button" class="btn small ghost" id="clr-reg">Retirer la région</button> <button type="button" class="btn small ghost" id="clr-city">Retirer la ville</button>`;
+      const cityLabel = F.els.q.value.trim() || (isEn ? 'this city' : 'cette ville');
+      none.innerHTML = isEn
+        ? `No results in <strong>${st.region}</strong> near <strong>${cityLabel}</strong>. <button type="button" class="btn small ghost" id="clr-reg">Remove region</button> <button type="button" class="btn small ghost" id="clr-city">Remove city</button>`
+        : `Aucun résultat à la fois en <strong>${st.region}</strong> et près de <strong>${cityLabel}</strong>. <button type="button" class="btn small ghost" id="clr-reg">Retirer la région</button> <button type="button" class="btn small ghost" id="clr-city">Retirer la ville</button>`;
       document.getElementById('clr-reg')?.addEventListener('click', () => { F.els.region.value = ''; F.els.region.dispatchEvent(new Event('change')); });
       document.getElementById('clr-city')?.addEventListener('click', () => { F.els.q.value = ''; F.els.q.dispatchEvent(new Event('input')); });
     }

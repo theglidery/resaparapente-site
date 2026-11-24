@@ -107,7 +107,7 @@ const maxVisible = 40;
     </form>
     <p class="cmp-count" role="status" aria-live="polite"><strong id="cmp-n">{rows.length}</strong> {C.count}</p>
     <div class="table-wrap"><table class="data-table cmp-table">
-      <thead><tr><th>{C.cOffer}</th><th>{C.cDur}</th><th>{C.cPrice}</th><th>{C.cPhoto}</th><th>{C.cLift}</th><th class="total-col">{C.cTotal}</th><th>{C.cUpdated}</th><th></th><th></th></tr></thead>
+      <thead><tr><th style="min-width:19rem;width:32%">{C.cOffer}</th><th>{C.cDur}</th><th>{C.cPrice}</th><th>{C.cPhoto}</th><th>{C.cLift}</th><th class="total-col">{C.cTotal}</th><th>{C.cUpdated}</th><th></th><th></th></tr></thead>
       <tbody id="cmp-body">
         {rows.map((r, i) => (
           <tr class="cmp-row" hidden={i >= maxVisible} data-total={r.total} data-price={r.price} data-dmin={r.durMin ?? ''} data-dmax={r.durMax ?? r.durMin ?? ''} data-permin={r.perMin ?? ''}
