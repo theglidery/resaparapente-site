@@ -1,7 +1,7 @@
 // Search and filters for the school lists (baptême and stage pages).
 // Progressive enhancement: without JavaScript the full list is still shown, in alphabetical order.
 import { makeFilters, readItem, defaultCountryFromHost } from './filters-lib.js';
-const eur = (n, cur = 'EUR') => new Intl.NumberFormat(cur === 'CHF' ? 'fr-CH' : 'fr-FR', { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(n);
+const eur = (n, cur = 'EUR', en = false) => new Intl.NumberFormat(cur === 'CHF' ? 'fr-CH' : en ? 'en-GB' : 'fr-FR', { style: 'currency', currency: cur, maximumFractionDigits: 0 }).format(n);
 
 const form = document.getElementById('filters');
 if (form) {
@@ -27,21 +27,22 @@ if (form) {
       : st.sort === 'nom' || !st.from ? (a, b) => cPref(a, b) || a.name.localeCompare(b.name, 'fr')
       : (a, b) => cPref(a, b) || (a.d ?? 1e9) - (b.d ?? 1e9);
     rows.sort(by);
+    const isEn = document.documentElement.lang === 'en';
     for (const row of rows) {
       row.li.hidden = !row.ok;
       list.appendChild(row.li);
       const dist = row.li.querySelector('.dist');
-      if (dist) dist.textContent = row.ok && row.d !== null ? ` · à ${Math.round(row.d)} km` : '';
+      if (dist) dist.textContent = row.ok && row.d !== null ? (isEn ? ` · ${Math.round(row.d)} km away` : ` · à ${Math.round(row.d)} km`) : '';
       const pm = row.li.querySelector('.price-main'), ps = row.li.querySelector('.price-sub'), cn = row.li.querySelector('.count');
       if (!row.li.dataset.orig) row.li.dataset.orig = JSON.stringify([pm.textContent, ps.textContent, cn.textContent]);
       const orig = JSON.parse(row.li.dataset.orig);
       if (row.n !== null) {
-        pm.textContent = isNaN(row.price) ? 'prix selon formule' : `dès ${eur(row.price, row.currency)}`;
-        ps.textContent = 'ce niveau'; cn.textContent = `${row.n} formule${row.n > 1 ? 's' : ''}`;
+        pm.textContent = isNaN(row.price) ? (isEn ? 'price on request' : 'prix selon formule') : (isEn ? `from ${eur(row.price, row.currency, true)}` : `dès ${eur(row.price, row.currency, false)}`);
+        ps.textContent = isEn ? 'this level' : 'ce niveau';
+        cn.textContent = isEn ? `${row.n} course${row.n > 1 ? 's' : ''}` : `${row.n} formule${row.n > 1 ? 's' : ''}`;
       } else { pm.textContent = orig[0]; ps.textContent = orig[1]; cn.textContent = orig[2]; }
       if (row.ok) shown++;
     }
-    const isEn = document.documentElement.lang === 'en';
     count.textContent = isEn ? (shown === 1 ? '1 school' : `${shown} schools`) : (shown === 1 ? '1 école' : `${shown} écoles`);
     note.textContent = st.level ? (isEn ? 'Prices per person for the selected level' : 'Prix par personne pour le niveau choisi') : baseNote;
     none.hidden = shown !== 0;

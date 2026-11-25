@@ -67,7 +67,7 @@ const description = isEn
       <span class="muted small" id="price-note">{isEn ? 'Prices per person, collected from school websites' : 'Prix par personne, relevés sur les sites des écoles'}</span>
     </div>
     <ul class="cards" id="board">
-      {list.map((s) => <SchoolCard school={s} kind={kind} />)}
+      {list.map((s) => <SchoolCard school={s} kind={kind} locale={locale} />)}
     </ul>
     <div class="empty" id="none" hidden>
       {isEn
